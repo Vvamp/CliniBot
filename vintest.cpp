@@ -25,9 +25,9 @@ void moveStop(){
     cout << "Motor B and C stopped." << endl;
 }
 void moveFwd(){
-    BP.set_motor_dps(PORT_B, 360);
-    BP.set_motor_dps(PORT_C, 360);
-    sleep(2);
+    BP.set_motor_dps(PORT_B, -360);
+    BP.set_motor_dps(PORT_C, -360);
+    sleep(10);
     moveStop();
 }
 
@@ -38,6 +38,19 @@ void moveLeft(){
     moveStop();
 
 }
+void checkChar(int ichar){
+               
+		if(ichar == KEY_UP){
+                      moveFwd();
+                }else if(ichar == KEY_LEFT){
+						moveLeft();
+		}else{
+			int ichar2 = getch();
+			checkChar(ichar2);
+		}
+
+
+}
 int main()
 {
         signal(SIGINT, exit_signal_handler); // register the exit function for Ctrl+C
@@ -46,16 +59,15 @@ int main()
 
         BP.set_motor_limits(PORT_B, 60, 0);
         BP.set_motor_limits(PORT_C, 60, 0);
-        while(true)
+	//moveFwd();
+ 	while(true)
         {
-                cout << "Enter a key(vTest)" << endl;
-                int ichar = getch();
-                if(ichar == KEY_UP){
-                        moveFwd();
-                }else if(ichar == KEY_LEFT){
-						moveLeft();
-				}
-		}
+            cout << "Enter a key: " << endl;
+            int ichar = getch();
+
+	checkChar(ichar);
+	}
+
         return 0;
 }
 
