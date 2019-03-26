@@ -90,7 +90,7 @@ int main()
             moveBack();
        }else if(userIn == 'e'){
            break;
-       }else if*userIn == 'p'){
+       }else if(userIn == 'p'){
             moveStop();   
         }else{
            moveStop();
