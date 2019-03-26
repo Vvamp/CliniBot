@@ -104,9 +104,9 @@ int main() {
 			}
 			// cout << "Color sensor (S1): detected  " << (int)Color1.color;
 			cout << " R:" << setw(4) << Color1.reflected_red;
-			cout << " G:" << setw(4) << Color1.reflected_green;
+			/*cout << " G:" << setw(4) << Color1.reflected_green;
 			cout << " B:" << setw(4) << Color1.reflected_blue;
-			cout << " A:" << setw(4) << Color1.ambient << "]" << endl;
+			cout << " A:" << setw(4) << Color1.ambient << "]" << endl;*/
 		}
 		usleep(500000);//slaap een halve seconde (1 usleep = 1 miljoenste van een seconde)
 	}
