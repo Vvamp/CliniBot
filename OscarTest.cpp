@@ -103,7 +103,7 @@ int main() {
 				searchLine(lastDirection);
 			}
 			// cout << "Color sensor (S1): detected  " << (int)Color1.color;
-			cout << " R:" << setw(4) << Color1.reflected_red;
+			cout << " R:" << setw(4) << Color1.reflected_red << endl;
 			/*cout << " G:" << setw(4) << Color1.reflected_green;
 			cout << " B:" << setw(4) << Color1.reflected_blue;
 			cout << " A:" << setw(4) << Color1.ambient << "]" << endl;*/
