@@ -1,74 +1,99 @@
-
-//Commands:
-//	w-Move forward
-//	a-Move left
-//	d-Move right
-//	s-Move back
-//	x-Stop
-
-#include "BrickPi3.h"   // for BrickPi3
 #include <iostream>      // for printf
 #include <unistd.h>     // for usleep
 #include <signal.h>     // for catching exit signals
 #include <curses.h>    // only getting 1 char from input
+#include "BrickPi3.h"   // for BrickPi3
 
-using namespace std;
-
-BrickPi3 BP;
+using std::cin;
+using std::cout;
+using std::endl;
 
 void exit_signal_handler(int signo);
-
+BrickPi3 BP;
 
 void moveStop(){
     BP.set_motor_power(PORT_B, 0);
     BP.set_motor_power(PORT_C, 0);
-    cout << "Motor B and C stopped." << endl;
+    // Zet stroom van poort B en C op 0, waardoor de robot stopt.
+
+    cout << "I AM NOT MOVING" << endl;
 }
+
 void moveFwd(){
-    BP.set_motor_dps(PORT_B, -360);
-    BP.set_motor_dps(PORT_C, -360);
-    sleep(10);
-    moveStop();
+    BP.set_motor_dps(PORT_B, 360);
+    BP.set_motor_dps(PORT_C, 360);
+    // Draai de motor op port B en C 360 graden
+
+    cout << "I AM MOVING FORWARD" << endl;
+
 }
 
 void moveLeft(){
     BP.set_motor_position_relative(PORT_B, 270);
     BP.set_motor_position_relative(PORT_C, -270);
-    sleep(2);
-    moveStop();
+    // Draai het wiel op port B 270 graden en de wiel op port C -270 graden
+
+    cout << "I AM MOVING LEFT" << endl;
 
 }
-void checkChar(int ichar){
-               
-		if(ichar == KEY_UP){
-                      moveFwd();
-                }else if(ichar == KEY_LEFT){
-						moveLeft();
-		}else{
-			int ichar2 = getch();
-			checkChar(ichar2);
-		}
 
+void moveRight(){
+    BP.set_motor_position_relative(PORT_B, -270);
+    BP.set_motor_position_relative(PORT_C, 270);
+    // Draai het wiel op port B -270 graden en de wiel op port C 270 graden
 
+    cout << "I AM MOVING RIGHT" << endl;
+
+}
+
+void moveBack(){
+    BP.set_motor_dps(PORT_B, -360);
+    BP.set_motor_dps(PORT_C, -360);
+    // Draai de motor op port B en C -360 graden
+
+    cout << "I AM MOVING BACKWARDS" << endl;
+
+}
+
+void showControls(){
+    cout << "Controls: " << endl << "W - Forwards" << endl << "A - Left" << endl << "S - Backwards" << endl << "D - Right" << endl << endl << "Press enter to continue...";
+    string cinput;
+    cin >> cinput;
+    
 }
 int main()
 {
-        signal(SIGINT, exit_signal_handler); // register the exit function for Ctrl+C
+    showControls();
+    initscr();
+    cbreak();
+    noecho();
+    timeout(750);
+    signal(SIGINT, exit_signal_handler); // register the exit function for Ctrl+C
+    while (true){
 
-        BP.detect(); // Make sure that the BrickPi3 is communicating and that the firmware is compatible with the drivers.
+        int userIn = getch();
+        refresh();
+        //cout << "Hold 'w' to move forward!" << endl;
 
-        BP.set_motor_limits(PORT_B, 60, 0);
-        BP.set_motor_limits(PORT_C, 60, 0);
-	//moveFwd();
- 	while(true)
-        {
-            cout << "Enter a key: " << endl;
-            int ichar = getch();
+        if (userIn == 'w'){
+            moveFwd();
+       }else if(userIn == 'a'){
+           moveLeft();
+       }else if(userIn == 'd'){
+           moveRight();
+       }else if(userIn == 's'){
+            moveBack();
+       }else if(userIn == 'e'){
+           break;
+       }else{
+           moveStop();
+       }
+     }
 
-	checkChar(ichar);
-	}
 
-        return 0;
+    cout << "Program Ended" << endl;
+    return 0;
+
 }
 
 
