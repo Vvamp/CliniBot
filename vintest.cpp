@@ -25,6 +25,14 @@ void moveFwd(){
     BP.set_motor_dps(PORT_B, 360);
     BP.set_motor_dps(PORT_C, 360);
     // Draai de motor op port B en C 360 graden
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+   // sleep(2);
+>>>>>>> Stashed changes
+=======
+   // sleep(2);
+>>>>>>> Stashed changes
     cout << "I AM MOVING FORWARD" << endl;
 
 }
@@ -33,6 +41,14 @@ void moveLeft(){
     BP.set_motor_position_relative(PORT_B, 270);
     BP.set_motor_position_relative(PORT_C, -270);
     // Draai het wiel op port B 270 graden en de wiel op port C -270 graden
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+    //sleep(2);
+>>>>>>> Stashed changes
+=======
+    //sleep(2);
+>>>>>>> Stashed changes
 
     cout << "I AM MOVING LEFT" << endl;
 
@@ -42,6 +58,14 @@ void moveRight(){
     BP.set_motor_position_relative(PORT_B, -270);
     BP.set_motor_position_relative(PORT_C, 270);
     // Draai het wiel op port B -270 graden en de wiel op port C 270 graden
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+    //sleep(2);
+>>>>>>> Stashed changes
+=======
+    //sleep(2);
+>>>>>>> Stashed changes
 
     cout << "I AM MOVING RIGHT" << endl;
 
@@ -51,6 +75,14 @@ void moveBack(){
     BP.set_motor_dps(PORT_B, -360);
     BP.set_motor_dps(PORT_C, -360);
     // Draai de motor op port B en C -360 graden
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+    //sleep(2);
+>>>>>>> Stashed changes
+=======
+    //sleep(2);
+>>>>>>> Stashed changes
 
     cout << "I AM MOVING BACKWARDS" << endl;
 
@@ -68,9 +100,23 @@ int main()
     initscr();
     cbreak();
     noecho();
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     timeout(1750);
     signal(SIGINT, exit_signal_handler); // register the exit function for Ctrl+C
     while (true){
+=======
+    timeout(1250);
+    signal(SIGINT, exit_signal_handler); // register the exit function for Ctrl+C
+    while (true){
+	//sleep(1);
+>>>>>>> Stashed changes
+=======
+    timeout(1250);
+    signal(SIGINT, exit_signal_handler); // register the exit function for Ctrl+C
+    while (true){
+	//sleep(1);
+>>>>>>> Stashed changes
         int userIn = getch();
         refresh();
         //cout << "Hold 'w' to move forward!" << endl;
