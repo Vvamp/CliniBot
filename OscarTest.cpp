@@ -93,9 +93,10 @@ int main() {
 	int average = 0;
 
 	while (true) {
-		average = averageValues((int)Color1.reflected_red, (int)Color1.reflected_green, (int)Color1.reflected_blue);
-		/*if (BP.get_sensor(PORT_1, Color1) == 0) {
-			if ((int)Color1.reflected_red >= 500 && (int)Color1.reflected_red <= 560) {
+		
+		if (BP.get_sensor(PORT_1, Color1) == 0) {
+			average = averageValues((int)Color1.reflected_red, (int)Color1.reflected_green, (int)Color1.reflected_blue);
+			/*if ((int)Color1.reflected_red >= 500 && (int)Color1.reflected_red <= 560) {
 				moveFwd();
 			}
 			else if ((int)Color1.reflected_red > 560 ){
