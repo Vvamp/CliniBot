@@ -127,7 +127,7 @@ int main() {
 			else if (average > 490){
 				moveLeft(lastDirection,numbersLeft);
 			}
-			else if (average < 310){
+			else if (average < 450){
 				moveRight(lastDirection,numbersRight);
 			}
 			else
@@ -142,7 +142,7 @@ int main() {
 			cout << " B:" << setw(4) << Color1.reflected_blue;
 			cout << " A:" << setw(4) << Color1.ambient << "]" << endl;*/
 		}
-		//usleep(1000000);//slaap een seconde (1 usleep = 1 miljoenste van een seconde)
+		usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
 	}
 	
 }
