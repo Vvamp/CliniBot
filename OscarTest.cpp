@@ -68,11 +68,15 @@ int main() {
 			if ((int)Color1.color == 100){
 				moveFwd();
 			}
-			if ((int)Color1.color < 100) {
+			else if ((int)Color1.color < 100) {
 				moveLeft();
 			}
-			if ((int)Color1.color > 100) {
+			else if ((int)Color1.color > 100) {
 				moveRight();
+			}
+			else
+			{
+				moveStop();
 			}
 			cout << "Color sensor (S1): detected  " << (int)Color1.color;
 			cout << " red" << setw(4) << Color1.reflected_red;
