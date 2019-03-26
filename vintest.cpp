@@ -71,7 +71,6 @@ int main()
     timeout(1750);
     signal(SIGINT, exit_signal_handler); // register the exit function for Ctrl+C
     while (true){
-        sleep(1);
         int userIn = getch();
         refresh();
         //cout << "Hold 'w' to move forward!" << endl;
