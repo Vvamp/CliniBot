@@ -85,7 +85,7 @@ int main() {
 			cout << " B:" << setw(4) << Color1.reflected_blue;
 			cout << " A:" << setw(4) << Color1.ambient << "]" << endl;
 		}
-		usleep(50000);
+		usleep(100000);
 	}
 	
 }
