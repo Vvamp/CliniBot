@@ -30,7 +30,7 @@ void moveLeft() {
 	// BP.set_motor_position_relative(PORT_B, 45);
 	// BP.set_motor_position_relative(PORT_C, -45);
 	BP.set_motor_dps(PORT_B, 360);
-	BP.set_motor_dps(PORT_C, 335);
+	BP.set_motor_dps(PORT_C, 130);
 	// Draai het wiel op port B 270 graden en de wiel op port C -270 graden
 
 	cout << " Left - ";
@@ -40,7 +40,7 @@ void moveLeft() {
 void moveRight() {
 	// BP.set_motor_position_relative(PORT_B, -25);
 	// BP.set_motor_position_relative(PORT_C, 25);
-	BP.set_motor_dps(PORT_B, 335);
+	BP.set_motor_dps(PORT_B, 130);
 	BP.set_motor_dps(PORT_C, 360);
 	// Draai het wiel op port B -270 graden en de wiel op port C 270 graden
 
