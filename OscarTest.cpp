@@ -127,7 +127,7 @@ int main() {
 			else if (average > 490){
 				moveLeft(lastDirection,numbersLeft);
 			}
-			else if (average < 310){
+			else if (average < 450){
 				moveRight(lastDirection,numbersRight);
 			}
 			else
