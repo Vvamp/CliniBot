@@ -10,6 +10,22 @@ BrickPi3 BP;
 
 void exit_signal_handler(int signo);
 
+void searchLine(const int & lastDirection) {
+	if (lastDirection == -1) {
+		//ga rechts zoeken als laatste bocht links was
+		BP.set_motor_position_relative(PORT_B, -90);
+		BP.set_motor_position_relative(PORT_C, 90);
+	}
+
+	if (lastDirection == 1) {
+		//ga links zoeken als laatste bocht rechts was
+		BP.set_motor_position_relative(PORT_B, 90);
+		BP.set_motor_position_relative(PORT_C, -90);
+	}
+
+	cout << " Searching - ";
+}
+
 void moveStop() {
 	BP.set_motor_power(PORT_B, 0);
 	BP.set_motor_power(PORT_C, 0);
@@ -18,18 +34,30 @@ void moveStop() {
 	cout << " Stopped - ";
 }
 
-void moveFwd() {
+void moveFwd(int &numbersLeft, int &numbersRight) {
 	BP.set_motor_dps(PORT_B, 360);
 	BP.set_motor_dps(PORT_C, 360);
+	numbersLeft = 0;
+	numbersRight = 0;
 	// Draai de motor op port B en C 360 graden
 	cout << " Forward - ";
 
 }
 
-void moveLeft(int &lastDirection) {
-	 BP.set_motor_position_relative(PORT_B, 45);
-	 BP.set_motor_position_relative(PORT_C, -45);
-	 lastDirection = -1;
+void moveLeft(int &lastDirection, int &numbersLeft) {
+	if (numbersLeft < 3)
+	{
+		BP.set_motor_position_relative(PORT_B, 45);
+		BP.set_motor_position_relative(PORT_C, -45);
+		lastDirection = -1;
+		numbersLeft++;
+	}
+	else
+	{
+		numbersLeft = 0;
+		searchLine(lastDirection);
+	}
+	 
 	/*BP.set_motor_dps(PORT_B, 360);
 	BP.set_motor_dps(PORT_C, 130);*/
 	// Draai het wiel op port B 270 graden en de wiel op port C -270 graden
@@ -38,10 +66,19 @@ void moveLeft(int &lastDirection) {
 
 }
 
-void moveRight(int &lastDirection) {
-	 BP.set_motor_position_relative(PORT_B, -45);
-	 BP.set_motor_position_relative(PORT_C, 45);
-	 lastDirection = 1;
+void moveRight(int &lastDirection, int &numbersRight) {
+	if (numbersRight < 3) {
+		BP.set_motor_position_relative(PORT_B, -45);
+		BP.set_motor_position_relative(PORT_C, 45);
+		numbersRight++;
+		lastDirection = 1;
+	}
+	else
+	{
+		numbersRight = 0;
+		searchLine(lastDirection);
+	}
+	 
 	/*BP.set_motor_dps(PORT_B, 130);
 	BP.set_motor_dps(PORT_C, 360);*/
 	// Draai het wiel op port B -270 graden en de wiel op port C 270 graden
@@ -59,21 +96,7 @@ void moveBack() {
 
 }
 
-void searchLine(const int & lastDirection) {
-	if (lastDirection == -1){
-		//ga rechts zoeken als laatste bocht links was
-		BP.set_motor_position_relative(PORT_B, -90);
-		BP.set_motor_position_relative(PORT_C, 90);
-	}
-	
-	if (lastDirection == 1){
-		//ga links zoeken als laatste bocht rechts was
-		BP.set_motor_position_relative(PORT_B, 90);
-		BP.set_motor_position_relative(PORT_C, -90);
-	}
 
-	cout << " Searching - ";
-}
 
 int averageValues(const int red, const int green, const int blue) {
 	int average = (red + green + blue) / 3;
@@ -90,25 +113,27 @@ int main() {
 	sensor_color_t      Color1;
 
 	int lastDirection = 0;
+	int numbersRight = 0;
+	int numbersLeft = 0;
 	int average = 0;
 
 	while (true) {
 		
 		if (BP.get_sensor(PORT_1, Color1) == 0) {
 			average = averageValues((int)Color1.reflected_red, (int)Color1.reflected_green, (int)Color1.reflected_blue);
-			/*if (average >= 480 && average <= 500) {
-				moveFwd();
+			if (average >= 450 && average <= 490) {
+				moveFwd(numbersLeft,numbersRight);
 			}
-			else if (average > 500){
-				moveLeft(lastDirection);
+			else if (average > 490){
+				moveLeft(lastDirection,numbersLeft);
 			}
 			else if (average < 310){
-				moveRight(lastDirection);
+				moveRight(lastDirection,numbersRight);
 			}
 			else
 			{
 				searchLine(lastDirection);
-			}*/
+			}
 			
 			cout << "Average = " << average << endl;
 			/*cout << "Color sensor (S1): detected  " << (int)Color1.color;
