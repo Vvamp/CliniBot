@@ -75,6 +75,11 @@ void searchLine(const int & lastDirection) {
 	cout << " Searching - ";
 }
 
+int averageValues(const int red, const int green, const int blue) {
+	int average = (red + green + blue) / 3;
+	return average;
+}
+
 int main() {
 	
 	signal(SIGINT, exit_signal_handler); // register the exit function for Ctrl+C
@@ -85,10 +90,11 @@ int main() {
 	sensor_color_t      Color1;
 
 	int lastDirection = 0;
+	int average = 0;
 
 	while (true) {
-
-		if (BP.get_sensor(PORT_1, Color1) == 0) {
+		average = averageValues((int)Color1.reflected_red, (int)Color1.reflected_green, (int)Color1.reflected_blue);
+		/*if (BP.get_sensor(PORT_1, Color1) == 0) {
 			if ((int)Color1.reflected_red >= 500 && (int)Color1.reflected_red <= 560) {
 				moveFwd();
 			}
@@ -101,10 +107,12 @@ int main() {
 			else
 			{
 				searchLine(lastDirection);
-			}
-			// cout << "Color sensor (S1): detected  " << (int)Color1.color;
+			}*/
+			
+			cout << "Average = " << average << endl;
+			/*cout << "Color sensor (S1): detected  " << (int)Color1.color;
 			cout << " R:" << setw(4) << Color1.reflected_red << endl;
-			/*cout << " G:" << setw(4) << Color1.reflected_green;
+			cout << " G:" << setw(4) << Color1.reflected_green;
 			cout << " B:" << setw(4) << Color1.reflected_blue;
 			cout << " A:" << setw(4) << Color1.ambient << "]" << endl;*/
 		}
