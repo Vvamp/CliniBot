@@ -96,13 +96,13 @@ int main() {
 		
 		if (BP.get_sensor(PORT_1, Color1) == 0) {
 			average = averageValues((int)Color1.reflected_red, (int)Color1.reflected_green, (int)Color1.reflected_blue);
-			if ((int)Color1.reflected_red >= 480 && (int)Color1.reflected_red <= 500) {
+			if (average >= 480 && average <= 500) {
 				moveFwd();
 			}
-			else if ((int)Color1.reflected_red > 500 ){
+			else if (average > 500){
 				moveLeft(lastDirection);
 			}
-			else if ((int)Color1.reflected_red < 310){
+			else if (average < 310){
 				moveRight(lastDirection);
 			}
 			else
