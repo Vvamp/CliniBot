@@ -45,7 +45,7 @@ void moveFwd(int &numbersLeft, int &numbersRight) {
 }
 
 void moveLeft(int &lastDirection, int &numbersLeft) {
-	if (numbersLeft < 3)
+	if (numbersLeft < 5)
 	{
 		BP.set_motor_position_relative(PORT_B, 45);
 		BP.set_motor_position_relative(PORT_C, -45);
@@ -67,7 +67,7 @@ void moveLeft(int &lastDirection, int &numbersLeft) {
 }
 
 void moveRight(int &lastDirection, int &numbersRight) {
-	if (numbersRight < 3) {
+	if (numbersRight < 5) {
 		BP.set_motor_position_relative(PORT_B, -45);
 		BP.set_motor_position_relative(PORT_C, 45);
 		numbersRight++;
