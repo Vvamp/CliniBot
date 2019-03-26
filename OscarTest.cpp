@@ -71,7 +71,7 @@ int main() {
 			/*else if ((int)Color1.reflected_red > 100 && (int)Color1.reflected_red < 200) {
 				moveLeft();
 			}*/
-			else if (int)Color1.reflected_red > 300 && (int)Color1.reflected_red < 400){
+			else if ((int)Color1.reflected_red > 300 && (int)Color1.reflected_red < 400){
 				moveRight();
 			}
 			else
