@@ -142,7 +142,7 @@ int main() {
 			cout << " B:" << setw(4) << Color1.reflected_blue;
 			cout << " A:" << setw(4) << Color1.ambient << "]" << endl;*/
 		}
-		usleep(1000000);//slaap een seconde (1 usleep = 1 miljoenste van een seconde)
+		//usleep(1000000);//slaap een seconde (1 usleep = 1 miljoenste van een seconde)
 	}
 	
 }
