@@ -12,15 +12,15 @@ void exit_signal_handler(int signo);
 
 void searchLine(const int & lastDirection) {
 	if (lastDirection == -1) {
-		//ga rechts zoeken als laatste bocht links was
-		BP.set_motor_position_relative(PORT_B, -90);
-		BP.set_motor_position_relative(PORT_C, 90);
+		//ga links zoeken als laatste bocht links was
+		BP.set_motor_position_relative(PORT_B, 180);
+		BP.set_motor_position_relative(PORT_C, -180);
 	}
 
 	if (lastDirection == 1) {
-		//ga links zoeken als laatste bocht rechts was
-		BP.set_motor_position_relative(PORT_B, 90);
-		BP.set_motor_position_relative(PORT_C, -90);
+		//ga rechts zoeken als laatste bocht rechts was
+		BP.set_motor_position_relative(PORT_B, -180);
+		BP.set_motor_position_relative(PORT_C, 180);
 	}
 
 	cout << " Searching - ";
