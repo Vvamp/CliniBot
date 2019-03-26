@@ -15,14 +15,14 @@ void moveStop() {
 	BP.set_motor_power(PORT_C, 0);
 	// Zet stroom van poort B en C op 0, waardoor de robot stopt.
 
-	cout << "I AM NOT MOVING" << endl;
+	cout << " - STATUS: Stopped" << endl;
 }
 
 void moveFwd() {
 	BP.set_motor_dps(PORT_B, 360);
 	BP.set_motor_dps(PORT_C, 360);
 	// Draai de motor op port B en C 360 graden
-	cout << "I AM MOVING FORWARD" << endl;
+	cout << " - STATUS: Forward" << endl;
 
 }
 
@@ -31,7 +31,7 @@ void moveLeft() {
 	BP.set_motor_position_relative(PORT_C, -45);
 	// Draai het wiel op port B 270 graden en de wiel op port C -270 graden
 
-	cout << "I AM MOVING LEFT" << endl;
+	cout << " - STATUS: Left" << endl;
 
 }
 
@@ -40,7 +40,7 @@ void moveRight() {
 	BP.set_motor_position_relative(PORT_C, 45);
 	// Draai het wiel op port B -270 graden en de wiel op port C 270 graden
 
-	cout << "I AM MOVING RIGHT" << endl;
+	cout << " - STATUS: Right" << endl;
 
 }
 
@@ -49,7 +49,7 @@ void moveBack() {
 	BP.set_motor_dps(PORT_C, -360);
 	// Draai de motor op port B en C -360 graden
 
-	cout << "I AM MOVING BACKWARDS" << endl;
+	cout << " - STATUS:  Backwards" << endl;
 
 }
 
@@ -78,11 +78,11 @@ int main() {
 			{
 				moveStop();
 			}
-			cout << "Color sensor (S1): detected  " << (int)Color1.color;
-			cout << " red" << setw(4) << Color1.reflected_red;
-			cout << " green" << setw(4) << Color1.reflected_green;
-			cout << " blue" << setw(4) << Color1.reflected_blue;
-			cout << " ambient" << setw(4) << Color1.ambient << endl;
+			// cout << "Color sensor (S1): detected  " << (int)Color1.color;
+			cout << " R:" << setw(4) << Color1.reflected_red;
+			cout << " G:" << setw(4) << Color1.reflected_green;
+			cout << " B:" << setw(4) << Color1.reflected_blue;
+			cout << " A:" << setw(4) << Color1.ambient << endl;
 		}
 		usleep(250000);
 	}
