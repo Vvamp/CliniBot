@@ -1,18 +1,23 @@
-#include <iostream>      // for printf
-#include <unistd.h>     // for usleep
-#include <signal.h>     // for catching exit signals
-#include <curses.h>    // only getting 1 char from input
-#include "BrickPi3.h"   // for BrickPi3
-#include <string>
+// Includes
+#include <iostream>      // Basic IO
+#include <unistd.h>      // for usleep and sleep(for linux)
+#include <signal.h>      // for catching exit signals
+#include <curses.h>      // Library to be able to rea
+#include "BrickPi3.h"    // BrickPi3 Header file - used to control the ROBO-MAN
+#include <string>        // String variables
 
+// Using statements
 using std::string;
 using std::cin;
 using std::cout;
 using std::endl;
 
-void exit_signal_handler(int signo);
-BrickPi3 BP;
 
+void exit_signal_handler(int signo); // The exit handler definition. Used to catch 'ctrl+c' to terminate execution
+
+BrickPi3 BP; // Define an instance of BrickPi3, called 'BP'
+
+// Stop the robot by setting the motor power to '0'
 void moveStop(){
     BP.set_motor_power(PORT_B, 0);
     BP.set_motor_power(PORT_C, 0);
@@ -21,6 +26,7 @@ void moveStop(){
     cout << "I AM NOT MOVING" << endl;
 }
 
+// Move wheel on port 'B' en 'C' 360 degrees forwards
 void moveFwd(){
     BP.set_motor_dps(PORT_B, 360);
     BP.set_motor_dps(PORT_C, 360);
@@ -37,6 +43,7 @@ void moveFwd(){
 
 }
 
+// Move wheel on port 'B' forwards by 270 degrees and move wheel on port 'C' backwards by 270 degrees
 void moveLeft(){
     BP.set_motor_position_relative(PORT_B, 270);
     BP.set_motor_position_relative(PORT_C, -270);
@@ -54,6 +61,7 @@ void moveLeft(){
 
 }
 
+// Move wheel on port 'C' forwards by 270 degrees and move wheel on port 'B' backwards by 270 degrees
 void moveRight(){
     BP.set_motor_position_relative(PORT_B, -270);
     BP.set_motor_position_relative(PORT_C, 270);
@@ -71,6 +79,7 @@ void moveRight(){
 
 }
 
+// Move the wheels on port 'B' en 'C' backwards 360 degrees
 void moveBack(){
     BP.set_motor_dps(PORT_B, -360);
     BP.set_motor_dps(PORT_C, -360);
@@ -88,15 +97,20 @@ void moveBack(){
 
 }
 
+// Show the movement controls on-screen
 void showControls(){
     cout << "Controls: " << endl << "W - Forwards" << endl << "A - Left" << endl << "S - Backwards" << endl << "D - Right" << endl << endl << "Press enter to continue...";
     string cinput;
     cin >> cinput;
-    
+
 }
+
+// Main execution
 int main()
 {
+    // Show movement controls
     showControls();
+<<<<<<< HEAD
     initscr();
     cbreak();
     noecho();
@@ -120,7 +134,21 @@ int main()
         int userIn = getch();
         refresh();
         //cout << "Hold 'w' to move forward!" << endl;
+=======
 
+    // Curses settings
+    initscr();      // Init curses !!! Anything that gets printed after this will be printed weirdly
+    cbreak();       // Sets that the code buffers per-key and not per newline
+    noecho();       // Don't print the characters entered
+    timeout(1750);  // Check once every 1,750ms
+    signal(SIGINT, exit_signal_handler);    // register the exit function for Ctrl+C
+
+    while (true){
+        int userIn = getch();   // Request a single character from the user
+        refresh();              // Refresh the screen
+>>>>>>> c9fce54e604f9ea0b21990b30fff0e006df8a86b
+
+        // Check the input of the user
         if (userIn == 'w'){
             moveFwd();
        }else if(userIn == 'a'){
@@ -132,14 +160,12 @@ int main()
        }else if(userIn == 'e'){
            break;
        }else if(userIn == 'p'){
-            moveStop();   
-        }else{
-           moveStop();
-       }
+            moveStop();
+        }
      }
 
 
-    cout << "Program Ended" << endl;
+    cout << "Program Terminated." << endl;
     return 0;
 
 }
