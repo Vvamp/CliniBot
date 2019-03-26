@@ -62,14 +62,14 @@ void moveBack() {
 void searchLine(const int & lastDirection) {
 	if (lastDirection == -1){
 		//ga rechts zoeken als laatste bocht links was
-		BP.set_motor_position_relative(PORT_B, -180);
-		BP.set_motor_position_relative(PORT_C, 180);
+		BP.set_motor_position_relative(PORT_B, -90);
+		BP.set_motor_position_relative(PORT_C, 90);
 	}
 	
 	if (lastDirection == 1){
 		//ga links zoeken als laatste bocht rechts was
-		BP.set_motor_position_relative(PORT_B, 180);
-		BP.set_motor_position_relative(PORT_C, -180);
+		BP.set_motor_position_relative(PORT_B, 90);
+		BP.set_motor_position_relative(PORT_C, -90);
 	}
 
 	cout << " Searching - ";
@@ -89,10 +89,10 @@ int main() {
 	while (true) {
 
 		if (BP.get_sensor(PORT_1, Color1) == 0) {
-			if ((int)Color1.reflected_red >= 500 && (int)Color1.reflected_red <= 540) {
+			if ((int)Color1.reflected_red >= 500 && (int)Color1.reflected_red <= 550) {
 				moveFwd();
 			}
-			else if ((int)Color1.reflected_red > 540 ){
+			else if ((int)Color1.reflected_red > 550 ){
 				moveLeft(lastDirection);
 			}
 			else if ((int)Color1.reflected_red < 350){
