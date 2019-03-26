@@ -69,19 +69,18 @@ int main() {
 	while (true) {
 
 		if (BP.get_sensor(PORT_1, Color1) == 0) {
-			if ((int)Color1.reflected_red > 150 && (int)Color1.reflected_red < 300) {
-				moveLeft();
-			}
-			else if ((int)Color1.reflected_red <= 150){
+			if ((int)Color1.reflected_red >= 300 && (int)Color1.reflected_red <= 350) {
 				moveFwd();
 			}
-			else if ((int)Color1.reflected_red >= 450){
+			else if ((int)Color1.reflected_red >= 200 && (int)Color1.reflected_red <= 250 ){
+				moveLeft();
+			}
+			else if ((int)Color1.reflected_red >= 400 && (int)Color1.reflected_red <= 450){
 				moveRight();
 			}
 			else
 			{
-				// moveStop();
-				moveFwd();
+				moveStop();
 			}
 			// cout << "Color sensor (S1): detected  " << (int)Color1.color;
 			cout << " [R:" << setw(4) << Color1.reflected_red;
