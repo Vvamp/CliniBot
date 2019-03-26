@@ -26,9 +26,10 @@ void moveFwd() {
 
 }
 
-void moveLeft() {
+void moveLeft(int & lastDirection) {
 	 BP.set_motor_position_relative(PORT_B, 45);
 	 BP.set_motor_position_relative(PORT_C, -45);
+	 lastDirection = -1;
 	/*BP.set_motor_dps(PORT_B, 360);
 	BP.set_motor_dps(PORT_C, 130);*/
 	// Draai het wiel op port B 270 graden en de wiel op port C -270 graden
@@ -37,9 +38,10 @@ void moveLeft() {
 
 }
 
-void moveRight() {
+void moveRight(int & lastDirection) {
 	 BP.set_motor_position_relative(PORT_B, -45);
 	 BP.set_motor_position_relative(PORT_C, 45);
+	 lastDirection = 1;
 	/*BP.set_motor_dps(PORT_B, 130);
 	BP.set_motor_dps(PORT_C, 360);*/
 	// Draai het wiel op port B -270 graden en de wiel op port C 270 graden
@@ -57,21 +59,32 @@ void moveBack() {
 
 }
 
-void searchLine() {
-	BP.set_motor_position_relative(PORT_B, -45);
-	BP.set_motor_position_relative(PORT_C, 45);
+void searchLine(const int & lastDirection) {
+	if (lastDirection == -1)//ga links als laatste bocht links was
+	{
+		BP.set_motor_position_relative(PORT_B, 45);
+		BP.set_motor_position_relative(PORT_C, -45);
+	}
+	
+	if (lastDirection == 1)//ga rechts als laatste bocht rechts was
+	{
+		BP.set_motor_position_relative(PORT_B, -45);
+		BP.set_motor_position_relative(PORT_C, 45);
+	}
 
 	cout << " Searching - ";
 }
 
 int main() {
-
+	
 	signal(SIGINT, exit_signal_handler); // register the exit function for Ctrl+C
 
 	BP.detect(); // Make sure that the BrickPi3 is communicating and that the firmware is compatible with the drivers.
 	BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
 
 	sensor_color_t      Color1;
+
+	int lastDirection = 0;
 
 	while (true) {
 
@@ -80,14 +93,14 @@ int main() {
 				moveFwd();
 			}
 			else if ((int)Color1.reflected_red > 550 ){
-				moveLeft();
+				moveLeft(lastDirection);
 			}
 			else if ((int)Color1.reflected_red < 450){
-				moveRight();
+				moveRight(lastDirection);
 			}
 			else
 			{
-				searchLine();
+				searchLine(lastDirection);
 			}
 			// cout << "Color sensor (S1): detected  " << (int)Color1.color;
 			cout << " [R:" << setw(4) << Color1.reflected_red;
