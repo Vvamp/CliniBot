@@ -89,7 +89,7 @@ int main() {
 	while (true) {
 
 		if (BP.get_sensor(PORT_1, Color1) == 0) {
-			if ((int)Color1.reflected_red >= 450 && (int)Color1.reflected_red <= 550) {
+			/*if ((int)Color1.reflected_red >= 450 && (int)Color1.reflected_red <= 550) {
 				moveFwd();
 			}
 			else if ((int)Color1.reflected_red > 550 ){
@@ -101,7 +101,7 @@ int main() {
 			else
 			{
 				searchLine(lastDirection);
-			}
+			}*/
 			// cout << "Color sensor (S1): detected  " << (int)Color1.color;
 			cout << " R:" << setw(4) << Color1.reflected_red << endl;
 			/*cout << " G:" << setw(4) << Color1.reflected_green;
