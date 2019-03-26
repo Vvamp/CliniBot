@@ -26,7 +26,7 @@ void moveFwd() {
 
 }
 
-void moveLeft(int & lastDirection) {
+void moveLeft(int &lastDirection) {
 	 BP.set_motor_position_relative(PORT_B, 45);
 	 BP.set_motor_position_relative(PORT_C, -45);
 	 lastDirection = -1;
@@ -38,7 +38,7 @@ void moveLeft(int & lastDirection) {
 
 }
 
-void moveRight(int & lastDirection) {
+void moveRight(int &lastDirection) {
 	 BP.set_motor_position_relative(PORT_B, -45);
 	 BP.set_motor_position_relative(PORT_C, 45);
 	 lastDirection = 1;
@@ -60,14 +60,14 @@ void moveBack() {
 }
 
 void searchLine(const int & lastDirection) {
-	if (lastDirection == -1)//ga rechts zoeken als laatste bocht links was
-	{
+	if (lastDirection == -1){
+		//ga rechts zoeken als laatste bocht links was
 		BP.set_motor_position_relative(PORT_B, -180);
 		BP.set_motor_position_relative(PORT_C, 180);
 	}
 	
-	if (lastDirection == 1)//ga links zoeken als laatste bocht rechts was
-	{
+	if (lastDirection == 1){
+		//ga links zoeken als laatste bocht rechts was
 		BP.set_motor_position_relative(PORT_B, 180);
 		BP.set_motor_position_relative(PORT_C, -180);
 	}
@@ -108,7 +108,7 @@ int main() {
 			cout << " B:" << setw(4) << Color1.reflected_blue;
 			cout << " A:" << setw(4) << Color1.ambient << "]" << endl;
 		}
-		usleep(250000);
+		usleep(500000);//slaap een halve seconde (1 usleep = 1 miljoenste van een seconde)
 	}
 	
 }
