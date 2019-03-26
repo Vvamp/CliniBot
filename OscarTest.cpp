@@ -77,7 +77,7 @@ int main() {
 			else
 			{
 				// moveStop();
-				moveLeft();
+				moveFwd();
 			}
 			// cout << "Color sensor (S1): detected  " << (int)Color1.color;
 			cout << " [R:" << setw(4) << Color1.reflected_red;
