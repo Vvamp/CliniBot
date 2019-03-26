@@ -79,7 +79,7 @@ int main() {
 			if ((int)Color1.reflected_red >= 450 && (int)Color1.reflected_red <= 550) {
 				moveFwd();
 			}
-			else if ((int)Color1.reflected_red >= 200 && (int)Color1.reflected_red <= 300 ){
+			else if ((int)Color1.reflected_red >= 200 && (int)Color1.reflected_red < 400 ){
 				moveLeft();
 			}
 			else if ((int)Color1.reflected_red >= 400 && (int)Color1.reflected_red < 450){
@@ -95,7 +95,7 @@ int main() {
 			cout << " B:" << setw(4) << Color1.reflected_blue;
 			cout << " A:" << setw(4) << Color1.ambient << "]" << endl;
 		}
-		usleep(100000);
+		usleep(250000);
 	}
 	
 }
