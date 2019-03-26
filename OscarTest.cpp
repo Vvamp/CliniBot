@@ -15,14 +15,14 @@ void moveStop() {
 	BP.set_motor_power(PORT_C, 0);
 	// Zet stroom van poort B en C op 0, waardoor de robot stopt.
 
-	cout << " - STATUS: Stopped";
+	cout << " Stopped - ";
 }
 
 void moveFwd() {
 	BP.set_motor_dps(PORT_B, 360);
 	BP.set_motor_dps(PORT_C, 360);
 	// Draai de motor op port B en C 360 graden
-	cout << " - STATUS: Forward";
+	cout << " Forward - ";
 
 }
 
@@ -31,7 +31,7 @@ void moveLeft() {
 	BP.set_motor_position_relative(PORT_C, -45);
 	// Draai het wiel op port B 270 graden en de wiel op port C -270 graden
 
-	cout << " - STATUS: Left";
+	cout << " Left - ";
 
 }
 
@@ -40,7 +40,7 @@ void moveRight() {
 	BP.set_motor_position_relative(PORT_C, 45);
 	// Draai het wiel op port B -270 graden en de wiel op port C 270 graden
 
-	cout << " - STATUS: Right";
+	cout << " Right - ";
 
 }
 
@@ -49,7 +49,7 @@ void moveBack() {
 	BP.set_motor_dps(PORT_C, -360);
 	// Draai de motor op port B en C -360 graden
 
-	cout << " - STATUS:  Backwards";
+	cout << " Back - ";
 
 }
 
@@ -65,24 +65,25 @@ int main() {
 	while (true) {
 
 		if (BP.get_sensor(PORT_1, Color1) == 0) {
-			if ((int)Color1.reflected_red < 300) {
-				moveFwd();
-			}
-			else if ((int)Color1.reflected_red < 150){
+			if ((int)Color1.reflected_red < 300 && (int)Color1.reflected_red > 150) {
 				moveLeft();
 			}
-			else if ((int)Color1.reflected_red > 500){
+			else if ((int)Color1.reflected_red <= 150){
+				moveFwd();
+			}
+			else if ((int)Color1.reflected_red >= 450){
 				moveRight();
 			}
 			else
 			{
-				moveStop();
+				// moveStop();
+				moveFwd();
 			}
 			// cout << "Color sensor (S1): detected  " << (int)Color1.color;
-			cout << " R:" << setw(4) << Color1.reflected_red;
+			cout << " [R:" << setw(4) << Color1.reflected_red;
 			cout << " G:" << setw(4) << Color1.reflected_green;
 			cout << " B:" << setw(4) << Color1.reflected_blue;
-			cout << " A:" << setw(4) << Color1.ambient << endl;
+			cout << " A:" << setw(4) << Color1.ambient << "]" << endl;
 		}
 		usleep(250000);
 	}
