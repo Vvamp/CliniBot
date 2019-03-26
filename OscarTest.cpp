@@ -69,13 +69,13 @@ int main() {
 	while (true) {
 
 		if (BP.get_sensor(PORT_1, Color1) == 0) {
-			if ((int)Color1.reflected_red >= 300 && (int)Color1.reflected_red <= 500) {
+			if ((int)Color1.reflected_red >= 450 && (int)Color1.reflected_red <= 550) {
 				moveFwd();
 			}
-			else if ((int)Color1.reflected_red >= 200 && (int)Color1.reflected_red <= 250 ){
+			else if ((int)Color1.reflected_red >= 200 && (int)Color1.reflected_red <= 300 ){
 				moveLeft();
 			}
-			else if ((int)Color1.reflected_red >= 400 && (int)Color1.reflected_red <= 450){
+			else if ((int)Color1.reflected_red >= 550 && (int)Color1.reflected_red <= 600){
 				moveRight();
 			}
 			else
