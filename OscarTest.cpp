@@ -27,8 +27,8 @@ void moveFwd() {
 }
 
 void moveLeft() {
-	BP.set_motor_position_relative(PORT_B, 270);
-	BP.set_motor_position_relative(PORT_C, -270);
+	BP.set_motor_position_relative(PORT_B, 45);
+	BP.set_motor_position_relative(PORT_C, -45);
 	// Draai het wiel op port B 270 graden en de wiel op port C -270 graden
 
 	cout << "I AM MOVING LEFT" << endl;
@@ -36,8 +36,8 @@ void moveLeft() {
 }
 
 void moveRight() {
-	BP.set_motor_position_relative(PORT_B, -270);
-	BP.set_motor_position_relative(PORT_C, 270);
+	BP.set_motor_position_relative(PORT_B, -45);
+	BP.set_motor_position_relative(PORT_C, 45);
 	// Draai het wiel op port B -270 graden en de wiel op port C 270 graden
 
 	cout << "I AM MOVING RIGHT" << endl;
