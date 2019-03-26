@@ -3,7 +3,9 @@
 #include <signal.h>     // for catching exit signals
 #include <curses.h>    // only getting 1 char from input
 #include "BrickPi3.h"   // for BrickPi3
+#include <string>
 
+using std::string;
 using std::cin;
 using std::cout;
 using std::endl;
@@ -23,7 +25,7 @@ void moveFwd(){
     BP.set_motor_dps(PORT_B, 360);
     BP.set_motor_dps(PORT_C, 360);
     // Draai de motor op port B en C 360 graden
-    sleep(1);
+    sleep(2);
     cout << "I AM MOVING FORWARD" << endl;
 
 }
@@ -32,7 +34,7 @@ void moveLeft(){
     BP.set_motor_position_relative(PORT_B, 270);
     BP.set_motor_position_relative(PORT_C, -270);
     // Draai het wiel op port B 270 graden en de wiel op port C -270 graden
-    sleep(1);
+    sleep(2);
 
     cout << "I AM MOVING LEFT" << endl;
 
@@ -42,7 +44,7 @@ void moveRight(){
     BP.set_motor_position_relative(PORT_B, -270);
     BP.set_motor_position_relative(PORT_C, 270);
     // Draai het wiel op port B -270 graden en de wiel op port C 270 graden
-    sleep(1);
+    sleep(2);
 
     cout << "I AM MOVING RIGHT" << endl;
 
@@ -52,7 +54,7 @@ void moveBack(){
     BP.set_motor_dps(PORT_B, -360);
     BP.set_motor_dps(PORT_C, -360);
     // Draai de motor op port B en C -360 graden
-    sleep(1);
+    sleep(2);
 
     cout << "I AM MOVING BACKWARDS" << endl;
 
@@ -88,7 +90,9 @@ int main()
             moveBack();
        }else if(userIn == 'e'){
            break;
-       }else{
+       }else if*userIn == 'p'){
+            moveStop();   
+        }else{
            moveStop();
        }
      }
