@@ -61,26 +61,17 @@ void moveBack() {
 
 void findNewPath() {
 
-	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
 	sensor_ultrasonic_t Ultrasonic2;
 	cout << "searching path" << endl;
 	cout << Ultrasonic2.cm << endl;
 
+	int counterStraight = 0;
 	int counterLeft = 0;
 	int counterRight = 0;
 	//links zoeken
-	while (BP.get_sensor(PORT_2, Ultrasonic2) == 0 && Ultrasonic2.cm < 10) {
+	while (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 
-		if (counterLeft >= 3) {
-			moveRight();
-			counterRight++;
-			usleep(1000000);
-			if (counterLeft == 3 && counterRight == 6)
-			{
-				cout << "searching done";
-			}
-		}
-		else {
+		if (Ultrasonic2.cm < 10) {
 			moveLeft();
 			counterLeft++;
 			usleep(1000000);
