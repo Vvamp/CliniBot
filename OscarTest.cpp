@@ -52,14 +52,38 @@ void moveBack(const int &time) {
 }
 
 void avoidObstacle() {
-	while (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
-		while (Ultrasonic2.cm < 30) {
+	cout << "starting obstacel detection..." << endl;
+	int stepsBack = 0;
+	int stepsLeft = 0;
+	int stepsRight = 0;
+	int stepsFwd = 0;
+	int stepsFwd2 = 0;
+
+	while (true) {
+		cout << "distance: " << Ultrasonic2.cm << " cm" << endl;
+		if (Ultrasonic2.cm < 30) {
 			moveBack(1000000);
-			cout << Ultrasonic2.cm << "cm afstand" << endl;
+			stepsBack++;
 		}
-		return;
+		else if (Ultrasonic2.cm < 40) {
+			moveLeft(1000000);
+			stepsLeft++;
+		}
+		else if (stepsFwd <= stepsBack + 2){
+			moveFwd(1000000);
+			stepsFwd++;
+		}
+		else if (stepsRight <= stepsLeft * 2){
+			moveRight(1000000);
+			stepsRight++;
+		}
+		else if (stepsFwd2 <= stepsFwd) {
+			moveFwd(1000000);
+			stepsFwd2++;
+		}
+		break;
 	}
-	
+	return;
 }
 
 
