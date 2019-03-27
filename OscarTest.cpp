@@ -52,21 +52,11 @@ void moveBack() {
 	return;
 }
 
-int findFreePathLeft(int leftCounter, int rightCounter) {
-	
-	if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
-		cout << "searching free path..." << endl;
-		if (Ultrasonic2.cm < 10) {
-			moveLeft(1000000);
-			leftCounter++;
-			return findFreePathLeft(leftCounter,0);
-		}
-		for (int i = 0; i < leftCounter; i++) {
-			moveRight(1000000);
-			rightCounter++;
-		}
-		return leftCounter, rightCounter;
-	}
+int FindStepsLeft(int stepsLeft) {
+	if (Ultrasonic2.cm < 10)
+	moveLeft(1000000);
+	return 1 + FindStepsLeft(stepsLeft + 1);
+	moveRight(1000000);
 }
 
 void findNewPath() {
@@ -77,13 +67,11 @@ void findNewPath() {
 	int counterLeft = 0;
 	int counterRight = 0;
 	//links zoeken
-	if (BP.get_sensor(PORT_2, Ultrasonic2) != 0) {
-		cout << "error code: " << BP.get_sensor(PORT_2, Ultrasonic2) << " ";
-		cout << "error" << endl;
-		counterLeft, counterRight = findFreePathLeft(0, 0);
-		return;
+	int counterLeft = FindStepsLeft(0);
+	cout << "steps Left done:" << counterLeft << endl;
+			
+	return;
 	}
-}
 
 void driveByLine() {
 
