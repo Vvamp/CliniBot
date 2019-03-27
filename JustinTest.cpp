@@ -51,7 +51,6 @@ int main() {
 				
 		}
 		
-		}
 		usleep(125000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
 	}
 	
