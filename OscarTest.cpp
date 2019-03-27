@@ -59,26 +59,32 @@ void avoidObstacle() {
 	int stepsFwd = 0;
 
 	while (true) {
-		cout << "distance: " << Ultrasonic2.cm << " cm" << endl;
-		if (Ultrasonic2.cm < 30) {
-			moveBack(1000000);
-			stepsBack++;
+		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+			cout << "distance: " << Ultrasonic2.cm << " cm" << endl;
+			if (Ultrasonic2.cm < 30) {
+				moveBack(1000000);
+				stepsBack++;
+			}
+			else
+			{
+				break;
+			}
+			/*else if (Ultrasonic2.cm < 40) {
+				moveLeft(1000000);
+				stepsLeft++;
+			}
+			else if (stepsFwd <= stepsBack + 2){
+				moveFwd(1000000);
+				stepsFwd++;
+			}
+			else if (stepsRight <= stepsLeft * 2){
+				moveRight(1000000);
+				stepsRight++;
+			}
+			else if (Light3.reflected < 2300) {
+				moveFwd(1000000);
+			}*/
 		}
-		/*else if (Ultrasonic2.cm < 40) {
-			moveLeft(1000000);
-			stepsLeft++;
-		}
-		else if (stepsFwd <= stepsBack + 2){
-			moveFwd(1000000);
-			stepsFwd++;
-		}
-		else if (stepsRight <= stepsLeft * 2){
-			moveRight(1000000);
-			stepsRight++;
-		}
-		else if (Light3.reflected < 2300) {
-			moveFwd(1000000);
-		}*/
 	}
 	return;
 }
