@@ -59,7 +59,7 @@ void avoidObstacle() {
 	int stepsFwd = 0;
 
 	while (true) {
-		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0 && BP.get_sensor(PORT_3, Light3) == 0) {
 			if (Ultrasonic2.cm < 20) {
 				cout << "moving back, distance: " << Ultrasonic2.cm << " cm" << endl;
 				moveBack(1000000);
@@ -80,11 +80,12 @@ void avoidObstacle() {
 				moveRight(1000000);
 				stepsRight++;
 			}
-			else if (BP.get_sensor(PORT_3, Light3) == 0 && Light3.reflected > 1800 && Light3.reflected < 1900) {
+			else if (Light3.reflected > 1800 && Light3.reflected < 1900) {
 				cout << "moving forward, light intensity: " << Light3.reflected << endl;
 				moveFwd(1000000);
 			}
 			else {
+				cout << "end of obstacel detection..." << endl;
 				break;
 			}
 		}
