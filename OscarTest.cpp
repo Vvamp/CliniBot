@@ -47,8 +47,8 @@ void moveFwd(int &numbersLeft, int &numbersRight) {
 void moveLeft(int &lastDirection, int &numbersLeft) {
 	if (numbersLeft < 5)
 	{
-		BP.set_motor_dps(PORT_B, 45);
-		BP.set_motor_dps(PORT_C, -45);
+		BP.set_motor_dps(PORT_B, 80);
+		BP.set_motor_dps(PORT_C, -80);
 		/*BP.set_motor_position_relative(PORT_B, 45);
 		BP.set_motor_position_relative(PORT_C, -45);*/
 		lastDirection = -1;
@@ -60,9 +60,6 @@ void moveLeft(int &lastDirection, int &numbersLeft) {
 		searchLine(lastDirection);
 	}
 	 
-	/*BP.set_motor_dps(PORT_B, 360);
-	BP.set_motor_dps(PORT_C, 130);*/
-	// Draai het wiel op port B 270 graden en de wiel op port C -270 graden
 
 	cout << " Left - ";
 
@@ -70,8 +67,8 @@ void moveLeft(int &lastDirection, int &numbersLeft) {
 
 void moveRight(int &lastDirection, int &numbersRight) {
 	if (numbersRight < 5) {
-		BP.set_motor_dps(PORT_B, -45);
-		BP.set_motor_dps(PORT_C, 45);
+		BP.set_motor_dps(PORT_B, -80);
+		BP.set_motor_dps(PORT_C, 80);
 		/*BP.set_motor_position_relative(PORT_B, -45);
 		BP.set_motor_position_relative(PORT_C, 45);*/
 		numbersRight++;
@@ -83,9 +80,7 @@ void moveRight(int &lastDirection, int &numbersRight) {
 		searchLine(lastDirection);
 	}
 	 
-	/*BP.set_motor_dps(PORT_B, 130);
-	BP.set_motor_dps(PORT_C, 360);*/
-	// Draai het wiel op port B -270 graden en de wiel op port C 270 graden
+	
 
 	cout << " Right - ";
 
