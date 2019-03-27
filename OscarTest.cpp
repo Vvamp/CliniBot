@@ -45,12 +45,33 @@ void moveRight(const int & time) {
 	return;
 }
 
-void moveBack() {
+void moveBack(const int &time) {
 	BP.set_motor_dps(PORT_B, -360);
 	BP.set_motor_dps(PORT_C, -360);
+	usleep(time);
 	// Draai de motor op port B en C -360 graden
 	return;
 }
+
+void avoidObstacle() {
+	moveBack(2000000);
+	moveLeft(2000000);
+	if (Ultrasonic2.cm < 20) {
+		moveFwd(5000000);
+		moveRight(2000000);
+		moveFwd(4000000);
+		return;
+	}
+	else {
+		moveRight(4000000);
+		moveFwd(5000000);
+		moveLeft(2000000);
+		moveFwd(4000000);
+		return;
+	}
+
+}
+
 
 
 void driveByLine() {
@@ -63,8 +84,6 @@ void driveByLine() {
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 			cout << "searching line..." << endl;
 			if (Ultrasonic2.cm > 10) {
-				cout << Ultrasonic2.cm << " " << measurement << endl;
-
 				if (BP.get_sensor(PORT_3, Light3) == 0) {
 					measurement = Light3.reflected;
 					if (measurement >= 1900 && measurement <= 2300) {
@@ -80,12 +99,12 @@ void driveByLine() {
 						//als ie het zwart in gaat
 					}
 					//usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
-					
 				}
 			}
 			else
 			{
-				moveStop();
+				avoidObstacle();
+				break;
 			}
 		}
 	}
