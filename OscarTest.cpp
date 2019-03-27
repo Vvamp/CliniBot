@@ -70,10 +70,8 @@ void findNewPath() {
 	int counterRight = 0;
 	//links zoeken
 	while (BP.get_sensor(PORT_2, Ultrasonic2) == 0 && Ultrasonic2.cm < 10) {
-		moveLeft();
-		counterLeft++;
-		usleep(1000000);
-		if (counterLeft == 3) {
+
+		if (counterLeft >= 3) {
 			moveRight();
 			counterRight++;
 			usleep(1000000);
@@ -82,10 +80,12 @@ void findNewPath() {
 				cout << "searching done";
 			}
 		}
+		else {
+			moveLeft();
+			counterLeft++;
+			usleep(1000000);
+		}
 	}
-
-
-
 }
 
 void driveByLine() {
@@ -124,8 +124,7 @@ void driveByLine() {
 						//als ie het zwart in gaat
 					}
 					usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
-					driveByLine();
-					return;
+					
 				}
 			}
 			else
