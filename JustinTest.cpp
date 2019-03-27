@@ -4,7 +4,6 @@
 #include <unistd.h>     // for sleep
 #include <signal.h>     // for catching exit signals
 #include <iomanip>		// for setw and setprecision
-#include <iostream.h>
 #include <conio.h>
 
 using namespace std;
