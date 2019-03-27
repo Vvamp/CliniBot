@@ -67,7 +67,7 @@ void findNewPath() {
 	int counterLeft = 0;
 	int counterRight = 0;
 	//links zoeken
-	int counterLeft = FindStepsLeft(0);
+	counterLeft = FindStepsLeft(0);
 	cout << "steps Left done:" << counterLeft << endl;
 			
 	return;
