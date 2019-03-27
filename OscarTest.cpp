@@ -51,7 +51,7 @@ void moveBack() {
 }
 
 void findNewPath() {
-
+	
 	sensor_ultrasonic_t Ultrasonic2;
 	cout << "searching path" << endl;
 
@@ -59,38 +59,42 @@ void findNewPath() {
 	int counterLeft = 0;
 	int counterRight = 0;
 	//links zoeken
-	while (true) {
+	if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 
-		if (Ultrasonic2.cm < 10) {
-			moveLeft();
-			counterLeft++;
-			cout << "turning left for search ";
-			usleep(1000000);
-		}
-		else if (counterStraight != counterLeft)
-		{
-			moveFwd();
-			counterStraight++;
-			cout << "driving straight for search";
-			usleep(1000000);
-		}
-		else if (counterRight != counterLeft *2) {
-			moveRight();
-			counterRight++;
-			cout << "driving right for search";
-			counterStraight = 0;
-			usleep(1000000);
-		}
-		else if (counterStraight != counterLeft){
-			moveFwd();
-			counterStraight++;
-			cout << "driving left for search";
-			usleep(1000000);
-		}
-		else {
-			break;
+		while (true) {
+
+			if (Ultrasonic2.cm < 10) {
+				moveLeft();
+				counterLeft++;
+				cout << "turning left for search ";
+				usleep(1000000);
+			}
+			else if (counterStraight != counterLeft)
+			{
+				moveFwd();
+				counterStraight++;
+				cout << "driving straight for search";
+				usleep(1000000);
+			}
+			else if (counterRight != counterLeft * 2) {
+				moveRight();
+				counterRight++;
+				cout << "driving right for search";
+				counterStraight = 0;
+				usleep(1000000);
+			}
+			else if (counterStraight != counterLeft) {
+				moveFwd();
+				counterStraight++;
+				cout << "driving left for search";
+				usleep(1000000);
+			}
+			else {
+				break;
+			}
 		}
 	}
+	
 	return;
 	
 }
