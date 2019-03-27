@@ -60,47 +60,50 @@ void avoidObstacle() {
 	int stepFive = 0;
 	int stepSix = 0;
 	while (true) {
-		if (stepOne == 0) {
-			BP.set_motor_position_relative(PORT_B, 360);
-			BP.set_motor_position_relative(PORT_C, -360);
-			stepOne = 1;
-			usleep(1500000);
-		}
-		else if (stepTwo == 0 && stepOne == 1) {
-			moveFwd(3500000);
-			stepTwo = 1;
-		}
-		else if (stepThree == 0 && stepTwo == 1) {
-			BP.set_motor_position_relative(PORT_B, -360);
-			BP.set_motor_position_relative(PORT_C, 360);
-			stepThree = 1;
-			usleep(1500000);
-		}
-		else if (stepFour == 0 && stepThree == 1) {
-			moveFwd(6000000);
-			stepFour = 1;
-		}
-		else if (stepFive == 0 && stepFour == 1) {
-			BP.set_motor_position_relative(PORT_B, -360);
-			BP.set_motor_position_relative(PORT_C, 360);
-			stepFive = 1;
-			usleep(1500000);
-		}
-		else if (stepSix == 0 && stepFive == 1 && BP.get_sensor(PORT_3, Light3) == 0) {
-			if (Light3.reflected < 2300) {
-				moveFwd(500000);
+		if (BP.get_sensor(PORT_3, Light3) == 0 && BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+			if (stepOne == 0) {
+				BP.set_motor_position_relative(PORT_B, 360);
+				BP.set_motor_position_relative(PORT_C, -360);
+				stepOne = 1;
+				usleep(1500000);
 			}
-			else {
-				stepSix = 1;
+			else if (stepTwo == 0 && stepOne == 1) {
+				moveFwd(3500000);
+				stepTwo = 1;
 			}
-			
+			else if (stepThree == 0 && stepTwo == 1) {
+				BP.set_motor_position_relative(PORT_B, -360);
+				BP.set_motor_position_relative(PORT_C, 360);
+				stepThree = 1;
+				usleep(1500000);
+			}
+			else if (stepFour == 0 && stepThree == 1) {
+				moveFwd(6000000);
+				stepFour = 1;
+			}
+			else if (stepFive == 0 && stepFour == 1) {
+				BP.set_motor_position_relative(PORT_B, -360);
+				BP.set_motor_position_relative(PORT_C, 360);
+				stepFive = 1;
+				usleep(1500000);
+			}
+			else if (stepSix == 0 && stepFive == 1) {
+				if (Light3.reflected < 2300) {
+					moveFwd(250000);
+				}
+				else {
+					stepSix = 1;
+				}
+
+			}
+			else if (stepSix == 1) {
+				moveStop();
+				cout << "obstacle avoidence completed..." << endl;
+				usleep(3000000);
+				break;
+			}
 		}
-		else if (stepSix == 1) {
-			moveStop();
-			cout << "obstacle avoidence completed..." << endl;
-			usleep(3000000);
-			break;
-		}
+		
 	}	
 	return;
 }
@@ -131,7 +134,7 @@ void driveByLine() {
 						moveRight(100000);
 						//als ie het zwart in gaat
 					}
-					usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
+					//usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
 				}
 			}
 			else
