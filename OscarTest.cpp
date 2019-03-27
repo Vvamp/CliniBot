@@ -58,32 +58,42 @@ void avoidObstacle() {
 	int stepThree = 0;
 	int stepFour = 0;
 	int stepFive = 0;
+	int stepSix = 0;
 	while (true) {
 		if (stepOne == 0) {
 			BP.set_motor_position_relative(PORT_B, 360);
 			BP.set_motor_position_relative(PORT_C, -360);
 			stepOne = 1;
-			usleep(2000000);
+			usleep(1500000);
 		}
 		else if (stepTwo == 0 && stepOne == 1) {
-			moveFwd(4000000);
+			moveFwd(3500000);
 			stepTwo = 1;
 		}
 		else if (stepThree == 0 && stepTwo == 1) {
 			BP.set_motor_position_relative(PORT_B, -360);
 			BP.set_motor_position_relative(PORT_C, 360);
 			stepThree = 1;
-			usleep(2000000);
+			usleep(1500000);
 		}
 		else if (stepFour == 0 && stepThree == 1) {
-			moveFwd(4000000);
+			moveFwd(3500000);
 			stepFour = 1;
 		}
 		else if (stepFive == 0 && stepFour == 1) {
 			BP.set_motor_position_relative(PORT_B, -360);
 			BP.set_motor_position_relative(PORT_C, 360);
 			stepFive = 1;
-			usleep(2000000);
+			usleep(1500000);
+		}
+		else if (stepSix == 0 && stepFive == 1) {
+			moveFwd(3500000);
+			stepSix == 1;
+		}
+		else if (stepSix == 1) {
+			cout << "obstacle avoidence completed..." << endl;
+			usleep(3000000);
+			break;
 		}
 	}	
 	return;
