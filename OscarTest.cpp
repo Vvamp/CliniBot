@@ -124,7 +124,8 @@ void driveByLine() {
 					//als ie het zwart in gaat
 				}
 				usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
-				return driveByLine();
+				driveByLine();
+				return;
 			}
 		}
 		else
