@@ -46,8 +46,8 @@ void moveRight(const int & time) {
 }
 
 void moveBack(const int &time) {
-	BP.set_motor_dps(PORT_B, -360);
-	BP.set_motor_dps(PORT_C, -360);
+	BP.set_motor_dps(PORT_B, -180);
+	BP.set_motor_dps(PORT_C, -180);
 	usleep(time);
 	// Draai de motor op port B en C -360 graden
 	return;
@@ -57,9 +57,9 @@ void avoidObstacle() {
 	moveBack(2000000);
 	moveLeft(2000000);
 	if (Ultrasonic2.cm < 20) {
-		moveFwd(5000000);
-		moveRight(2000000);
-		moveFwd(4000000);
+		moveFwd(8000000);
+		moveRight(4000000);
+		moveFwd(6000000);
 		return;
 	}
 	else {
