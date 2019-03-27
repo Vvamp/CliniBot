@@ -12,7 +12,7 @@ BrickPi3 BP;
 void exit_signal_handler(int signo);
 
 //Function to move robot
-void moveBot(char cmd, int valueLeft, int valueRight) {
+void moveBot(char cmd, const int valueLeft, const int valueRight) {
 	BP.set_motor_dps(PORT_C, valueLeft);
     BP.set_motor_dps(PORT_B, valueRight);
 	cout << cmd << " [L: " << valueLeft << "] [R: " << valueRight << "]";
@@ -47,11 +47,11 @@ int main() {
 				if (BP.get_sensor(PORT_3, Light3) == 0) {
 					measurement = Light3.reflected;
 					if (measurement >= 1900 && measurement <= 2300) {
-						moveBot('▲' 180, 180);
+						moveBot('▲', 180, 180);
 
 					}
 					else if (measurement > 1800 && measurement < 1900) {
-						moveBot('◄' -80, 80);
+						moveBot('◄', -80, 80);
 
 					}
 					else if (measurement > 2300) {
