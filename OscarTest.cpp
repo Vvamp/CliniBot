@@ -96,12 +96,12 @@ void avoidObstacle() {
 			}
 			else if (stepFour == 1) {
 				cout << "obstacle avoidence completed..." << endl;
-				break;
+				return;
 			}
 		}
 		
 	}	
-	return;
+	
 }
 
 
@@ -136,11 +136,10 @@ void driveByLine() {
 			else
 			{
 				avoidObstacle();
-				break;
 			}
 		}
 	}
-	driveByLine();
+	//driveByLine();
 }
 
 int averageValues(const int red, const int green, const int blue) {
