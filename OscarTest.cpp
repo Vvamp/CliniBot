@@ -60,8 +60,8 @@ void avoidObstacle() {
 	int stepFive = 0;
 	while (true) {
 		if (stepOne == 0) {
-			BP.set_motor_position_relative(PORT_B, 90);
-			BP.set_motor_position_relative(PORT_C, -90);
+			BP.set_motor_position_relative(PORT_B, 180);
+			BP.set_motor_position_relative(PORT_C, -180);
 			stepOne = 1;
 			usleep(2000000);
 		}
@@ -70,8 +70,8 @@ void avoidObstacle() {
 			stepTwo = 1;
 		}
 		else if (stepThree == 0 && stepTwo == 1) {
-			BP.set_motor_position_relative(PORT_B, -90);
-			BP.set_motor_position_relative(PORT_C, 90);
+			BP.set_motor_position_relative(PORT_B, -180);
+			BP.set_motor_position_relative(PORT_C, 180);
 			stepThree = 1;
 			usleep(2000000);
 		}
@@ -80,8 +80,8 @@ void avoidObstacle() {
 			stepFour = 1;
 		}
 		else if (stepFive == 0 && stepFour == 1) {
-			BP.set_motor_position_relative(PORT_B, -90);
-			BP.set_motor_position_relative(PORT_C, 90);
+			BP.set_motor_position_relative(PORT_B, -180);
+			BP.set_motor_position_relative(PORT_C, 180);
 			stepFive = 1;
 			usleep(2000000);
 		}
