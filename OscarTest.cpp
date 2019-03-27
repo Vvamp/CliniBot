@@ -55,16 +55,10 @@ void avoidObstacle() {
 	while (true) {
 
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
-			while (Ultrasonic2.cm < 30) {
+			if (Ultrasonic2.cm < 30) {
 				cout << "moving back, distance is: " << Ultrasonic2.cm << "cm." << endl;
 				moveBack(1000000);
 			}
-			while (Ultrasonic2.cm < 35) {
-				moveLeft(2000000);
-			}
-			moveFwd(6000000);
-			moveRight(5000000);
-			moveFwd(5000000);
 			return;
 		}
 	
