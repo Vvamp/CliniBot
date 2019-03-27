@@ -77,7 +77,7 @@ void avoidObstacle() {
 			usleep(1500000);
 		}
 		else if (stepFour == 0 && stepThree == 1) {
-			moveFwd(5000000);
+			moveFwd(6000000);
 			stepFour = 1;
 		}
 		else if (stepFive == 0 && stepFour == 1) {
