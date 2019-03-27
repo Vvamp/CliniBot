@@ -10,7 +10,33 @@ BrickPi3 BP;
 
 void exit_signal_handler(int signo);
 
+void findNewPath() {
+	
+	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
+	sensor_ultrasonic_t Ultrasonic2;
 
+	//links zoeken
+	BP.set_motor_position_relative(PORT_B, 60);
+	BP.set_motor_position_relative(PORT_C, -60);
+	usleep(1000000);
+
+	if (Ultrasonic2.cm > 10) {
+			BP.set_motor_position_relative(PORT_B, 360);
+			BP.set_motor_position_relative(PORT_C, 360);
+			usleep(1000000);
+			BP.set_motor_position_relative(PORT_B, -60);
+			BP.set_motor_position_relative(PORT_C, 60);
+			usleep(1000000);
+			if (Ultrasonic2.cm > 10) {
+				BP.set_motor_position_relative(PORT_B, 360);
+				BP.set_motor_position_relative(PORT_C, 360);
+				usleep(1000000);
+				return;
+			}
+
+	}
+
+}
 
 void moveStop() {
 	BP.set_motor_power(PORT_B, 0);
@@ -86,6 +112,7 @@ int main() {
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 			if (Ultrasonic2.cm > 10) {
 
+
 				if (BP.get_sensor(PORT_3, Light3) == 0) {
 					measurement = Light3.reflected;
 					if (measurement >= 1900 && measurement <= 2300) {
@@ -105,7 +132,7 @@ int main() {
 			}
 			else
 			{
-				moveStop();
+				findNewPath();
 			}
 
 		}
