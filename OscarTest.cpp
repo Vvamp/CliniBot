@@ -84,7 +84,7 @@ int main() {
 	while (true) {
 
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
-			if (Ultrasonic2.cm > 5) {
+			if (Ultrasonic2.cm > 10) {
 
 				if (BP.get_sensor(PORT_3, Light3) == 0) {
 					measurement = Light3.reflected;
@@ -107,9 +107,13 @@ int main() {
 			{
 				moveStop();
 			}
-			
+
 		}
-		
+		else
+		{
+			cout << "can't find the ultrasonic sensor" << endl;
+		}
+	}
 		/*if (BP.get_sensor(PORT_1, Color1) == 0) {
 			average = averageValues((int)Color1.reflected_red, (int)Color1.reflected_green, (int)Color1.reflected_blue);
 			if (average >=240  && average <= 320) {
@@ -123,7 +127,7 @@ int main() {
 			}*/
 			
 			
-			cout << "Average = " << average << endl;
+			//cout << "Average = " << average << endl;
 			/*cout << "Color sensor (S1): detected  " << (int)Color1.color;
 			cout << " R:" << setw(4) << Color1.reflected_red << endl;
 			cout << " G:" << setw(4) << Color1.reflected_green;
@@ -131,7 +135,7 @@ int main() {
 			cout << " A:" << setw(4) << Color1.ambient << "]" << endl;*/
 		/*}*/
 		usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
-	}
+	
 	
 }
 
