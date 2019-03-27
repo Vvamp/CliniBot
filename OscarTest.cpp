@@ -121,10 +121,10 @@ int main() {
 		
 		if (BP.get_sensor(PORT_1, Color1) == 0) {
 			average = averageValues((int)Color1.reflected_red, (int)Color1.reflected_green, (int)Color1.reflected_blue);
-			/*if (average >= 260 && average <= 320) {
+			if (average >= 270 && average <= 320) {
 				moveFwd(numbersLeft,numbersRight);
 			}
-			else if (average > 250 && average < 290){
+			else if (average > 250 && average < 270){
 				moveLeft(lastDirection,numbersLeft);
 			}
 			else if (average > 320 && average < 600){
@@ -133,7 +133,7 @@ int main() {
 			else
 			{
 				searchLine(lastDirection);
-			}*/
+			}
 			
 			cout << "Average = " << average << endl;
 			/*cout << "Color sensor (S1): detected  " << (int)Color1.color;
