@@ -19,7 +19,8 @@ int calcSpeed(){
 void moveBot(const int valueLeft, const int valueRight) {
 	BP.set_motor_dps(PORT_C, valueLeft); //Left motor
     BP.set_motor_dps(PORT_B, valueRight); // Right motor
-    cout < "Clinibot travel values --" << endl;
+    cout < endl;
+    cout << "Clinibot travel values --" << endl;
     cout << "Left: " << valueLeft << endl;
     cout << "Right: " << valueRight << endl;
 }
