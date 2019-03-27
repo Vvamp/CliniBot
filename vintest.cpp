@@ -65,6 +65,26 @@ void moveBack(){
 
 }
 
+void vvDance(){
+    cout << "Het dak moet er af..." << endl;
+    BP.set_motor_dps(PORT_B, -360);
+    BP.set_motor_dps(PORT_C, -360);
+    usleep(500000);
+    BP.set_motor_dps(PORT_B, 360);
+    BP.set_motor_dps(PORT_C, 360);
+    usleep(500000);
+    BP.set_motor_position_relative(PORT_B, -270);
+    BP.set_motor_position_relative(PORT_C, 270);
+    sleep(10);
+    BP.set_motor_dps(PORT_B, -360);
+    BP.set_motor_dps(PORT_C, -360);
+    usleep(500000);
+    BP.set_motor_dps(PORT_B, 360);
+    BP.set_motor_dps(PORT_C, 360);
+    usleep(500000);
+}
+
+
 // Show the movement controls on-screen
 void showControls(){
     cout << "Controls: " << endl << "W - Forwards" << endl << "A - Left" << endl << "S - Backwards" << endl << "D - Right" << endl << endl << "Press enter to continue...";
@@ -72,10 +92,45 @@ void showControls(){
     cin >> cinput;
 
 }
+void controlBluetooth(){
+    BluetoothServerSocket serversock(2, 1);  //2 is het channel-number
+	cout << "Waiting for a bluetooth device..." << endl;
+	while(true) {
+		BluetoothSocket* clientsock = serversock.accept();
+		cout << "Connected with [" << clientsock->getForeignAddress().getAddress() << "]" << endl;
+		MessageBox& mb = clientsock->getMessageBox();
 
-// Main execution
-int main()
-{
+		string input;
+		while(mb.isRunning()) {
+			input = mb.readMessage();  //blokkeert niet
+			if(input != ""){
+                // input
+                if(input == "UP"){
+                    moveFwd();
+                }else if(input == "LEFT"){
+                    moveLeft();
+                }else if(input == "RIGHT"){
+                    moveRight;
+                }else if(input == "DOWN"){
+                    moveBack;
+                }else if(input == "A"){
+                    vvDance();
+                }
+                // cout << endl << input << endl;
+            }else{
+                // no input
+            }
+			//doe andere dingen.
+			cout.flush();
+			usleep(100000); // wacht 500 ms
+		}
+
+		clientsock->close();
+
+	}
+}
+
+void controlTerminal(){
     // Show movement controls
     showControls();
 
@@ -105,7 +160,20 @@ int main()
             moveStop();
         }
      }
+}
 
+
+// Main execution
+int main()
+{
+    cout << "Enter 'move' to control the robot via this terminal, enter 'bt' to control the robot via bluetooth" << endl;
+    string userChoice;
+    cin >> userChoice;
+    if(userChoice == "bt"){
+        controlBluetooth();
+    }else{
+        controlTerminal();
+    }
 
     cout << "Program Terminated." << endl;
     return 0;
