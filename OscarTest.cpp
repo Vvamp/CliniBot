@@ -71,9 +71,11 @@ int main() {
 
 	BP.detect(); // Make sure that the BrickPi3 is communicating and that the firmware is compatible with the drivers.
 	BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
+	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
 	BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
 
 	sensor_color_t      Color1;
+	sensor_ultrasonic_t Ultrasonic2;
 	sensor_light_t      Light3;
 
 	int average = 0;
@@ -96,6 +98,9 @@ int main() {
 				//als ie het zwart in gaat
 			}
 				
+		}
+		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+			cout << "Ultrasonic sensor (S2): " << Ultrasonic2.cm << "cm" << endl;
 		}
 		
 		/*if (BP.get_sensor(PORT_1, Color1) == 0) {
