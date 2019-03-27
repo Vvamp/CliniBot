@@ -70,44 +70,41 @@ void turnLeft(){
     //should be 90 degrees
 }
 
-void checkKruispunt(){
-    BP.detect(); // Make sure that the BrickPi3 is communicating and that the firmware is compatible with the drivers.
-    BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
-    BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
-    BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
-
+bool isCrossing(){
+    // check if other sensor is black
     sensor_color_t      Color1;
-    sensor_ultrasonic_t Ultrasonic2;
-    sensor_light_t      Light3;
+    //sensor_ultrasonic_t Ultrasonic2;
+	sensor_light_t      Light3;
 
-    int average = 0;
     int measurement = 0;
-
-    if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
-        if (Ultrasonic2.cm > 10) {
-
-            if (BP.get_sensor(PORT_3, Light3) == 0) {
-                measurement = Light3.reflected;
-                if(measurement > 2300){
-                    // line is black
-                    // go back a lil' bit?
-                    // turn Left
-                    // move a little bit
-                    turnLeft();
-                }
-                usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
-            }
-        }
-        else
-        {
-            moveStop();
+    bool s1 = false;
+    bool s2 = false;
+    if (BP.get_sensor(PORT_2, Color1) == 0) {
+        measurement = (Color1.reflected_red + Color1.reflected_green = Color1.reflected_blue) / 3;
+        if(measurement > 150 && measurement < 240){
+            s1 = true;
         }
 
     }
+    if (BP.get_sensor(PORT_2, Light3) == 0) {
+        measurement = Light3.reflected;
+        if(measurement >2300){
+            s2 = true;
+        }
+
+    }
+    if(s1 && s2){
+        return true
+    }else{
+        return false;
+    }
+
+
+
 }
 
 void vvDance(){
-    cout << "Het dak moet er af..." << endl;
+    cout << "Het dak moet er af...!" << endl;
     BP.set_motor_dps(PORT_B, -360);
     BP.set_motor_dps(PORT_C, -360);
     usleep(500000);
@@ -207,13 +204,20 @@ void controlTerminal(){
 
 void debug(){
     cout << "VV DEBUG" << endl;
-    cout << "a - turn left 90 degrees" << endl;
+    cout << "a - turn left 90 degrees" << endl << "t - check if there is a crossing";
     while(true){
         cout << endl << "> ";
         string uin;
         cin >> uin;
         if(uin == "a"){
             turnLeft();
+        }else if(uin == "t"){
+            cout << "Crossing > "
+            if(isCrossing()){
+                cout << "true" << endl;
+            }else{
+                cout << "false" << endl;
+            }
         }else{
             return;
         }
@@ -223,14 +227,14 @@ void debug(){
 // Main execution
 int main()
 {
-    cout << "Enter 'move' to control the robot via this terminal, enter 'bt' to control the robot via bluetooth or enter 'checkk' to navigate over a grid." << endl;
+    cout << "Enter 'move' to control the robot via this terminal, enter 'bt' to control the robot via bluetooth or enter 'crossing' to navigate over a grid." << endl;
     string userChoice;
     cin >> userChoice;
     if(userChoice == "bt"){
         controlBluetooth();
-    }else if(userChoice == "checkk"){
+    }else if(userChoice == "crossing"){
         debug();
-    }else{
+    }else if(userChoice == "move"){
         controlTerminal();
     }
 
