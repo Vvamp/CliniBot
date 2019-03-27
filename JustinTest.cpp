@@ -15,15 +15,24 @@ void exit_signal_handler(int signo);
 void moveBot(const int measurement, const int valueLeft, const int valueRight) {
 	BP.set_motor_power(PORT_C, valueLeft); //Left motor
     BP.set_motor_power(PORT_B, valueRight); // Right motor
+
     cout << "\033[2J\033[1;1H"; //Clear screen
-    cout << "CLINIBOT PATH VALUES --" << endl;
-    cout << endl << "- STEARING:" << endl;
+    cout << "CLINIBOT ============" << endl;
+
+    cout << endl << "-INFORMATION:" << endl;
+    cout << " Battery voltage:" << BP.get_voltage_battery() << endl;
+    cout << " 9v voltage:" << BP.get_voltage_9v() << endl;
+    cout << " 5v voltage:" << BP.get_voltage_5v() << endl;
+    cout << " 3.3v voltage:" << BP.get_voltage_3v3() << endl;
+
+    cout << endl << "-MOTOR VALUES:" << endl;
     cout << " Left: " << valueLeft << "v" << endl;
     cout << " Right: " << valueRight << "v" << endl;
-    cout << endl << "- LIGHT DETECTION:" << endl ;
-    cout << " Value: " << measurement << endl;
-    cout << "-----------------------" << endl;
 
+    cout << endl << "-DETECTION:" << endl ;
+    cout << " LIGHT REFLECTION: " << measurement << endl;
+
+    cout << endl << "=====================" << endl;
 
 }
 
