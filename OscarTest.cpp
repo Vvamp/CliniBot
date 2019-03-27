@@ -77,22 +77,34 @@ int main() {
 	sensor_light_t      Light3;
 
 	int average = 0;
+	int measurement = 0;
 
 	while (true) {
+
 		if (BP.get_sensor(PORT_3, Light3) == 0) {
-			cout << "Light sensor (S3): reflected " << setw(4) << Light3.reflected << endl;
-		}
-		
-		if (BP.get_sensor(PORT_1, Color1) == 0) {
-			average = averageValues((int)Color1.reflected_red, (int)Color1.reflected_green, (int)Color1.reflected_blue);
-			/*if (average >=240  && average <= 320) {
+			measurement = Light3.reflected;
+			if (measurement >= 1900 && measurement <= 2300) {
 				moveFwd();
 			}
-			else if (average > 150 && average < 240){
+			else if (measurement > 1800 && measurement < 1900) {
 				moveLeft();
 			}
-			else if (average > 320 && average < 600){
+			else if (measurement > 2300) {
 				moveRight();
+			}
+				
+		}
+		
+		/*if (BP.get_sensor(PORT_1, Color1) == 0) {
+			average = averageValues((int)Color1.reflected_red, (int)Color1.reflected_green, (int)Color1.reflected_blue);
+			if (average >=240  && average <= 320) {
+				movefwd();
+			}
+			else if (average > 150 && average < 240){
+				moveleft();
+			}
+			else if (average > 320 && average < 600){
+				moveright();
 			}*/
 			
 			
