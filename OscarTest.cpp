@@ -73,7 +73,7 @@ void findNewPath() {
 			}
 			else if (counterStraight != counterLeft)
 			{
-				moveFwd(1000000);
+				moveFwd(2000000);
 				counterStraight++;
 				cout << "times straight: " << counterStraight << endl;
 			}
@@ -85,7 +85,7 @@ void findNewPath() {
 
 			}
 			else if (counterStraight != counterLeft) {
-				moveFwd(1000000);
+				moveFwd(2000000);
 				counterStraight++;
 				cout << "times straight: " << counterStraight << endl;
 
