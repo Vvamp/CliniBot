@@ -10,34 +10,7 @@ BrickPi3 BP;
 
 void exit_signal_handler(int signo);
 
-void findNewPath() {
-	
-	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
-	sensor_ultrasonic_t Ultrasonic2;
-	cout << "searching path" << endl;
-	cout << Ultrasonic2.cm << endl;
 
-	int counterLeft = 0;
-	int counterRight = 0;
-	//links zoeken
-	while (BP.get_sensor(PORT_2, Ultrasonic2) == 0 && Ultrasonic2.cm < 10) {
-		moveLeft();
-		counterLeft++;
-		usleep(1000000);
-		if (counterLeft == 3) {
-			moveRight();
-			counterRight++;
-			usleep(1000000);
-			if (counterLeft == 3 && counterRight == 6)
-			{
-				cout << "searching done";
-			}
-		}
-	}
-	
-
-
-}
 
 void moveStop() {
 	BP.set_motor_power(PORT_B, 0);
@@ -84,6 +57,35 @@ void moveBack() {
 
 	cout << " Back - ";
 	return;
+}
+
+void findNewPath() {
+
+	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
+	sensor_ultrasonic_t Ultrasonic2;
+	cout << "searching path" << endl;
+	cout << Ultrasonic2.cm << endl;
+
+	int counterLeft = 0;
+	int counterRight = 0;
+	//links zoeken
+	while (BP.get_sensor(PORT_2, Ultrasonic2) == 0 && Ultrasonic2.cm < 10) {
+		moveLeft();
+		counterLeft++;
+		usleep(1000000);
+		if (counterLeft == 3) {
+			moveRight();
+			counterRight++;
+			usleep(1000000);
+			if (counterLeft == 3 && counterRight == 6)
+			{
+				cout << "searching done";
+			}
+		}
+	}
+
+
+
 }
 
 void driveByLine() {
