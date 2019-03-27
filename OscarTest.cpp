@@ -16,6 +16,7 @@ void findNewPath() {
 	sensor_ultrasonic_t Ultrasonic2;
 	cout << "searching path" << endl;
 	cout << Ultrasonic2.cm << endl;
+
 	int counterLeft = 0;
 	int counterRight = 0;
 	//links zoeken
@@ -24,8 +25,8 @@ void findNewPath() {
 		counterLeft++;
 		usleep(1000000);
 		if (counterLeft == 3) {
-			moveright();
-			moveRight++;
+			moveRight();
+			counterRight++;
 			usleep(1000000);
 			if (counterLeft == 3 && counterRight == 6)
 			{
