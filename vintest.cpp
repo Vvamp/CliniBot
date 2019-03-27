@@ -106,7 +106,7 @@ void controlBluetooth(){
             cout << input << endl;
 			if(input != ""){
                 // input
-                if(input.find("UP") != npos){
+                if(input.find("UP") != std::string::npos){
                     moveFwd();
                 }else if(input == "LEFT"){
                     moveLeft();
