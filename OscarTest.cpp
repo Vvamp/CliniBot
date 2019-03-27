@@ -109,10 +109,6 @@ int main() {
 			}
 
 		}
-		else
-		{
-			cout << "can't find the ultrasonic sensor" << endl;
-		}
 	}
 		/*if (BP.get_sensor(PORT_1, Color1) == 0) {
 			average = averageValues((int)Color1.reflected_red, (int)Color1.reflected_green, (int)Color1.reflected_blue);
