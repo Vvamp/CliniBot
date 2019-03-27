@@ -84,7 +84,7 @@ int main() {
 	while (true) {
 
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
-			if (Ultrasonic2.cm > 5) {
+			if (Ultrasonic2.cm > 10) {
 
 				if (BP.get_sensor(PORT_3, Light3) == 0) {
 					measurement = Light3.reflected;
