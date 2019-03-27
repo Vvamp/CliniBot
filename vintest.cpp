@@ -23,46 +23,87 @@ void moveStop(){
     BP.set_motor_power(PORT_C, 0);
     // Zet stroom van poort B en C op 0, waardoor de robot stopt.
 
-    cout << "I AM NOT MOVING" << endl;
+    cout << " Stopped - ";
 }
 
-// Move wheel on port 'B' en 'C' 360 degrees forwards
-void moveFwd(){
-    BP.set_motor_dps(PORT_B, 360);
-    BP.set_motor_dps(PORT_C, 360);
-    // Draai de motor op port B en C 360 graden
-    cout << "I AM MOVING FORWARD" << endl;
 
-}
-
-// Move wheel on port 'B' forwards by 270 degrees and move wheel on port 'C' backwards by 270 degrees
-void moveLeft(){
-    BP.set_motor_position_relative(PORT_B, 270);
-    BP.set_motor_position_relative(PORT_C, -270);
-    // Draai het wiel op port B 270 graden en de wiel op port C -270 graden
-
-    cout << "I AM MOVING LEFT" << endl;
+void moveFwd() {
+	BP.set_motor_dps(PORT_B, 180);
+	BP.set_motor_dps(PORT_C, 180);
+	// Draai de motor op port B en C 360 graden
+	cout << " Forward - ";
 
 }
 
-// Move wheel on port 'C' forwards by 270 degrees and move wheel on port 'B' backwards by 270 degrees
-void moveRight(){
-    BP.set_motor_position_relative(PORT_B, -270);
-    BP.set_motor_position_relative(PORT_C, 270);
-    // Draai het wiel op port B -270 graden en de wiel op port C 270 graden
+void moveLeft() {
 
-    cout << "I AM MOVING RIGHT" << endl;
+		BP.set_motor_dps(PORT_B, 80);
+		BP.set_motor_dps(PORT_C, -80);
+		/*BP.set_motor_position_relative(PORT_B, 45);
+		BP.set_motor_position_relative(PORT_C, -45);*/
+
+	cout << " Left - ";
 
 }
 
-// Move the wheels on port 'B' en 'C' backwards 360 degrees
-void moveBack(){
-    BP.set_motor_dps(PORT_B, -360);
-    BP.set_motor_dps(PORT_C, -360);
-    // Draai de motor op port B en C -360 graden
+void moveRight() {
+		BP.set_motor_dps(PORT_B, -80);
+		BP.set_motor_dps(PORT_C, 80);
+		/*BP.set_motor_position_relative(PORT_B, -45);
+		BP.set_motor_position_relative(PORT_C, 45);*/
 
-    cout << "I AM MOVING BACKWARDS" << endl;
+	cout << " Right - ";
 
+}
+
+void moveBack() {
+	BP.set_motor_dps(PORT_B, -360);
+	BP.set_motor_dps(PORT_C, -360);
+	// Draai de motor op port B en C -360 graden
+
+	cout << " Back - ";
+
+}
+void turnLeft(){
+    BP.set_motor_position_relative(PORT_B, 405);
+    BP.set_motor_position_relative(PORT_C, -405);
+    //should be 90 degrees
+}
+
+void checkKruispunt(){
+    BP.detect(); // Make sure that the BrickPi3 is communicating and that the firmware is compatible with the drivers.
+    BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
+    BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
+    BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
+
+    sensor_color_t      Color1;
+    sensor_ultrasonic_t Ultrasonic2;
+    sensor_light_t      Light3;
+
+    int average = 0;
+    int measurement = 0;
+
+    if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+        if (Ultrasonic2.cm > 10) {
+
+            if (BP.get_sensor(PORT_3, Light3) == 0) {
+                measurement = Light3.reflected;
+                if(measurement > 2300){
+                    // line is black
+                    // go back a lil' bit?
+                    // turn Left
+                    // move a little bit
+                    turnLeft();
+                }
+                usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
+            }
+        }
+        else
+        {
+            moveStop();
+        }
+
+    }
 }
 
 void vvDance(){
@@ -164,15 +205,31 @@ void controlTerminal(){
      }
 }
 
+void debug(){
+    cout << "VV DEBUG" << endl;
+    cout << "a - turn left 90 degrees" << endl;
+    while(true){
+        cout << endl << "> ";
+        string uin;
+        cin >> uin;
+        if(uin == "a"){
+            turnLeft();
+        }else{
+            return;
+        }
+    }
 
+}
 // Main execution
 int main()
 {
-    cout << "Enter 'move' to control the robot via this terminal, enter 'bt' to control the robot via bluetooth" << endl;
+    cout << "Enter 'move' to control the robot via this terminal, enter 'bt' to control the robot via bluetooth or enter 'checkk' to navigate over a grid." << endl;
     string userChoice;
     cin >> userChoice;
     if(userChoice == "bt"){
         controlBluetooth();
+    }else if(userChoice == "checkk"){
+        debug();
     }else{
         controlTerminal();
     }

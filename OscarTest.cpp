@@ -18,6 +18,7 @@ void moveStop() {
 	// Zet stroom van poort B en C op 0, waardoor de robot stopt.
 
 	cout << " Stopped - ";
+	return;
 }
 
 void moveFwd() {
@@ -25,7 +26,7 @@ void moveFwd() {
 	BP.set_motor_dps(PORT_C, 180);
 	// Draai de motor op port B en C 360 graden
 	cout << " Forward - ";
-
+	return;
 }
 
 void moveLeft() {
@@ -36,7 +37,7 @@ void moveLeft() {
 		BP.set_motor_position_relative(PORT_C, -45);*/
 
 	cout << " Left - ";
-
+	return;
 }
 
 void moveRight() {
@@ -46,7 +47,7 @@ void moveRight() {
 		BP.set_motor_position_relative(PORT_C, 45);*/
 
 	cout << " Right - ";
-
+	return;
 }
 
 void moveBack() {
@@ -55,10 +56,88 @@ void moveBack() {
 	// Draai de motor op port B en C -360 graden
 
 	cout << " Back - ";
-
+	return;
 }
 
+void findNewPath() {
 
+	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
+	sensor_ultrasonic_t Ultrasonic2;
+	cout << "searching path" << endl;
+	cout << Ultrasonic2.cm << endl;
+
+	int counterLeft = 0;
+	int counterRight = 0;
+	//links zoeken
+	while (BP.get_sensor(PORT_2, Ultrasonic2) == 0 && Ultrasonic2.cm < 10) {
+
+		if (counterLeft >= 3) {
+			moveRight();
+			counterRight++;
+			usleep(1000000);
+			if (counterLeft == 3 && counterRight == 6)
+			{
+				cout << "searching done";
+			}
+		}
+		else {
+			moveLeft();
+			counterLeft++;
+			usleep(1000000);
+		}
+	}
+}
+
+void driveByLine() {
+
+	signal(SIGINT, exit_signal_handler); // register the exit function for Ctrl+C
+
+	BP.detect(); // Make sure that the BrickPi3 is communicating and that the firmware is compatible with the drivers.
+	BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
+	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
+	BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
+
+	sensor_color_t      Color1;
+	sensor_ultrasonic_t Ultrasonic2;
+	sensor_light_t      Light3;
+
+	int measurement = 0;
+
+	while (true) {
+		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+			cout << Ultrasonic2.cm << endl;
+			if (Ultrasonic2.cm > 10) {
+
+
+				if (BP.get_sensor(PORT_3, Light3) == 0) {
+					measurement = Light3.reflected;
+					if (measurement >= 1900 && measurement <= 2300) {
+						moveFwd();
+						//rechtdoor
+					}
+					else if (measurement > 1800 && measurement < 1900) {
+						moveLeft();
+						//als ie het wit in gaat
+					}
+					else if (measurement > 2300) {
+						moveRight();
+						//als ie het zwart in gaat
+					}
+					usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
+					
+				}
+			}
+			else
+			{
+				findNewPath();
+			}
+		}
+	}
+	
+
+
+
+}
 
 int averageValues(const int red, const int green, const int blue) {
 	int average = (red + green + blue) / 3;
@@ -78,38 +157,12 @@ int main() {
 	sensor_ultrasonic_t Ultrasonic2;
 	sensor_light_t      Light3;
 
-	int average = 0;
-	int measurement = 0;
+	driveByLine();
 
-	while (true) {
+	/*int average = 0;*/
+	
 
-		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
-			if (Ultrasonic2.cm > 10) {
-
-				if (BP.get_sensor(PORT_3, Light3) == 0) {
-					measurement = Light3.reflected;
-					if (measurement >= 1900 && measurement <= 2300) {
-						moveFwd();
-						//rechtdoor
-					}
-					else if (measurement > 1800 && measurement < 1900) {
-						moveLeft();
-						//als ie het wit in gaat
-					}
-					else if (measurement > 2300) {
-						moveRight();
-						//als ie het zwart in gaat
-					}
-					usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
-				}
-			}
-			else
-			{
-				moveStop();
-			}
-
-		}
-	}
+	
 		/*if (BP.get_sensor(PORT_1, Color1) == 0) {
 			average = averageValues((int)Color1.reflected_red, (int)Color1.reflected_green, (int)Color1.reflected_blue);
 			if (average >=240  && average <= 320) {
