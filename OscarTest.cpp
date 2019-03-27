@@ -32,15 +32,15 @@ void moveFwd(const int & time) {
 
 void moveLeft(const int & time) {
 	
-		BP.set_motor_dps(PORT_B, 80);
-		BP.set_motor_dps(PORT_C, -80);
+		BP.set_motor_dps(PORT_B, 90);
+		BP.set_motor_dps(PORT_C, -90);
 		usleep(time);
 	return;
 }
 
 void moveRight(const int & time) {
-		BP.set_motor_dps(PORT_B, -80);
-		BP.set_motor_dps(PORT_C, 80);
+		BP.set_motor_dps(PORT_B, -90);
+		BP.set_motor_dps(PORT_C, 90);
 		usleep(time);
 	return;
 }
@@ -67,27 +67,21 @@ void findNewPath() {
 				return;
 			}
 			if (Ultrasonic2.cm < 10) {
-				moveLeft(1000000);
+				moveLeft(2000000);
 				counterLeft++;
 				cout << "times left: " << counterLeft << endl;
 			}
 			else if (counterStraight != counterLeft)
 			{
-				moveFwd(2000000);
+				moveFwd(5000000);
 				counterStraight++;
 				cout << "times straight: " << counterStraight << endl;
 			}
 			else if (counterRight != counterLeft * 2) {
-				moveRight(1000000);
+				moveRight(2000000);
 				counterRight++;
 				cout << "times right: " << counterRight << endl;
 				counterStraight = 0;
-
-			}
-			else if (counterStraight != counterLeft) {
-				moveFwd(2000000);
-				counterStraight++;
-				cout << "times straight: " << counterStraight << endl;
 
 			}
 			else {
@@ -115,18 +109,18 @@ void driveByLine() {
 				if (BP.get_sensor(PORT_3, Light3) == 0) {
 					measurement = Light3.reflected;
 					if (measurement >= 1900 && measurement <= 2300) {
-						moveFwd(250000);
+						moveFwd(100000);
 						//rechtdoor
 					}
 					else if (measurement > 1800 && measurement < 1900) {
-						moveLeft(250000);
+						moveLeft(100000);
 						//als ie het wit in gaat
 					}
 					else if (measurement > 2300) {
-						moveRight(250000);
+						moveRight(100000);
 						//als ie het zwart in gaat
 					}
-					usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
+					//usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
 					
 				}
 			}
