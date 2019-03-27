@@ -54,21 +54,16 @@ void moveBack(const int &time) {
 }
 
 void avoidObstacle() {
-	moveBack(2000000);
-	moveLeft(2000000);
-	if (Ultrasonic2.cm < 20) {
-		moveFwd(8000000);
-		moveRight(4000000);
-		moveFwd(6000000);
-		return;
+	while (Ultrasonic2.cm < 30) {
+		moveBack(1000000);
 	}
-	else {
-		moveRight(4000000);
-		moveFwd(5000000);
+	while (Ultrasonic2.cm < 35) {
 		moveLeft(2000000);
-		moveFwd(4000000);
-		return;
 	}
+	moveFwd(6000000);
+	moveRight(5000000);
+	moveFwd(5000000);
+	return;
 
 }
 
