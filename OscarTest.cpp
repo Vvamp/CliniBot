@@ -113,30 +113,34 @@ void driveByLine() {
 	int measurement = 0;
 
 	while (true) {
-		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0 && BP.get_sensor(PORT_3, Light3) == 0) {
 			cout << "searching line..." << endl;
 			if (Ultrasonic2.cm > 10) {
-				if (BP.get_sensor(PORT_3, Light3) == 0) {
-					measurement = Light3.reflected;
-					if (measurement >= 1900 && measurement <= 2300) {
-						moveFwd(100000);
-						//rechtdoor
-					}
-					else if (measurement > 1800 && measurement < 1900) {
-						moveLeft(100000);
-						//als ie het wit in gaat
-					}
-					else if (measurement > 2300) {
-						moveRight(100000);
-						//als ie het zwart in gaat
-					}
-					//usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
+				
+				measurement = Light3.reflected;
+				if (measurement >= 1900 && measurement <= 2300) {
+					moveFwd(100000);
+					//rechtdoor
 				}
+				else if (measurement > 1800 && measurement < 1900) {
+					moveLeft(100000);
+					//als ie het wit in gaat
+				}
+				else if (measurement > 2300) {
+					moveRight(100000);
+					//als ie het zwart in gaat
+				}
+				//usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
+				
 			}
 			else
 			{
 				avoidObstacle();
 			}
+		}
+		else
+		{
+			cout << "Can't find sensors back..." << endl;
 		}
 	}
 	//driveByLine();
