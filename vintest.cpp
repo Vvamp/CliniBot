@@ -83,7 +83,7 @@ bool isCrossing(){
     if (BP.get_sensor(PORT_1, Color1) == 0) {
         measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
         cout << "measurement(" << measurement << ") ";
-        if(measurement >= 10000){
+        if(measurement >=250 && measurement < 400){
             s1 = true;
             cout << "TRUE" << endl;
         }
@@ -94,7 +94,7 @@ bool isCrossing(){
         measurement = Light3.reflected;
         cout << "measurement(" << measurement << ") ";
 
-        if(measurement >=250 && measurement < 400){
+        if(measurement >= 2400){
 
             s2 = true;
             cout << "TRUE" << endl;
