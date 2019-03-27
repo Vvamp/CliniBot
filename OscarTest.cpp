@@ -136,6 +136,7 @@ void driveByLine() {
 			else
 			{
 				avoidObstacle();
+				usleep(1000000);
 			}
 		}
 		else
