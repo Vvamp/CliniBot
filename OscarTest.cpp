@@ -80,7 +80,7 @@ void avoidObstacle() {
 				moveRight(1000000);
 				stepsRight++;
 			}
-			else if (Light3.reflected > 1800 && Light3.reflected < 1900) {
+			else if (BP.get_sensor(PORT_3, Light3) == 0 && Light3.reflected > 1800 && Light3.reflected < 1900) {
 				cout << "moving forward, light intensity: " << Light3.reflected << endl;
 				moveFwd(1000000);
 			}
