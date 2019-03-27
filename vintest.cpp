@@ -16,6 +16,8 @@ using std::endl;
 void exit_signal_handler(int signo); // The exit handler definition. Used to catch 'ctrl+c' to terminate execution
 
 BrickPi3 BP; // Define an instance of BrickPi3, called 'BP'
+sensor_light_t      Light3;
+sensor_color_t      Color1;
 
 // Stop the robot by setting the motor power to '0'
 void moveStop(){
@@ -69,8 +71,6 @@ void turnLeft(){
     BP.set_motor_position_relative(PORT_C, -405);
     //should be 90 degrees
 }
-sensor_light_t      Light3;
-sensor_color_t      Color1;
 
 bool isCrossing(){
     // check if other sensor is black
@@ -80,7 +80,7 @@ bool isCrossing(){
     bool s1 = false;
     bool s2 = false;
     cout << "checking sensor 1: ";
-    if (BP.get_sensor(PORT_2, Color1) == 0) {
+    if (BP.get_sensor(PORT_1, Color1) == 0) {
         measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
         cout << "measurement(" << measurement << ") ";
         if(measurement > 150 && measurement < 240){
@@ -90,7 +90,7 @@ bool isCrossing(){
 
     }
     cout << "checking sensor 2: ";
-    if (BP.get_sensor(PORT_2, Light3) == 0) {
+    if (BP.get_sensor(PORT_3, Light3) == 0) {
         measurement = Light3.reflected;
         cout << "measurement(" << measurement << ") ";
 
@@ -239,9 +239,9 @@ int main()
     cout << "Setting up sensors..." << endl;
     BP.detect(); // Make sure that the BrickPi3 is communicating and that the firmware is compatible with the drivers.
 	BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
-	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
+	//BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
 	BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
-    
+
     cout << "Enter 'move' to control the robot via this terminal, enter 'bt' to control the robot via bluetooth or enter 'crossing' to navigate over a grid." << endl;
     string userChoice;
     cin >> userChoice;
