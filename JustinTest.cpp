@@ -12,7 +12,7 @@ BrickPi3 BP;
 void exit_signal_handler(int signo);
 
 //Function to move robot (left, right)
-void moveBot(const int valueLeft, const int valueRight) {
+void moveBot(const int measurement, const int valueLeft, const int valueRight) {
 	BP.set_motor_power(PORT_C, valueLeft); //Left motor
     BP.set_motor_power(PORT_B, valueRight); // Right motor
     cout << "\033[2J\033[1;1H"; //Clear screen
@@ -21,7 +21,7 @@ void moveBot(const int valueLeft, const int valueRight) {
     cout << " Left: " << valueLeft << "v" << endl;
     cout << " Right: " << valueRight << "v" << endl;
     cout << endl << "- LIGHT DETECTION:" << endl ;
-    cout << " Value: " << Light3.reflected << endl;
+    cout << " Value: " << measurement << endl;
     cout << "-----------------------" << endl;
 
 
@@ -49,13 +49,13 @@ int main() {
 				if (BP.get_sensor(PORT_3, Light3) == 0) {
 					measurement = Light3.reflected;
 					if (measurement >= 1900 && measurement <= 2300) {
-						moveBot(50, 50); //Forward
+						moveBot(measurement, 50, 50); //Forward
 					}
 					if (measurement > 1800 && measurement < 1900) {
-						moveBot(10, 50); //Left
+						moveBot(measurement, 10, 50); //Left
 					}
 					else if (measurement > 2300) {
-						moveBot(50, 10); //Right
+						moveBot(measurement, 50, 10); //Right
 					}
 				}
 			}
