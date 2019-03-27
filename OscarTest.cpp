@@ -63,7 +63,6 @@ void findNewPath() {
 
 	sensor_ultrasonic_t Ultrasonic2;
 	cout << "searching path" << endl;
-	cout << (int)Ultrasonic2.cm << endl;
 
 	int counterStraight = 0;
 	int counterLeft = 0;
@@ -74,23 +73,27 @@ void findNewPath() {
 		if (Ultrasonic2.cm < 10) {
 			moveLeft();
 			counterLeft++;
+			cout << "turning left for search ";
 			usleep(1000000);
 		}
 		else if (counterStraight != counterLeft)
 		{
 			moveFwd();
 			counterStraight++;
+			cout << "driving straight for search";
 			usleep(1000000);
 		}
 		else if (counterRight != counterLeft *2) {
 			moveRight();
 			counterRight++;
+			cout << "driving right for search";
 			counterStraight = 0;
 			usleep(1000000);
 		}
 		else if (counterStraight != counterLeft){
 			moveFwd();
 			counterStraight++;
+			cout << "driving left for search";
 			usleep(1000000);
 		}
 		else {
