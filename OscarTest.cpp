@@ -63,7 +63,7 @@ void driveByLine() {
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 			cout << "searching line..." << endl;
 			if (Ultrasonic2.cm > 10) {
-
+				cout << Ultrasonic2.cm << " " << measurement << endl;
 
 				if (BP.get_sensor(PORT_3, Light3) == 0) {
 					measurement = Light3.reflected;
