@@ -71,6 +71,8 @@ int main() {
 		{
 			cout << "can't find the ultrasonic sensor" << endl;
 		}
+
+        usleep(125000);
 	}	
 	
 }
