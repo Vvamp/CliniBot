@@ -107,13 +107,13 @@ int main() {
 			{
 				moveStop();
 			}
-			
+
 		}
 		else
 		{
 			cout << "can't find the ultrasonic sensor" << endl;
 		}
-		
+	}
 		/*if (BP.get_sensor(PORT_1, Color1) == 0) {
 			average = averageValues((int)Color1.reflected_red, (int)Color1.reflected_green, (int)Color1.reflected_blue);
 			if (average >=240  && average <= 320) {
@@ -135,7 +135,7 @@ int main() {
 			cout << " A:" << setw(4) << Color1.ambient << "]" << endl;*/
 		/*}*/
 		usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
-	}
+	
 	
 }
 
