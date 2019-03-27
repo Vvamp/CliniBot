@@ -85,12 +85,15 @@ int main() {
 			measurement = Light3.reflected;
 			if (measurement >= 1900 && measurement <= 2300) {
 				moveFwd();
+				//rechtdoor
 			}
 			else if (measurement > 1800 && measurement < 1900) {
 				moveLeft();
+				//als ie het wit in gaat
 			}
 			else if (measurement > 2300) {
 				moveRight();
+				//als ie het zwart in gaat
 			}
 				
 		}
@@ -114,7 +117,7 @@ int main() {
 			cout << " G:" << setw(4) << Color1.reflected_green;
 			cout << " B:" << setw(4) << Color1.reflected_blue;
 			cout << " A:" << setw(4) << Color1.ambient << "]" << endl;*/
-		}
+		/*}*/
 		usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
 	}
 	
