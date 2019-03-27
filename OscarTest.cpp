@@ -63,19 +63,19 @@ void avoidObstacle() {
 		moveLeft(2000000);
 		stepOne = 1;
 	}
-	else if (stepTwo == 0){
+	else if (stepTwo == 0 && stepOne == 1){
 		moveFwd(2000000);
 		stepTwo = 1;
 	}
-	else if (stepThree == 0) {
+	else if (stepThree == 0 && stepTwo == 1) {
 		moveRight(2000000);
 		stepThree = 1;
 	}
-	else if (stepFour == 0) {
+	else if (stepFour == 0 && stepThree == 1) {
 		moveFwd(4000000);
 		stepFour = 1;
 	}
-	else if (stepFive == 0) {
+	else if (stepFive == 0 && stepFour == 1) {
 		moveRight(2000000);
 		stepFive = 1;
 	}
