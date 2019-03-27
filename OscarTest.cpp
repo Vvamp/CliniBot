@@ -130,10 +130,7 @@ int main() {
 			else if (average > 320 && average < 600){
 				moveRight(lastDirection,numbersRight);
 			}
-			else
-			{
-				searchLine(lastDirection);
-			}
+			
 			
 			cout << "Average = " << average << endl;
 			/*cout << "Color sensor (S1): detected  " << (int)Color1.color;
