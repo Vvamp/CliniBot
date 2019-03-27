@@ -69,12 +69,12 @@ void turnLeft(){
     BP.set_motor_position_relative(PORT_C, -405);
     //should be 90 degrees
 }
+sensor_light_t      Light3;
+sensor_color_t      Color1;
 
 bool isCrossing(){
     // check if other sensor is black
-    sensor_color_t      Color1;
     //sensor_ultrasonic_t Ultrasonic2;
-	sensor_light_t      Light3;
 
     int measurement = 0;
     bool s1 = false;
@@ -236,6 +236,12 @@ void debug(){
 // Main execution
 int main()
 {
+    cout << "Setting up sensors..." << endl;
+    BP.detect(); // Make sure that the BrickPi3 is communicating and that the firmware is compatible with the drivers.
+	BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
+	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
+	BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
+    
     cout << "Enter 'move' to control the robot via this terminal, enter 'bt' to control the robot via bluetooth or enter 'crossing' to navigate over a grid." << endl;
     string userChoice;
     cin >> userChoice;
