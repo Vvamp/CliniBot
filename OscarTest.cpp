@@ -52,29 +52,6 @@ void moveBack() {
 	return;
 }
 
-int FindStepsLeft(int stepsLeft) {
-	if (Ultrasonic2.cm < 10) {
-		moveLeft(2000000);
-		return 1 + FindStepsLeft(stepsLeft + 1);
-	}
-	else {
-		return 0;
-	}
-}
-
-void findNewPath() {
-
-	cout << "searching path" << endl;
-
-	int counterStraight = 0;
-	int counterLeft = 0;
-	int counterRight = 0;
-	//links zoeken
-	counterLeft = FindStepsLeft(0);
-	cout << "steps Left done:" << counterLeft << endl;
-			
-	return;
-	}
 
 void driveByLine() {
 
@@ -108,8 +85,7 @@ void driveByLine() {
 			}
 			else
 			{
-				findNewPath();
-				break;
+				moveStop();
 			}
 		}
 	}
