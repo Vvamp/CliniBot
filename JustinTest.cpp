@@ -47,7 +47,7 @@ int main() {
 				if (BP.get_sensor(PORT_3, Light3) == 0) {
 					measurement = Light3.reflected;
 					if (measurement >= 1900 && measurement <= 2300) {
-						moveBot('F', 180, 180);
+						moveBot('F', 360, 360);
 
 					}
 					else if (measurement > 1800 && measurement < 1900) {
@@ -65,7 +65,7 @@ int main() {
 				moveBot('S', 0, 0);
 			}
 
-            usleep(125000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
+            usleep(50000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
 
 		}
 		else
