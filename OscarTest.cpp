@@ -89,7 +89,7 @@ void avoidObstacle() {
 				}
 				else {
 					moveFwd(500000);
-					moveRight(1000000);
+					moveRight(500000);
 					stepFour = 1;
 				}
 
