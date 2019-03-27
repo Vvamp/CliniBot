@@ -5,11 +5,8 @@
 #include <curses.h>      // Library to be able to rea
 #include "BrickPi3.h"    // BrickPi3 Header file - used to control the ROBO-MAN
 #include <string>        // String variables
-<<<<<<< HEAD
-#include "BluetoothSocket.h" // Bluetooth
-=======
-#include "bluetoothSocket.h" //Bluetooth
->>>>>>> f80fc79a02880cb1a15ab2f56fa829560ba01fe5
+#include "BluetoothSocket.h" //Bluetooth
+
 // Using statements
 using std::string;
 using std::cin;
