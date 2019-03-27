@@ -61,7 +61,7 @@ int main() {
 			}
 			else
 			{
-				moveBot(0, 0);
+				moveBot(measurement, 0, 0);
 			}
 
             usleep(50000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
