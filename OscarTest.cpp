@@ -86,9 +86,14 @@ void avoidObstacle() {
 			stepFive = 1;
 			usleep(1500000);
 		}
-		else if (stepSix == 0 && stepFive == 1) {
-			moveFwd(3500000);
-			stepSix = 1;
+		else if (stepSix == 0 && stepFive == 1 && BP.get_sensor(PORT_3, Light3) == 0) {
+			if (Light3.reflected < 2300) {
+				moveFwd(500000);
+			}
+			else {
+				stepSix = 1;
+			}
+			
 		}
 		else if (stepSix == 1) {
 			moveStop();
