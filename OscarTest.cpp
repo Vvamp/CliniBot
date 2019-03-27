@@ -60,24 +60,30 @@ void avoidObstacle() {
 	int stepFive = 0;
 	while (true) {
 		if (stepOne == 0) {
-			moveLeft(2000000);
+			BP.set_motor_position_relative(PORT_B, 90);
+			BP.set_motor_position_relative(PORT_C, -90);
 			stepOne = 1;
+			usleep(2000000);
 		}
 		else if (stepTwo == 0 && stepOne == 1) {
-			moveFwd(2000000);
+			moveFwd(4000000);
 			stepTwo = 1;
 		}
 		else if (stepThree == 0 && stepTwo == 1) {
-			moveRight(2000000);
+			BP.set_motor_position_relative(PORT_B, -90);
+			BP.set_motor_position_relative(PORT_C, 90);
 			stepThree = 1;
+			usleep(2000000);
 		}
 		else if (stepFour == 0 && stepThree == 1) {
 			moveFwd(4000000);
 			stepFour = 1;
 		}
 		else if (stepFive == 0 && stepFour == 1) {
-			moveRight(2000000);
+			BP.set_motor_position_relative(PORT_B, -90);
+			BP.set_motor_position_relative(PORT_C, 90);
 			stepFive = 1;
+			usleep(2000000);
 		}
 	}	
 	return;
