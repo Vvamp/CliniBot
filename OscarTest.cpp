@@ -22,27 +22,26 @@ void moveStop() {
 	return;
 }
 
-void moveFwd() {
+void moveFwd(const int & time) {
 	BP.set_motor_dps(PORT_B, 180);
 	BP.set_motor_dps(PORT_C, 180);
+	usleep(time);
 	// Draai de motor op port B en C 360 graden
 	return;
 }
 
-void moveLeft() {
+void moveLeft(const int & time) {
 	
 		BP.set_motor_dps(PORT_B, 80);
 		BP.set_motor_dps(PORT_C, -80);
-		/*BP.set_motor_position_relative(PORT_B, 45);
-		BP.set_motor_position_relative(PORT_C, -45);*/
+		usleep(time);
 	return;
 }
 
-void moveRight() {
+void moveRight(const int & time) {
 		BP.set_motor_dps(PORT_B, -80);
 		BP.set_motor_dps(PORT_C, 80);
-		/*BP.set_motor_position_relative(PORT_B, -45);
-		BP.set_motor_position_relative(PORT_C, 45);*/
+		usleep(time);
 	return;
 }
 
@@ -68,30 +67,28 @@ void findNewPath() {
 				return;
 			}
 			if (Ultrasonic2.cm < 10) {
-				moveLeft();
+				moveLeft(1000000);
 				counterLeft++;
 				cout << "times left: " << counterLeft << endl;
-				usleep(1000000);
 			}
 			else if (counterStraight != counterLeft)
 			{
-				moveFwd();
+				moveFwd(1000000);
 				counterStraight++;
 				cout << "times straight: " << counterStraight << endl;
-				usleep(1000000);
 			}
 			else if (counterRight != counterLeft * 2) {
-				moveRight();
+				moveRight(1000000);
 				counterRight++;
 				cout << "times right: " << counterRight << endl;
 				counterStraight = 0;
-				usleep(1000000);
+
 			}
 			else if (counterStraight != counterLeft) {
-				moveFwd();
+				moveFwd(1000000);
 				counterStraight++;
 				cout << "times straight: " << counterStraight << endl;
-				usleep(1000000);
+
 			}
 			else {
 				break;
@@ -118,15 +115,15 @@ void driveByLine() {
 				if (BP.get_sensor(PORT_3, Light3) == 0) {
 					measurement = Light3.reflected;
 					if (measurement >= 1900 && measurement <= 2300) {
-						moveFwd();
+						moveFwd(250000);
 						//rechtdoor
 					}
 					else if (measurement > 1800 && measurement < 1900) {
-						moveLeft();
+						moveLeft(250000);
 						//als ie het wit in gaat
 					}
 					else if (measurement > 2300) {
-						moveRight();
+						moveRight(250000);
 						//als ie het zwart in gaat
 					}
 					usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
