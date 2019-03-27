@@ -5,11 +5,7 @@
 #include <curses.h>      // Library to be able to rea
 #include "BrickPi3.h"    // BrickPi3 Header file - used to control the ROBO-MAN
 #include <string>        // String variables
-<<<<<<< HEAD
-#include "BluetoothSocket.h" // Bluetooth
-=======
 #include "bluetoothSocket.h" //Bluetooth
->>>>>>> f80fc79a02880cb1a15ab2f56fa829560ba01fe5
 // Using statements
 using std::string;
 using std::cin;
@@ -110,7 +106,8 @@ void controlBluetooth(){
             cout << input << endl;
 			if(input != ""){
                 // input
-                if(input == "UP"){
+                1.find(s2) != std::string::npos
+                if(input.find("UP") != npos){
                     moveFwd();
                 }else if(input == "LEFT"){
                     moveLeft();
