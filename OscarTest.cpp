@@ -10,6 +10,9 @@ BrickPi3 BP;
 
 void exit_signal_handler(int signo);
 
+sensor_color_t      Color1;
+sensor_ultrasonic_t Ultrasonic2;
+sensor_light_t      Light3;
 
 
 void moveStop() {
@@ -51,10 +54,10 @@ void moveBack() {
 }
 
 void findNewPath() {
-	BP.detect();
-	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
-	sensor_ultrasonic_t Ultrasonic2;
-	usleep(2000000);
+	//BP.detect();
+	//BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
+	//sensor_ultrasonic_t Ultrasonic2;
+	//usleep(2000000);
 	cout << "searching path" << endl;
 
 	int counterStraight = 0;
@@ -107,14 +110,14 @@ void driveByLine() {
 
 	signal(SIGINT, exit_signal_handler); // register the exit function for Ctrl+C
 
-	BP.detect(); // Make sure that the BrickPi3 is communicating and that the firmware is compatible with the drivers.
+	/*BP.detect(); // Make sure that the BrickPi3 is communicating and that the firmware is compatible with the drivers.
 	BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
 	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
 	BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
-
-	sensor_color_t      Color1;
-	sensor_ultrasonic_t Ultrasonic2;
-	sensor_light_t      Light3;
+	*/
+	//sensor_color_t      Color1;
+	//sensor_ultrasonic_t Ultrasonic2;
+	//sensor_light_t      Light3;
 
 	int measurement = 0;
 
@@ -167,9 +170,9 @@ int main() {
 	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
 	BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
 
-	sensor_color_t      Color1;
-	sensor_ultrasonic_t Ultrasonic2;
-	sensor_light_t      Light3;
+	//sensor_color_t      Color1;
+	//sensor_ultrasonic_t Ultrasonic2;
+	//sensor_light_t      Light3;
 
 	driveByLine();
 
