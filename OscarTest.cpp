@@ -70,17 +70,17 @@ void avoidObstacle() {
 				moveLeft(1000000);
 				stepsLeft++;
 			}
-			else if (stepsFwd <= stepsBack + 5){
+			else if (stepsFwd <= stepsBack + 4){
 				cout << "moving forward, distance: " << Ultrasonic2.cm << " cm" << endl;
 				moveFwd(1000000);
 				stepsFwd++;
 			}
-			else if (stepsRight <= stepsLeft * 2){
+			else if (stepsRight <= 5){
 				cout << "moving right, distance: " << Ultrasonic2.cm << " cm" << endl;
 				moveRight(1000000);
 				stepsRight++;
 			}
-			else if (Light3.reflected > 1800 && Light3.reflected < 1900) {
+			else if (Light3.reflected > 1700 && Light3.reflected < 2000) {
 				cout << "moving forward, light intensity: " << Light3.reflected << endl;
 				moveFwd(1000000);
 			}
