@@ -7,13 +7,11 @@
 using namespace std;
 
 BrickPi3 BP;
-
-void exit_signal_handler(int signo);
-
 sensor_color_t      Color1;
 sensor_ultrasonic_t Ultrasonic2;
 sensor_light_t      Light3;
 
+void exit_signal_handler(int signo);
 
 void moveStop() {
 	BP.set_motor_power(PORT_B, 0);
@@ -54,17 +52,19 @@ void moveBack(const int &time) {
 }
 
 void avoidObstacle() {
-	while (Ultrasonic2.cm < 30) {
-		cout << "moving back, distance is: " << Ultrasonic2.cm << "cm." << endl;
-		moveBack(1000000);
+	if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+		while (Ultrasonic2.cm < 30) {
+			cout << "moving back, distance is: " << Ultrasonic2.cm << "cm." << endl;
+			moveBack(1000000);
+		}
+		while (Ultrasonic2.cm < 35) {
+			moveLeft(2000000);
+		}
+		moveFwd(6000000);
+		moveRight(5000000);
+		moveFwd(5000000);
+		return;
 	}
-	while (Ultrasonic2.cm < 35) {
-		moveLeft(2000000);
-	}
-	moveFwd(6000000);
-	moveRight(5000000);
-	moveFwd(5000000);
-	return;
 }
 
 
