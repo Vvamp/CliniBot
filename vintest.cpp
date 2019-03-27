@@ -72,10 +72,34 @@ void showControls(){
     cin >> cinput;
 
 }
+void controlBluetooth(){
+    BluetoothServerSocket serversock(2, 1);  //2 is het channel-number
+	cout << "Waiting for a bluetooth device..." << endl;
+	while(true) {
+		BluetoothSocket* clientsock = serversock.accept();
+		cout << "Connected with [" << clientsock->getForeignAddress().getAddress() << "]" << endl;
+		MessageBox& mb = clientsock->getMessageBox();
 
-// Main execution
-int main()
-{
+		string input;
+		while(mb.isRunning()) {
+			input = mb.readMessage();  //blokkeert niet
+			if(input != ""){
+                // input
+                 cout << endl << input << endl;
+            }else{
+                // no input
+            }
+			//doe andere dingen.
+			cout.flush();
+			usleep(100000); // wacht 500 ms
+		}
+
+		clientsock->close();
+
+	}
+}
+
+void controlTerminal(){
     // Show movement controls
     showControls();
 
@@ -105,7 +129,20 @@ int main()
             moveStop();
         }
      }
+}
 
+
+// Main execution
+int main()
+{
+    cout << "Enter 'move' to control the robot via this terminal, enter 'bt' to control the robot via bluetooth" << endl;
+    string userChoice;
+    cin >> userChoice;
+    if(userChoice == "bt"){
+        controlBluetooth();
+    }else{
+        controlTerminal();
+    }
 
     cout << "Program Terminated." << endl;
     return 0;
