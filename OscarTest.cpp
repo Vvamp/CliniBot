@@ -73,10 +73,14 @@ int main() {
 	BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
 
 	sensor_color_t      Color1;
+	sensor_light_t      Light3;
 
 	int average = 0;
 
 	while (true) {
+		if (BP.get_sensor(PORT_3, Light3) == 0) {
+			cout << "Light sensor (S3): reflected " << setw(4) << Light3.reflected << endl;
+		}
 		
 		if (BP.get_sensor(PORT_1, Color1) == 0) {
 			average = averageValues((int)Color1.reflected_red, (int)Color1.reflected_green, (int)Color1.reflected_blue);
