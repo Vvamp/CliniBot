@@ -63,20 +63,42 @@ void findNewPath() {
 
 	sensor_ultrasonic_t Ultrasonic2;
 	cout << "searching path" << endl;
-	cout << Ultrasonic2.cm << endl;
+	cout << (int)Ultrasonic2.cm << endl;
 
 	int counterStraight = 0;
 	int counterLeft = 0;
 	int counterRight = 0;
 	//links zoeken
-	while (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+	while (true) {
 
 		if (Ultrasonic2.cm < 10) {
 			moveLeft();
 			counterLeft++;
 			usleep(1000000);
 		}
+		else if (counterStraight != counterLeft)
+		{
+			moveFwd();
+			counterStraight++;
+			usleep(1000000);
+		}
+		else if (counterRight != counterLeft *2) {
+			moveRight();
+			counterRight++;
+			counterStraight = 0;
+			usleep(1000000);
+		}
+		else if (counterStraight != counterLeft){
+			moveFwd();
+			counterStraight++;
+			usleep(1000000);
+		}
+		else {
+			break;
+		}
 	}
+	return;
+	
 }
 
 void driveByLine() {
