@@ -11,18 +11,14 @@ BrickPi3 BP;
 
 void exit_signal_handler(int signo);
 
-int calcSpeed(){
-
-}
-
 //Function to move robot (left, right)
 void moveBot(const int valueLeft, const int valueRight) {
 	BP.set_motor_power(PORT_C, valueLeft); //Left motor
     BP.set_motor_power(PORT_B, valueRight); // Right motor
     cout << "\033[2J\033[1;1H"; //Clear screen
-    cout << "Clinibot travel values --" << endl;
-    cout << "Left: " << valueLeft << endl;
-    cout << "Right: " << valueRight << endl;
+    cout << "CLINIBOT PATH VALUES --" << endl << endl;
+    cout << " Left: " << valueLeft << "v" << endl;
+    cout << " Right: " << valueRight << "v" << endl;
 }
 
 int main() {
@@ -47,13 +43,13 @@ int main() {
 				if (BP.get_sensor(PORT_3, Light3) == 0) {
 					measurement = Light3.reflected;
 					if (measurement >= 1900 && measurement <= 2300) {
-						moveBot(50, 50); //Forward
+						moveBot(80, 80); //Forward
 					}
 					if (measurement > 1800 && measurement < 1900) {
-						moveBot(10, 50); //Left
+						moveBot(20, 80); //Left
 					}
 					else if (measurement > 2300) {
-						moveBot(50, 10); //Right
+						moveBot(80, 20); //Right
 					}
 				}
 			}
