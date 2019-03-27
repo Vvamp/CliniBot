@@ -58,35 +58,25 @@ void avoidObstacle() {
 	int stepThree = 0;
 	int stepFour = 0;
 	int stepFive = 0;
-	if (stepOne = 0) {
-		BP.set_motor_position_relative(PORT_B, 90);
-		BP.set_motor_position_relative(PORT_B, -90);
+	if (stepOne == 0) {
+		moveLeft(2000000);
 		stepOne = 1;
-		usleep(2000000);
 	}
-	else if (stepTwo = 0){
-		BP.set_motor_position_relative(PORT_B, 360);
-		BP.set_motor_position_relative(PORT_B, 360);
+	else if (stepTwo == 0){
+		moveFwd(2000000);
 		stepTwo = 1;
-		usleep(2000000);
 	}
-	else if (stepThree = 0) {
-		BP.set_motor_position_relative(PORT_B, -90);
-		BP.set_motor_position_relative(PORT_B, 90);
+	else if (stepThree == 0) {
+		moveRight(2000000);
 		stepThree = 1;
-		usleep(2000000);
 	}
 	else if (stepFour == 0) {
-		BP.set_motor_position_relative(PORT_B, 360);
-		BP.set_motor_position_relative(PORT_B, 360);
+		moveFwd(4000000);
 		stepFour = 1;
-		usleep(2000000);
 	}
 	else if (stepFive == 0) {
-		BP.set_motor_position_relative(PORT_B, -90);
-		BP.set_motor_position_relative(PORT_B, 90);
+		moveRight(2000000);
 		stepFive = 1;
-		usleep(2000000);
 	}
 			
 	return;
