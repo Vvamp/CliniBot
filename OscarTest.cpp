@@ -16,8 +16,6 @@ void moveStop() {
 	BP.set_motor_power(PORT_B, 0);
 	BP.set_motor_power(PORT_C, 0);
 	// Zet stroom van poort B en C op 0, waardoor de robot stopt.
-
-	cout << " Stopped - ";
 	return;
 }
 
@@ -25,7 +23,6 @@ void moveFwd() {
 	BP.set_motor_dps(PORT_B, 180);
 	BP.set_motor_dps(PORT_C, 180);
 	// Draai de motor op port B en C 360 graden
-	cout << " Forward - ";
 	return;
 }
 
@@ -35,8 +32,6 @@ void moveLeft() {
 		BP.set_motor_dps(PORT_C, -80);
 		/*BP.set_motor_position_relative(PORT_B, 45);
 		BP.set_motor_position_relative(PORT_C, -45);*/
-
-	cout << " Left - ";
 	return;
 }
 
@@ -45,8 +40,6 @@ void moveRight() {
 		BP.set_motor_dps(PORT_C, 80);
 		/*BP.set_motor_position_relative(PORT_B, -45);
 		BP.set_motor_position_relative(PORT_C, 45);*/
-
-	cout << " Right - ";
 	return;
 }
 
@@ -54,8 +47,6 @@ void moveBack() {
 	BP.set_motor_dps(PORT_B, -360);
 	BP.set_motor_dps(PORT_C, -360);
 	// Draai de motor op port B en C -360 graden
-
-	cout << " Back - ";
 	return;
 }
 
