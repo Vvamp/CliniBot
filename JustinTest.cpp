@@ -20,12 +20,12 @@ void moveBot(const int measurement, const int valueLeft, const int valueRight) {
     cout << "CLINIBOT ============" << endl;
 
     cout << endl << "-INFORMATION:" << endl;
-    cout << " Battery voltage:" << BP.get_voltage_battery() << endl;
-    cout << " 9v voltage:" << BP.get_voltage_9v() << endl;
-    cout << " 5v voltage:" << BP.get_voltage_5v() << endl;
-    cout << " 3.3v voltage:" << BP.get_voltage_3v3() << endl;
+    cout << " Battery voltage: " << BP.get_voltage_battery() << endl;
+    cout << " 9v voltage: " << BP.get_voltage_9v() << endl;
+    cout << " 5v voltage: " << BP.get_voltage_5v() << endl;
+    cout << " 3.3v voltage: " << BP.get_voltage_3v3() << endl;
 
-    cout << endl << "-MOTOR VALUES:" << endl;
+    cout << endl << "-MOTOR VALUES: " << endl;
     cout << " Left: " << valueLeft << "v" << endl;
     cout << " Right: " << valueRight << "v" << endl;
 
@@ -34,6 +34,57 @@ void moveBot(const int measurement, const int valueLeft, const int valueRight) {
 
     cout << endl << "=====================" << endl;
 
+}
+
+void askDirection(){
+    sting direction;
+    cout << endl << "Which direction do you want to go?" << endl;
+    cout >> "-GO DIRECTION: ";
+    cin >> direction;
+
+    while(true){
+        if(direction == "L" || direction == "left"){
+            moveBot(measurement, 10, 50);
+            break
+        } else if(direction == "L" || direction == "left"){
+            moveBot(measurement, 50, 10);
+            break
+        } else {
+            cout << endl << "-INVALID DIRECION, TRY AGAIN!" << endl;
+        }
+    }
+    
+}
+
+// check if other sensor is black
+bool isCrossing(){
+
+    //sensor_ultrasonic_t Ultrasonic2;
+
+    int measurement = 0;
+    bool s1 = false;
+    bool s2 = false;
+
+    if (BP.get_sensor(PORT_1, Color1) == 0) {
+        measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
+        if(measurement >=250 && measurement < 400){
+            s1 = true;
+        }
+    }
+
+
+    if (BP.get_sensor(PORT_3, Light3) == 0) {
+        measurement = Light3.reflected;
+        if(measurement >= 2400){
+            s2 = true;
+        }
+    }
+
+    if(s1 && s2){
+        return true;
+    }else{
+        return false;
+    }
 }
 
 int main() {
@@ -55,18 +106,23 @@ int main() {
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 			if (Ultrasonic2.cm > 10) {
 
-				if (BP.get_sensor(PORT_3, Light3) == 0) {
-					measurement = Light3.reflected;
-					if (measurement >= 1900 && measurement <= 2300) {
-						moveBot(measurement, 50, 50); //Forward
-					}
-					if (measurement > 1800 && measurement < 1900) {
-						moveBot(measurement, 10, 50); //Left
-					}
-					else if (measurement > 2300) {
-						moveBot(measurement, 50, 10); //Right
-					}
-				}
+                if(!isCrossing()){
+
+                    if (BP.get_sensor(PORT_3, Light3) == 0) {
+                        measurement = Light3.reflected;
+                        if (measurement >= 1900 && measurement <= 2300) {
+                            moveBot(measurement, 50, 50); //Forward
+                        }
+                        if (measurement > 1800 && measurement < 1900) {
+                            moveBot(measurement, 10, 50); //Left
+                        }
+                        else if (measurement > 2300) {
+                            moveBot(measurement, 50, 10); //Right
+                        }
+                    }
+                } else {
+                    askDirection();
+                }
 			}
 			else
 			{
