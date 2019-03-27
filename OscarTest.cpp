@@ -85,7 +85,7 @@ int main() {
 		
 		if (BP.get_sensor(PORT_1, Color1) == 0) {
 			average = averageValues((int)Color1.reflected_red, (int)Color1.reflected_green, (int)Color1.reflected_blue);
-			if (average >=240  && average <= 320) {
+			/*if (average >=240  && average <= 320) {
 				moveFwd();
 			}
 			else if (average > 150 && average < 240){
@@ -93,7 +93,7 @@ int main() {
 			}
 			else if (average > 320 && average < 600){
 				moveRight();
-			}
+			}*/
 			
 			
 			cout << "Average = " << average << endl;
