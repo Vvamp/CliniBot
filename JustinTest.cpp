@@ -11,16 +11,17 @@ BrickPi3 BP;
 
 void exit_signal_handler(int signo);
 
-//Function to move robot
-void moveBot(char cmd, const int valueLeft, const int valueRight) {
-	BP.set_motor_dps(PORT_C, valueLeft);
-    BP.set_motor_dps(PORT_B, valueRight);
-	cout << cmd << " [L: " << valueLeft << "] [R: " << valueRight << "]" << endl;
+int calcSpeed(){
+
 }
 
-int averageValues(const int red, const int green, const int blue) {
-	int average = (red + green + blue) / 3;
-	return average;
+//Function to move robot (left, right)
+void moveBot(const int valueLeft, const int valueRight) {
+	BP.set_motor_dps(PORT_C, valueLeft); //Left motor
+    BP.set_motor_dps(PORT_B, valueRight); // Right motor
+    cout < "Clinibot travel values --" << endl;
+    cout << "Left: " << valueLeft << endl;
+    cout << "Right: " << valueRight << endl;
 }
 
 int main() {
@@ -28,11 +29,9 @@ int main() {
 	signal(SIGINT, exit_signal_handler); // register the exit function for Ctrl+C
 
 	BP.detect(); // Make sure that the BrickPi3 is communicating and that the firmware is compatible with the drivers.
-	BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
 	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
 	BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
 
-	sensor_color_t      Color1;
 	sensor_ultrasonic_t Ultrasonic2;
 	sensor_light_t      Light3;
 
@@ -47,22 +46,19 @@ int main() {
 				if (BP.get_sensor(PORT_3, Light3) == 0) {
 					measurement = Light3.reflected;
 					if (measurement >= 1900 && measurement <= 2300) {
-						moveBot('F', 360, 360);
-
+						moveBot(180, 180); //Forward
 					}
-					else if (measurement > 1800 && measurement < 1900) {
-						moveBot('L', -80, 80);
-
+					if (measurement > 1800 && measurement < 1900) {
+						moveBot(-180, 180); //Left
 					}
 					else if (measurement > 2300) {
-						moveBot('R', 80, -80);
-
+						moveBot(180, -180); //Right
 					}
 				}
 			}
 			else
 			{
-				moveBot('S', 0, 0);
+				moveBot(0, 0);
 			}
 
             usleep(50000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
