@@ -100,7 +100,7 @@ void findNewPath() {
 			break;
 		}
 	}
-	return;
+	driveByLine();
 	
 }
 
@@ -146,6 +146,7 @@ void driveByLine() {
 			else
 			{
 				findNewPath();
+				break;
 			}
 		}
 	}
