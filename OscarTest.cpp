@@ -52,6 +52,7 @@ void moveBack() {
 
 void findNewPath() {
 	
+	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
 	sensor_ultrasonic_t Ultrasonic2;
 	cout << "searching path" << endl;
 
@@ -59,10 +60,12 @@ void findNewPath() {
 	int counterLeft = 0;
 	int counterRight = 0;
 	//links zoeken
-	if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 
 		while (true) {
-
+			if (BP.get_sensor(PORT_2, Ultrasonic2) != 0) {
+				cout << "error" << endl;
+				return;
+			}
 			if (Ultrasonic2.cm < 10) {
 				moveLeft();
 				counterLeft++;
@@ -92,7 +95,7 @@ void findNewPath() {
 			else {
 				break;
 			}
-		}
+		
 	}
 	
 	return;
