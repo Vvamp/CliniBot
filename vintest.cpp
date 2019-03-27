@@ -94,7 +94,7 @@ bool isCrossing(){
 
     }
     if(s1 && s2){
-        return true
+        return true;
     }else{
         return false;
     }
