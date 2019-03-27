@@ -85,12 +85,15 @@ int main() {
 			measurement = Light3.reflected;
 			if (measurement >= 1900 && measurement <= 2300) {
 				moveFwd();
+				//rechtdoor
 			}
 			else if (measurement > 1800 && measurement < 1900) {
 				moveLeft();
+				//als ie het wit in gaat
 			}
 			else if (measurement > 2300) {
 				moveRight();
+				//als ie het zwart in gaat
 			}
 				
 		}
