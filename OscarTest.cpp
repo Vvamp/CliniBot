@@ -100,7 +100,7 @@ int main() {
 						moveRight();
 						//als ie het zwart in gaat
 					}
-
+					usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
 				}
 			}
 			else
@@ -134,7 +134,7 @@ int main() {
 			cout << " B:" << setw(4) << Color1.reflected_blue;
 			cout << " A:" << setw(4) << Color1.ambient << "]" << endl;*/
 		/*}*/
-		usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
+		
 	
 	
 }
