@@ -14,7 +14,7 @@ void findNewPath() {
 	
 	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
 	sensor_ultrasonic_t Ultrasonic2;
-
+	cout << "searching path" << endl;
 	//links zoeken
 	BP.set_motor_position_relative(PORT_B, 60);
 	BP.set_motor_position_relative(PORT_C, -60);
@@ -84,15 +84,8 @@ void moveBack() {
 
 }
 
+void driveByLine() {
 
-
-int averageValues(const int red, const int green, const int blue) {
-	int average = (red + green + blue) / 3;
-	return average;
-}
-
-int main() {
-	
 	signal(SIGINT, exit_signal_handler); // register the exit function for Ctrl+C
 
 	BP.detect(); // Make sure that the BrickPi3 is communicating and that the firmware is compatible with the drivers.
@@ -104,7 +97,6 @@ int main() {
 	sensor_ultrasonic_t Ultrasonic2;
 	sensor_light_t      Light3;
 
-	int average = 0;
 	int measurement = 0;
 
 	while (true) {
@@ -137,6 +129,33 @@ int main() {
 
 		}
 	}
+
+}
+
+int averageValues(const int red, const int green, const int blue) {
+	int average = (red + green + blue) / 3;
+	return average;
+}
+
+int main() {
+	
+	signal(SIGINT, exit_signal_handler); // register the exit function for Ctrl+C
+
+	BP.detect(); // Make sure that the BrickPi3 is communicating and that the firmware is compatible with the drivers.
+	BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
+	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
+	BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
+
+	sensor_color_t      Color1;
+	sensor_ultrasonic_t Ultrasonic2;
+	sensor_light_t      Light3;
+
+	driveByLine();
+
+	/*int average = 0;*/
+	
+
+	
 		/*if (BP.get_sensor(PORT_1, Color1) == 0) {
 			average = averageValues((int)Color1.reflected_red, (int)Color1.reflected_green, (int)Color1.reflected_blue);
 			if (average >=240  && average <= 320) {
