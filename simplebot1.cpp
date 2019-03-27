@@ -42,14 +42,14 @@ void fwd(void)
 //Move Left
 void left(void)
 {
-	 BP.set_motor_position_relative(PORT_B, 270);
-	 BP.set_motor_position_relative(PORT_C, -270);
+	 BP.set_motor_power(PORT_B, 20);
+	 BP.set_motor_power(PORT_C, 50);
 }
 //Move Right
 void right(void)
 {
-	 BP.set_motor_position_relative(PORT_B, -270);
-	 BP.set_motor_position_relative(PORT_C, 270);
+	 BP.set_motor_power(PORT_B, 50);
+	 BP.set_motor_power(PORT_C, 20);
 }
 //Move backward
 void back(void)
