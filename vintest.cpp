@@ -65,8 +65,8 @@ void moveBack() {
 
 }
 void turnLeft(){
-    BP.set_motor_position_relative(PORT_B, 360);
-    BP.set_motor_position_relative(PORT_C, -360);
+    BP.set_motor_position_relative(PORT_B, 405);
+    BP.set_motor_position_relative(PORT_C, -405);
     //should be 90 degrees
 }
 
