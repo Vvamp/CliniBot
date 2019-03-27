@@ -70,27 +70,27 @@ void findNewPath() {
 			if (Ultrasonic2.cm < 10) {
 				moveLeft();
 				counterLeft++;
-				cout << "turning left for search ";
+				cout << "times left: " << counterLeft << endl;
 				usleep(1000000);
 			}
 			else if (counterStraight != counterLeft)
 			{
 				moveFwd();
 				counterStraight++;
-				cout << "driving straight for search";
+				cout << "times straight: " << counterStraight << endl;
 				usleep(1000000);
 			}
 			else if (counterRight != counterLeft * 2) {
 				moveRight();
 				counterRight++;
-				cout << "driving right for search";
+				cout << "times right: " << counterRight << endl;
 				counterStraight = 0;
 				usleep(1000000);
 			}
 			else if (counterStraight != counterLeft) {
 				moveFwd();
 				counterStraight++;
-				cout << "driving left for search";
+				cout << "times straight: " << counterStraight << endl;
 				usleep(1000000);
 			}
 			else {
