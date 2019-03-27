@@ -52,6 +52,23 @@ void moveBack() {
 	return;
 }
 
+int findFreePathLeft(int leftCounter, int rightCounter) {
+	
+	if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+		cout << "searching free path..." << endl;
+		if (Ultrasonic2.cm < 10) {
+			moveLeft(1000000);
+			leftCounter++;
+			return findFreePathLeft(leftCounter,0);
+		}
+		for (int i = 0; i < leftCounter; i++) {
+			moveRight(1000000);
+			rightCounter++;
+		}
+		return leftCounter, rightCounter;
+	}
+}
+
 void findNewPath() {
 
 	cout << "searching path" << endl;
@@ -60,38 +77,12 @@ void findNewPath() {
 	int counterLeft = 0;
 	int counterRight = 0;
 	//links zoeken
-		while (true) {
-			if (BP.get_sensor(PORT_2, Ultrasonic2) != 0) {
-				cout << "error code: " << BP.get_sensor(PORT_2, Ultrasonic2) << " ";
-				cout << "error" << endl;
-				return;
-			}
-			if (Ultrasonic2.cm < 10) {
-				moveLeft(2000000);
-				counterLeft++;
-				cout << "times left: " << counterLeft << endl;
-			}
-			else if (counterStraight != counterLeft)
-			{
-				moveFwd(5000000);
-				counterStraight++;
-				cout << "times straight: " << counterStraight << endl;
-			}
-			else if (counterRight != counterLeft * 2) {
-				moveRight(2000000);
-				counterRight++;
-				cout << "times right: " << counterRight << endl;
-				counterStraight = 0;
-
-			}
-			else {
-				break;
-			}
-		
+	if (BP.get_sensor(PORT_2, Ultrasonic2) != 0) {
+		cout << "error code: " << BP.get_sensor(PORT_2, Ultrasonic2) << " ";
+		cout << "error" << endl;
+		counterLeft, counterRight = findFreePathLeft(0, 0);
+		return;
 	}
-	
-	return;
-	
 }
 
 void driveByLine() {
