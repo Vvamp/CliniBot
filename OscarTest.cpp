@@ -115,9 +115,10 @@ void driveByLine() {
 	while (true) {
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0 && BP.get_sensor(PORT_3, Light3) == 0) {
 			cout << "searching line..." << endl;
+			measurement = Light3.reflected;
+
 			if (Ultrasonic2.cm > 10) {
 				
-				measurement = Light3.reflected;
 				if (measurement >= 1900 && measurement <= 2300) {
 					moveFwd(100000);
 					//rechtdoor
