@@ -54,10 +54,7 @@ void moveBack() {
 }
 
 void findNewPath() {
-	//BP.detect();
-	//BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
-	//sensor_ultrasonic_t Ultrasonic2;
-	//usleep(2000000);
+
 	cout << "searching path" << endl;
 
 	int counterStraight = 0;
@@ -110,15 +107,6 @@ void driveByLine() {
 
 	signal(SIGINT, exit_signal_handler); // register the exit function for Ctrl+C
 
-	/*BP.detect(); // Make sure that the BrickPi3 is communicating and that the firmware is compatible with the drivers.
-	BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
-	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
-	BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
-	*/
-	//sensor_color_t      Color1;
-	//sensor_ultrasonic_t Ultrasonic2;
-	//sensor_light_t      Light3;
-
 	int measurement = 0;
 
 	while (true) {
@@ -170,38 +158,8 @@ int main() {
 	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
 	BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
 
-	//sensor_color_t      Color1;
-	//sensor_ultrasonic_t Ultrasonic2;
-	//sensor_light_t      Light3;
-
 	driveByLine();
 
-	/*int average = 0;*/
-	
-
-	
-		/*if (BP.get_sensor(PORT_1, Color1) == 0) {
-			average = averageValues((int)Color1.reflected_red, (int)Color1.reflected_green, (int)Color1.reflected_blue);
-			if (average >=240  && average <= 320) {
-				movefwd();
-			}
-			else if (average > 150 && average < 240){
-				moveleft();
-			}
-			else if (average > 320 && average < 600){
-				moveright();
-			}*/
-			
-			
-			//cout << "Average = " << average << endl;
-			/*cout << "Color sensor (S1): detected  " << (int)Color1.color;
-			cout << " R:" << setw(4) << Color1.reflected_red << endl;
-			cout << " G:" << setw(4) << Color1.reflected_green;
-			cout << " B:" << setw(4) << Color1.reflected_blue;
-			cout << " A:" << setw(4) << Color1.ambient << "]" << endl;*/
-		/*}*/
-		
-	
 	
 }
 
