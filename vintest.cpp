@@ -73,8 +73,8 @@ void vvDance(){
     BP.set_motor_dps(PORT_B, 360);
     BP.set_motor_dps(PORT_C, 360);
     usleep(500000);
-    BP.set_motor_position_relative(PORT_B, -270);
-    BP.set_motor_position_relative(PORT_C, 270);
+    BP.set_motor_dps(PORT_B, 360);
+    BP.set_motor_dps(PORT_C, -360);
     sleep(10);
     BP.set_motor_dps(PORT_B, -360);
     BP.set_motor_dps(PORT_C, -360);
@@ -103,7 +103,7 @@ void controlBluetooth(){
 		string input;
 		while(mb.isRunning()) {
 			input = mb.readMessage();  //blokkeert niet
-            cout << input << endl;
+            cout << "Executing Action: " << input << endl;
 			if(input != ""){
                 // input
                 if(input.find("UP") != std::string::npos){
@@ -120,9 +120,8 @@ void controlBluetooth(){
                     moveStop();
                 }
                 // cout << endl << input << endl;
-            }else{
-                // no input
             }
+
 			//doe andere dingen.
 			cout.flush();
 			sleep(1); // wacht 500 ms
