@@ -91,6 +91,7 @@ void avoidObstacle() {
 			stepSix == 1;
 		}
 		else if (stepSix == 1) {
+			moveStop();
 			cout << "obstacle avoidence completed..." << endl;
 			usleep(3000000);
 			break;
