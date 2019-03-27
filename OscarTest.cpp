@@ -61,31 +61,47 @@ void moveBack() {
 
 void findNewPath() {
 
-	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
 	sensor_ultrasonic_t Ultrasonic2;
 	cout << "searching path" << endl;
-	cout << Ultrasonic2.cm << endl;
 
+	int counterStraight = 0;
 	int counterLeft = 0;
 	int counterRight = 0;
 	//links zoeken
-	while (BP.get_sensor(PORT_2, Ultrasonic2) == 0 && Ultrasonic2.cm < 10) {
-		moveLeft();
-		counterLeft++;
-		usleep(1000000);
-		if (counterLeft == 3) {
+	while (true) {
+
+		if (Ultrasonic2.cm < 10) {
+			moveLeft();
+			counterLeft++;
+			cout << "turning left for search ";
+			usleep(1000000);
+		}
+		else if (counterStraight != counterLeft)
+		{
+			moveFwd();
+			counterStraight++;
+			cout << "driving straight for search";
+			usleep(1000000);
+		}
+		else if (counterRight != counterLeft *2) {
 			moveRight();
 			counterRight++;
+			cout << "driving right for search";
+			counterStraight = 0;
 			usleep(1000000);
-			if (counterLeft == 3 && counterRight == 6)
-			{
-				cout << "searching done";
-			}
+		}
+		else if (counterStraight != counterLeft){
+			moveFwd();
+			counterStraight++;
+			cout << "driving left for search";
+			usleep(1000000);
+		}
+		else {
+			break;
 		}
 	}
-
-
-
+	driveByLine();
+	
 }
 
 void driveByLine() {
@@ -103,37 +119,39 @@ void driveByLine() {
 
 	int measurement = 0;
 
+	while (true) {
+		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+			cout << Ultrasonic2.cm << endl;
+			if (Ultrasonic2.cm > 10) {
 
-	if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
-		cout << Ultrasonic2.cm << endl;
-		if (Ultrasonic2.cm > 10) {
 
-
-			if (BP.get_sensor(PORT_3, Light3) == 0) {
-				measurement = Light3.reflected;
-				if (measurement >= 1900 && measurement <= 2300) {
-					moveFwd();
-					//rechtdoor
+				if (BP.get_sensor(PORT_3, Light3) == 0) {
+					measurement = Light3.reflected;
+					if (measurement >= 1900 && measurement <= 2300) {
+						moveFwd();
+						//rechtdoor
+					}
+					else if (measurement > 1800 && measurement < 1900) {
+						moveLeft();
+						//als ie het wit in gaat
+					}
+					else if (measurement > 2300) {
+						moveRight();
+						//als ie het zwart in gaat
+					}
+					usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
+					
 				}
-				else if (measurement > 1800 && measurement < 1900) {
-					moveLeft();
-					//als ie het wit in gaat
-				}
-				else if (measurement > 2300) {
-					moveRight();
-					//als ie het zwart in gaat
-				}
-				usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
-				driveByLine();
-				return;
+			}
+			else
+			{
+				findNewPath();
+				break;
 			}
 		}
-		else
-		{
-			findNewPath();
-		}
-
 	}
+	
+
 
 
 }
