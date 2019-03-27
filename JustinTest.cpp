@@ -10,7 +10,7 @@ BrickPi3 BP;
 
 void exit_signal_handler(int signo);
 
-void moveBot(const int & valueLeft, const int & valueRight) {
+void moveBot(int valueLeft, int valueRight) {
 	BP.set_motor_power(PORT_B, valueRight);
 	BP.set_motor_power(PORT_C, valueLeft);
 	cout << "[L: " << valueLeft << "] [R: " << valueRight << "]";
@@ -51,7 +51,6 @@ int main() {
 				
 		}
 		
-		}
 		usleep(125000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
 	}
 	
