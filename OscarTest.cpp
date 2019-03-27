@@ -60,9 +60,10 @@ void findNewPath() {
 	int counterLeft = 0;
 	int counterRight = 0;
 	//links zoeken
-
 		while (true) {
 			if (BP.get_sensor(PORT_2, Ultrasonic2) != 0) {
+				cout << (int)Ultrasonic2.cm << endl;
+				cout << "error code: " << BP.get_sensor(PORT_2, Ultrasonic2);
 				cout << "error" << endl;
 				return;
 			}
