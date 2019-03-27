@@ -53,43 +53,42 @@ void moveBack(const int &time) {
 
 void avoidObstacle() {
 	cout << "starting obstacel detection..." << endl;
-	int stepsBack = 0;
-	int stepsLeft = 0;
-	int stepsRight = 0;
-	int stepsFwd = 0;
-
-	while (true) {
-		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0 && BP.get_sensor(PORT_3, Light3) == 0) {
-			if (Ultrasonic2.cm < 20) {
-				cout << "moving back, distance: " << Ultrasonic2.cm << " cm" << endl;
-				moveBack(1000000);
-				stepsBack++;
-			}
-			else if (stepsLeft < 2) {
-				cout << "moving left, distance: " << Ultrasonic2.cm << " cm" << endl;
-				moveLeft(1000000);
-				stepsLeft++;
-			}
-			else if (stepsFwd <= stepsBack + 4){
-				cout << "moving forward, distance: " << Ultrasonic2.cm << " cm" << endl;
-				moveFwd(1000000);
-				stepsFwd++;
-			}
-			else if (stepsRight <= 5){
-				cout << "moving right, distance: " << Ultrasonic2.cm << " cm" << endl;
-				moveRight(1000000);
-				stepsRight++;
-			}
-			else if (Light3.reflected > 1700 && Light3.reflected < 2000) {
-				cout << "moving forward, light intensity: " << Light3.reflected << endl;
-				moveFwd(1000000);
-			}
-			else {
-				cout << "end of obstacel detection..." << endl;
-				break;
-			}
-		}
+	int stepOne = 0;
+	int stepTwo = 0;
+	int stepThree = 0;
+	int stepFour = 0;
+	int stepFive = 0;
+	if (stepOne = 0) {
+		BP.set_motor_position_relative(PORT_B, 90);
+		BP.set_motor_position_relative(PORT_B, -90);
+		stepOne = 1;
+		usleep(2000000);
 	}
+	else if (stepTwo = 0){
+		BP.set_motor_position_relative(PORT_B, 360);
+		BP.set_motor_position_relative(PORT_B, 360);
+		stepTwo = 1;
+		usleep(2000000);
+	}
+	else if (stepThree = 0) {
+		BP.set_motor_position_relative(PORT_B, -90);
+		BP.set_motor_position_relative(PORT_B, 90);
+		stepThree = 1;
+		usleep(2000000);
+	}
+	else if (stepFour == 0) {
+		BP.set_motor_position_relative(PORT_B, 360);
+		BP.set_motor_position_relative(PORT_B, 360);
+		stepFour = 1;
+		usleep(2000000);
+	}
+	else if (stepFive == 0) {
+		BP.set_motor_position_relative(PORT_B, -90);
+		BP.set_motor_position_relative(PORT_B, 90);
+		stepFive = 1;
+		usleep(2000000);
+	}
+			
 	return;
 }
 
