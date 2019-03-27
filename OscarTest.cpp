@@ -54,6 +54,7 @@ void findNewPath() {
 	BP.detect();
 	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
 	sensor_ultrasonic_t Ultrasonic2;
+	usleep(2000000);
 	cout << "searching path" << endl;
 
 	int counterStraight = 0;
@@ -62,7 +63,6 @@ void findNewPath() {
 	//links zoeken
 		while (true) {
 			if (BP.get_sensor(PORT_2, Ultrasonic2) != 0) {
-				cout << (int)Ultrasonic2.cm << endl;
 				cout << "error code: " << BP.get_sensor(PORT_2, Ultrasonic2) << " ";
 				cout << "error" << endl;
 				return;
