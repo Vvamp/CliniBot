@@ -88,7 +88,7 @@ void avoidObstacle() {
 		}
 		else if (stepSix == 0 && stepFive == 1) {
 			moveFwd(3500000);
-			stepSix == 1;
+			stepSix = 1;
 		}
 		else if (stepSix == 1) {
 			moveStop();
