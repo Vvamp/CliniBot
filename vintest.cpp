@@ -108,14 +108,16 @@ void controlBluetooth(){
                 // input
                 if(input.find("UP") != std::string::npos){
                     moveFwd();
-                }else if(input == "LEFT"){
+                }else if(input.find("LEFT") != std::string::npos){
                     moveLeft();
-                }else if(input == "RIGHT"){
-                    moveRight;
-                }else if(input == "DOWN"){
-                    moveBack;
-                }else if(input == "A"){
+                }else if(input.find("RIGHT") != std::string::npos){
+                    moveRight();
+                }else if(input.find("DOWN") != std::string::npos){
+                    moveBack();
+                }else if(input.find("A") != std::string::npos){
                     vvDance();
+                }else if(input.find("FIRE") != std::string::npos){
+                    moveStop();
                 }
                 // cout << endl << input << endl;
             }else{
@@ -123,7 +125,7 @@ void controlBluetooth(){
             }
 			//doe andere dingen.
 			cout.flush();
-			usleep(100000); // wacht 500 ms
+			sleep(1); // wacht 500 ms
 		}
 
 		clientsock->close();
