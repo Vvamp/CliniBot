@@ -58,6 +58,7 @@ void avoidObstacle() {
 	int stepThree = 0;
 	int stepFour = 0;
 	int stepFive = 0;
+
 	if (stepOne == 0) {
 		moveLeft(2000000);
 		stepOne = 1;
