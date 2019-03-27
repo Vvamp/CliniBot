@@ -16,9 +16,15 @@ void moveBot(const int valueLeft, const int valueRight) {
 	BP.set_motor_power(PORT_C, valueLeft); //Left motor
     BP.set_motor_power(PORT_B, valueRight); // Right motor
     cout << "\033[2J\033[1;1H"; //Clear screen
-    cout << "CLINIBOT PATH VALUES --" << endl << endl;
+    cout << "CLINIBOT PATH VALUES --" << endl;
+    cout << endl << "- STEARING:" << endl;
     cout << " Left: " << valueLeft << "v" << endl;
     cout << " Right: " << valueRight << "v" << endl;
+    cout << endl << "- LIGHT DETECTION:" << endl ;
+    cout << " Value: " << Light3.reflected << endl;
+    cout << "-----------------------" << endl;
+
+
 }
 
 int main() {
