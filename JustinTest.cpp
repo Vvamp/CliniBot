@@ -15,7 +15,7 @@ void exit_signal_handler(int signo);
 void moveBot(char cmd, const int valueLeft, const int valueRight) {
 	BP.set_motor_dps(PORT_C, valueLeft);
     BP.set_motor_dps(PORT_B, valueRight);
-	cout << cmd << " [L: " << valueLeft << "] [R: " << valueRight << "]";
+	cout << cmd << " [L: " << valueLeft << "] [R: " << valueRight << "]" << endl;
 }
 
 int averageValues(const int red, const int green, const int blue) {
@@ -58,7 +58,6 @@ int main() {
 						moveBot('R', 80, -80);
 
 					}
-					usleep(125000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
 				}
 			}
 			else
@@ -66,13 +65,13 @@ int main() {
 				moveBot('S', 0, 0);
 			}
 
+            usleep(125000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
+
 		}
 		else
 		{
 			cout << "can't find the ultrasonic sensor" << endl;
 		}
-
-        usleep(125000);
 	}	
 	
 }
