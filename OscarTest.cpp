@@ -35,8 +35,8 @@ void moveStop() {
 }
 
 void moveFwd(int &numbersLeft, int &numbersRight) {
-	BP.set_motor_dps(PORT_B, 360);
-	BP.set_motor_dps(PORT_C, 360);
+	BP.set_motor_dps(PORT_B, 180);
+	BP.set_motor_dps(PORT_C, 180);
 	numbersLeft = 0;
 	numbersRight = 0;
 	// Draai de motor op port B en C 360 graden
@@ -47,8 +47,10 @@ void moveFwd(int &numbersLeft, int &numbersRight) {
 void moveLeft(int &lastDirection, int &numbersLeft) {
 	if (numbersLeft < 5)
 	{
-		BP.set_motor_position_relative(PORT_B, 45);
-		BP.set_motor_position_relative(PORT_C, -45);
+		BP.set_motor_dps(PORT_B, 45);
+		BP.set_motor_dps(PORT_C, -45);
+		/*BP.set_motor_position_relative(PORT_B, 45);
+		BP.set_motor_position_relative(PORT_C, -45);*/
 		lastDirection = -1;
 		numbersLeft++;
 	}
@@ -68,8 +70,10 @@ void moveLeft(int &lastDirection, int &numbersLeft) {
 
 void moveRight(int &lastDirection, int &numbersRight) {
 	if (numbersRight < 5) {
-		BP.set_motor_position_relative(PORT_B, -45);
-		BP.set_motor_position_relative(PORT_C, 45);
+		BP.set_motor_dps(PORT_B, -45);
+		BP.set_motor_dps(PORT_C, 45);
+		/*BP.set_motor_position_relative(PORT_B, -45);
+		BP.set_motor_position_relative(PORT_C, 45);*/
 		numbersRight++;
 		lastDirection = 1;
 	}
