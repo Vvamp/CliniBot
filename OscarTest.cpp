@@ -70,7 +70,7 @@ void avoidObstacle() {
 				moveLeft(1000000);
 				stepsLeft++;
 			}
-			else if (stepsFwd <= stepsBack + 1){
+			else if (stepsFwd <= stepsBack + 5){
 				cout << "moving forward, distance: " << Ultrasonic2.cm << " cm" << endl;
 				moveFwd(1000000);
 				stepsFwd++;
