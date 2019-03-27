@@ -15,6 +15,7 @@ void findNewPath() {
 	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
 	sensor_ultrasonic_t Ultrasonic2;
 	cout << "searching path" << endl;
+	cout << Ultrasonic2.cm << endl;
 	//links zoeken
 	BP.set_motor_position_relative(PORT_B, 60);
 	BP.set_motor_position_relative(PORT_C, -60);
