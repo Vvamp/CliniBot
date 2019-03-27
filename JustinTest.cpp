@@ -4,7 +4,6 @@
 #include <unistd.h>     // for sleep
 #include <signal.h>     // for catching exit signals
 #include <iomanip>		// for setw and setprecision
-#include <conio.h>
 
 using namespace std;
 
@@ -18,7 +17,6 @@ int calcSpeed(){
 
 //Function to move robot (left, right)
 void moveBot(const int valueLeft, const int valueRight) {
-    clrscr();
 	BP.set_motor_dps(PORT_C, valueLeft); //Left motor
     BP.set_motor_dps(PORT_B, valueRight); // Right motor
     cout << "Clinibot travel values --" << endl;
