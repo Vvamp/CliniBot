@@ -79,7 +79,7 @@ void avoidObstacle() {
 					moveRight(1000000);
 				}
 				else {
-					moveLeft(1500000);
+					moveLeft(2000000);
 					stepThree = 1;
 				}
 			}
@@ -89,6 +89,7 @@ void avoidObstacle() {
 				}
 				else {
 					moveBack(500000);
+					moveLeft(1000000);
 					stepFour = 1;
 				}
 
