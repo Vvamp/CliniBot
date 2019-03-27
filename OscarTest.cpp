@@ -53,10 +53,13 @@ void moveBack() {
 }
 
 int FindStepsLeft(int stepsLeft) {
-	if (Ultrasonic2.cm < 10)
-	moveLeft(1000000);
-	return 1 + FindStepsLeft(stepsLeft + 1);
-	moveRight(1000000);
+	if (Ultrasonic2.cm < 10) {
+		moveLeft(2000000);
+		return 1 + FindStepsLeft(stepsLeft + 1);
+	}
+	else {
+		return 0;
+	}
 }
 
 void findNewPath() {
@@ -107,7 +110,6 @@ void driveByLine() {
 			{
 				findNewPath();
 				break;
-				
 			}
 		}
 	}
