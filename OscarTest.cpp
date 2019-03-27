@@ -98,7 +98,7 @@ void driveByLine() {
 					measurement = Light3.reflected;
 					if (measurement >= 1900 && measurement <= 2300) {
 						moveFwd(100000);
-						//rechtdoor klaas
+						//rechtdoor
 					}
 					else if (measurement > 1800 && measurement < 1900) {
 						moveLeft(100000);
