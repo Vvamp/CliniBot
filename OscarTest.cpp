@@ -67,27 +67,21 @@ void findNewPath() {
 				return;
 			}
 			if (Ultrasonic2.cm < 10) {
-				moveLeft(1000000);
+				moveLeft(2000000);
 				counterLeft++;
 				cout << "times left: " << counterLeft << endl;
 			}
 			else if (counterStraight != counterLeft)
 			{
-				moveFwd(2000000);
+				moveFwd(5000000);
 				counterStraight++;
 				cout << "times straight: " << counterStraight << endl;
 			}
 			else if (counterRight != counterLeft * 2) {
-				moveRight(1000000);
+				moveRight(2000000);
 				counterRight++;
 				cout << "times right: " << counterRight << endl;
 				counterStraight = 0;
-
-			}
-			else if (counterStraight != counterLeft) {
-				moveFwd(2000000);
-				counterStraight++;
-				cout << "times straight: " << counterStraight << endl;
 
 			}
 			else {
