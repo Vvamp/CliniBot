@@ -65,20 +65,21 @@ void avoidObstacle() {
 				moveBack(1000000);
 				stepsBack++;
 			}
-			else if (stepsLeft < 5) {
+			else if (stepsLeft < 3) {
 				cout << "moving left, distance: " << Ultrasonic2.cm << " cm" << endl;
 				moveLeft(1000000);
 				stepsLeft++;
+			}
+			else if (stepsFwd <= stepsBack){
+				cout << "moving forward, distance: " << Ultrasonic2.cm << " cm" << endl;
+				moveFwd(1000000);
+				stepsFwd++;
 			}
 			else
 			{
 				break;
 			}
-			/*else if (stepsFwd <= stepsBack + 2){
-				moveFwd(1000000);
-				stepsFwd++;
-			}
-			else if (stepsRight <= stepsLeft * 2){
+			/*else if (stepsRight <= stepsLeft * 2){
 				moveRight(1000000);
 				stepsRight++;
 			}
