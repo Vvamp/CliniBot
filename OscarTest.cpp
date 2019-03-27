@@ -77,7 +77,7 @@ void avoidObstacle() {
 			usleep(1500000);
 		}
 		else if (stepFour == 0 && stepThree == 1) {
-			moveFwd(3500000);
+			moveFwd(5000000);
 			stepFour = 1;
 		}
 		else if (stepFive == 0 && stepFour == 1) {
@@ -131,7 +131,7 @@ void driveByLine() {
 						moveRight(100000);
 						//als ie het zwart in gaat
 					}
-					//usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
+					usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
 				}
 			}
 			else
