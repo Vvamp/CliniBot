@@ -16,26 +16,25 @@ void findNewPath() {
 	sensor_ultrasonic_t Ultrasonic2;
 	cout << "searching path" << endl;
 	cout << Ultrasonic2.cm << endl;
+	int counterLeft = 0;
+	int counterRight = 0;
 	//links zoeken
-	BP.set_motor_position_relative(PORT_B, 60);
-	BP.set_motor_position_relative(PORT_C, -60);
-	usleep(1000000);
-
-	if (Ultrasonic2.cm > 10) {
-			BP.set_motor_position_relative(PORT_B, 360);
-			BP.set_motor_position_relative(PORT_C, 360);
+	while (BP.get_sensor(PORT_2, Ultrasonic2) == 0 && Ultrasonic2.cm < 10) {
+		moveLeft();
+		counterLeft++;
+		usleep(1000000);
+		if (counterLeft == 3) {
+			moveright();
+			moveRight++;
 			usleep(1000000);
-			BP.set_motor_position_relative(PORT_B, -60);
-			BP.set_motor_position_relative(PORT_C, 60);
-			usleep(1000000);
-			if (Ultrasonic2.cm > 10) {
-				BP.set_motor_position_relative(PORT_B, 360);
-				BP.set_motor_position_relative(PORT_C, 360);
-				usleep(1000000);
-				return;
+			if (counterLeft == 3 && counterRight == 6)
+			{
+				cout << "searching done";
 			}
-
+		}
 	}
+	
+
 
 }
 
@@ -45,6 +44,7 @@ void moveStop() {
 	// Zet stroom van poort B en C op 0, waardoor de robot stopt.
 
 	cout << " Stopped - ";
+	return;
 }
 
 void moveFwd() {
@@ -52,7 +52,7 @@ void moveFwd() {
 	BP.set_motor_dps(PORT_C, 180);
 	// Draai de motor op port B en C 360 graden
 	cout << " Forward - ";
-
+	return;
 }
 
 void moveLeft() {
@@ -63,7 +63,7 @@ void moveLeft() {
 		BP.set_motor_position_relative(PORT_C, -45);*/
 
 	cout << " Left - ";
-
+	return;
 }
 
 void moveRight() {
@@ -73,7 +73,7 @@ void moveRight() {
 		BP.set_motor_position_relative(PORT_C, 45);*/
 
 	cout << " Right - ";
-
+	return;
 }
 
 void moveBack() {
@@ -82,7 +82,7 @@ void moveBack() {
 	// Draai de motor op port B en C -360 graden
 
 	cout << " Back - ";
-
+	return;
 }
 
 void driveByLine() {
