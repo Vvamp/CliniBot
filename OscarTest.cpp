@@ -58,7 +58,6 @@ void moveBack() {
 	cout << " Back - ";
 	return;
 }
-void drivebyline();
 
 void findNewPath() {
 
@@ -101,7 +100,7 @@ void findNewPath() {
 			break;
 		}
 	}
-	driveByLine();
+	return;
 	
 }
 
@@ -148,13 +147,11 @@ void driveByLine() {
 			{
 				findNewPath();
 				break;
+				
 			}
 		}
 	}
-	
-
-
-
+	driveByLine();
 }
 
 int averageValues(const int red, const int green, const int blue) {
