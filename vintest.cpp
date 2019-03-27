@@ -94,7 +94,7 @@ bool isCrossing(){
         measurement = Light3.reflected;
         cout << "measurement(" << measurement << ") ";
 
-        if(measurement >2300){
+        if(measurement >=250 && measurement < 400){
 
             s2 = true;
             cout << "TRUE" << endl;
