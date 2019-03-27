@@ -104,6 +104,7 @@ void driveByLine() {
 	while (true) {
 
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+			cout << Ultrasonic2.cm << endl;
 			if (Ultrasonic2.cm > 10) {
 
 
