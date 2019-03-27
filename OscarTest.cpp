@@ -55,6 +55,7 @@ void moveBack(const int &time) {
 
 void avoidObstacle() {
 	while (Ultrasonic2.cm < 30) {
+		cout << "moving back, distance is: " << Ultrasonic2.cm << "cm." << endl;
 		moveBack(1000000);
 	}
 	while (Ultrasonic2.cm < 35) {
@@ -64,7 +65,6 @@ void avoidObstacle() {
 	moveRight(5000000);
 	moveFwd(5000000);
 	return;
-
 }
 
 
