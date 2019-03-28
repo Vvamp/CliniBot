@@ -139,12 +139,10 @@ void driveByLine() {
 				else
 				{
 					cout << "Can't read ultra-red sensor..." << endl;
-					usleep(1000000);
 				}
 			}
 			else {
 				cout << "Can't read ultrasonic sensor..." << endl;
-				usleep(1000000);
 			}
 		}
 		usleep(100000);
