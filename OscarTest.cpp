@@ -111,15 +111,15 @@ void driveByLine() {
 	signal(SIGINT, exit_signal_handler); // register the exit function for Ctrl+C
 
 	int measurement = 0;
+	if (BP.get_voltage_battery() >= 9) {
+		while (true) {
+			if (BP.get_sensor(PORT_2, Ultrasonic2) == 0 && BP.get_sensor(PORT_3, Light3) == 0) {
 
-	while (true) {
-		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0 && BP.get_sensor(PORT_3, Light3) == 0) {
-			if (BP.get_voltage_battery() >= 9) {
 				cout << "searching line..." << endl;
 
 				if (Ultrasonic2.cm > 10) {
 
-					if (Light3.reflected >= 1900 && measurement <= 2310) {
+					if (Light3.reflected >= 1900 && measurement <= 2300) {
 						moveFwd(100000);
 						//rechtdoor
 					}
@@ -127,30 +127,27 @@ void driveByLine() {
 						moveLeft(100000);
 						//als ie het wit in gaat
 					}
-					else if (Light3.reflected > 2310) {
+					else if (Light3.reflected > 2300) {
 						moveRight(100000);
 						//als ie het zwart in gaat
 					}
-
-
 				}
-				else{
+				else {
 					avoidObstacle();
 				}
+
 			}
 			else {
-				cout << "Battery voltage is: " << BP.get_voltage_battery() << ". This is to low to continue..." << endl;
-				break;
+				moveStop();
+				cout << "Can't locate sensors..." << endl;
 			}
-			
-		}
-		else
-		{
-			moveStop();
-			cout << "Can't locate sensors..." << endl;
 		}
 	}
+	else {
+		cout << "Battery voltage is: " << BP.get_voltage_battery() << ". This is to low to continue..." << endl;
+	}
 	cout << "Robot stopped..." << endl;
+	
 }
 
 int averageValues(const int red, const int green, const int blue) {
@@ -179,3 +176,4 @@ void exit_signal_handler(int signo) {
 		exit(-2);
 	}
 }
+
