@@ -110,7 +110,6 @@ void driveByLine() {
 
 	signal(SIGINT, exit_signal_handler); // register the exit function for Ctrl+C
 
-	int measurement = 0;
 	if (BP.get_voltage_battery() >= 9) {
 		while (true) {
 			if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
@@ -119,17 +118,17 @@ void driveByLine() {
 
 					if (Ultrasonic2.cm > 10) {
 						cout << Light3.reflected << endl;
-						if (Light3.reflected >= 2000 && measurement <= 2100) {
+						if (Light3.reflected >= 2000 && Light3.reflected <= 2300) {
 							cout << "half" << endl;
 							moveFwd(100000);
 							//rechtdoor
 						}
-						else if (Light3.reflected > 1800 && measurement < 2000) {
+						else if (Light3.reflected > 1800 && Light3.reflected < 2000) {
 							cout << "wit" << endl;
 							moveLeft(100000);
 							//als ie het wit in gaat
 						}
-						else if (Light3.reflected > 2100) {
+						else if (Light3.reflected > 2300) {
 							moveRight(100000);
 							cout << "zwart" << endl;
 							//als ie het zwart in gaat
