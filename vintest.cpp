@@ -100,7 +100,7 @@ bool isCrossing(){
 
     if (BP.get_sensor(PORT_1, Color1) == 0) {
         measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
-        if(measurement >=250 && measurement < 400){
+        if(measurement >=300 && measurement < 500){
             s1 = true;
         }
     }
@@ -108,7 +108,7 @@ bool isCrossing(){
 
     if (BP.get_sensor(PORT_3, Light3) == 0) {
         measurement = Light3.reflected;
-        if(measurement >= 2000){
+        if(measurement >= 2200){
             s2 = true;
         }
     }
@@ -168,10 +168,10 @@ bool lineDetected(){
     int measurement = 0;
     cout << endl << endl << "checking line";
 
-    if (BP.get_sensor(PORT_1, Color1) == 0) {
-        measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
-        cout << endl << "m: " << measurement << " borders: 250 <= x < 400" << endl;
-        if(measurement >=250 && measurement < 400){
+    if (BP.get_sensor(PORT_3, Light3) == 0) {
+        measurement = Light3.reflected;
+        cout << endl << "m: " << measurement << " borders: 1900 <= x < 2200" << endl;
+        if(measurement >=1900 && measurement < 2200){
             return true;
         }else{
             return false;
