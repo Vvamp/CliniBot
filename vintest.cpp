@@ -129,20 +129,18 @@ bool obstacleDetected(){
     int timeout = 0;
     while(true){
         timeout++;
-        if(timeout > 1000){
+        if(timeout > 2000){
             break;
         }
         if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
                 if(Ultrasonic2.cm <= obstacleDetectionDistance){
-                    cout << Ultrasonic2.cm << endl;
-                    cout << "works" << endl;
                     return true;
 
                 }
 
         }
     }
-    cout << endl << "cm: " << Ultrasonic2.cm << endl;
+    //cout << endl << "cm: " << Ultrasonic2.cm << endl;
     return false;
 
 }
