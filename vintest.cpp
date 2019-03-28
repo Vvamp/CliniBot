@@ -34,13 +34,7 @@ void moveStop(){
 }
 
 
-void moveFwd() {
-	BP.set_motor_dps(PORT_B, 360);
-	BP.set_motor_dps(PORT_C, 360);
-	// Draai de motor op port B en C 360 graden
-	cout << " Forward - ";
 
-}
 
 void moveLeft() {
 
@@ -62,11 +56,21 @@ void moveRight() {
 	cout << " Right - ";
 
 }
+void moveFwd() {
+	//BP.set_motor_dps(PORT_B, 360);
+	//BP.set_motor_dps(PORT_C, 360);
+	// Draai de motor op port B en C 360 graden
+    BP.set_motor_position_relative(PORT_B, 420);
+    BP.set_motor_position_relative(PORT_C, 420);
+	cout << " Forward - ";
 
+}
 void moveBack() {
-	BP.set_motor_dps(PORT_B, -360);
-	BP.set_motor_dps(PORT_C, -360);
+	//BP.set_motor_dps(PORT_B, -360);
+	//BP.set_motor_dps(PORT_C, -360);
 	// Draai de motor op port B en C -360 graden
+    BP.set_motor_position_relative(PORT_B, -420);
+    BP.set_motor_position_relative(PORT_C, -420);
 
 	cout << " Back - ";
 
