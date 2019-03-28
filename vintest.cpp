@@ -130,7 +130,7 @@ bool obstacleDetected(){
     while(true){
         timeout++;
         if(timeout > 1000){
-            return false;
+            break;
         }
         if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
                 if(Ultrasonic2.cm <= obstacleDetectionDistance){
