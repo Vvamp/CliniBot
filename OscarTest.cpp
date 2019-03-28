@@ -21,31 +21,30 @@ void moveStop() {
 }
 
 void moveFwd(const int & time) {
-	BP.set_motor_dps(PORT_B, 180);
-	BP.set_motor_dps(PORT_C, 180);
+	BP.set_motor_power(PORT_B, 50);
+	BP.set_motor_power(PORT_C, 50);
 	usleep(time);
 	// Draai de motor op port B en C 360 graden
 	return;
 }
 
 void moveLeft(const int & time) {
-	
-		BP.set_motor_dps(PORT_B, 90);
-		BP.set_motor_dps(PORT_C, -90);
-		usleep(time);
+	BP.set_motor_power(PORT_B, 50);
+	BP.set_motor_power(PORT_C, -50);
+	usleep(time);
 	return;
 }
 
 void moveRight(const int & time) {
-		BP.set_motor_dps(PORT_B, -90);
-		BP.set_motor_dps(PORT_C, 90);
+	BP.set_motor_power(PORT_B, -50);
+	BP.set_motor_power(PORT_C, 50);
 		usleep(time);
 	return;
 }
 
 void moveBack(const int &time) {
-	BP.set_motor_dps(PORT_B, -180);
-	BP.set_motor_dps(PORT_C, -180);
+	BP.set_motor_power(PORT_B, -50);
+	BP.set_motor_power(PORT_C, -50);
 	usleep(time);
 	// Draai de motor op port B en C -360 graden
 	return;
@@ -152,7 +151,7 @@ void driveByLine() {
 			moveStop();
 			cout << "Can't locate sensors..." << endl;
 		}
-		usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
+		usleep(100000);//slaap even (1 usleep = 1 miljoenste van een seconde)
 	}
 	cout << "Robot stopped..." << endl;
 }
