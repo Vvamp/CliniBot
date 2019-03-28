@@ -116,7 +116,6 @@ bool isCrossing(){
 // Check if there is an obstacle in FRONT of the robot
 bool obstacleDetected(){
     int obstacleDetectionDistance = 15;
-    while(true){
         if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
                 if(Ultrasonic2.cm <= obstacleDetectionDistance){
                     return true;
@@ -124,7 +123,7 @@ bool obstacleDetected(){
                 }
 
         }
-    }
+    
     cout << Ultrasonic2.cm << endl;
     return false;
 
