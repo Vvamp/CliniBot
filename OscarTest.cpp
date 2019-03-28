@@ -121,7 +121,7 @@ void driveByLine() {
 
 				if (Ultrasonic2.cm > 10) {
 
-					if (measurement >= 1900 && measurement <= 2300) {
+					if (measurement >= 1900 && measurement <= 2320) {
 						moveFwd(100000);
 						//rechtdoor
 					}
@@ -129,7 +129,7 @@ void driveByLine() {
 						moveLeft(100000);
 						//als ie het wit in gaat
 					}
-					else if (measurement > 2300) {
+					else if (measurement > 2320) {
 						moveRight(100000);
 						//als ie het zwart in gaat
 					}
