@@ -13,8 +13,9 @@ cout << "| Keuze 1: De robot besturen met 'WASD'.        |" << endl;
 cout << "| Keuze 2: De robot besturen via Bluetooth.     |" << endl;
 cout << "| Keuze 3: De robot over een lijn laten rijden. |" << endl;
 cout << "| Keuze 4: De robot over een grid laten rijden. |" << endl;
+cout << "| Keuze 5: Keuzemenu verlaten.                  |" << endl;
 cout << "|                                               |" << endl;
-cout << "|     Selecteer uw keuze met 1, 2, 3 of 4.      |" << endl;
+cout << "|    Selecteer uw keuze met 1, 2, 3, 4 of 5.    |" << endl;
 cout << "|_______________________________________________|" << endl;
 cout << endl;
 
@@ -33,6 +34,10 @@ else if(Keuze == "3"){
 }
 else if(Keuze == "4"){
     cout << "Grid rijden" << endl;
+}
+else if(Keuze == "5"){
+    cout << "...Exiting Keuzemenu..." << endl;
+    break;
 }
 else{
     cout << "Geen geldige keuze! Probeer opnieuw..." << endl;
