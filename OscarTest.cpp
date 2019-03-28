@@ -149,7 +149,7 @@ void driveByLine() {
 			moveStop();
 			cout << "Can't locate sensors..." << endl;
 		}
-		usleep(100000);//slaap even (1 usleep = 1 miljoenste van een seconde)
+		usleep(200000);//slaap even (1 usleep = 1 miljoenste van een seconde)
 	}
 	cout << "Robot stopped..." << endl;
 }
