@@ -131,27 +131,57 @@ bool obstacleDetected(){
     return false;
 
 }
-void checkObstacles(){
+void checkGrid(){
     unsigned int routesToCheck = 3; // MIN 3
     bool driveRequired = false;
     for(unsigned int i = 0; i < routesToCheck; i++){
         switch(i){
-            case 0: cout << "Forward: "; driveRequired=true;
+            case 0: cout << "Forward: ";
+            cout << "Checking route: " << i;
+            if(!obstacleDetected()){
+                cout << "...clear!" << endl;
+                cout << "checking if path...";
+                moveFwd();
+                //check path
+                moveBack();
+            }else{
+                cout << "...blocked!" << endl;
+            }
             break;
             case 1: cout << "Left: ";
+            cout << "Checking route: " << i;
+            if(!obstacleDetected()){
+                cout << "...clear!" << endl;
+                cout << "checking if path...";
+                moveLeft();
+                moveFwd();
+                //check path
+                moveBack();
+                moveRight();
+            }else{
+                cout << "...blocked!" << endl;
+            }
             break;
             case 2: cout << "Right: ";
+            cout << "Checking route: " << i;
+            if(!obstacleDetected()){
+                cout << "...clear!" << endl;
+                cout << "checking if path...";
+                moveRight();
+                moveFwd();
+                //check path
+                moveBack();
+                moveLeft();
+
+            }else{
+                cout << "...blocked!" << endl;
+            }
             break;
             default: cout << "Unknown: ";
             break;
         }
 
-        cout << "Checking route: " << i;
-        if(!obstacleDetected()){
-            cout << "...clear!" << endl;
-        }else{
-            cout << "...blocked!" << endl;
-        }
+
     }
 }
 
@@ -280,7 +310,7 @@ void debug(){
                 cout << "Clear." << endl;
             }
         }else if(uin == "oa"){
-            checkObstacles();
+            checkGrid();
         }else{
             return;
         }
