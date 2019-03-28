@@ -117,7 +117,7 @@ bool isCrossing(){
 bool obstacleDetected(){
     int obstacleDetectionDistance = 15;
     int timeout = 0;
-    while(timeout < 100){
+    while(timeout < 150){
         timeout++;
         if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
                 if(Ultrasonic2.cm <= obstacleDetectionDistance){
@@ -254,9 +254,11 @@ void controlTerminal(){
      }
 }
 
+
+// debug function
 void debug(){
     cout << "VV DEBUG" << endl;
-    cout << "a - turn left 90 degrees" << endl << "t - check if there is a crossing";
+    cout << "a - turn left 90 degrees" << endl << "t - check if there is a crossing"<< endl << "o - check if there is an obstacle" << endl;
     while(true){
         cout << endl << "> ";
         string uin;
@@ -270,7 +272,7 @@ void debug(){
             }else{
                 cout << "No." << endl;
             }
-        }else if(uin == "obstacle"){
+        }else if(uin == "o"){
             cout << "Route > ";
             if(obstacleDetected()){
                 cout << "Blocked." << endl;
@@ -297,7 +299,7 @@ int main()
     cin >> userChoice;
     if(userChoice == "bt"){
         controlBluetooth();
-    }else if(userChoice == "crossing"){
+    }else if(userChoice == "debug"){
         debug();
     }else if(userChoice == "move"){
         controlTerminal();
