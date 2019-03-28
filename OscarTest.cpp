@@ -21,30 +21,30 @@ void moveStop() {
 }
 
 void moveFwd(const int & time) {
-	BP.set_motor_power(PORT_B, 50);
-	BP.set_motor_power(PORT_C, 50);
+	BP.set_motor_power(PORT_B, 20);
+	BP.set_motor_power(PORT_C, 20);
 	usleep(time);
 	// Draai de motor op port B en C 360 graden
 	return;
 }
 
 void moveLeft(const int & time) {
-	BP.set_motor_power(PORT_B, 50);
-	BP.set_motor_power(PORT_C, -50);
+	BP.set_motor_power(PORT_B, 20);
+	BP.set_motor_power(PORT_C, -20);
 	usleep(time);
 	return;
 }
 
 void moveRight(const int & time) {
-	BP.set_motor_power(PORT_B, -50);
-	BP.set_motor_power(PORT_C, 50);
+	BP.set_motor_power(PORT_B, -20);
+	BP.set_motor_power(PORT_C, 20);
 		usleep(time);
 	return;
 }
 
 void moveBack(const int &time) {
-	BP.set_motor_power(PORT_B, -50);
-	BP.set_motor_power(PORT_C, -50);
+	BP.set_motor_power(PORT_B, -20);
+	BP.set_motor_power(PORT_C, -20);
 	usleep(time);
 	// Draai de motor op port B en C -360 graden
 	return;
