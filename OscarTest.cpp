@@ -7,13 +7,11 @@
 using namespace std;
 
 BrickPi3 BP;
-
-void exit_signal_handler(int signo);
-
 sensor_color_t      Color1;
 sensor_ultrasonic_t Ultrasonic2;
 sensor_light_t      Light3;
 
+void exit_signal_handler(int signo);
 
 void moveStop() {
 	BP.set_motor_power(PORT_B, 0);
@@ -32,73 +30,81 @@ void moveFwd(const int & time) {
 
 void moveLeft(const int & time) {
 	
-		BP.set_motor_dps(PORT_B, 80);
-		BP.set_motor_dps(PORT_C, -80);
+		BP.set_motor_dps(PORT_B, 90);
+		BP.set_motor_dps(PORT_C, -90);
 		usleep(time);
 	return;
 }
 
 void moveRight(const int & time) {
-		BP.set_motor_dps(PORT_B, -80);
-		BP.set_motor_dps(PORT_C, 80);
+		BP.set_motor_dps(PORT_B, -90);
+		BP.set_motor_dps(PORT_C, 90);
 		usleep(time);
 	return;
 }
 
-void moveBack() {
-	BP.set_motor_dps(PORT_B, -360);
-	BP.set_motor_dps(PORT_C, -360);
+void moveBack(const int &time) {
+	BP.set_motor_dps(PORT_B, -180);
+	BP.set_motor_dps(PORT_C, -180);
+	usleep(time);
 	// Draai de motor op port B en C -360 graden
 	return;
 }
 
-void findNewPath() {
+void avoidObstacle() {
+	cout << "starting obstacel detection..." << endl;
+	int stepOne = 0;
+	int stepTwo = 0;
+	int stepThree = 0;
+	int stepFour = 0;
+	int stepFive = 0;
+	int stepSix = 0;
+	while (true) {
+		if (BP.get_sensor(PORT_3, Light3) == 0 && BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+			if (stepOne == 0) {
+				if (Ultrasonic2.cm < 30) {
+					moveLeft(1000000);
+				}
+				else if (Ultrasonic2.cm > 30) {
+					moveLeft(1500000);
+					stepOne = 1;
+				}
+			}
+			else if (stepOne == 1 && stepTwo == 0) {
+				moveFwd(6000000);
+				stepTwo = 1;
+			}
+			else if (stepTwo == 1 && stepThree == 0) {
+				if (Ultrasonic2.cm > 50) {
+					moveRight(1000000);
+				}
+				else {
+					moveLeft(2000000);
+					stepThree = 1;
+				}
+			}
+			else if (stepThree == 1 && stepFour == 0) {
+				if (Light3.reflected < 2300) {
+					moveFwd(250000);
+				}
+				else {
+					moveFwd(500000);
+					moveRight(500000);
+					stepFour = 1;
+				}
 
-	cout << "searching path" << endl;
-
-	int counterStraight = 0;
-	int counterLeft = 0;
-	int counterRight = 0;
-	//links zoeken
-		while (true) {
-			if (BP.get_sensor(PORT_2, Ultrasonic2) != 0) {
-				cout << "error code: " << BP.get_sensor(PORT_2, Ultrasonic2) << " ";
-				cout << "error" << endl;
+			}
+			else if (stepFour == 1) {
+				cout << "obstacle avoidence completed..." << endl;
 				return;
 			}
-			if (Ultrasonic2.cm < 10) {
-				moveLeft(1000000);
-				counterLeft++;
-				cout << "times left: " << counterLeft << endl;
-			}
-			else if (counterStraight != counterLeft)
-			{
-				moveFwd(2000000);
-				counterStraight++;
-				cout << "times straight: " << counterStraight << endl;
-			}
-			else if (counterRight != counterLeft * 2) {
-				moveRight(1000000);
-				counterRight++;
-				cout << "times right: " << counterRight << endl;
-				counterStraight = 0;
-
-			}
-			else if (counterStraight != counterLeft) {
-				moveFwd(2000000);
-				counterStraight++;
-				cout << "times straight: " << counterStraight << endl;
-
-			}
-			else {
-				break;
-			}
+		}
 		
-	}
-	
-	return;
+	}	
 	
 }
+
+
 
 void driveByLine() {
 
@@ -107,38 +113,39 @@ void driveByLine() {
 	int measurement = 0;
 
 	while (true) {
-		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0 && BP.get_sensor(PORT_3, Light3) == 0) {
 			cout << "searching line..." << endl;
+			measurement = Light3.reflected;
+
 			if (Ultrasonic2.cm > 10) {
-
-
-				if (BP.get_sensor(PORT_3, Light3) == 0) {
-					measurement = Light3.reflected;
-					if (measurement >= 1900 && measurement <= 2300) {
-						moveFwd(250000);
-						//rechtdoor
-					}
-					else if (measurement > 1800 && measurement < 1900) {
-						moveLeft(250000);
-						//als ie het wit in gaat
-					}
-					else if (measurement > 2300) {
-						moveRight(250000);
-						//als ie het zwart in gaat
-					}
-					usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
-					
+				
+				if (measurement >= 1900 && measurement <= 2300) {
+					moveFwd(100000);
+					//rechtdoor
 				}
+				else if (measurement > 1800 && measurement < 1900) {
+					moveLeft(100000);
+					//als ie het wit in gaat
+				}
+				else if (measurement > 2300) {
+					moveRight(100000);
+					//als ie het zwart in gaat
+				}
+				//usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
+				
 			}
 			else
 			{
-				findNewPath();
-				break;
-				
+				avoidObstacle();
+				usleep(1000000);
 			}
 		}
+		else
+		{
+			cout << "Can't find sensors back..." << endl;
+		}
 	}
-	driveByLine();
+	//driveByLine();
 }
 
 int averageValues(const int red, const int green, const int blue) {
