@@ -125,7 +125,7 @@ bool isCrossing(){
 
 // Check if there is an obstacle in FRONT of the robot
 bool obstacleDetected(){
-    int obstacleDetectionDistance = 30;
+    int obstacleDetectionDistance = 25;
     int timeout = 0;
     while(true){
         timeout++;
