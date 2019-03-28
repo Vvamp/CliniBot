@@ -134,6 +134,7 @@ bool obstacleDetected(){
         }
         if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
                 if(Ultrasonic2.cm <= obstacleDetectionDistance){
+                    cout << "works" << endl;
                     return true;
 
                 }
