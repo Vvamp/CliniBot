@@ -108,7 +108,7 @@ bool isCrossing(){
 
     if (BP.get_sensor(PORT_3, Light3) == 0) {
         measurement = Light3.reflected;
-        if(measurement >= 2400){
+        if(measurement >= 2000){
             s2 = true;
         }
     }
@@ -122,7 +122,26 @@ bool isCrossing(){
 
 
 }
+void testValues(){
+    while(true){
 
+            if (BP.get_sensor(PORT_1, Color1) == 0) {
+                measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
+                cout << "Value for RGB: " << measurement;
+            }
+
+
+            if (BP.get_sensor(PORT_3, Light3) == 0) {
+                measurement = Light3.reflected;
+                cout << " - Value for IR: " << measurement;
+
+            }
+            if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+                    cout << " - Value for ultrasonic: " << Ultrasonic2.cm << endl;
+
+            }
+    }
+}
 // Check if there is an obstacle in FRONT of the robot
 bool obstacleDetected(){
     int obstacleDetectionDistance = 25;
@@ -349,7 +368,7 @@ void controlTerminal(){
 // debug function
 void debug(){
     cout << "VV DEBUG" << endl;
-    cout << "a - turn left 90 degrees" << endl << "t - check if there is a crossing"<< endl << "o - check if there is an obstacle" << endl << "oa - check all obstacles" << endl;
+    cout << "a - turn left 90 degrees" << endl << "t - check if there is a crossing"<< endl << "o - check if there is an obstacle" << endl << "oa - check all obstacles" << endl << "tv - test values" << endl;
     while(true){
         cout << endl << "> ";
         string uin;
@@ -372,6 +391,8 @@ void debug(){
             }
         }else if(uin == "oa"){
             checkGrid();
+        }else if(uin == "tv"){
+            testValues();
         }else{
             return;
         }
