@@ -35,8 +35,8 @@ void moveStop(){
 
 
 void moveFwd() {
-	BP.set_motor_dps(PORT_B, 180);
-	BP.set_motor_dps(PORT_C, 180);
+	BP.set_motor_dps(PORT_B, 360);
+	BP.set_motor_dps(PORT_C, 360);
 	// Draai de motor op port B en C 360 graden
 	cout << " Forward - ";
 
@@ -72,11 +72,15 @@ void moveBack() {
 
 }
 void turnLeft(){
-    BP.set_motor_position_relative(PORT_B, 405);
-    BP.set_motor_position_relative(PORT_C, -405);
+    BP.set_motor_position_relative(PORT_B, 360);
+    BP.set_motor_position_relative(PORT_C, -360);
     //should be 90 degrees
 }
-
+void turnRight(){
+    BP.set_motor_position_relative(PORT_B, -360);
+    BP.set_motor_position_relative(PORT_C, 360);
+    //should be 90 degrees
+}
 
 //- Control functions
 // Check if there is a regular crossing(both sensors would be black)
@@ -117,8 +121,11 @@ bool isCrossing(){
 bool obstacleDetected(){
     int obstacleDetectionDistance = 15;
     int timeout = 0;
-    while(timeout < 150){
+    while(true){
         timeout++;
+        if(timeout > 1000){
+            return false;
+        }
         if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
                 if(Ultrasonic2.cm <= obstacleDetectionDistance){
                     return true;
@@ -127,7 +134,7 @@ bool obstacleDetected(){
 
         }
     }
-    cout << Ultrasonic2.cm << endl;
+    //cout << Ultrasonic2.cm << endl;
     return false;
 
 }
@@ -136,48 +143,59 @@ void checkGrid(){
     bool driveRequired = false;
     for(unsigned int i = 0; i < routesToCheck; i++){
         switch(i){
-            case 0: cout << "Forward: ";
+            case 0: cout << endl << "Forward: ";
             cout << "Checking route: " << i;
             if(!obstacleDetected()){
                 cout << "...clear!" << endl;
                 cout << "checking if path...";
                 moveFwd();
+                sleep(1);
                 //check path
                 moveBack();
-            }else{
-                cout << "...blocked!" << endl;
-            }
-            break;
-            case 1: cout << "Left: ";
-            cout << "Checking route: " << i;
-            if(!obstacleDetected()){
-                cout << "...clear!" << endl;
-                cout << "checking if path...";
-                moveLeft();
-                moveFwd();
-                //check path
-                moveBack();
-                moveRight();
-            }else{
-                cout << "...blocked!" << endl;
-            }
-            break;
-            case 2: cout << "Right: ";
-            cout << "Checking route: " << i;
-            if(!obstacleDetected()){
-                cout << "...clear!" << endl;
-                cout << "checking if path...";
-                moveRight();
-                moveFwd();
-                //check path
-                moveBack();
-                moveLeft();
+                sleep(1);
 
             }else{
                 cout << "...blocked!" << endl;
             }
             break;
-            default: cout << "Unknown: ";
+            case 1: cout << endl << "Left: ";
+            cout << "Checking route: " << i;
+            if(!obstacleDetected()){
+                cout << "...clear!" << endl;
+                cout << "checking if path...";
+                turnLeft();
+                moveFwd();
+                sleep(1);
+
+                //check path
+                moveBack();
+                sleep(1);
+
+                turnRight();
+            }else{
+                cout << "...blocked!" << endl;
+            }
+            break;
+            case 2: cout << endl << "Right: ";
+            cout << "Checking route: " << i;
+            if(!obstacleDetected()){
+                cout << "...clear!" << endl;
+                cout << "checking if path...";
+                turnRight();
+                moveFwd();
+                sleep(1);
+
+                //check path
+                moveBack();
+                sleep(1);
+
+                turnLeft();
+
+            }else{
+                cout << "...blocked!" << endl;
+            }
+            break;
+            default: cout << endl << "Unknown: ";
             break;
         }
 
