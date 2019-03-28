@@ -144,6 +144,7 @@ void testValues(){
                     cout << " - Value for ultrasonic: " << Ultrasonic2.cm << endl;
 
             }
+            sleep(1);
     }
 }
 // Check if there is an obstacle in FRONT of the robot
@@ -173,8 +174,8 @@ bool lineDetected(){
 
     if (BP.get_sensor(PORT_3, Light3) == 0) {
         measurement = Light3.reflected;
-        cout << endl << "m: " << measurement << " borders: 1900 <= x < 2200" << endl;
-        if(measurement >=1900 && measurement < 2200){
+        cout << endl << "m: " << measurement << " borders: 2000 <= x < 2200" << endl;
+        if(measurement >=2000 && measurement < 2200){
             return true;
         }else{
             return false;
