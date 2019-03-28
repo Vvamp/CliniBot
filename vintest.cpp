@@ -123,6 +123,7 @@ bool isCrossing(){
 
 }
 void testValues(){
+    int measurement = 0;
     while(true){
 
             if (BP.get_sensor(PORT_1, Color1) == 0) {
