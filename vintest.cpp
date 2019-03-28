@@ -72,14 +72,14 @@ void moveBack() {
 
 }
 void turnLeft(){
-    BP.set_motor_position_relative(PORT_B, 720);
-    BP.set_motor_position_relative(PORT_C, -720);
+    BP.set_motor_position_relative(PORT_B, 420);
+    BP.set_motor_position_relative(PORT_C, -420);
     cout << "L-turn" << endl;
     //should be 90 degrees
 }
 void turnRight(){
-    BP.set_motor_position_relative(PORT_B, -720);
-    BP.set_motor_position_relative(PORT_C, 720);
+    BP.set_motor_position_relative(PORT_B, -420);
+    BP.set_motor_position_relative(PORT_C, 420);
     cout << "R-turn" << endl;
     //should be 90 degrees
 }
