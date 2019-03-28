@@ -119,11 +119,11 @@ void driveByLine() {
 
 					if (Ultrasonic2.cm > 10) {
 						cout << Light3.reflected << endl;
-						if (Light3.reflected >= 2100 && measurement <= 2200) {
+						if (Light3.reflected >= 2050 && measurement <= 2200) {
 							moveFwd(100000);
 							//rechtdoor
 						}
-						else if (Light3.reflected > 1800 && measurement < 2100) {
+						else if (Light3.reflected > 1800 && measurement < 2050) {
 							moveLeft(100000);
 							//als ie het wit in gaat
 						}
