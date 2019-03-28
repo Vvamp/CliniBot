@@ -117,7 +117,7 @@ bool isCrossing(){
 bool obstacleDetected(){
     int obstacleDetectionDistance = 15;
     int timeout = 0;
-    while(timeout < 50){
+    while(timeout < 100){
         timeout++;
         if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
                 if(Ultrasonic2.cm <= obstacleDetectionDistance){
