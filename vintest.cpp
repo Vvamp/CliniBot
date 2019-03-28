@@ -134,7 +134,7 @@ bool obstacleDetected(){
 
         }
     }
-    //cout << Ultrasonic2.cm << endl;
+    cout << endl << "cm: " << Ultrasonic2.cm << endl;
     return false;
 
 }
@@ -177,7 +177,7 @@ void checkGrid(){
             }
             break;
             case 2: cout << endl << "Right: ";
-            cout << "Checking route: " << i;
+            cout << "Checking route: " << i << endl;
             if(!obstacleDetected()){
                 cout << "...clear!" << endl;
                 cout << "checking if path...";
