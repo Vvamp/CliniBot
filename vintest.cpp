@@ -166,7 +166,7 @@ void checkGrid(){
                 cout << "...clear!" << endl;
                 cout << "checking if path...";
                 turnLeft();
-                sleep(2);
+                sleep(1);
                 moveFwd();
                 sleep(1);
 
@@ -175,6 +175,8 @@ void checkGrid(){
                 sleep(1);
 
                 turnRight();
+                sleep(1);
+
             }else{
                 cout << "...blocked!" << endl;
             }
@@ -185,6 +187,7 @@ void checkGrid(){
                 cout << "...clear!" << endl;
                 cout << "checking if path...";
                 turnRight();
+                sleep(1);
                 moveFwd();
                 sleep(1);
 
@@ -193,6 +196,7 @@ void checkGrid(){
                 sleep(1);
 
                 turnLeft();
+                sleep(1);
 
             }else{
                 cout << "...blocked!" << endl;
