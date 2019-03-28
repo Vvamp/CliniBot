@@ -89,8 +89,9 @@ void avoidObstacle() {
 				}
 				else {
 					moveFwd(500000);
-					moveRight(500000);
+					moveRight(250000);
 					stepFour = 1;
+					usleep(3000000);
 				}
 
 			}
@@ -115,31 +116,36 @@ void driveByLine() {
 	while (true) {
 
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0 && BP.get_sensor(PORT_3, Light3) == 0) {
-			cout << "searching line..." << endl;
-			measurement = Light3.reflected;
+			if (BP.get_voltage_battery() >= 9) {
+				cout << "searching line..." << endl;
+				measurement = Light3.reflected;
 
-			if (Ultrasonic2.cm > 10) {
+				if (Ultrasonic2.cm > 10) {
 
-				if (measurement >= 1900 && measurement <= 2300) {
-					moveFwd(100000);
-					//rechtdoor
-				}
-				else if (measurement > 1800 && measurement < 1900) {
-					moveLeft(100000);
-					//als ie het wit in gaat
-				}
-				else if (measurement > 2300) {
-					moveRight(100000);
-					//als ie het zwart in gaat
-				}
-				
+					if (measurement >= 1900 && measurement <= 2300) {
+						moveFwd(100000);
+						//rechtdoor
+					}
+					else if (measurement > 1800 && measurement < 1900) {
+						moveLeft(100000);
+						//als ie het wit in gaat
+					}
+					else if (measurement > 2300) {
+						moveRight(100000);
+						//als ie het zwart in gaat
+					}
 
+
+				}
+				else{
+					avoidObstacle();
+					usleep(1000000);
+				}
 			}
-			else
-			{
-				avoidObstacle();
-				usleep(1000000);
+			else {
+				cout << "Battery voltage is: " << BP.get_voltage_battery() << ". This is to low to continue..." << endl;
 			}
+			
 		}
 		else
 		{
