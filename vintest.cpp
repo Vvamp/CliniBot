@@ -146,9 +146,11 @@ bool obstacleDetected(){
 }
 bool lineDetected(){
     int measurement = 0;
+    cout << endl << endl << "checking line" << endl;
 
     if (BP.get_sensor(PORT_1, Color1) == 0) {
         measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
+        cout << "m: " << measurement << " borders: 250 <= x < 400" << endl;
         if(measurement >=250 && measurement < 400){
             return true;
         }else{
