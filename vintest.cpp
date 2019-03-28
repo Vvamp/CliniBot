@@ -125,7 +125,29 @@ bool obstacleDetected(){
     return false;
 
 }
+void checkObstacles(){
+    unsigned int routesToCheck = 3; // MIN 3
+    bool driveRequired = false;
+    for(unsigned int i = 0; i < routesToCheck; i++){
+        switch(i){
+            case 0: cout << "Forward: "; driveRequired=true;
+            break;
+            case 1: cout << "Left: ";
+            break;
+            case 2: cout << "Right: ";
+            break;
+            default: cout << "Unknown: ";
+            break;
+        }
 
+        cout << "Checking route: " << i;
+        if(!obstacleDetected()){
+            cout << "...clear!" << endl;
+        }else{
+            cout << "...blocked!" << endl;
+        }
+    }
+}
 
 void vvDance(){
     cout << "Het dak moet er af...!" << endl;
@@ -249,7 +271,7 @@ void debug(){
             }else{
                 cout << "Clear." << endl;
             }
-        }else{false
+        }else{
             return;
         }
     }
