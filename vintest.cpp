@@ -125,23 +125,22 @@ bool isCrossing(){
 
 // Check if there is an obstacle in FRONT of the robot
 bool obstacleDetected(){
-    int obstacleDetectionDistance = 15;
+    int obstacleDetectionDistance = 25;
     int timeout = 0;
     while(true){
         timeout++;
-        if(timeout > 1000){
-            return false;
+        if(timeout > 2000){
+            break;
         }
         if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
                 if(Ultrasonic2.cm <= obstacleDetectionDistance){
-                    cout << "works" << endl;
                     return true;
 
                 }
 
         }
     }
-    cout << endl << "cm: " << Ultrasonic2.cm << endl;
+    //cout << endl << "cm: " << Ultrasonic2.cm << endl;
     return false;
 
 }
@@ -157,6 +156,8 @@ void checkGrid(){
                 cout << "checking if path...";
                 moveFwd();
                 sleep(3);
+                moveStop();
+
                 //check path
                 moveBack();
                 sleep(3);
@@ -174,6 +175,7 @@ void checkGrid(){
                 sleep(3);
                 moveFwd();
                 sleep(3);
+                moveStop();
 
                 //check path
                 moveBack();
@@ -195,6 +197,7 @@ void checkGrid(){
                 sleep(3);
                 moveFwd();
                 sleep(3);
+                moveStop();
 
                 //check path
                 moveBack();
