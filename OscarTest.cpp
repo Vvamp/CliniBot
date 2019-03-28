@@ -66,7 +66,7 @@ void avoidObstacle() {
 					moveLeft(1000000);
 				}
 				else if (Ultrasonic2.cm > 30) {
-					moveLeft(1500000);
+					moveLeft(2000000);
 					stepOne = 1;
 				}
 			}
@@ -91,12 +91,12 @@ void avoidObstacle() {
 					moveFwd(500000);
 					moveRight(250000);
 					stepFour = 1;
-					usleep(3000000);
 				}
 
 			}
 			else if (stepFour == 1) {
 				cout << "obstacle avoidence completed..." << endl;
+				usleep(3000000);
 				return;
 			}
 		}
@@ -139,7 +139,6 @@ void driveByLine() {
 				}
 				else{
 					avoidObstacle();
-					usleep(1000000);
 				}
 			}
 			else {
