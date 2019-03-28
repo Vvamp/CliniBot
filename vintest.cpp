@@ -72,13 +72,15 @@ void moveBack() {
 
 }
 void turnLeft(){
-    BP.set_motor_position_relative(PORT_B, 720);
-    BP.set_motor_position_relative(PORT_C, -720);
+    BP.set_motor_position_relative(PORT_B, 420);
+    BP.set_motor_position_relative(PORT_C, -420);
+    cout << "L-turn" << endl;
     //should be 90 degrees
 }
 void turnRight(){
-    BP.set_motor_position_relative(PORT_B, -720);
-    BP.set_motor_position_relative(PORT_C, 720);
+    BP.set_motor_position_relative(PORT_B, -420);
+    BP.set_motor_position_relative(PORT_C, 420);
+    cout << "R-turn" << endl;
     //should be 90 degrees
 }
 
@@ -149,10 +151,10 @@ void checkGrid(){
                 cout << "...clear!" << endl;
                 cout << "checking if path...";
                 moveFwd();
-                sleep(1);
+                sleep(3);
                 //check path
                 moveBack();
-                sleep(1);
+                sleep(3);
 
             }else{
                 cout << "...blocked!" << endl;
@@ -164,14 +166,17 @@ void checkGrid(){
                 cout << "...clear!" << endl;
                 cout << "checking if path...";
                 turnLeft();
+                sleep(3);
                 moveFwd();
-                sleep(1);
+                sleep(3);
 
                 //check path
                 moveBack();
-                sleep(1);
+                sleep(3);
 
                 turnRight();
+                sleep(3);
+
             }else{
                 cout << "...blocked!" << endl;
             }
@@ -182,14 +187,16 @@ void checkGrid(){
                 cout << "...clear!" << endl;
                 cout << "checking if path...";
                 turnRight();
+                sleep(3);
                 moveFwd();
-                sleep(1);
+                sleep(3);
 
                 //check path
                 moveBack();
-                sleep(1);
+                sleep(3);
 
                 turnLeft();
+                sleep(3);
 
             }else{
                 cout << "...blocked!" << endl;
@@ -343,6 +350,9 @@ int main()
 	BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
 	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
 	BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
+
+    BP.set_motor_limits(PORT_B, 30, 0);
+    BP.set_motor_limits(PORT_C, 30, 0);
 
     cout << "Enter 'move' to control the robot via this terminal, enter 'bt' to control the robot via bluetooth or enter 'crossing' to navigate over a grid." << endl;
     string userChoice;
