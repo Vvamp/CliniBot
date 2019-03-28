@@ -151,10 +151,10 @@ void checkGrid(){
                 cout << "...clear!" << endl;
                 cout << "checking if path...";
                 moveFwd();
-                sleep(1);
+                sleep(2);
                 //check path
                 moveBack();
-                sleep(1);
+                sleep(2);
 
             }else{
                 cout << "...blocked!" << endl;
@@ -166,16 +166,16 @@ void checkGrid(){
                 cout << "...clear!" << endl;
                 cout << "checking if path...";
                 turnLeft();
-                sleep(1);
+                sleep(2);
                 moveFwd();
-                sleep(1);
+                sleep(2);
 
                 //check path
                 moveBack();
-                sleep(1);
+                sleep(2);
 
                 turnRight();
-                sleep(1);
+                sleep(2);
 
             }else{
                 cout << "...blocked!" << endl;
@@ -187,16 +187,16 @@ void checkGrid(){
                 cout << "...clear!" << endl;
                 cout << "checking if path...";
                 turnRight();
-                sleep(1);
+                sleep(2);
                 moveFwd();
-                sleep(1);
+                sleep(2);
 
                 //check path
                 moveBack();
-                sleep(1);
+                sleep(2);
 
                 turnLeft();
-                sleep(1);
+                sleep(2);
 
             }else{
                 cout << "...blocked!" << endl;
@@ -353,6 +353,7 @@ int main()
 
     BP.set_motor_limits(PORT_B, 30, 0);
     BP.set_motor_limits(PORT_C, 30, 0);
+
     cout << "Enter 'move' to control the robot via this terminal, enter 'bt' to control the robot via bluetooth or enter 'crossing' to navigate over a grid." << endl;
     string userChoice;
     cin >> userChoice;
