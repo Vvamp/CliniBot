@@ -123,7 +123,7 @@ bool obstacleDetected(){
     int timeout = 0;
     while(true){
         timeout++;
-        if(timeout > 500){
+        if(timeout > 1000){
             return false;
         }
         if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
@@ -143,7 +143,7 @@ void checkGrid(){
     bool driveRequired = false;
     for(unsigned int i = 0; i < routesToCheck; i++){
         switch(i){
-            case 0: cout << "Forward: ";
+            case 0: cout << endl << "Forward: ";
             cout << "Checking route: " << i;
             if(!obstacleDetected()){
                 cout << "...clear!" << endl;
@@ -158,7 +158,7 @@ void checkGrid(){
                 cout << "...blocked!" << endl;
             }
             break;
-            case 1: cout << "Left: ";
+            case 1: cout << endl << "Left: ";
             cout << "Checking route: " << i;
             if(!obstacleDetected()){
                 cout << "...clear!" << endl;
@@ -176,7 +176,7 @@ void checkGrid(){
                 cout << "...blocked!" << endl;
             }
             break;
-            case 2: cout << "Right: ";
+            case 2: cout << endl << "Right: ";
             cout << "Checking route: " << i;
             if(!obstacleDetected()){
                 cout << "...clear!" << endl;
@@ -195,7 +195,7 @@ void checkGrid(){
                 cout << "...blocked!" << endl;
             }
             break;
-            default: cout << "Unknown: ";
+            default: cout << endl << "Unknown: ";
             break;
         }
 
