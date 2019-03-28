@@ -113,7 +113,7 @@ void driveByLine() {
 	int measurement = 0;
 
 	while (true) {
-		if (BP.get_voltage_battery >= 9) {
+		if (BP.get_voltage_battery() >= 9) {
 			if (BP.get_sensor(PORT_2, Ultrasonic2) == 0 && BP.get_sensor(PORT_3, Light3) == 0) {
 				cout << "searching line..." << endl;
 				measurement = Light3.reflected;
@@ -151,7 +151,7 @@ void driveByLine() {
 		else
 		{
 			moveStop();
-			cout << "Battery Voltage = " << BP.get_voltage_battery << " volt, please charge before continuing" << endl;
+			cout << "Battery Voltage = " << BP.get_voltage_battery() << " volt, please charge before continuing" << endl;
 			break;
 		}
 		
