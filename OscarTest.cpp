@@ -136,10 +136,14 @@ void driveByLine() {
 						avoidObstacle();
 					}
 				}
+				else
+				{
+					cout << "Can't read ultra-red sensor..." << endl;
+				}
 			}
 			else {
 				moveStop();
-				cout << "Can't locate sensors..." << endl;
+				cout << "Can't read ultrasonic sensor..." << endl;
 			}
 		}
 		usleep(100000);
