@@ -113,48 +113,41 @@ void driveByLine() {
 	int measurement = 0;
 
 	while (true) {
-		if (BP.get_voltage_battery() >= 9) {
-			if (BP.get_sensor(PORT_2, Ultrasonic2) == 0 && BP.get_sensor(PORT_3, Light3) == 0) {
-				cout << "searching line..." << endl;
-				measurement = Light3.reflected;
 
-				if (Ultrasonic2.cm > 10) {
+		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0 && BP.get_sensor(PORT_3, Light3) == 0) {
+			cout << "searching line..." << endl;
+			measurement = Light3.reflected;
 
-					if (measurement >= 1900 && measurement <= 2300) {
-						moveFwd(100000);
-						//rechtdoor
-					}
-					else if (measurement > 1800 && measurement < 1900) {
-						moveLeft(100000);
-						//als ie het wit in gaat
-					}
-					else if (measurement > 2300) {
-						moveRight(100000);
-						//als ie het zwart in gaat
-					}
-					//usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
+			if (Ultrasonic2.cm > 10) {
 
+				if (measurement >= 1900 && measurement <= 2300) {
+					moveFwd(100000);
+					//rechtdoor
 				}
-				else
-				{
-					avoidObstacle();
-					usleep(1000000);
+				else if (measurement > 1800 && measurement < 1900) {
+					moveLeft(100000);
+					//als ie het wit in gaat
 				}
+				else if (measurement > 2300) {
+					moveRight(100000);
+					//als ie het zwart in gaat
+				}
+				
+
 			}
 			else
 			{
-				moveStop();
-				cout << "Can't find sensors back..." << endl;
-
+				avoidObstacle();
+				usleep(1000000);
 			}
 		}
 		else
 		{
 			moveStop();
-			cout << "Battery Voltage = " << BP.get_voltage_battery() << " volt, please charge before continuing" << endl;
-			break;
+			cout << "Can't find sensors back..." << endl;
+
 		}
-		
+		usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
 	}
 	cout << "Robot stopped..." << endl;
 }
