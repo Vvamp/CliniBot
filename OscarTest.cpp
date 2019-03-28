@@ -143,14 +143,14 @@ void driveByLine() {
 			}
 			else {
 				cout << "Battery voltage is: " << BP.get_voltage_battery() << ". This is to low to continue..." << endl;
+				break;
 			}
 			
 		}
 		else
 		{
 			moveStop();
-			cout << "Can't find sensors back..." << endl;
-
+			cout << "Can't locate sensors..." << endl;
 		}
 		usleep(250000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
 	}
