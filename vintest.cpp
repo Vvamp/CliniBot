@@ -16,9 +16,14 @@ using std::endl;
 void exit_signal_handler(int signo); // The exit handler definition. Used to catch 'ctrl+c' to terminate execution
 
 BrickPi3 BP; // Define an instance of BrickPi3, called 'BP'
-sensor_light_t      Light3;
-sensor_color_t      Color1;
 
+//Sensor definitions
+sensor_light_t      Light3; //RGB Light sensor
+sensor_color_t      Color1; //Infrared sensor
+sensor_ultrasonic_t Ultrasonic2; //Ultrasonic sensor
+
+
+//-- Movement functions
 // Stop the robot by setting the motor power to '0'
 void moveStop(){
     BP.set_motor_power(PORT_B, 0);
@@ -72,6 +77,9 @@ void turnLeft(){
     //should be 90 degrees
 }
 
+
+//- Control functions
+// Check if there is a regular crossing(both sensors would be black)
 bool isCrossing(){
     // check if other sensor is black
     //sensor_ultrasonic_t Ultrasonic2;
@@ -103,6 +111,48 @@ bool isCrossing(){
 
 
 
+}
+
+// Check if there is an obstacle in FRONT of the robot
+bool obstacleDetected(){
+    int obstacleDetectionDistance = 15;
+    int timeout = 0;
+    while(timeout < 50){
+        timeout++;
+        if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+                if(Ultrasonic2.cm <= obstacleDetectionDistance){
+                    return true;
+
+                }
+
+        }
+    }
+    cout << Ultrasonic2.cm << endl;
+    return false;
+
+}
+void checkObstacles(){
+    unsigned int routesToCheck = 3; // MIN 3
+    bool driveRequired = false;
+    for(unsigned int i = 0; i < routesToCheck; i++){
+        switch(i){
+            case 0: cout << "Forward: "; driveRequired=true;
+            break;
+            case 1: cout << "Left: ";
+            break;
+            case 2: cout << "Right: ";
+            break;
+            default: cout << "Unknown: ";
+            break;
+        }
+
+        cout << "Checking route: " << i;
+        if(!obstacleDetected()){
+            cout << "...clear!" << endl;
+        }else{
+            cout << "...blocked!" << endl;
+        }
+    }
 }
 
 void vvDance(){
@@ -216,9 +266,16 @@ void debug(){
         }else if(uin == "t"){
             cout << "Crossing > ";
             if(isCrossing()){
-                cout << "YES" << endl;
+                cout << "Yes." << endl;
             }else{
-                cout << "NO" << endl;
+                cout << "No." << endl;
+            }
+        }else if(uin == "obstacle"){
+            cout << "Route > ";
+            if(obstacleDetected()){
+                cout << "Blocked." << endl;
+            }else{
+                cout << "Clear." << endl;
             }
         }else{
             return;
@@ -232,7 +289,7 @@ int main()
     cout << "Setting up sensors..." << endl;
     BP.detect(); // Make sure that the BrickPi3 is communicating and that the firmware is compatible with the drivers.
 	BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
-	//BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
+	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
 	BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
 
     cout << "Enter 'move' to control the robot via this terminal, enter 'bt' to control the robot via bluetooth or enter 'crossing' to navigate over a grid." << endl;
