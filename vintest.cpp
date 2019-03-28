@@ -258,7 +258,7 @@ void controlTerminal(){
 // debug function
 void debug(){
     cout << "VV DEBUG" << endl;
-    cout << "a - turn left 90 degrees" << endl << "t - check if there is a crossing"<< endl << "o - check if there is an obstacle" << endl;
+    cout << "a - turn left 90 degrees" << endl << "t - check if there is a crossing"<< endl << "o - check if there is an obstacle" << endl << "oa - check all obstacles" << endl;
     while(true){
         cout << endl << "> ";
         string uin;
@@ -279,6 +279,8 @@ void debug(){
             }else{
                 cout << "Clear." << endl;
             }
+        }else if(uin == "oa"){
+            checkObstacles();
         }else{
             return;
         }
