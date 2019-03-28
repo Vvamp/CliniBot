@@ -144,6 +144,21 @@ bool obstacleDetected(){
     return false;
 
 }
+bool lineDetected(){
+    int measurement = 0;
+
+    if (BP.get_sensor(PORT_1, Color1) == 0) {
+        measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
+        if(measurement >=250 && measurement < 400){
+            return true;
+        }else{
+            return false;
+
+        }
+    }
+
+
+}
 void checkGrid(){
     unsigned int routesToCheck = 3; // MIN 3
     bool driveRequired = false;
@@ -157,8 +172,11 @@ void checkGrid(){
                 moveFwd();
                 sleep(3);
                 moveStop();
-
-                //check path
+                if(!lineDetected()){
+                    cout << "no path" << endl;
+                }else{
+                    cout << "path found" << endl;
+                }
                 moveBack();
                 sleep(3);
 
@@ -177,8 +195,11 @@ void checkGrid(){
                 sleep(3);
                 moveStop();
 
-                //check path
-                moveBack();
+                if(!lineDetected()){
+                    cout << "no path" << endl;
+                }else{
+                    cout << "path found" << endl;
+                }                moveBack();
                 sleep(3);
 
                 turnRight();
@@ -199,7 +220,12 @@ void checkGrid(){
                 sleep(3);
                 moveStop();
 
-                //check path
+                if(!lineDetected()){
+                    cout << "no path" << endl;
+                }else{
+                    cout << "path found" << endl;
+                }
+
                 moveBack();
                 sleep(3);
 
