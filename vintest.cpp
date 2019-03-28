@@ -157,6 +157,8 @@ void checkGrid(){
                 cout << "checking if path...";
                 moveFwd();
                 sleep(3);
+                moveStop();
+
                 //check path
                 moveBack();
                 sleep(3);
@@ -174,6 +176,7 @@ void checkGrid(){
                 sleep(3);
                 moveFwd();
                 sleep(3);
+                moveStop();
 
                 //check path
                 moveBack();
@@ -195,6 +198,7 @@ void checkGrid(){
                 sleep(3);
                 moveFwd();
                 sleep(3);
+                moveStop();
 
                 //check path
                 moveBack();
