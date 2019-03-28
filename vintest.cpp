@@ -351,6 +351,8 @@ int main()
 	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
 	BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
 
+    BP.set_motor_limits(PORT_B, 30, 0);
+    BP.set_motor_limits(PORT_C, 30, 0);
     cout << "Enter 'move' to control the robot via this terminal, enter 'bt' to control the robot via bluetooth or enter 'crossing' to navigate over a grid." << endl;
     string userChoice;
     cin >> userChoice;
