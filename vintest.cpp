@@ -121,8 +121,11 @@ bool isCrossing(){
 bool obstacleDetected(){
     int obstacleDetectionDistance = 15;
     int timeout = 0;
-    while(timeout < 150){
+    while(true){
         timeout++;
+        if(timeout > 500){
+            return false;
+        }
         if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
                 if(Ultrasonic2.cm <= obstacleDetectionDistance){
                     return true;
@@ -131,7 +134,7 @@ bool obstacleDetected(){
 
         }
     }
-    cout << Ultrasonic2.cm << endl;
+    //cout << Ultrasonic2.cm << endl;
     return false;
 
 }
