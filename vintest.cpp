@@ -151,10 +151,10 @@ void checkGrid(){
                 cout << "...clear!" << endl;
                 cout << "checking if path...";
                 moveFwd();
-                sleep(2);
+                sleep(3);
                 //check path
                 moveBack();
-                sleep(2);
+                sleep(3);
 
             }else{
                 cout << "...blocked!" << endl;
@@ -166,16 +166,16 @@ void checkGrid(){
                 cout << "...clear!" << endl;
                 cout << "checking if path...";
                 turnLeft();
-                sleep(2);
+                sleep(3);
                 moveFwd();
-                sleep(2);
+                sleep(3);
 
                 //check path
                 moveBack();
-                sleep(2);
+                sleep(3);
 
                 turnRight();
-                sleep(2);
+                sleep(3);
 
             }else{
                 cout << "...blocked!" << endl;
@@ -187,16 +187,16 @@ void checkGrid(){
                 cout << "...clear!" << endl;
                 cout << "checking if path...";
                 turnRight();
-                sleep(2);
+                sleep(3);
                 moveFwd();
-                sleep(2);
+                sleep(3);
 
                 //check path
                 moveBack();
-                sleep(2);
+                sleep(3);
 
                 turnLeft();
-                sleep(2);
+                sleep(3);
 
             }else{
                 cout << "...blocked!" << endl;
