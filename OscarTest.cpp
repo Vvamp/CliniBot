@@ -145,7 +145,7 @@ void driveByLine() {
 			{
 				moveStop();
 				cout << "Can't find sensors back..." << endl;
-				break;
+
 			}
 		}
 		else
