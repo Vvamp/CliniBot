@@ -142,6 +142,7 @@ void driveByLine() {
 				cout << "Can't locate sensors..." << endl;
 			}
 		}
+		usleep(100000);
 	}
 	else {
 		cout << "Battery voltage is: " << BP.get_voltage_battery() << ". This is to low to continue..." << endl;
