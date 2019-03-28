@@ -35,8 +35,8 @@ void moveStop(){
 
 
 void moveFwd() {
-	BP.set_motor_dps(PORT_B, 180);
-	BP.set_motor_dps(PORT_C, 180);
+	BP.set_motor_dps(PORT_B, 360);
+	BP.set_motor_dps(PORT_C, 360);
 	// Draai de motor op port B en C 360 graden
 	cout << " Forward - ";
 
@@ -72,11 +72,15 @@ void moveBack() {
 
 }
 void turnLeft(){
-    BP.set_motor_position_relative(PORT_B, 405);
-    BP.set_motor_position_relative(PORT_C, -405);
+    BP.set_motor_position_relative(PORT_B, 360);
+    BP.set_motor_position_relative(PORT_C, -360);
     //should be 90 degrees
 }
-
+void turnRight(){
+    BP.set_motor_position_relative(PORT_B, -360);
+    BP.set_motor_position_relative(PORT_C, 360);
+    //should be 90 degrees
+}
 
 //- Control functions
 // Check if there is a regular crossing(both sensors would be black)
@@ -142,8 +146,11 @@ void checkGrid(){
                 cout << "...clear!" << endl;
                 cout << "checking if path...";
                 moveFwd();
+                sleep(1);
                 //check path
                 moveBack();
+                sleep(1);
+
             }else{
                 cout << "...blocked!" << endl;
             }
@@ -153,11 +160,15 @@ void checkGrid(){
             if(!obstacleDetected()){
                 cout << "...clear!" << endl;
                 cout << "checking if path...";
-                moveLeft();
+                turnLeft();
                 moveFwd();
+                sleep(1);
+
                 //check path
                 moveBack();
-                moveRight();
+                sleep(1);
+
+                turnRight();
             }else{
                 cout << "...blocked!" << endl;
             }
@@ -167,11 +178,15 @@ void checkGrid(){
             if(!obstacleDetected()){
                 cout << "...clear!" << endl;
                 cout << "checking if path...";
-                moveRight();
+                turnRight();
                 moveFwd();
+                sleep(1);
+
                 //check path
                 moveBack();
-                moveLeft();
+                sleep(1);
+
+                turnLeft();
 
             }else{
                 cout << "...blocked!" << endl;
