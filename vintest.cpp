@@ -13,15 +13,19 @@ using std::cin;
 using std::cout;
 using std::endl;
 
-
-void exit_signal_handler(int signo); // The exit handler definition. Used to catch 'ctrl+c' to terminate execution
-
 BrickPi3 BP; // Define an instance of BrickPi3, called 'BP'
 
 //Sensor definitions
 sensor_light_t      Light3; //RGB Light sensor
 sensor_color_t      Color1; //Infrared sensor
 sensor_ultrasonic_t Ultrasonic2; //Ultrasonic sensor
+
+void eHandler(int s){
+            cout << "Caught ctrl c" << endl;
+            BP.reset_all();
+            exit(0);
+
+}
 
 
 //-- Movement functions
@@ -359,7 +363,7 @@ void controlTerminal(){
     cbreak();       // Sets that the code buffers per-key and not per newline
     noecho();       // Don't print the characters entered
     timeout(1750);  // Check once every 1,750ms
-    signal(SIGINT, exit_signal_handler);    // register the exit function for Ctrl+C
+    //signal(SIGINT, exit_signal_handler);    // register the exit function for Ctrl+C
 
     while (true){
         int userIn = getch();   // Request a single character from the user
@@ -434,6 +438,28 @@ void debug(){
 // Main execution
 int main()
 {
+    cout << "Setting up ctrl c check..." << endl;
+    struct sigaction sigIntHandler;
+
+    sigIntHandler.sa_handler = eHandler;
+    sigemptyset(&sigIntHandler.sa_mask);
+    sigIntHandler.sa_flags = 0;
+
+    sigaction(SIGINT, &sigIntHandler, NULL);
+
+    cout << "Checking voltage..." << endl;
+    int cvoltage = BP.get_voltage_battery);
+    if (cvoltage < 10) {
+        cout << "[ERROR] BATTERY CRITICAL!" << endl;
+        cout << "Voltage Level: " << cvoltage << endl;
+        BP.reset_all();
+        exit(0);
+    }else{
+        cout << "[INFO] Battery levels sufficient" << endl;
+        cout << "Voltage Level: " << cvoltage << endl;
+    }
+
+
     cout << "Setting up sensors..." << endl;
     BP.detect(); // Make sure that the BrickPi3 is communicating and that the firmware is compatible with the drivers.
 	BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
@@ -442,7 +468,7 @@ int main()
 
     BP.set_motor_limits(PORT_B, 30, 0);
     BP.set_motor_limits(PORT_C, 30, 0);
-    BP.set_motor_limits(PORT_D, 45, 0);
+    BP.set_motor_limits(PORT_D, 90, 0);
 
 
     cout << "Enter 'move' to control the robot via this terminal, enter 'bt' to control the robot via bluetooth or enter 'debug' to enter debug menu." << endl;
@@ -456,20 +482,8 @@ int main()
         controlTerminal();
     }
 
-    cout << "Program Terminated." << endl;
     BP.reset_all();
+    cout << "Program Terminated." << endl;
     return 0;
 
-}
-
-
-// Signal handler that will be called when Ctrl+C is pressed to stop the program
-void exit_signal_handler(int signo){
-    sleep(1);
-    cout << "Exiting..." << endl;
-  if(signo == SIGINT){
-    BP.reset_all();    // Reset everything so there are no run-away motors
-    sleep(1);
-    exit(-2);
-  }
 }
