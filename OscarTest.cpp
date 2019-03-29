@@ -101,7 +101,7 @@ void avoidObstacle() {
 				for (int i = 0; i < stepperLeft; i++) {
 					moveRight(500000);
 				}
-				for (int j = 0; j < stepper; j++) {
+				for (int j = 0; j < stepper*2; j++) {
 					moveFwd(1000000);
 				}
 				for (int a = 0; a < stepperLeft; a++) {
