@@ -75,9 +75,9 @@ void avoidObstacle() {
 				moveFwd(1000000);
 				moveRight(1000000);
 				moveStop();
-				usleep(500000);
 				BP.set_motor_position_relative(PORT_D, -90);
-				while (looking < 2000) {
+				usleep(500000);
+				while (looking < 4000) {
 					looking++;
 					if (Ultrasonic2.cm < 40) {
 						usleep(500000);
@@ -92,9 +92,10 @@ void avoidObstacle() {
 				BP.set_motor_position_relative(PORT_D, 90);
 			}
 			else if (stepTwo == 1 && stepThree == 0) {
-					moveLeft(2000000);
-					stepThree = 1;
-					cout << "step three complete..." << endl;
+				moveFwd(2000000);
+				moveRight(2000000);
+				stepThree = 1;
+				cout << "step three complete..." << endl;
 			}
 			else if (stepThree == 1 && stepFour == 0) {
 				if (Light3.reflected < 2100) {
