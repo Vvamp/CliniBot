@@ -577,6 +577,8 @@ void testgrid(){
 
 					if (Ultrasonic2.cm > 10) {
                         if(isCrossing()){
+                            cout << "Crossing Detected" << endl;
+                            sleep(2);
                             checkGrid();
                         }
 						cout << Light3.reflected << endl;
