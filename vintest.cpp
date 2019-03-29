@@ -420,13 +420,13 @@ void debug(){
         }else if(uin == "cr"){
             lookLeft();
             cout << "Looking left" << endl;
-            sleep(1);
+            sleep(2);
             lookRight();
             cout << "Looking forward" << endl;
-            sleep (1);
+            sleep (2);
             lookRight();
             cout << "Looking right" << endl;
-            sleep(1);
+            sleep(2);
             lookLeft();
             cout << "Looking forward again" << endl;
         }else{
@@ -448,7 +448,7 @@ int main()
     sigaction(SIGINT, &sigIntHandler, NULL);
 
     cout << "Checking voltage..." << endl;
-    int cvoltage = BP.get_voltage_battery);
+    int cvoltage = BP.get_voltage_battery();
     if (cvoltage < 10) {
         cout << "[ERROR] BATTERY CRITICAL!" << endl;
         cout << "Voltage Level: " << cvoltage << endl;
