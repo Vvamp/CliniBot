@@ -456,6 +456,7 @@ int main()
     }
 
     cout << "Program Terminated." << endl;
+    BP.reset_all();
     return 0;
 
 }
