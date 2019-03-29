@@ -55,11 +55,11 @@ void obstacleAvoidenceFwd() {
 	usleep(1000000);
 	while (true) {
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
-			if (Ultrasonic2.cm < 50) {
+			if (Ultrasonic2.cm < 30) {
 				cout << Ultrasonic2.cm << " cm" << endl;
 				moveFwd(1000000);
 			}
-			else if (Ultrasonic2.cm > 50){
+			else if (Ultrasonic2.cm >= 30){
 				cout << Ultrasonic2.cm << " cm" << endl;
 				moveFwd(1000000);
 				moveStop();
