@@ -266,7 +266,9 @@ void checkGrid(){
                 moveFwd();
                 sleep(sleepTime);
                 moveStop();
-                if(!lineDetected()){
+                bool lDetected = lineDetected();
+                cout << lDetected;
+                if(!lDetected){
                     cout << "no path" << endl;
                 }else{
                     cout << "path found" << endl;
