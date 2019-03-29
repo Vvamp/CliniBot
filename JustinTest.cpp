@@ -114,10 +114,12 @@ int main() {
 	int measurement = 0;
 
     ofstream logfile; //Create log file
-    logfile.open("log.txt", ios::app);
-    logfile << "-- Begin log\n";
+    
 
 	while (true) {
+
+        logfile.open("log.txt", ios::app);
+        logfile << "-- Begin log\n";
 
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 			if (Ultrasonic2.cm > 10) {
