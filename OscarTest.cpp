@@ -71,10 +71,16 @@ void avoidObstacle() {
 				}
 			}
 			else if (stepOne == 1 && stepTwo == 0) {
-				moveFwd(4000000);
-				moveRight(2000000);
-				moveFwd(2000000);
-				stepTwo = 1;
+				moveFwd(1000000);
+				BP.set_motor_position_relative(PORT_D, 105);
+				if (Ultrasonic2.cm < 30) {
+					BP.set_motor_position_relative(PORT_D, -105);
+					moveFwd(2000000);
+					stepTwo = 0;
+				}
+				else {
+					stepTwo = 1;
+				}
 				cout << "step two complete..." << endl;
 			}
 			else if (stepTwo == 1 && stepThree == 0) {
