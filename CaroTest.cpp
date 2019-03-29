@@ -13,7 +13,7 @@ using std::endl;
 using std::getline;
 using std::cin;
 using std::string;
-
+using std::vector;
 
 BrickPi3 BP; // Define an instance of BrickPi3, called 'BP'
 
