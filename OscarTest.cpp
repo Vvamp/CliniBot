@@ -106,6 +106,7 @@ void obstacleAvoidenceRight() {
 			}
 			else {
 				BP.set_motor_position_relative(PORT_D, 80);
+				moveStop();
 				usleep(1000000);
 				moveLeft(1000000);
 				break;
