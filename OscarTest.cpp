@@ -70,7 +70,7 @@ void avoidObstacle() {
 				}
 			}
 			else if (stepOne == 1 && stepTwo == 0) {
-				moveFwd(6000000);
+				moveFwd(3000000);
 				stepTwo = 1;
 			}
 			else if (stepTwo == 1 && stepThree == 0) {
