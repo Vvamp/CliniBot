@@ -342,7 +342,7 @@ void checkGrid(){
                 cout << "...clear!" << endl;
                 lookRight();
                 cout << "checking if path...";
-                moveFwd(500);
+                moveFwd(1500000);
                 turnLeft();
 
                 sleep(sleepTime);
@@ -376,7 +376,7 @@ void checkGrid(){
                 cout << "...clear!" << endl;
                 lookLeft();
                 cout << "checking if path...";
-                moveFwd(500);
+                moveFwd(1500000);
                 turnRight();
                 sleep(sleepTime);
                 moveFwd();
@@ -659,8 +659,8 @@ int main(){
 	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
 	BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
 
-    BP.set_motor_limits(PORT_B, 90, 0);
-    BP.set_motor_limits(PORT_C, 90, 0);
+    BP.set_motor_limits(PORT_B, 30, 0);
+    BP.set_motor_limits(PORT_C, 30, 0);
     BP.set_motor_limits(PORT_D, 90, 0);
 
 
