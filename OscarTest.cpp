@@ -55,7 +55,6 @@ void obstacleAvoidenceFwd() {
 	int timer = 0;
 	moveFwd(1000000);
 	BP.set_motor_position_relative(PORT_D, -90);
-	usleep(1000000);
 	while (timer < 4000) {
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 			timer++;
@@ -83,14 +82,14 @@ void obstacleAvoidenceLeft() {
 	cout << "obstacle avoidence, going left..." << endl;
 	BP.set_motor_position_relative(PORT_B, 270);
 	BP.set_motor_position_relative(PORT_C, -270);
-	usleep(1000000);
+	usleep(1500000);
 	return;
 }
 void obstacleAvoidenceRight() {
 	cout << "obstacle avoidence, going left..." << endl;
 	BP.set_motor_position_relative(PORT_B, -270);
 	BP.set_motor_position_relative(PORT_C, 270);
-	usleep(1000000);
+	usleep(1500000);
 	return;
 }
 
