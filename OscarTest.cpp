@@ -216,7 +216,7 @@ int main() {
 	BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
 	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
 	BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
-
+	BP.set_motor_limits(PORT_D, 30);
 	driveByLine();
 
 	
