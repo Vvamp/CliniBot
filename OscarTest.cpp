@@ -81,15 +81,15 @@ void obstacleAvoidenceFwd() {
 
 void obstacleAvoidenceLeft() {
 	cout << "obstacle avoidence, going left..." << endl;
-	BP.set_motor_position_relative(PORT_B, 180);
-	BP.set_motor_position_relative(PORT_C, -180);
+	BP.set_motor_position_relative(PORT_B, 270);
+	BP.set_motor_position_relative(PORT_C, -270);
 	usleep(1000000);
 	return;
 }
 void obstacleAvoidenceRight() {
 	cout << "obstacle avoidence, going left..." << endl;
-	BP.set_motor_position_relative(PORT_B, -180);
-	BP.set_motor_position_relative(PORT_C, 180);
+	BP.set_motor_position_relative(PORT_B, -270);
+	BP.set_motor_position_relative(PORT_C, 270);
 	usleep(1000000);
 	return;
 }
