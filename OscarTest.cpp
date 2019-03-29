@@ -102,7 +102,7 @@ void avoidObstacle() {
 			else if (stepTwo == 1 && stepThree == 0) {
 				looking = 0;
 				moveRight(500000);
-				movestop();
+				moveStop();
 				BP.set_motor_position_relative(PORT_D, -105);
 				usleep(1000000);
 				while (looking <= 2000) {
