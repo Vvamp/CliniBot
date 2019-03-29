@@ -97,7 +97,7 @@ void obstacleAvoidenceEnding() {
 	cout << "obstacle avoidence, searching for the line" << endl;
 	while (true) {
 		if (BP.get_sensor(PORT_3, Light3) == 0) {
-			if (Light3.reflected > 1800 && Light3.reflected < 2200) {
+			if (Light3.reflected > 2000 && Light3.reflected < 2100) {
 				moveFwd(1000000);
 			}
 			else
@@ -136,17 +136,17 @@ void driveByLine() {
 
 					if (Ultrasonic2.cm > 10) {
 						cout << Light3.reflected << endl;
-						if (Light3.reflected >= 2000 && Light3.reflected <= 2200) {
+						if (Light3.reflected >= 2200 && Light3.reflected <= 2300) {
 							cout << "half" << endl;
 							moveFwd(100000);
 							//rechtdoor
 						}
-						else if (Light3.reflected > 1800 && Light3.reflected < 2000) {
+						else if (Light3.reflected > 2000 && Light3.reflected < 2100) {
 							cout << "wit" << endl;
 							moveLeft(100000);
 							//als ie het wit in gaat
 						}
-						else if (Light3.reflected > 2200) {
+						else if (Light3.reflected > 2300) {
 							moveRight(100000);
 							cout << "zwart" << endl;
 							//als ie het zwart in gaat
