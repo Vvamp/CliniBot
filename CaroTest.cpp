@@ -1,7 +1,11 @@
 #include <iostream>
 #include <string>
-using namespace std;
+
+using std::cout;
+using std::endl;
 using std::getline;
+using std::cin;
+using std::string;
 
 int main(){
 
@@ -20,6 +24,7 @@ cout << "|_______________________________________________|" << endl;
 cout << endl;
 
 while(true){
+
 string Keuze;
 getline(cin,Keuze);
 
