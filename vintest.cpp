@@ -162,38 +162,6 @@ void lookRight(){
 
 
 //- Control functions
-// Check if it's a corners(both sensors would eventually be white)
-bool checkCorner(){
-    int measurement = 0;
-    bool s1 = false;
-    bool s2 = false;
-
-    if (BP.get_sensor(PORT_1, Color1) == 0) {
-        measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
-    //    cout << "rgb val: " << measurement << endl;
-
-        if(measurement >=300 && measurement < 500){
-            s1 = true;
-        }
-    }
-
-
-    if (BP.get_sensor(PORT_3, Light3) == 0) {
-        measurement = Light3.reflected;
-        //cout << "ir val: " << measurement << endl;
-        if(measurement >= 1800 && measurement < 2000){
-            s2 = true;
-        }
-    }
-
-    if(s1 && s2){
-        return true;
-    }else{
-        return false;
-    }
-
-}
-
 // Check if there is a regular crossing(both sensors would be black)
 bool isCrossing(){
     // check if other sensor is black
@@ -207,7 +175,7 @@ bool isCrossing(){
         measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
     //    cout << "rgb val: " << measurement << endl;
         cout << "rgb: " << measurement << endl;
-        if(measurement >=300 && measurement < 500){
+        if(measurement >=300 && measurement < 450){
             s1 = true;
         }
     }
@@ -260,7 +228,7 @@ bool obstacleDetected(){
     int timeout = 0;
     while(true){
         timeout++;
-        if(timeout > 2000){
+        if(timeout > 4000){
             break;
         }
         if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
