@@ -545,6 +545,12 @@ void debug(){
             }else{
                 cout << "No." << endl;
             }
+            cout << "Line > ";
+            if(lineDetected()){
+                cout << "YES" << endl;
+            }else{
+                cout << "NO" << endl;
+            }
         }else if(uin == "o"){
             cout << "Route > ";
             if(obstacleDetected()){
