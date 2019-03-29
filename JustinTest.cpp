@@ -127,7 +127,7 @@ int main() {
                             // moveBot(measurement, 50, 50, "Moving forward"); //Forward
                             moveBot(measurement, 0, 0, "Moving forward"); //Forward
 
-                            logUpdate == 10 ? (logfile << "Moving forward" << " =[ " << 0 << "," << 0 << " ]\n");
+                            logUpdate == 10 ? (logfile << "Moving forward" << " =[ " << 0 << "," << 0 << " ]\n") : cout << endl;
                             logUpdate == 10 ? logUpdate = 0 : logUpdate++;
                             logfile.close();
                         }
@@ -135,7 +135,7 @@ int main() {
                             // moveBot(measurement, 5, 50, "Moving left"); //Left
                             moveBot(measurement, 0, 0, "Moving left"); //Right
 
-                            logUpdate == 10 ? (logfile << "Moving left" << " =[ " << 5 << ", " << 50 << "]\n");
+                            logUpdate == 10 ? (logfile << "Moving left" << " =[ " << 5 << ", " << 50 << "]\n") : cout << endl;
                             logUpdate == 10 ? logUpdate = 0 : logUpdate++;
                             logfile.close();
                         }
@@ -143,7 +143,7 @@ int main() {
                             // moveBot(measurement, 50, 5, "Moving right"); //Right
                             moveBot(measurement, 0, 0, "Moving right"); //Right
                             
-                            logUpdate == 10 ? (logfile << "Moving right" << " =[ " << 50 << ", " << 5 << "]\n");
+                            logUpdate == 10 ? (logfile << "Moving right" << " =[ " << 50 << ", " << 5 << "]\n") : cout << endl;
                             logUpdate == 10 ? logUpdate = 0 : logUpdate++;
                             logfile.close();
                         }
@@ -156,7 +156,7 @@ int main() {
 			{
 				moveBot(measurement, 0, 0, "Stopped moving");
 
-                logUpdate == 10 ? (logfile << "Stopped moving" << " =[ " << 0 << ", " << 0 << "]\n");
+                logUpdate == 10 ? (logfile << "Stopped moving" << " =[ " << 0 << ", " << 0 << "]\n") : cout << endl;
                 logUpdate == 10 ? logUpdate = 0 : logUpdate++;
                 logfile.close();
                 
@@ -169,7 +169,7 @@ int main() {
 		{
 			moveBot(measurement, 0, 0, "Ultra sonic not found");
 
-            logUpdate == 10 ? (logfile << "Ultra sonic not found" << " =[ " << 0 << ", " << 0 << "]\n");
+            logUpdate == 10 ? (logfile << "Ultra sonic not found" << " =[ " << 0 << ", " << 0 << "]\n") : cout << endl;
             logUpdate == 10 ? logUpdate = 0 : logUpdate++;
             logfile.close();
 		}
