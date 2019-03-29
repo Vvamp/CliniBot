@@ -43,7 +43,7 @@ void moveStop(){
 void moveBot(const int measurement, const int valueLeft, const int valueRight) {
 	BP.set_motor_power(PORT_C, valueLeft); //Left motor
     BP.set_motor_power(PORT_B, valueRight); // Right motor
-
+/*
     cout << "\033[2J\033[1;1H"; //Clear screen
     cout << "CLINIBOT ============" << endl;
 
@@ -64,7 +64,7 @@ void moveBot(const int measurement, const int valueLeft, const int valueRight) {
     cout << " ULTRASONIC: " << endl;
 
     cout << endl << "=====================" << endl;
-
+*/
 }
 
 void moveLeft() {
