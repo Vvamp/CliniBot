@@ -113,26 +113,7 @@ void obstacleAvoidenceRight() {
 			}
 		}
 	}
-	while (Ultrasonic2.cm > 30) {
-		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
-			if (Ultrasonic2.cm > 30) {
-				object = true;
-			}
-			else {
-				object = false;
-			}
-		}
-	}
-	BP.set_motor_position_relative(PORT_D, 80);
-	if (object == true) {
-		usleep(1000000);
-		obstacleAvoidenceRight();
-	}
-	else {
-		moveLeft(500000);
-		moveStop();
-		return;
-	}
+	return;
 }
 
 void obstacleAvoidenceEnding() {
