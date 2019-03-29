@@ -593,38 +593,29 @@ void controlGrid(){
     // Check if the battery is still sufficiently charged, else shutdown
     if (BP.get_voltage_battery() >= 9) {
 		while (true) {
-            cout << BP.get_sensor(PORT_2, Ultrasonic2) << endl;
-            cout << Ultrasonic2.cm << endl;
+            //cout << BP.get_sensor(PORT_2, Ultrasonic2) << endl;
+            //cout << Ultrasonic2.cm << endl;
 
 			if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 				if (BP.get_sensor(PORT_3, Light3) == 0) {
 					if (Ultrasonic2.cm > 10) {
 						if (Light3.reflected >= 2000 && Light3.reflected <= 2200) {
-                            if(enableDebug){
-                            cout << "half" << endl;
-                            }
+
 							moveFwd(100000);
 							//rechtdoor
 						}
 						else if (Light3.reflected > 1800 && Light3.reflected < 2000) {
-                            if(enableDebug){
-							cout << "wit" << endl;
-                            }
+
 							moveLeft(100000);
 							//als ie het wit in gaat
 						}
 						else if (Light3.reflected > 2200) {
                             if(isCrossing()){
-                                if(enableDebug){
-                                cout << "Crossing Detected!" << endl;
-                                }
                                 moveStop();
                                 checkGrid();
                             }
 							moveRight(100000);
-                            if(enableDebug){
-							cout << "zwart" << endl;
-                            }
+
 							//als ie het zwart in gaat
 
 						}
