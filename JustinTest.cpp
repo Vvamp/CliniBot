@@ -153,8 +153,8 @@ int main() {
 		}
 		else
 		{
-			cout << "ERROR: can't find the ultrasonic sensor" << endl;
-            logfile.close();
+			moveBot(measurement, 0, 0, "Ultra sonic not found");
+            logfile << "Ultra sonic not found" << " =[ " << 0 << ", " << 0 << "]\n";
 		}
 
         
