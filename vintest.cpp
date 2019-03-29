@@ -424,9 +424,11 @@ void checkGrid(){
         }
     }
     cout << endl;
+
     string uinDirection;
     cin >> uinDirection;
-    if(uinDirecion == "left"){
+
+    if(uinDirection == "left"){
         cout << "left" << endl;
     }else if(uinDirection == "right"){
         cout << "right" << endl;
