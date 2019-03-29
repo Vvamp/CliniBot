@@ -410,7 +410,8 @@ void checkGrid(){
     }
     cout << "Possible paths: ";
     if(!values[0] && !values[1] && !values[2]){
-        cout << "None";
+        cout << "None" << endl;
+        cout << "Moving back" << endl; //rotate 180 and follow line
     }else{
         if(values[0]){
             cout << "Forward ";
@@ -423,6 +424,18 @@ void checkGrid(){
         }
     }
     cout << endl;
+    string uinDirection;
+    cin >> uinDirection;
+    if(uinDirecion == "left"){
+        cout << "left" << endl;
+    }else if(uinDirection == "right"){
+        cout << "right" << endl;
+    }else if(uinDirection == "foward"){
+        cout <<"forwards" << endl;
+    }else{
+        cout << "unknown" << endl;
+    }
+
 }
 
 
