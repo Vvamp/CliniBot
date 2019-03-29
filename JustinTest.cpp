@@ -106,8 +106,8 @@ int main() {
 	int average = 0;
 	int measurement = 0;
 
-    ofstream logfile ("log.txt, fstream::out"); //Create log file
-    logfile << "-- Begin log file";
+    ofstream logfile; //Create log file
+    logfile << endl << "-- Begin log file" << endl;
     
 
 	while (true) {
