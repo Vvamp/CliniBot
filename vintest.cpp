@@ -176,7 +176,7 @@ void testValues(){
                 }
             }
             if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
-                if(enableDebug()){
+                if(enableDebug){
                     cout << " - Value for ultrasonic: " << Ultrasonic2.cm << endl;
                 }
             }
@@ -624,7 +624,7 @@ void controlGrid(){
     // Check if the battery is still sufficiently charged, else shutdown
     if (BP.get_voltage_battery() >= 9) {
 		while (true) {
-            
+
 			if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 				if (BP.get_sensor(PORT_3, Light3) == 0) {
                     if(enableDebug){
