@@ -598,23 +598,34 @@ void controlGrid(){
 
 			if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 				if (BP.get_sensor(PORT_3, Light3) == 0) {
+                    if(enableDebug){
+                    cout << "searching line..." << endl;
+                    }
 					if (Ultrasonic2.cm > 10) {
 						if (Light3.reflected >= 2000 && Light3.reflected <= 2200) {
-
+                            if(enableDebug){
+                                cout << "half" << endl;
+                            }
 							moveFwd(100000);
 							//rechtdoor
 						}
 						else if (Light3.reflected > 1800 && Light3.reflected < 2000) {
-
+                            if(enableDebug){
+                                cout << "wit" << endl;
+                            }
 							moveLeft(100000);
 							//als ie het wit in gaat
 						}
 						else if (Light3.reflected > 2200) {
+                            if(enableDebug){
+                                cout << "zwart" << endl;
+                            }
                             if(isCrossing()){
                                 moveStop();
                                 sleep(1);
                                 checkGrid();
                             }
+
 							moveRight(100000);
 
 							//als ie het zwart in gaat
