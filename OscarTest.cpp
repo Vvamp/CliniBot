@@ -58,30 +58,26 @@ void avoidObstacle() {
 	int stepFour = 0;
 	int stepFive = 0;
 	int stepSix = 0;
-	int stepperLeft = 0;
-	int stepper = 0;
+	int looking = 0;
 	while (true) {
 		if (BP.get_sensor(PORT_3, Light3) == 0 && BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 			if (stepOne == 0) {
 				if (Ultrasonic2.cm < 30) {
 					moveLeft(100000);
-					stepperLeft++;
 				}
 				else if (Ultrasonic2.cm > 30) {
 					moveLeft(1500000);
-					stepperLeft++;
 					stepOne = 1;
 					cout << "step one complete..." << endl;
 				}
 			}
 			else if (stepOne == 1 && stepTwo == 0) {
-				int looking = 0;
-				stepper++;
+				looking = 0;
 				moveFwd(1500000);
 				BP.set_motor_position_relative(PORT_D, -105);
 				moveStop();
 				usleep(1000000);
-				while (looking < 2000) {
+				while (looking <= 2000) {
 					if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 						looking++;
 						cout << Ultrasonic2.cm << " cm" << endl;
@@ -90,25 +86,44 @@ void avoidObstacle() {
 						}
 						else {
 							stepTwo = 1;
-							cout << "step two complete..." << endl;
+							
 						}
 					}
+				}
+				if (stepTwo == 0) {
+					cout << "step two repeating..." << endl;
+				}
+				else {
+					cout << "step two complete..." << endl;
 				}
 				BP.set_motor_position_relative(PORT_D, 105);
 				usleep(1000000);
 			}
 			else if (stepTwo == 1 && stepThree == 0) {
-				for (int i = 0; i < stepperLeft; i++) {
-					moveRight(400000);
+				looking = 0;
+				moveRight(500000);
+				BP.set_motor_position_relative(PORT_D, -105);
+				usleep(1000000);
+				while (looking <= 2000) {
+					looking++;
+					if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+						if (Ultrasonic2.cm > 50) {
+							stepThree = 0;
+						}
+						else {
+							stepThree = 1;
+						}
+					}
 				}
-				for (int j = 0; j < stepper*2; j++) {
-					moveFwd(1500000);
+				if (stepThree == 0) {
+					cout << "step three repeating..." << endl;
 				}
-				for (int a = 0; a < stepperLeft; a++) {
-					moveRight(400000);
+				else {
+					cout << "step three complete..." << endl;
 				}
-				stepThree = 1;
-				cout << "step three complete..." << endl;
+				BP.set_motor_position_relative(PORT_D, 105);
+				usleep(1000000);
+				
 			}
 			else if (stepThree == 1 && stepFour == 0) {
 				if (Light3.reflected < 2100) {
