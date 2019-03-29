@@ -81,7 +81,41 @@ void moveBack() {
 
 	cout << " Back - ";
 
+
 }
+
+
+void moveFwd(const int & time) {
+	BP.set_motor_power(PORT_B, 20);
+	BP.set_motor_power(PORT_C, 20);
+	usleep(time);
+	// Draai de motor op port B en C 360 graden
+	return;
+}
+
+void moveLeft(const int & time) {
+	BP.set_motor_power(PORT_B, 20);
+	BP.set_motor_power(PORT_C, -20);
+	usleep(time);
+	return;
+}
+
+void moveRight(const int & time) {
+	BP.set_motor_power(PORT_B, -20);
+	BP.set_motor_power(PORT_C, 20);
+		usleep(time);
+	return;
+}
+
+void moveBack(const int &time) {
+	BP.set_motor_power(PORT_B, -20);
+	BP.set_motor_power(PORT_C, -20);
+	usleep(time);
+	// Draai de motor op port B en C -360 graden
+	return;
+}
+
+
 void turnLeft(){
     BP.set_motor_position_relative(PORT_B, 420);
     BP.set_motor_position_relative(PORT_C, -420);
@@ -254,9 +288,9 @@ void checkGrid(){
                 cout << "...clear!" << endl;
                 lookRight();
                 cout << "checking if path...";
-                moveFwd();
+                /*moveFwd();
                 sleep(1);
-                moveStop();
+                moveStop();*/
 
                 sleep(sleepTime);
                 turnLeft();
@@ -291,9 +325,10 @@ void checkGrid(){
                 cout << "...clear!" << endl;
                 lookLeft();
                 cout << "checking if path...";
-                moveFwd();
+                /*moveFwd();
                 sleep(1);
                 moveStop();
+                */
 
                 sleep(sleepTime);
                 turnRight();
@@ -445,43 +480,50 @@ void controlTerminal(){
 
 void testgrid(){
     int measurement = 0;
-    while (true) {
+    if (BP.get_voltage_battery() >= 9) {
+		while (true) {
+			if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+				if (BP.get_sensor(PORT_3, Light3) == 0) {
+					//cout << "searching line..." << endl;
 
-		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
-			if (Ultrasonic2.cm > 10) {
-
-                // if(!isCrossing()){
-                    if(isCrossing()){
-                        checkGrid();
-                    }else{
-                    if (BP.get_sensor(PORT_3, Light3) == 0) {
-                        measurement = Light3.reflected;
-                        if (measurement >= 2000 && measurement <= 2200) {
-                            moveBot(measurement, 20, 20); //Forward
+					if (Ultrasonic2.cm > 10) {
+                        if(isCrossing()){
+                            checkGrid();
                         }
-                        if (measurement > 1800 && measurement < 2000) {
-                            moveBot(measurement, 10, 50); //Left
-                        }
-                        else if (measurement > 2200) {
-                            moveBot(measurement, 50, 10); //Right
-                        }
-                    }
-                }
-
+						cout << Light3.reflected << endl;
+						if (Light3.reflected >= 2000 && Light3.reflected <= 2200) {
+							cout << "half" << endl;
+							moveFwd(100000);
+							//rechtdoor
+						}
+						else if (Light3.reflected > 1800 && Light3.reflected < 2000) {
+							cout << "wit" << endl;
+							moveLeft(100000);
+							//als ie het wit in gaat
+						}
+						else if (Light3.reflected > 2200) {
+							moveRight(100000);
+							cout << "zwart" << endl;
+							//als ie het zwart in gaat
+						}
+					}
+					
+				}
+				else
+				{
+					cout << "Can't read ultra-red sensor..." << endl;
+				}
 			}
-			else
-			{
-				moveBot(measurement, 0, 0);
+			else {
+				cout << "Can't read ultrasonic sensor..." << endl;
 			}
-
-            usleep(50000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
-
 		}
-		else
-		{
-			cout << "can't find the ultrasonic sensor" << endl;
-		}
+		usleep(100000);
 	}
+	else {
+		cout << "Battery voltage is: " << BP.get_voltage_battery() << ". This is to low to continue..." << endl;
+	}
+	cout << "Robot stopped..." << endl;
 
 }
 // debug function
@@ -565,8 +607,8 @@ int main()
 	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
 	BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
 
-    BP.set_motor_limits(PORT_B, 30, 0);
-    BP.set_motor_limits(PORT_C, 30, 0);
+    BP.set_motor_limits(PORT_B, 90, 0);
+    BP.set_motor_limits(PORT_C, 90, 0);
     BP.set_motor_limits(PORT_D, 90, 0);
 
 
