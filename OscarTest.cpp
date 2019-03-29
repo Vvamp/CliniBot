@@ -21,23 +21,23 @@ void moveStop() {
 }
 
 void moveFwd(const int & time) {
-	BP.set_motor_power(PORT_B, 40);
-	BP.set_motor_power(PORT_C, 40);
+	BP.set_motor_power(PORT_B, 20);
+	BP.set_motor_power(PORT_C, 20);
 	usleep(time);
 	// Draai de motor op port B en C 360 graden
 	return;
 }
 
 void moveLeft(const int & time) {
-	BP.set_motor_power(PORT_B, 40);
-	BP.set_motor_power(PORT_C, -40);
+	BP.set_motor_power(PORT_B, 20);
+	BP.set_motor_power(PORT_C, -20);
 	usleep(time);
 	return;
 }
 
 void moveRight(const int & time) {
-	BP.set_motor_power(PORT_B, -40);
-	BP.set_motor_power(PORT_C, 40);
+	BP.set_motor_power(PORT_B, -20);
+	BP.set_motor_power(PORT_C, 20);
 		usleep(time);
 	return;
 }
@@ -141,15 +141,15 @@ void driveByLine() {
 
 					if (Ultrasonic2.cm > 10) {
 						cout << Light3.reflected << endl;
-						if (Light3.reflected >= 2200 && Light3.reflected <= 2300) {
-							cout << "half" << endl;
-							moveFwd(100000);
-							//rechtdoor
-						}
-						else if (Light3.reflected > 1800 && Light3.reflected < 2200) {
+						if (Light3.reflected > 1850 && Light3.reflected < 2200) {
 							cout << "wit" << endl;
 							moveLeft(100000);
 							//als ie het wit in gaat
+						}
+						else if (Light3.reflected >= 2200 && Light3.reflected <= 2300) {
+						cout << "half" << endl;
+						moveFwd(100000);
+						//rechtdoor
 						}
 						else if (Light3.reflected > 2300) {
 							moveRight(100000);
