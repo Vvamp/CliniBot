@@ -113,7 +113,7 @@ int main() {
 
         int logUpdate = 0;
 
-        logfile.open("log-new.txt");
+        logfile.open("log-new.txt", ios::app);
 
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 			if (Ultrasonic2.cm > 10) {
