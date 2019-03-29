@@ -74,7 +74,7 @@ void avoidObstacle() {
 			else if (stepOne == 1 && stepTwo == 0) {
 				looking = 0;
 				moveFwd(1500000);
-				BP.set_motor_position_relative(PORT_D, -105);
+				BP.set_motor_position_relative(PORT_D, -110);
 				moveStop();
 				usleep(1000000);
 				while (looking <= 2000) {
@@ -96,7 +96,7 @@ void avoidObstacle() {
 				else {
 					cout << "step two complete..." << endl;
 				}
-				BP.set_motor_position_relative(PORT_D, 105);
+				BP.set_motor_position_relative(PORT_D, 110);
 				usleep(1000000);
 			}
 			else if (stepTwo == 1 && stepThree == 0) {
