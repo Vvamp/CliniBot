@@ -51,82 +51,45 @@ void moveBack(const int &time) {
 }
 void obstacleAvoidenceFwd() {
 	cout << "obstacle avoidence, going forward..." << endl;
-	int motorPos = 0;
-
-	while (true) {
-		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
-			if (Ultrasonic2.cm >= 40) {
-				cout << Ultrasonic2.cm << " cm" << endl;
-				motorPos += 20;
-				BP.set_motor_position_relative(PORT_D, -20);
-				usleep(100000);
-			}
-			else
-			{
-				motorPos += 20;
-				BP.set_motor_position_relative(PORT_D, -20);
-				break;
-			}
-			
-		}
-	}
+	int object = false;
+	int timer = 0;
+	moveFwd(1000000);
+	BP.set_motor_position_relative(PORT_D, 90);
 	usleep(1000000);
-	while (true) {
+	while (timer < 4000) {
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+			timer++;
 			if (Ultrasonic2.cm < 30) {
-				cout << Ultrasonic2.cm << " cm" << endl;
-				moveFwd(100000);
+				object = true;
 			}
-			else if (Ultrasonic2.cm >= 30){
-				cout << Ultrasonic2.cm << " cm" << endl;
-				moveFwd(1500000);
-				moveStop();
-				BP.set_motor_position_relative(PORT_D, motorPos);
-				usleep(1000000);
-				break;
+			else {
+				object = false;
 			}
 		}
+		
 	}
-	return;
+	BP.set_motor_position_relative(PORT_D, -90);
+	if (object == true) {
+		obstacleAvoidenceFwd();
+	}
+	else
+	{
+		return;
+	}
 }
 
 void obstacleAvoidenceLeft() {
 	cout << "obstacle avoidence, going left..." << endl;
-	while (true) {
-		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
-			if (Ultrasonic2.cm < 30) {
-				cout << Ultrasonic2.cm << " cm" << endl;
-				moveLeft(100000);
-			}
-			else if (Ultrasonic2.cm > 30) {
-				cout << Ultrasonic2.cm << " cm" << endl;
-				moveLeft(1500000);
-				moveStop();
-				return;
-			}
-		}
-	}
-	
+	BP.set_motor_position_relative(PORT_B, 90);
+	BP.set_motor_position_relative(PORT_C, -90);
+	usleep(1000000);
+	return;
 }
 void obstacleAvoidenceRight() {
-	cout << "obstacle avoidence, going right..." << endl;
-	BP.set_motor_position_relative(PORT_D, -80);
+	cout << "obstacle avoidence, going left..." << endl;
+	BP.set_motor_position_relative(PORT_B, -90);
+	BP.set_motor_position_relative(PORT_C, 90);
 	usleep(1000000);
-	while (true) {
-		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
-			if (Ultrasonic2.cm >= 30) {
-				cout << Ultrasonic2.cm << " cm" << endl;
-				moveRight(100000);
-			}
-			else {
-				cout << Ultrasonic2.cm << " cm" << endl;
-				BP.set_motor_position_relative(PORT_D, 80);
-				moveStop();
-				usleep(1000000);
-				break;
-			}
-		}
-	}
 	return;
 }
 
