@@ -37,7 +37,7 @@ void moveStop(){
     BP.set_motor_power(PORT_C, 0);
     // Zet stroom van poort B en C op 0, waardoor de robot stopt.
 
-    cout << " Stopped - ";
+    //cout << " Stopped - ";
 }
 
 
@@ -50,7 +50,7 @@ void moveLeft() {
 		/*BP.set_motor_position_relative(PORT_B, 45);
 		BP.set_motor_position_relative(PORT_C, -45);*/
 
-	cout << " Left - ";
+//	cout << " Left - ";
 
 }
 
@@ -60,7 +60,7 @@ void moveRight() {
 		/*BP.set_motor_position_relative(PORT_B, -45);
 		BP.set_motor_position_relative(PORT_C, 45);*/
 
-	cout << " Right - ";
+//	cout << " Right - ";
 
 }
 void moveFwd() {
@@ -69,7 +69,7 @@ void moveFwd() {
 	// Draai de motor op port B en C 360 graden
     BP.set_motor_position_relative(PORT_B, 420);
     BP.set_motor_position_relative(PORT_C, 420);
-	cout << " Forward - ";
+	//cout << " Forward - ";
 
 }
 void moveBack() {
@@ -79,7 +79,7 @@ void moveBack() {
     BP.set_motor_position_relative(PORT_B, -420);
     BP.set_motor_position_relative(PORT_C, -420);
 
-	cout << " Back - ";
+/	cout << " Back - ";
 
 
 }
@@ -119,13 +119,13 @@ void moveBack(const int &time) {
 void turnLeft(){
     BP.set_motor_position_relative(PORT_B, 420);
     BP.set_motor_position_relative(PORT_C, -420);
-    cout << "L-turn" << endl;
+    //cout << "L-turn" << endl;
     //should be 90 degrees
 }
 void turnRight(){
     BP.set_motor_position_relative(PORT_B, -420);
     BP.set_motor_position_relative(PORT_C, 420);
-    cout << "R-turn" << endl;
+//    cout << "R-turn" << endl;
     //should be 90 degrees
 }
 
@@ -142,7 +142,40 @@ void lookRight(){
 }
 
 
+
 //- Control functions
+// Check if it's a corners(both sensors would eventually be white)
+bool checkCorner(){
+    int measurement = 0;
+    bool s1 = false;
+    bool s2 = false;
+
+    if (BP.get_sensor(PORT_1, Color1) == 0) {
+        measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
+    //    cout << "rgb val: " << measurement << endl;
+
+        if(measurement >=300 && measurement < 500){
+            s1 = true;
+        }
+    }
+
+
+    if (BP.get_sensor(PORT_3, Light3) == 0) {
+        measurement = Light3.reflected;
+        //cout << "ir val: " << measurement << endl;
+        if(measurement >= 1800 && measurement < 2000){
+            s2 = true;
+        }
+    }
+
+    if(s1 && s2){
+        return true;
+    }else{
+        return false;
+    }
+
+}
+
 // Check if there is a regular crossing(both sensors would be black)
 bool isCrossing(){
     // check if other sensor is black
@@ -303,7 +336,7 @@ void checkGrid(){
                     cout << "no path" << endl;
                 }else{
                     cout << "path found" << endl;
-                    values[0] = true;
+                    values[1] = true;
 
                 }
                 moveBack();
@@ -341,7 +374,7 @@ void checkGrid(){
                     cout << "no path" << endl;
                 }else{
                     cout << "path found" << endl;
-                    values[0] = true;
+                    values[2] = true;
 
                 }
 
