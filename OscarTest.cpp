@@ -168,7 +168,7 @@ void driveByLine() {
 				if (BP.get_sensor(PORT_3, Light3) == 0) {
 					cout << "searching line..." << endl;
 
-					if (Ultrasonic2.cm > 15) {
+					if (Ultrasonic2.cm > 10) {
 						cout << Light3.reflected << endl;
 						if (Light3.reflected >= 2000 && Light3.reflected <= 2200) {
 							cout << "half" << endl;
