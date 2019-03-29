@@ -58,6 +58,7 @@ void obstacleAvoidenceFwd() {
 	while (timer < 2000) {
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 			timer++;
+			usleep(10000);
 			if (Ultrasonic2.cm < 30) {
 				object = true;
 			}
