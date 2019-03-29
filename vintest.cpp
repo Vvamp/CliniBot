@@ -6,12 +6,14 @@
 #include "BrickPi3.h"    // BrickPi3 Header file - used to control the ROBO-MAN
 #include <string>        // String variables
 #include "BluetoothSocket.h" //Bluetooth
+#include <vector>
 
 // Using statements
 using std::string;
 using std::cin;
 using std::cout;
 using std::endl;
+using std::vector;
 
 BrickPi3 BP; // Define an instance of BrickPi3, called 'BP'
 
@@ -203,6 +205,7 @@ bool lineDetected(){
 }
 void checkGrid(){
     unsigned int routesToCheck = 3; // MIN 3
+    vector<bool> values = {false, false, false};
     bool driveRequired = false;
     for(unsigned int i = 0; i < routesToCheck; i++){
         switch(i){
@@ -218,6 +221,7 @@ void checkGrid(){
                     cout << "no path" << endl;
                 }else{
                     cout << "path found" << endl;
+                    values[0] = true;
                 }
                 moveBack();
                 sleep(3);
@@ -226,6 +230,7 @@ void checkGrid(){
                 cout << "...blocked!" << endl;
             }
             break;
+
             case 1: cout << endl << "Left: ";
             cout << "Checking route: " << i;
             lookLeft();
@@ -244,6 +249,8 @@ void checkGrid(){
                     cout << "no path" << endl;
                 }else{
                     cout << "path found" << endl;
+                    values[0] = true;
+
                 }
                 moveBack();
                 sleep(3);
@@ -274,6 +281,8 @@ void checkGrid(){
                     cout << "no path" << endl;
                 }else{
                     cout << "path found" << endl;
+                    values[0] = true;
+
                 }
 
                 moveBack();
@@ -293,6 +302,21 @@ void checkGrid(){
 
 
     }
+    cout << "Possible paths: ";
+    if(!values[0] && !values[1] && !values[2]){
+        cout << "None";
+    }else{
+        if(values[0]){
+            cout << "Forward, ";
+        }
+        if(values[1]){
+            cout << "Left, ";
+        }
+        if(values[2]){
+            cout << "Right";
+        }
+    }
+    cout << endl;
 }
 
 void vvDance(){
