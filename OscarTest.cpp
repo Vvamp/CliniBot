@@ -180,11 +180,6 @@ void driveByLine() {
 	
 }
 
-int averageValues(const int red, const int green, const int blue) {
-	int average = (red + green + blue) / 3;
-	return average;
-}
-
 int main() {
 	
 	signal(SIGINT, exit_signal_handler); // register the exit function for Ctrl+C

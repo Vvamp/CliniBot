@@ -120,6 +120,133 @@ void turnRight(){
     BP.set_motor_position_relative(PORT_B, -420);
     BP.set_motor_position_relative(PORT_C, 420);
 }
+
+void obstacleAvoidenceFwd() {
+	cout << "obstacle avoidence, going forward..." << endl;
+	int object = false;
+	int timer = 0;
+	BP.set_motor_position_relative(PORT_D, -90);
+	moveFwd(4000000);
+	moveStop();
+	while (timer < 2000) {
+		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+			timer++;
+			usleep(1000);
+			if (Ultrasonic2.cm < 30) {
+				object = true;
+			}
+			else {
+				object = false;
+			}
+		}
+		else {
+			cout << "can't find ultrasonic sensor" << endl;
+		}
+
+	}
+	BP.set_motor_position_relative(PORT_D, 90);
+	usleep(1000000);
+	if (object == true) {
+		obstacleAvoidenceFwd();
+	}
+	else
+	{
+		return;
+	}
+}
+
+void obstacleAvoidenceLeft() {
+	cout << "obstacle avoidence, going left..." << endl;
+	BP.set_motor_position_relative(PORT_B, 290);
+	BP.set_motor_position_relative(PORT_C, -290);
+	usleep(1500000);
+	return;
+}
+void obstacleAvoidenceRight() {
+	cout << "obstacle avoidence, going left..." << endl;
+	BP.set_motor_position_relative(PORT_B, -270);
+	BP.set_motor_position_relative(PORT_C, 270);
+	usleep(1500000);
+	return;
+}
+
+void obstacleAvoidenceEnding() {
+	cout << "obstacle avoidence, searching for the line" << endl;
+	while (true) {
+		if (BP.get_sensor(PORT_3, Light3) == 0) {
+			if (Light3.reflected > 1800 && Light3.reflected < 2100) {
+				moveFwd(100000);
+			}
+			else
+			{
+				moveFwd(500000);
+				moveLeft(250000);
+				moveStop();
+				return;
+			}
+
+		}
+	}
+}
+
+void avoidObstacle() {
+	cout << "starting obstacle detection..." << endl;
+	obstacleAvoidenceLeft();
+	obstacleAvoidenceFwd();
+	obstacleAvoidenceRight();
+	obstacleAvoidenceFwd();
+	obstacleAvoidenceRight();
+	obstacleAvoidenceEnding();
+}
+
+void driveByLine() {
+
+	if (BP.get_voltage_battery() >= 9) {
+		while (true) {
+			if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+				if (BP.get_sensor(PORT_3, Light3) == 0) {
+					cout << "searching line..." << endl;
+
+					if (Ultrasonic2.cm > 10) {
+						cout << Light3.reflected << endl;
+						if (Light3.reflected > 1850 && Light3.reflected < 2200) {
+							cout << "wit" << endl;
+							moveLeft(100000);
+							//als ie het wit in gaat
+						}
+						else if (Light3.reflected >= 2200 && Light3.reflected <= 2300) {
+							cout << "half" << endl;
+							moveFwd(100000);
+							//rechtdoor
+						}
+						else if (Light3.reflected > 2300) {
+							moveRight(100000);
+							cout << "zwart" << endl;
+							//als ie het zwart in gaat
+						}
+						cout << "\033[2J\033[1;1H";
+					}
+					else {
+						avoidObstacle();
+					}
+				}
+				else
+				{
+					cout << "Can't read ultra-red sensor..." << endl;
+				}
+			}
+			else {
+				cout << "Can't read ultrasonic sensor..." << endl;
+			}
+		}
+		usleep(100000);
+	}
+	else {
+		cout << "Battery voltage is: " << BP.get_voltage_battery() << ". This is to low to continue..." << endl;
+	}
+	cout << "Robot stopped..." << endl;
+
+}
 void vvDance(){
     cout << "Het dak moet er af...!" << endl;
     BP.set_motor_dps(PORT_B, -360);
@@ -711,7 +838,7 @@ else if(Keuze == "2"){
     controlBluetooth();
 }
 else if(Keuze == "3"){
-    cout << "Lijn rijden" << endl;
+	driveByLine();
 }
 else if(Keuze == "4"){
     controlGrid();
