@@ -54,7 +54,7 @@ void obstacleAvoidenceFwd() {
 	int object = false;
 	int timer = 0;
 	moveFwd(1000000);
-	BP.set_motor_position_relative(PORT_D, 90);
+	BP.set_motor_position_relative(PORT_D, -90);
 	usleep(1000000);
 	while (timer < 4000) {
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
@@ -68,7 +68,8 @@ void obstacleAvoidenceFwd() {
 		}
 		
 	}
-	BP.set_motor_position_relative(PORT_D, -90);
+	BP.set_motor_position_relative(PORT_D, 90);
+	usleep(1000000);
 	if (object == true) {
 		obstacleAvoidenceFwd();
 	}
@@ -188,7 +189,9 @@ int main() {
 	BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
 	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
 	BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
-	BP.set_motor_limits(PORT_D, 30,0);
+	BP.set_motor_limits(PORT_D, 30, 0);
+	BP.set_motor_limits(PORT_B, 30, 0);
+	BP.set_motor_limits(PORT_C, 30, 0);
 	driveByLine();
 
 	
