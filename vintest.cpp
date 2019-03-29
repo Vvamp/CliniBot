@@ -104,7 +104,7 @@ void lookLeft(){
 
 // Turn the eyes right
 void lookRight(){
-    BP.set_motor_position_relative(PORT_D, -lookLeft);
+    BP.set_motor_position_relative(PORT_D, -lookAngle);
 }
 
 
