@@ -95,14 +95,16 @@ void turnRight(){
     //should be 90 degrees
 }
 
+//-Eye functions
+int lookAngle = 100;
 // Turn the eyes left
 void lookLeft(){
-    BP.set_motor_position_relative(PORT_D, 95);
+    BP.set_motor_position_relative(PORT_D, lookAngle);
 }
 
 // Turn the eyes right
 void lookRight(){
-    BP.set_motor_position_relative(PORT_D, -95);
+    BP.set_motor_position_relative(PORT_D, -lookLeft);
 }
 
 
@@ -188,11 +190,11 @@ bool obstacleDetected(){
 }
 bool lineDetected(){
     int measurement = 0;
-    cout << endl << endl << "checking line";
+    //cout << endl << endl << "checking line";
 
     if (BP.get_sensor(PORT_3, Light3) == 0) {
-        measurement = Light3.reflected;
-        cout << endl << "m: " << measurement << " borders: 2000 <= x < 2200" << endl;
+        //measurement = Light3.reflected;
+        //cout << endl << "m: " << measurement << " borders: 2000 <= x < 2200" << endl;
         if(measurement >=2000 && measurement < 2200){
             return true;
         }else{
@@ -207,6 +209,7 @@ void checkGrid(){
     unsigned int routesToCheck = 3; // MIN 3
     vector<bool> values = {false, false, false};
     bool driveRequired = false;
+    int sleepTime = 2;
     for(unsigned int i = 0; i < routesToCheck; i++){
         switch(i){
             case 0: cout << endl << "Forward: ";
@@ -215,7 +218,7 @@ void checkGrid(){
                 cout << "...clear!" << endl;
                 cout << "checking if path...";
                 moveFwd();
-                sleep(3);
+                sleep(sleepTime);
                 moveStop();
                 if(!lineDetected()){
                     cout << "no path" << endl;
@@ -224,7 +227,7 @@ void checkGrid(){
                     values[0] = true;
                 }
                 moveBack();
-                sleep(3);
+                sleep(sleepTime);
 
             }else{
                 cout << "...blocked!" << endl;
@@ -234,15 +237,15 @@ void checkGrid(){
             case 1: cout << endl << "Left: ";
             cout << "Checking route: " << i;
             lookLeft();
-            sleep(2);
+            sleep(sleepTime);
             if(!obstacleDetected()){
                 cout << "...clear!" << endl;
                 lookRight();
                 cout << "checking if path...";
                 turnLeft();
-                sleep(3);
+                sleep(sleepTime);
                 moveFwd();
-                sleep(3);
+                sleep(sleepTime);
                 moveStop();
 
                 if(!lineDetected()){
@@ -253,10 +256,10 @@ void checkGrid(){
 
                 }
                 moveBack();
-                sleep(3);
+                sleep(sleepTime);
 
                 turnRight();
-                sleep(3);
+                sleep(sleepTime);
 
             }else{
                 cout << "...blocked!" << endl;
@@ -272,9 +275,9 @@ void checkGrid(){
                 lookLeft();
                 cout << "checking if path...";
                 turnRight();
-                sleep(3);
+                sleep(sleepTime);
                 moveFwd();
-                sleep(3);
+                sleep(sleepTime);
                 moveStop();
 
                 if(!lineDetected()){
@@ -286,10 +289,10 @@ void checkGrid(){
                 }
 
                 moveBack();
-                sleep(3);
+                sleep(sleepTime);
 
                 turnLeft();
-                sleep(3);
+                sleep(sleepTime);
 
             }else{
                 cout << "...blocked!" << endl;

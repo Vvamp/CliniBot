@@ -92,7 +92,8 @@ void avoidObstacle() {
 					moveFwd(100000);
 				}
 				else {
-					moveFwd(500000);
+					moveFwd(600000);
+					moveLeft(250000);
 					stepFour = 1;
 					cout << "step four complete..." << endl;
 				}
