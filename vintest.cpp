@@ -447,6 +447,19 @@ int main()
 
     sigaction(SIGINT, &sigIntHandler, NULL);
 
+    cout << "Checking voltage..." << endl;
+    int cvoltage = BP.get_voltage_battery);
+    if (cvoltage < 10) {
+        cout << "[ERROR] BATTERY CRITICAL!" << endl;
+        cout << "Voltage Level: " << cvoltage << endl;
+        BP.reset_all();
+        exit(0);
+    }else{
+        cout << "[INFO] Battery levels sufficient" << endl;
+        cout << "Voltage Level: " << cvoltage << endl;
+    }
+
+
     cout << "Setting up sensors..." << endl;
     BP.detect(); // Make sure that the BrickPi3 is communicating and that the firmware is compatible with the drivers.
 	BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
@@ -455,7 +468,7 @@ int main()
 
     BP.set_motor_limits(PORT_B, 30, 0);
     BP.set_motor_limits(PORT_C, 30, 0);
-    BP.set_motor_limits(PORT_D, 80, 0);
+    BP.set_motor_limits(PORT_D, 90, 0);
 
 
     cout << "Enter 'move' to control the robot via this terminal, enter 'bt' to control the robot via bluetooth or enter 'debug' to enter debug menu." << endl;
@@ -469,8 +482,8 @@ int main()
         controlTerminal();
     }
 
-    cout << "Program Terminated." << endl;
     BP.reset_all();
+    cout << "Program Terminated." << endl;
     return 0;
 
 }
