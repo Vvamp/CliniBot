@@ -22,13 +22,13 @@ sensor_light_t      Light3; //RGB Light sensor
 sensor_color_t      Color1; //Infrared sensor
 sensor_ultrasonic_t Ultrasonic2; //Ultrasonic sensor
 
+// Error handler
 void eHandler(int s){
             cout << "Caught ctrl c" << endl;
             BP.reset_all();
             exit(0);
 
 }
-
 
 //-- Movement functions
 // Stop the robot by setting the motor power to '0'
@@ -39,9 +39,6 @@ void moveStop(){
 
     //cout << " Stopped - ";
 }
-
-
-
 
 void moveLeft() {
 
@@ -63,6 +60,7 @@ void moveRight() {
 //	cout << " Right - ";
 
 }
+
 void moveFwd() {
 	//BP.set_motor_dps(PORT_B, 360);
 	//BP.set_motor_dps(PORT_C, 360);
@@ -72,6 +70,7 @@ void moveFwd() {
 	//cout << " Forward - ";
 
 }
+
 void moveBack() {
 	//BP.set_motor_dps(PORT_B, -360);
 	//BP.set_motor_dps(PORT_C, -360);
@@ -83,7 +82,6 @@ void moveBack() {
 
 
 }
-
 
 void moveFwd(const int & time) {
 	BP.set_motor_power(PORT_B, 20);
@@ -115,13 +113,13 @@ void moveBack(const int &time) {
 	return;
 }
 
-
 void turnLeft(){
     BP.set_motor_position_relative(PORT_B, 420);
     BP.set_motor_position_relative(PORT_C, -420);
     //cout << "L-turn" << endl;
     //should be 90 degrees
 }
+
 void turnRight(){
     BP.set_motor_position_relative(PORT_B, -420);
     BP.set_motor_position_relative(PORT_C, 420);
@@ -129,8 +127,29 @@ void turnRight(){
     //should be 90 degrees
 }
 
+void vvDance(){
+    cout << "Het dak moet er af...!" << endl;
+    BP.set_motor_dps(PORT_B, -360);
+    BP.set_motor_dps(PORT_C, -360);
+    usleep(500000);
+    BP.set_motor_dps(PORT_B, 360);
+    BP.set_motor_dps(PORT_C, 360);
+    usleep(500000);
+    BP.set_motor_dps(PORT_B, 360);
+    BP.set_motor_dps(PORT_C, -360);
+    sleep(10);
+    BP.set_motor_dps(PORT_B, -360);
+    BP.set_motor_dps(PORT_C, -360);
+    usleep(500000);
+    BP.set_motor_dps(PORT_B, 360);
+    BP.set_motor_dps(PORT_C, 360);
+    usleep(500000);
+}
+
+
 //-Eye functions
 int lookAngle = 105;
+
 // Turn the eyes left
 void lookLeft(){
     BP.set_motor_position_relative(PORT_D, lookAngle);
@@ -140,7 +159,6 @@ void lookLeft(){
 void lookRight(){
     BP.set_motor_position_relative(PORT_D, -lookAngle);
 }
-
 
 
 //- Control functions
@@ -212,6 +230,7 @@ bool isCrossing(){
 
 
 }
+
 void testValues(){
     int measurement = 0;
     while(true){
@@ -234,6 +253,7 @@ void testValues(){
             sleep(1);
     }
 }
+
 // Check if there is an obstacle in FRONT of the robot
 bool obstacleDetected(){
     int obstacleDetectionDistance = 25;
@@ -255,13 +275,14 @@ bool obstacleDetected(){
     return false;
 
 }
+
 bool lineDetected(){
     int measurement = 0;
-    cout << endl << endl << "checking line";
+    //cout << endl << endl << "checking line";
 
     if (BP.get_sensor(PORT_3, Light3) == 0) {
-        measurement = Light3.reflected;
-        cout << endl << "m: " << measurement << " borders: 2000 <= x < 2700" << endl;
+        //measurement = Light3.reflected;
+        //cout << endl << "m: " << measurement << " borders: 2000 <= x < 2700" << endl;
         if(measurement >=2000 && measurement < 2700){
             return true;
         }else{
@@ -272,7 +293,6 @@ bool lineDetected(){
 
 
 }
-
 
 //Function to move robot (left, right)
 void moveBot(const int measurement, const int valueLeft, const int valueRight) {
@@ -300,7 +320,6 @@ void checkGrid(){
                 sleep(sleepTime);
                 moveStop();
                 bool lDetected = lineDetected();
-                cout << lDetected;
                 if(!lDetected){
                     cout << "no path" << endl;
                 }else{
@@ -323,10 +342,9 @@ void checkGrid(){
                 cout << "...clear!" << endl;
                 lookRight();
                 cout << "checking if path...";
-                moveFwd(5000);
-
-                sleep(sleepTime);
+                moveFwd(500);
                 turnLeft();
+
                 sleep(sleepTime);
                 moveFwd();
                 sleep(sleepTime);
@@ -358,12 +376,7 @@ void checkGrid(){
                 cout << "...clear!" << endl;
                 lookLeft();
                 cout << "checking if path...";
-                moveFwd();
-                usleep(500000);
-                moveStop();
-
-
-                sleep(sleepTime);
+                moveFwd(500);
                 turnRight();
                 sleep(sleepTime);
                 moveFwd();
@@ -400,36 +413,19 @@ void checkGrid(){
         cout << "None";
     }else{
         if(values[0]){
-            cout << "Forward, ";
+            cout << "Forward ";
         }
         if(values[1]){
-            cout << "Left, ";
+            cout << "Left ";
         }
         if(values[2]){
-            cout << "Right";
+            cout << "Right ";
         }
     }
     cout << endl;
 }
 
-void vvDance(){
-    cout << "Het dak moet er af...!" << endl;
-    BP.set_motor_dps(PORT_B, -360);
-    BP.set_motor_dps(PORT_C, -360);
-    usleep(500000);
-    BP.set_motor_dps(PORT_B, 360);
-    BP.set_motor_dps(PORT_C, 360);
-    usleep(500000);
-    BP.set_motor_dps(PORT_B, 360);
-    BP.set_motor_dps(PORT_C, -360);
-    sleep(10);
-    BP.set_motor_dps(PORT_B, -360);
-    BP.set_motor_dps(PORT_C, -360);
-    usleep(500000);
-    BP.set_motor_dps(PORT_B, 360);
-    BP.set_motor_dps(PORT_C, 360);
-    usleep(500000);
-}
+
 
 
 // Show the movement controls on-screen
@@ -438,6 +434,7 @@ void showControls(){
 
 
 }
+
 void controlBluetooth(){
     BluetoothServerSocket serversock(2, 1);  //2 is het channel-number
 	cout << "Waiting for a bluetooth device..." << endl;
@@ -559,6 +556,7 @@ void testgrid(){
 	cout << "Robot stopped..." << endl;
 
 }
+
 // debug function
 void debug(){
     cout << "VV DEBUG" << endl;
@@ -615,9 +613,9 @@ void debug(){
     }
 
 }
+
 // Main execution
-int main()
-{
+int main(){
     cout << "Setting up ctrl c check..." << endl;
     struct sigaction sigIntHandler;
 
