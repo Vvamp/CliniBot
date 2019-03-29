@@ -73,18 +73,16 @@ void avoidObstacle() {
 			else if (stepOne == 1 && stepTwo == 0) {
 				int looking = 0;
 				moveFwd(1000000);
-				moveRight(1000000);
-				moveStop();
 				BP.set_motor_position_relative(PORT_D, -90);
 				usleep(1000000);
 				while (looking < 4000) {
 					if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 						looking++;
+						cout << Ultrasonic2.cm << " cm" << endl;
 						if (Ultrasonic2.cm < 40) {
 							usleep(100000);
 							stepTwo = 0;
 							cout << "repeating step two..." << endl;
-							break;
 						}
 						else {
 							stepTwo = 1;
