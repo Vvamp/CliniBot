@@ -77,7 +77,7 @@ void obstacleAvoidenceFwd() {
 				cout << Ultrasonic2.cm << " cm" << endl;
 				moveFwd(1000000);
 				moveStop();
-				BP.set_motor_position_relative(PORT_D, motorpos);
+				BP.set_motor_position_relative(PORT_D, motorPos);
 				usleep(1000000);
 				break;
 			}
