@@ -175,7 +175,7 @@ bool isCrossing(){
         measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
     //    cout << "rgb val: " << measurement << endl;
         cout << "rgb: " << measurement << endl;
-        if(measurement >=300 && measurement < 500){
+        if(measurement >=300 && measurement < 450){
             s1 = true;
         }
     }
