@@ -325,10 +325,10 @@ void checkGrid(){
                 cout << "...clear!" << endl;
                 lookLeft();
                 cout << "checking if path...";
-                /*moveFwd();
-                sleep(1);
+                moveFwd();
+                usleep(500000);
                 moveStop();
-                */
+
 
                 sleep(sleepTime);
                 turnRight();
