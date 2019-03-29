@@ -58,12 +58,15 @@ void obstacleAvoidenceFwd() {
 	while (timer < 2000) {
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 			timer++;
-			if (Ultrasonic2.cm < 35) {
+			if (Ultrasonic2.cm < 30) {
 				object = true;
 			}
 			else {
 				object = false;
 			}
+		}
+		else {
+			cout << "can't find ultrasonic sensor" << endl;
 		}
 		
 	}
