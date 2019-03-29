@@ -378,6 +378,7 @@ void checkGrid(){
             }else{
                 cout << "...blocked!" << endl;
                 lookRight();
+                sleep(sleepTime);
 
             }
             break;
@@ -414,6 +415,8 @@ void checkGrid(){
             }else{
                 cout << "...blocked!" << endl;
                 lookLeft();
+                sleep(sleepTime);
+
             }
             break;
             default: cout << endl << "Unknown: ";
