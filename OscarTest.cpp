@@ -71,6 +71,8 @@ void avoidObstacle() {
 			}
 			else if (stepOne == 1 && stepTwo == 0) {
 				moveFwd(4000000);
+				moveRight(2000000);
+				moveFwd(2000000);
 				stepTwo = 1;
 			}
 			else if (stepTwo == 1 && stepThree == 0) {
@@ -84,7 +86,7 @@ void avoidObstacle() {
 			}
 			else if (stepThree == 1 && stepFour == 0) {
 				if (Light3.reflected < 2200) {
-					moveFwd(250000);
+					moveFwd(100000);
 				}
 				else {
 					moveFwd(500000);
@@ -93,12 +95,13 @@ void avoidObstacle() {
 			}
 			else if (stepFour == 1 && stepFive == 0) {
 				if (Light3.reflected > 1800 && Light3.reflected < 2000) {
-					cout << "wit" << endl;
 					moveLeft(100000);
 				}
 				else
 				{
 					stepFive = 1;
+					movestop();
+					usleep(100000);
 				}
 				
 			}
