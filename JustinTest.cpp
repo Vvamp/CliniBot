@@ -41,7 +41,7 @@ void moveBot(const int measurement, const int valueLeft, const int valueRight, s
 
 }
 
-void createLog(ofstream logfile, const int valueLeft, const int valueRight, string botStatus){
+void createLog(std::ofstream& logfile, const int valueLeft, const int valueRight, string botStatus){
 
     logfile << botStatus << " =[ " << valueLeft << ", " << valueRight << "]\n";
 
@@ -157,7 +157,7 @@ int main() {
 			cout << "ERROR: can't find the ultrasonic sensor" << endl;
 		}
 
-        newFile.close();
+        logfile.close();
 	}	
 	
 }
