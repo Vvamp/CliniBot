@@ -206,7 +206,7 @@ bool isCrossing(){
     if (BP.get_sensor(PORT_1, Color1) == 0) {
         measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
     //    cout << "rgb val: " << measurement << endl;
-
+        cout << "rgb: " << measurement << endl;
         if(measurement >=300 && measurement < 500){
             s1 = true;
         }
@@ -215,7 +215,7 @@ bool isCrossing(){
 
     if (BP.get_sensor(PORT_3, Light3) == 0) {
         measurement = Light3.reflected;
-        //cout << "ir val: " << measurement << endl;
+        cout << "ir: " << measurement << endl;
         if(measurement >= 2200){
             s2 = true;
         }
@@ -577,7 +577,7 @@ void testgrid(){
 
 					if (Ultrasonic2.cm > 10) {
 
-						cout << Light3.reflected << endl;
+						//cout << Light3.reflected << endl;
 						if (Light3.reflected >= 2000 && Light3.reflected <= 2200) {
 							cout << "half" << endl;
 							moveFwd(100000);
