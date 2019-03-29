@@ -363,7 +363,7 @@ void controlTerminal(){
     cbreak();       // Sets that the code buffers per-key and not per newline
     noecho();       // Don't print the characters entered
     timeout(1750);  // Check once every 1,750ms
-    signal(SIGINT, exit_signal_handler);    // register the exit function for Ctrl+C
+    //signal(SIGINT, exit_signal_handler);    // register the exit function for Ctrl+C
 
     while (true){
         int userIn = getch();   // Request a single character from the user
