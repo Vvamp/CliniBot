@@ -102,7 +102,7 @@ void obstacleAvoidenceEnding() {
 	cout << "obstacle avoidence, searching for the line" << endl;
 	while (true) {
 		if (BP.get_sensor(PORT_3, Light3) == 0) {
-			if (Light3.reflected > 1800 && Light3.reflected < 2200) {
+			if (Light3.reflected > 1800 && Light3.reflected < 2100) {
 				moveFwd(1000000);
 			}
 			else
