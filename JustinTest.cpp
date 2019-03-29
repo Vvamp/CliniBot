@@ -106,7 +106,7 @@ int main() {
 	int average = 0;
 	int measurement = 0;
 
-    ofstream logfile; //Create log file
+    ofstream logfile;
     logfile << endl << "-- Begin log file" << endl;
     
 
@@ -114,7 +114,7 @@ int main() {
 
         int logUpdate = 0;
 
-        logfile.open("log.txt", ios::app);
+        logfile.open("log-new.txt", fstream::out);
 
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 			if (Ultrasonic2.cm > 10) {
