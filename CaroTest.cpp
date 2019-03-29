@@ -625,7 +625,7 @@ void controlGrid(){
                             }
                             if(isCrossing()){
                                 moveStop();
-                                sleep(1);
+                                sleep(2);
                                 checkGrid();
                             }
                             moveBot(measurement, 50, 5);
