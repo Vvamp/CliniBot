@@ -112,10 +112,10 @@ int main() {
 	int average = 0;
 	int measurement = 0;
 
-	while (true) {
+    ofstream logfile ("log.txt", fstream::out); //Create log file
+    logfile << "-- Begin log\n";
 
-        ofstream logfile ("log.txt", fstream::out); //Create log file
-        logfile << "-- Begin log\n";
+	while (true) {
 
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 			if (Ultrasonic2.cm > 10) {
@@ -147,6 +147,7 @@ int main() {
 			else
 			{
 				moveBot(measurement, 0, 0, "Stopped moving");
+                logfile.close();
 			}
 
             usleep(50000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
@@ -155,9 +156,10 @@ int main() {
 		else
 		{
 			cout << "ERROR: can't find the ultrasonic sensor" << endl;
+            logfile.close();
 		}
 
-        logfile.close();
+        
 	}	
 	
 }
