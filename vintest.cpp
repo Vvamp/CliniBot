@@ -507,9 +507,7 @@ void testgrid(){
 							//als ie het zwart in gaat
 						}
 					}
-					else {
-						avoidObstacle();
-					}
+					
 				}
 				else
 				{
