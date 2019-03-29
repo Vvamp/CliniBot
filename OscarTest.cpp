@@ -62,7 +62,7 @@ void avoidObstacle() {
 		if (BP.get_sensor(PORT_3, Light3) == 0 && BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 			if (stepOne == 0) {
 				if (Ultrasonic2.cm < 30) {
-					moveLeft(1000000);
+					moveLeft(100000);
 				}
 				else if (Ultrasonic2.cm > 30) {
 					moveLeft(2000000);
