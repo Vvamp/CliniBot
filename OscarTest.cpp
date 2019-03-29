@@ -67,6 +67,7 @@ void avoidObstacle() {
 				else if (Ultrasonic2.cm > 30) {
 					moveLeft(1500000);
 					stepOne = 1;
+					cout << "step one complete..." << endl;
 				}
 			}
 			else if (stepOne == 1 && stepTwo == 0) {
@@ -74,14 +75,16 @@ void avoidObstacle() {
 				moveRight(2000000);
 				moveFwd(2000000);
 				stepTwo = 1;
+				cout << "step two complete..." << endl;
 			}
 			else if (stepTwo == 1 && stepThree == 0) {
 				if (Ultrasonic2.cm > 40) {
 					moveRight(1000000);
 				}
 				else {
-					moveLeft(2000000);
+					moveLeft(1500000);
 					stepThree = 1;
+					cout << "step three complete..." << endl;
 				}
 			}
 			else if (stepThree == 1 && stepFour == 0) {
@@ -91,6 +94,7 @@ void avoidObstacle() {
 				else {
 					moveFwd(500000);
 					stepFour = 1;
+					cout << "step four complete..." << endl;
 				}
 			}
 			else if (stepFour == 1 && stepFive == 0) {
@@ -100,12 +104,12 @@ void avoidObstacle() {
 				else if (Light3.reflected > 2000)
 				{
 					stepFive = 1;
-					moveStop();
-					usleep(1000000);
+					cout << "step five complete..." << endl;
 				}
 				
 			}
 			else if (stepFive == 1 && stepSix == 0) {
+				cout << "step six complete..." << endl;
 				cout << "obstacle avoidence completed..." << endl;
 				usleep(3000000);
 				stepSix = 1;
