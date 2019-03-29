@@ -279,14 +279,25 @@ bool obstacleDetected(){
 bool lineDetected(){
     int measurement = 0;
     //cout << endl << endl << "checking line";
-
+    bool s1 = false;
+    bool s2 = false;
     if (BP.get_sensor(PORT_3, Light3) == 0) {
-        //measurement = Light3.reflected;
+        measurement = Light3.reflected;
         //cout << endl << "m: " << measurement << " borders: 2000 <= x < 2700" << endl;
         if(measurement >=2000 && measurement < 2700){
-            return true;
+            s1 = true;
         }else{
-            return false;
+            s1 = false;
+
+        }
+    }
+    if (BP.get_sensor(PORT_1, Color1) == 0) {
+        measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
+        //cout << endl << "m: " << measurement << " borders: 2000 <= x < 2700" << endl;
+        if(measurement > 300){
+            s2 = true;
+        }else{
+            s2 = false;
 
         }
     }
@@ -362,6 +373,7 @@ void checkGrid(){
 
                 turnRight();
                 sleep(sleepTime);
+                moveBack(1500000);
 
             }else{
                 cout << "...blocked!" << endl;
@@ -396,6 +408,8 @@ void checkGrid(){
 
                 turnLeft();
                 sleep(sleepTime);
+                moveBack(1500000);
+
 
             }else{
                 cout << "...blocked!" << endl;
