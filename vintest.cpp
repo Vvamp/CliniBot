@@ -6,6 +6,7 @@
 #include "BrickPi3.h"    // BrickPi3 Header file - used to control the ROBO-MAN
 #include <string>        // String variables
 #include "BluetoothSocket.h" //Bluetooth
+
 // Using statements
 using std::string;
 using std::cin;
@@ -87,6 +88,17 @@ void turnRight(){
     cout << "R-turn" << endl;
     //should be 90 degrees
 }
+
+// Turn the eyes left
+void lookLeft(){
+    BP.set_motor_position_relative(PORT_D, 180);
+}
+
+// Turn the eyes right
+void lookRight(){
+    BP.set_motor_position_relative(PORT_D, -180);
+}
+
 
 //- Control functions
 // Check if there is a regular crossing(both sensors would be black)
@@ -225,7 +237,8 @@ void checkGrid(){
                     cout << "no path" << endl;
                 }else{
                     cout << "path found" << endl;
-                }                moveBack();
+                }
+                moveBack();
                 sleep(3);
 
                 turnRight();
@@ -374,6 +387,8 @@ void controlTerminal(){
 void debug(){
     cout << "VV DEBUG" << endl;
     cout << "a - turn left 90 degrees" << endl << "t - check if there is a crossing"<< endl << "o - check if there is an obstacle" << endl << "oa - check all obstacles" << endl << "tv - test values" << endl;
+    cout << "cr - look left and right" << endl;
+
     while(true){
         cout << endl << "> ";
         string uin;
@@ -398,6 +413,17 @@ void debug(){
             checkGrid();
         }else if(uin == "tv"){
             testValues();
+        }else if(uin == "cr"){
+            lookLeft();
+            cout << "Looking left" << endl;
+            sleep(1);
+            lookRight();
+            cout << "Looking forward" << endl;
+            sleep (1);
+            lookRight();
+            cout << "Looking right" << endl;
+            lookLeft();
+            cout << "Looking forward again" << endl;
         }else{
             return;
         }
@@ -415,8 +441,10 @@ int main()
 
     BP.set_motor_limits(PORT_B, 30, 0);
     BP.set_motor_limits(PORT_C, 30, 0);
+    BP.set_motor_limits(PORT_D, 45, 0);
 
-    cout << "Enter 'move' to control the robot via this terminal, enter 'bt' to control the robot via bluetooth or enter 'crossing' to navigate over a grid." << endl;
+
+    cout << "Enter 'move' to control the robot via this terminal, enter 'bt' to control the robot via bluetooth or enter 'debug' to enter debug menu." << endl;
     string userChoice;
     cin >> userChoice;
     if(userChoice == "bt"){
@@ -428,6 +456,7 @@ int main()
     }
 
     cout << "Program Terminated." << endl;
+    BP.reset_all();
     return 0;
 
 }
