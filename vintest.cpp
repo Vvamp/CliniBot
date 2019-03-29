@@ -224,11 +224,11 @@ bool obstacleDetected(){
 }
 bool lineDetected(){
     int measurement = 0;
-    //cout << endl << endl << "checking line";
+    cout << endl << endl << "checking line";
 
     if (BP.get_sensor(PORT_3, Light3) == 0) {
-        //measurement = Light3.reflected;
-        //cout << endl << "m: " << measurement << " borders: 2000 <= x < 2200" << endl;
+        measurement = Light3.reflected;
+        cout << endl << "m: " << measurement << " borders: 2000 <= x < 2200" << endl;
         if(measurement >=2000 && measurement < 2200){
             return true;
         }else{
@@ -325,10 +325,10 @@ void checkGrid(){
                 cout << "...clear!" << endl;
                 lookLeft();
                 cout << "checking if path...";
-                /*moveFwd();
-                sleep(1);
+                moveFwd();
+                usleep(500000);
                 moveStop();
-                */
+
 
                 sleep(sleepTime);
                 turnRight();
@@ -507,7 +507,7 @@ void testgrid(){
 							//als ie het zwart in gaat
 						}
 					}
-					
+
 				}
 				else
 				{
@@ -544,6 +544,12 @@ void debug(){
                 cout << "Yes." << endl;
             }else{
                 cout << "No." << endl;
+            }
+            cout << "Line > ";
+            if(lineDetected()){
+                cout << "YES" << endl;
+            }else{
+                cout << "NO" << endl;
             }
         }else if(uin == "o"){
             cout << "Route > ";
