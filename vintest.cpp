@@ -612,6 +612,7 @@ void controlGrid(){
 						else if (Light3.reflected > 2200) {
                             if(isCrossing()){
                                 moveStop();
+                                sleep(1);
                                 checkGrid();
                             }
 							moveRight(100000);
