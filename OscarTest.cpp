@@ -100,7 +100,7 @@ void avoidObstacle() {
 				else if (Light3.reflected > 2000)
 				{
 					stepFive = 1;
-					movestop();
+					moveStop();
 					usleep(1000000);
 				}
 				
