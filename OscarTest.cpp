@@ -75,10 +75,10 @@ void avoidObstacle() {
 					moveFwd(1000000);
 					moveRight(1000000);
 					moveStop();
-					usleep(1000000);
+					usleep(500000);
 					BP.set_motor_position_relative(PORT_D, -80);
-					if (Ultrasonic2.cm < 30) {
-						usleep(1000000);
+					if (Ultrasonic2.cm < 40) {
+						usleep(500000);
 						BP.set_motor_position_relative(PORT_D, 80);
 						stepTwo = 0;
 						cout << "repeating step two..." << endl;
@@ -87,8 +87,9 @@ void avoidObstacle() {
 				else {
 					BP.set_motor_position_relative(PORT_D, 80);
 					stepTwo = 1;
+					cout << "step two complete..." << endl;
 				}
-				cout << "step two complete..." << endl;
+				
 			}
 			else if (stepTwo == 1 && stepThree == 0) {
 				if (Ultrasonic2.cm > 40) {
