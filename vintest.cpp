@@ -134,20 +134,20 @@ void testValues(){
     while(true){
             if (BP.get_sensor(PORT_1, Color1) == 0) {
                 measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
-                if(enableDebug)
+                if(enableDebug){
                 cout << "Value for RGB: " << measurement;
+                }
             }
 
 
             if (BP.get_sensor(PORT_3, Light3) == 0) {
                 measurement = Light3.reflected;
-                if(enableDebug)
+                if(enableDebug){
                 cout << " - Value for IR: " << measurement;
-
+                }
             }
             if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
                     cout << " - Value for ultrasonic: " << Ultrasonic2.cm << endl;
-
             }
             sleep(1);
     }
@@ -163,8 +163,9 @@ bool isCrossing(){
     // Check if RGB sensor reads black
     if (BP.get_sensor(PORT_1, Color1) == 0) {
         measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
-        if(enableDebug)
+        if(enableDebug){
         cout << "rgb: " << measurement << endl;
+        }
         if(measurement >=200 && measurement < 450){
             s1 = true;
         }
@@ -174,8 +175,9 @@ bool isCrossing(){
     // Check if IR sensor reads black
     if (BP.get_sensor(PORT_3, Light3) == 0) {
         measurement = Light3.reflected;
-        if(enableDebug)
+        if(enableDebug){
         cout << "ir: " << measurement << endl;
+        }
         if(measurement >= 2200){
             s2 = true;
         }
@@ -206,8 +208,9 @@ bool obstacleDetected(){
 
         }
     }
-    if(enableDebug)
+    if(enableDebug){
     cout << endl << "cm: " << Ultrasonic2.cm << endl;
+    }
     return false;
 
 }
@@ -215,14 +218,16 @@ bool obstacleDetected(){
 // Check if there is a line
 bool lineDetected(){
     int measurement = 0;
-    if(enableDebug)
+    if(enableDebug){
     cout << endl << endl << "checking line";
+    }
     bool s1 = false;
     bool s2 = false;
     if (BP.get_sensor(PORT_3, Light3) == 0) {
         measurement = Light3.reflected;
-        if(enableDebug)
+        if(enableDebug){
         cout << endl << "measured RGB: " << measurement << " borders: 2000 <= x < 2700" << endl;
+        }
         if(measurement >=2000 && measurement < 2700){
             s1 = true;
         }else{
@@ -231,8 +236,9 @@ bool lineDetected(){
     }
     if (BP.get_sensor(PORT_1, Color1) == 0) {
         measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
-        if(enableDebug)
+        if(enableDebug){
         cout << endl << "m: " << measurement << " borders: 200 <= x < 400" << endl;
+        }
         if(measurement < 400 && measurement > 200){
             s2 = true;
         }else{
@@ -281,11 +287,13 @@ void checkGrid(){
 
                     // check if there is a line
                     if(!lineDetected()){
-                        if(enableDebug)
+                        if(enableDebug){
                         cout << "no path" << endl;
+                        }
                     }else{
-                        if(enableDebug)
+                        if(enableDebug){
                         cout << "path found" << endl;
+                        }
                         values[0] = true;
                     }
 
@@ -294,8 +302,9 @@ void checkGrid(){
                     sleep(sleepTime);
 
                 }else{
-                    if(enableDebug)
+                    if(enableDebug){
                     cout << "...blocked!" << endl;
+                    }
                 }
             break;
 
@@ -309,11 +318,13 @@ void checkGrid(){
             lookLeft();
             sleep(sleepTime);
             if(!obstacleDetected()){
-                if(enableDebug)
+                if(enableDebug){
                 cout << "...clear!" << endl;
+                }
                 lookRight();                    // Reset eyes
-                if(enableDebug)
+                if(enableDebug){
                 cout << "checking if path...";
+                }
                 // Bring wheels to crossing center and turn left
                 moveFwd(1500000);
                 turnLeft();
@@ -326,11 +337,13 @@ void checkGrid(){
 
                 // Check if there is a line
                 if(!lineDetected()){
-                    if(enableDebug)
+                    if(enableDebug){
                     cout << "no path" << endl;
+                    }
                 }else{
-                    if(enableDebug)
+                    if(enableDebug){
                     cout << "path found" << endl;
+                    }
                     values[1] = true;
                 }
                 // Go back to center
@@ -343,8 +356,9 @@ void checkGrid(){
                 moveBack(1500000);
 
             }else{
-                if(enableDebug)
+                if(enableDebug){
                 cout << "...blocked!" << endl;
+                }
                 lookRight();            // Reset eyes
                 sleep(sleepTime);
 
@@ -359,11 +373,13 @@ void checkGrid(){
                 // Turn eyes right and check if there is an object
                 lookRight();
                 if(!obstacleDetected()){
-                    if(enableDebug)
+                    if(enableDebug){
                     cout << "...clear!" << endl;
+                    }
                     lookLeft();         // Reset eyes
-                    if(enableDebug)
+                    if(enableDebug){
                     cout << "checking if path...";
+                    }
 
                     // Move wheels to center and turn right
                     moveFwd(1500000);
@@ -377,11 +393,13 @@ void checkGrid(){
 
                     // Check if there is a line
                     if(!lineDetected()){
-                        if(enableDebug)
+                        if(enableDebug){
                         cout << "no path" << endl;
+                        }
                     }else{
-                        if(enableDebug)
+                        if(enableDebug){
                         cout << "path found" << endl;
+                        }
                         values[2] = true;
                     }
 
@@ -394,15 +412,17 @@ void checkGrid(){
                     sleep(sleepTime);
                     moveBack(1500000);
                 }else{
-                    if(enableDebug)
+                    if(enableDebug){
                     cout << "...blocked!" << endl;
+                    }
                     lookLeft();
                     sleep(sleepTime);
                 }
             break;
                 default:
-                if(enableDebug)
+                if(enableDebug){
                 cout << endl << "[ERROR]";
+                }
                 exit(-2);
             break;
         }
@@ -505,8 +525,9 @@ void controlBluetooth(){
 		string input;
 		while(mb.isRunning()) {
 			input = mb.readMessage();  //blokkeert niet
-            if(enableDebug)
+            if(enableDebug){
             cout << "Executing Action: " << input << endl;
+            }
 			if(input != ""){
                 // input
                 if(input.find("UP") != std::string::npos){
@@ -576,27 +597,31 @@ void controlGrid(){
 				if (BP.get_sensor(PORT_3, Light3) == 0) {
 					if (Ultrasonic2.cm > 10) {
 						if (Light3.reflected >= 2000 && Light3.reflected <= 2200) {
-                            if(enableDebug)
+                            if(enableDebug){
                             cout << "half" << endl;
+                            }
 							moveFwd(100000);
 							//rechtdoor
 						}
 						else if (Light3.reflected > 1800 && Light3.reflected < 2000) {
-                            if(enableDebug)
+                            if(enableDebug){
 							cout << "wit" << endl;
+                            }
 							moveLeft(100000);
 							//als ie het wit in gaat
 						}
 						else if (Light3.reflected > 2200) {
                             if(isCrossing()){
-                                if(enableDebug)
+                                if(enableDebug){
                                 cout << "Crossing Detected!" << endl;
+                                }
                                 moveStop();
                                 checkGrid();
                             }
 							moveRight(100000);
-                            if(enableDebug)
+                            if(enableDebug){
 							cout << "zwart" << endl;
+                            }
 							//als ie het zwart in gaat
 
 						}
