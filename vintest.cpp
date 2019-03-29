@@ -91,12 +91,12 @@ void turnRight(){
 
 // Turn the eyes left
 void lookLeft(){
-    BP.set_motor_position_relative(PORT_D, 180);
+    BP.set_motor_position_relative(PORT_D, 45);
 }
 
 // Turn the eyes right
 void lookRight(){
-    BP.set_motor_position_relative(PORT_D, -180);
+    BP.set_motor_position_relative(PORT_D, -45);
 }
 
 
@@ -464,8 +464,11 @@ int main()
 
 // Signal handler that will be called when Ctrl+C is pressed to stop the program
 void exit_signal_handler(int signo){
+    sleep(1);
+    cout << "Exiting..." << endl;
   if(signo == SIGINT){
     BP.reset_all();    // Reset everything so there are no run-away motors
+    sleep(1);
     exit(-2);
   }
 }
