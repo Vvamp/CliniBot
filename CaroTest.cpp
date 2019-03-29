@@ -708,13 +708,13 @@ if(Keuze == "1"){
     controlTerminal();
 }
 else if(Keuze == "2"){
-    cout << "Bluetooth programma" << endl;
+    controlBluetooth();
 }
 else if(Keuze == "3"){
     cout << "Lijn rijden" << endl;
 }
 else if(Keuze == "4"){
-    cout << "Grid rijden" << endl;
+    controlGrid();
 }
 else if(Keuze == "5"){
     cout << "...Exiting Keuzemenu..." << endl;
