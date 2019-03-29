@@ -44,6 +44,7 @@ void moveBot(const int measurement, const int valueLeft, const int valueRight, s
 void createLog(std::ofstream& logfile, const int valueLeft, const int valueRight, string botStatus){
 
     logfile << botStatus << " =[ " << valueLeft << ", " << valueRight << "]\n";
+    logfile.close();
 
 }
 
@@ -147,7 +148,7 @@ int main() {
 			else
 			{
 				moveBot(measurement, 0, 0, "Stopped moving");
-                logfile.close();
+                
 			}
 
             usleep(50000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
