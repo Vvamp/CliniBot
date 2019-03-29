@@ -448,7 +448,7 @@ int main()
     sigaction(SIGINT, &sigIntHandler, NULL);
 
     cout << "Checking voltage..." << endl;
-    int cvoltage = BP.get_voltage_battery);
+    int cvoltage = BP.get_voltage_battery());
     if (cvoltage < 10) {
         cout << "[ERROR] BATTERY CRITICAL!" << endl;
         cout << "Voltage Level: " << cvoltage << endl;
