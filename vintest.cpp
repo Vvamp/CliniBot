@@ -436,6 +436,7 @@ void controlTerminal(){
 }
 
 void testgrid(){
+    int measurement = 0;
     while (true) {
 
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
