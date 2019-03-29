@@ -110,13 +110,13 @@ int main() {
 
                     if (BP.get_sensor(PORT_3, Light3) == 0) {
                         measurement = Light3.reflected;
-                        if (measurement >= 1900 && measurement <= 2300) {
+                        if (measurement >= 2000 && measurement <= 2200) {
                             moveBot(measurement, 50, 50); //Forward
                         }
-                        if (measurement > 1800 && measurement < 1900) {
+                        if (measurement > 1800 && measurement < 2000) {
                             moveBot(measurement, 10, 50); //Left
                         }
-                        else if (measurement > 2300) {
+                        else if (measurement > 2200) {
                             moveBot(measurement, 50, 10); //Right
                         }
                     }
