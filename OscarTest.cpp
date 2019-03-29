@@ -54,12 +54,12 @@ void obstacleAvoidenceFwd() {
 	int object = false;
 	int timer = 0;
 	BP.set_motor_position_relative(PORT_D, -90);
-	moveFwd(1000000);
+	moveFwd(2000000);
 	moveStop();
 	while (timer < 2000) {
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 			timer++;
-			usleep(10000);
+			usleep(1000);
 			if (Ultrasonic2.cm < 30) {
 				object = true;
 			}
