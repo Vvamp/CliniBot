@@ -96,7 +96,7 @@ void turnRight(){
 }
 
 //-Eye functions
-int lookAngle = 100;
+int lookAngle = 105;
 // Turn the eyes left
 void lookLeft(){
     BP.set_motor_position_relative(PORT_D, lookAngle);
@@ -104,7 +104,7 @@ void lookLeft(){
 
 // Turn the eyes right
 void lookRight(){
-    BP.set_motor_position_relative(PORT_D, -lookLeft);
+    BP.set_motor_position_relative(PORT_D, -lookAngle);
 }
 
 
@@ -455,13 +455,13 @@ void debug(){
         }else if(uin == "cr"){
             lookLeft();
             cout << "Looking left" << endl;
-            sleep(2);
+            sleep(1);
             lookRight();
             cout << "Looking forward" << endl;
-            sleep (2);
+            sleep (1);
             lookRight();
             cout << "Looking right" << endl;
-            sleep(2);
+            sleep(1);
             lookLeft();
             cout << "Looking forward again" << endl;
         }else{

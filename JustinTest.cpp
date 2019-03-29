@@ -56,36 +56,36 @@ void moveBot(const int measurement, const int valueLeft, const int valueRight) {
     
 // }
 
-// check if other sensor is black
-bool isCrossing(){
+// // check if other sensor is black
+// bool isCrossing(){
 
-    //sensor_ultrasonic_t Ultrasonic2;
+//     //sensor_ultrasonic_t Ultrasonic2;
 
-    int measurement = 0;
-    bool s1 = false;
-    bool s2 = false;
+//     int measurement = 0;
+//     bool s1 = false;
+//     bool s2 = false;
 
-    if (BP.get_sensor(PORT_1, Color1) == 0) {
-        measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
-        if(measurement >=250 && measurement < 400){
-            s1 = true;
-        }
-    }
+//     if (BP.get_sensor(PORT_1, Color1) == 0) {
+//         measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
+//         if(measurement >=250 && measurement < 400){
+//             s1 = true;
+//         }
+//     }
 
 
-    if (BP.get_sensor(PORT_3, Light3) == 0) {
-        measurement = Light3.reflected;
-        if(measurement >= 2400){
-            s2 = true;
-        }
-    }
+//     if (BP.get_sensor(PORT_3, Light3) == 0) {
+//         measurement = Light3.reflected;
+//         if(measurement >= 2400){
+//             s2 = true;
+//         }
+//     }
 
-    if(s1 && s2){
-        return true;
-    }else{
-        return false;
-    }
-}
+//     if(s1 && s2){
+//         return true;
+//     }else{
+//         return false;
+//     }
+// }
 
 int main() {
 	
@@ -110,13 +110,13 @@ int main() {
 
                     if (BP.get_sensor(PORT_3, Light3) == 0) {
                         measurement = Light3.reflected;
-                        if (measurement >= 1900 && measurement <= 2300) {
+                        if (measurement >= 2000 && measurement <= 2200) {
                             moveBot(measurement, 50, 50); //Forward
                         }
-                        if (measurement > 1800 && measurement < 1900) {
+                        if (measurement > 1800 && measurement < 2000) {
                             moveBot(measurement, 10, 50); //Left
                         }
-                        else if (measurement > 2300) {
+                        else if (measurement > 2200) {
                             moveBot(measurement, 50, 10); //Right
                         }
                     }
