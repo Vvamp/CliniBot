@@ -59,13 +59,13 @@ void obstacleAvoidenceFwd() {
 				cout << Ultrasonic2.cm << " cm" << endl;
 				motorPos += 20;
 				BP.set_motor_position_relative(PORT_D, -20);
-				usleep(250000);
+				usleep(100000);
 			}
 			else
 			{
 				motorPos += 20;
 				BP.set_motor_position_relative(PORT_D, -20);
-				usleep(250000);
+				usleep(100000);
 				break;
 			}
 			
@@ -76,12 +76,11 @@ void obstacleAvoidenceFwd() {
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 			if (Ultrasonic2.cm < 30) {
 				cout << Ultrasonic2.cm << " cm" << endl;
-				moveFwd(1500000);
-				usleep(100000);
+				moveFwd(100000);
 			}
 			else if (Ultrasonic2.cm >= 30){
 				cout << Ultrasonic2.cm << " cm" << endl;
-				moveFwd(100000);
+				moveFwd(1500000);
 				moveStop();
 				BP.set_motor_position_relative(PORT_D, motorPos);
 				usleep(1000000);
