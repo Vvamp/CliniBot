@@ -228,8 +228,8 @@ bool lineDetected(){
 
     if (BP.get_sensor(PORT_3, Light3) == 0) {
         measurement = Light3.reflected;
-        cout << endl << "m: " << measurement << " borders: 2000 <= x < 2200" << endl;
-        if(measurement >=2000 && measurement < 2200){
+        cout << endl << "m: " << measurement << " borders: 2000 <= x < 2700" << endl;
+        if(measurement >=2000 && measurement < 2700){
             return true;
         }else{
             return false;
@@ -266,7 +266,9 @@ void checkGrid(){
                 moveFwd();
                 sleep(sleepTime);
                 moveStop();
-                if(!lineDetected()){
+                bool lDetected = lineDetected();
+                cout << lDetected;
+                if(!lDetected){
                     cout << "no path" << endl;
                 }else{
                     cout << "path found" << endl;
@@ -288,9 +290,7 @@ void checkGrid(){
                 cout << "...clear!" << endl;
                 lookRight();
                 cout << "checking if path...";
-                /*moveFwd();
-                sleep(1);
-                moveStop();*/
+                moveFwd(5000);
 
                 sleep(sleepTime);
                 turnLeft();
