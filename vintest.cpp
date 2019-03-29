@@ -422,15 +422,27 @@ void checkGrid(){
                 moveFwd(1500000);
                 turnLeft();
                 sleep(sleepTime);
+                if (BP.get_sensor(PORT_3, Light3) == 0) {
+                    if (Light3.reflected >= 2000 && Light3.reflected <= 2200) {
+                        turnLeft();
+                    }
+                }
                 return;
             }else{
                 cout << "Impossible to go to this direction" << endl;
             }
+
+
         }else if(uinDirection == "right"){
             if(values[2]){
                 moveFwd(1500000);
                 turnRight();
                 sleep(sleepTime);
+                if (BP.get_sensor(PORT_3, Light3) == 0) {
+                    if (Light3.reflected >= 2000 && Light3.reflected <= 2200) {
+                        turnRight();
+                    }
+                }
                 return;
 
             }else{
@@ -441,6 +453,7 @@ void checkGrid(){
                 moveFwd(1500000);
                 moveFwd();
                 sleep(sleepTime);
+
                 return;
 
             }else{
