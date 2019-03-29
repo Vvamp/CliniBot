@@ -448,7 +448,7 @@ void testgrid(){
                     if (BP.get_sensor(PORT_3, Light3) == 0) {
                         measurement = Light3.reflected;
                         if (measurement >= 2000 && measurement <= 2200) {
-                            moveBot(measurement, 50, 50); //Forward
+                            moveBot(measurement, 20, 20); //Forward
                         }
                         if (measurement > 1800 && measurement < 2000) {
                             moveBot(measurement, 10, 50); //Left
