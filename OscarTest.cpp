@@ -86,7 +86,6 @@ void avoidObstacle() {
 						}
 						else {
 							stepTwo = 1;
-							
 						}
 					}
 				}
@@ -108,7 +107,7 @@ void avoidObstacle() {
 				while (looking <= 2000) {
 					looking++;
 					if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
-						if (Ultrasonic2.cm > 60) {
+						if (Ultrasonic2.cm > 50) {
 							stepThree = 0;
 						}
 						else {
@@ -120,9 +119,12 @@ void avoidObstacle() {
 					cout << "step three repeating..." << endl;
 				}
 				else {
+					moveLeft(500000);
+					moveStop();
+					stepTwo = 0;
 					cout << "step three complete..." << endl;
 				}
-				BP.set_motor_position_relative(PORT_D, 80);
+				BP.set_motor_position_relative(PORT_D, 80);				
 				usleep(1000000);
 				
 			}
@@ -134,27 +136,13 @@ void avoidObstacle() {
 					moveFwd(600000);
 					moveLeft(250000);
 					stepFour = 1;
-					cout << "step four complete..." << endl;
-				}
-			}
-			else if (stepFour == 1 && stepFive == 0) {
-				if (Light3.reflected > 1800 && Light3.reflected < 2000) {
-					moveLeft(100000);
-				}
-				else if (Light3.reflected > 2000)
-				{
-					stepFive = 1;
 					cout << "step five complete..." << endl;
+					cout << "obstacle avoidence completed..." << endl;
+					moveStop();
+					usleep(3000000);
+					return;
 				}
 				
-			}
-			else if (stepFive == 1 && stepSix == 0) {
-				stepSix = 1;
-				cout << "step six complete..." << endl;
-				cout << "obstacle avoidence completed..." << endl;
-				moveStop();
-				usleep(3000000);
-				return;
 			}
 		}
 		
