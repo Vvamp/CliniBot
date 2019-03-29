@@ -124,6 +124,7 @@ void avoidObstacle() {
 				
 			}
 			else if (stepFive == 1 && stepSix == 0) {
+				stepSix = 1;
 				cout << "step six complete..." << endl;
 				cout << "obstacle avoidence completed..." << endl;
 				usleep(3000000);
