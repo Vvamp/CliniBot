@@ -77,7 +77,7 @@ void avoidObstacle() {
 			else if (stepOne == 1 && stepTwo == 0) {
 				int looking = 0;
 				stepper++;
-				moveFwd(1000000);
+				moveFwd(1500000);
 				BP.set_motor_position_relative(PORT_D, -105);
 				moveStop();
 				usleep(1000000);
@@ -102,7 +102,7 @@ void avoidObstacle() {
 					moveRight(400000);
 				}
 				for (int j = 0; j < stepper*2; j++) {
-					moveFwd(1000000);
+					moveFwd(1500000);
 				}
 				for (int a = 0; a < stepperLeft; a++) {
 					moveRight(400000);
