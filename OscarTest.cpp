@@ -76,7 +76,7 @@ void avoidObstacle() {
 				stepTwo = 1;
 			}
 			else if (stepTwo == 1 && stepThree == 0) {
-				if (Ultrasonic2.cm > 50) {
+				if (Ultrasonic2.cm > 40) {
 					moveRight(1000000);
 				}
 				else {
@@ -85,7 +85,7 @@ void avoidObstacle() {
 				}
 			}
 			else if (stepThree == 1 && stepFour == 0) {
-				if (Light3.reflected < 2200) {
+				if (Light3.reflected < 2000) {
 					moveFwd(100000);
 				}
 				else {
@@ -97,11 +97,11 @@ void avoidObstacle() {
 				if (Light3.reflected > 1800 && Light3.reflected < 2000) {
 					moveLeft(100000);
 				}
-				else
+				else if (Light3.reflected > 2000)
 				{
 					stepFive = 1;
 					movestop();
-					usleep(100000);
+					usleep(1000000);
 				}
 				
 			}
