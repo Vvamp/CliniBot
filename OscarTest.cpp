@@ -97,15 +97,23 @@ void obstacleAvoidenceLeft() {
 }
 void obstacleAvoidenceRight() {
 	cout << "obstacle avoidence, going right" << endl;
-	int looking = 0;
-	bool object = false;
-	moveRight(500000);
-	moveStop();
 	BP.set_motor_position_relative(PORT_D, -80);
 	usleep(1000000);
-	while (looking <= 4000) {
+	while (true) {
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
-			looking++;
+			if (Ultrasonic2.cm > 30) {
+				moveRight(100000);
+			}
+			else {
+				BP.set_motor_position_relative(PORT_D, 80);
+				usleep(1000000);
+				moveLeft(1000000);
+				break;
+			}
+		}
+	}
+	while (Ultrasonic2.cm > 30) {
+		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 			if (Ultrasonic2.cm > 30) {
 				object = true;
 			}
