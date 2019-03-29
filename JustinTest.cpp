@@ -126,26 +126,26 @@ int main() {
                         if (measurement >= 2000 && measurement <= 2200) {
                             // moveBot(measurement, 50, 50, "Moving forward"); //Forward
                             moveBot(measurement, 0, 0, "Moving forward"); //Forward
-
-                            logUpdate == 10 ? (logfile << "Moving forward" << " =[ " << 0 << "," << 0 << " ]\n") : cout << endl;
-                            logUpdate == 10 ? logUpdate = 0 : logUpdate++;
-                            logfile.close();
+                            logfile << "Moving forward" << " =[ " << 0 << "," << 0 << " ]\n";
+                            // logUpdate == 10 ? (logfile << "Moving forward" << " =[ " << 0 << "," << 0 << " ]\n") : cout << endl;
+                            // logUpdate == 10 ? logUpdate = 0 : logUpdate++;
+                            // logfile.close();
                         }
                         if (measurement > 1800 && measurement < 2000) {
                             // moveBot(measurement, 5, 50, "Moving left"); //Left
                             moveBot(measurement, 0, 0, "Moving left"); //Right
-
-                            logUpdate == 10 ? (logfile << "Moving left" << " =[ " << 5 << ", " << 50 << "]\n") : cout << endl;
-                            logUpdate == 10 ? logUpdate = 0 : logUpdate++;
-                            logfile.close();
+                            logfile << "Moving left" << " =[ " << 0 << "," << 0 << " ]\n";
+                            // logUpdate == 10 ? (logfile << "Moving left" << " =[ " << 5 << ", " << 50 << "]\n") : cout << endl;
+                            // logUpdate == 10 ? logUpdate = 0 : logUpdate++;
+                            // logfile.close();
                         }
                         else if (measurement > 2200) {
                             // moveBot(measurement, 50, 5, "Moving right"); //Right
                             moveBot(measurement, 0, 0, "Moving right"); //Right
-                            
-                            logUpdate == 10 ? (logfile << "Moving right" << " =[ " << 50 << ", " << 5 << "]\n") : cout << endl;
-                            logUpdate == 10 ? logUpdate = 0 : logUpdate++;
-                            logfile.close();
+                            logfile << "Moving right" << " =[ " << 0 << "," << 0 << " ]\n";
+                            // logUpdate == 10 ? (logfile << "Moving right" << " =[ " << 50 << ", " << 5 << "]\n") : cout << endl;
+                            // logUpdate == 10 ? logUpdate = 0 : logUpdate++;
+                            // logfile.close();
                         }
                     }
                 // } else {
@@ -155,10 +155,10 @@ int main() {
 			else
 			{
 				moveBot(measurement, 0, 0, "Stopped moving");
-
-                logUpdate == 10 ? (logfile << "Stopped moving" << " =[ " << 0 << ", " << 0 << "]\n") : cout << endl;
-                logUpdate == 10 ? logUpdate = 0 : logUpdate++;
-                logfile.close();
+                logfile << "Stopped moving" << " =[ " << 0 << "," << 0 << " ]\n";
+                // logUpdate == 10 ? (logfile << "Stopped moving" << " =[ " << 0 << ", " << 0 << "]\n") : cout << endl;
+                // logUpdate == 10 ? logUpdate = 0 : logUpdate++;
+                // logfile.close();
                 
 			}
 
@@ -168,10 +168,10 @@ int main() {
 		else
 		{
 			moveBot(measurement, 0, 0, "Ultra sonic not found");
-
-            logUpdate == 10 ? (logfile << "Ultra sonic not found" << " =[ " << 0 << ", " << 0 << "]\n") : cout << endl;
-            logUpdate == 10 ? logUpdate = 0 : logUpdate++;
-            logfile.close();
+            logfile << "Ultra sonic not found" << " =[ " << 0 << "," << 0 << " ]\n";
+            // logUpdate == 10 ? (logfile << "Ultra sonic not found" << " =[ " << 0 << ", " << 0 << "]\n") : cout << endl;
+            // logUpdate == 10 ? logUpdate = 0 : logUpdate++;
+            // logfile.close();
 		}
 
         
