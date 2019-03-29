@@ -147,7 +147,9 @@ void testValues(){
                 }
             }
             if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+                if(enableDebug()){
                     cout << " - Value for ultrasonic: " << Ultrasonic2.cm << endl;
+                }
             }
             usleep(500000);
     }
