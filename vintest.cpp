@@ -262,7 +262,7 @@ bool lineDetected(){
     if (BP.get_sensor(PORT_1, Color1) == 0) {
         measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
         //cout << endl << "m: " << measurement << " borders: 2000 <= x < 2700" << endl;
-        if(measurement < 400 && measurement > 250){
+        if(measurement < 400 && measurement > 200){
             s2 = true;
         }else{
             s2 = false;
