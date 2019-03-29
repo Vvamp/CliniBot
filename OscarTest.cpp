@@ -81,9 +81,7 @@ void avoidObstacle() {
 						looking++;
 						cout << Ultrasonic2.cm << " cm" << endl;
 						if (Ultrasonic2.cm < 45) {
-							usleep(100000);
 							stepTwo = 0;
-							cout << "repeating step two..." << endl;
 						}
 						else {
 							stepTwo = 1;
