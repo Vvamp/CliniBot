@@ -594,6 +594,8 @@ void controlGrid(){
     if (BP.get_voltage_battery() >= 9) {
 		while (true) {
             cout << BP.get_sensor(PORT_2, Ultrasonic2) << endl;
+            cout << Ultrasonic2.cm << endl;
+
 			if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 				if (BP.get_sensor(PORT_3, Light3) == 0) {
 					if (Ultrasonic2.cm > 10) {
