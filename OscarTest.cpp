@@ -55,7 +55,7 @@ void obstacleAvoidenceFwd() {
 	while (true) {
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 			if (Ultrasonic2.cm < 30) {
-				moveFwd(100000);
+				moveFwd(1000000);
 			}
 			else {
 				moveFwd(1000000);
