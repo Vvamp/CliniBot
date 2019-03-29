@@ -164,6 +164,7 @@ void driveByLine() {
 							cout << "zwart" << endl;
 							//als ie het zwart in gaat
 						}
+						cout << "\033[2J\033[1;1H";
 					}
 					else {
 						avoidObstacle();
