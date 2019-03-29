@@ -88,7 +88,7 @@ void avoidObstacle() {
 				}
 			}
 			else if (stepThree == 1 && stepFour == 0) {
-				if (Light3.reflected < 2000) {
+				if (Light3.reflected < 2100) {
 					moveFwd(100000);
 				}
 				else {
