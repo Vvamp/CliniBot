@@ -50,6 +50,7 @@ void moveBack(const int &time) {
 	return;
 }
 void obstacleAvoidenceFwd() {
+
 	int looking = 0;
 	bool object = false;
 	moveFwd(1500000);
@@ -114,6 +115,7 @@ void obstacleAvoidenceRight() {
 	}
 	BP.set_motor_position_relative(PORT_D, 80);
 	if (object == true) {
+		usleep(1000000);
 		obstacleAvoidenceRight();
 	}
 	else {
