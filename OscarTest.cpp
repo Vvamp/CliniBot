@@ -52,12 +52,12 @@ void moveBack(const int &time) {
 void obstacleAvoidenceFwd() {
 	cout << "obstacle avoidence, going forward..." << endl;
 	BP.set_motor_position_relative(PORT_D, -110);
+	usleep(1000000);
 	while (true) {
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 			if (Ultrasonic2.cm < 50) {
 				cout << Ultrasonic2.cm << " cm" << endl;
 				moveFwd(1000000);
-				usleep(1000000);
 			}
 			else if (Ultrasonic2.cm > 50){
 				cout << Ultrasonic2.cm << " cm" << endl;
