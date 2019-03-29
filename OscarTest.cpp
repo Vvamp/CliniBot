@@ -103,7 +103,7 @@ void obstacleAvoidenceEnding() {
 	while (true) {
 		if (BP.get_sensor(PORT_3, Light3) == 0) {
 			if (Light3.reflected > 1800 && Light3.reflected < 2100) {
-				moveFwd(1000000);
+				moveFwd(100000);
 			}
 			else
 			{
