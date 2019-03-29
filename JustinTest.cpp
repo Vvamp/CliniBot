@@ -12,12 +12,15 @@ BrickPi3 BP;
 void exit_signal_handler(int signo);
 
 //Function to move robot (left, right)
-void moveBot(const int measurement, const int valueLeft, const int valueRight) {
+void moveBot(const int measurement, const int valueLeft, const int valueRight, string botStatus) {
 	BP.set_motor_power(PORT_C, valueLeft); //Left motor
     BP.set_motor_power(PORT_B, valueRight); // Right motor
 
     cout << "\033[2J\033[1;1H"; //Clear screen
     cout << "CLINIBOT ============" << endl;
+
+    cout << endl << "-BOT STATUS:" << endl;
+    cout << " " << botStatus << endl;
 
     cout << endl << "-INFORMATION:" << endl;
     cout << " Battery voltage: " << BP.get_voltage_battery() << endl;
@@ -31,6 +34,7 @@ void moveBot(const int measurement, const int valueLeft, const int valueRight) {
 
     cout << endl << "-DETECTION:" << endl ;
     cout << " LIGHT REFLECTION: " << measurement << endl;
+    cout << " ULTRASONIC: " << endl;
 
     cout << endl << "=====================" << endl;
 
@@ -111,13 +115,13 @@ int main() {
                     if (BP.get_sensor(PORT_3, Light3) == 0) {
                         measurement = Light3.reflected;
                         if (measurement >= 2000 && measurement <= 2200) {
-                            moveBot(measurement, 50, 50); //Forward
+                            moveBot(measurement, 50, 50, "Moving forward"); //Forward
                         }
                         if (measurement > 1800 && measurement < 2000) {
-                            moveBot(measurement, 10, 50); //Left
+                            moveBot(measurement, 10, 50, "Moving left"); //Left
                         }
                         else if (measurement > 2200) {
-                            moveBot(measurement, 50, 10); //Right
+                            moveBot(measurement, 50, 10, "Moving right"); //Right
                         }
                     }
                 // } else {
@@ -134,7 +138,7 @@ int main() {
 		}
 		else
 		{
-			cout << "can't find the ultrasonic sensor" << endl;
+			cout << "ERROR: can't find the ultrasonic sensor" << endl;
 		}
 	}	
 	
