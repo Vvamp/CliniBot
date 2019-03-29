@@ -65,7 +65,6 @@ void obstacleAvoidenceFwd() {
 			{
 				motorPos += 20;
 				BP.set_motor_position_relative(PORT_D, -20);
-				usleep(100000);
 				break;
 			}
 			
