@@ -81,6 +81,7 @@ void obstacleAvoidenceLeft() {
 			}
 			else if (Ultrasonic2.cm > 30) {
 				moveLeft(1500000);
+				moveStop();
 				return;
 			}
 		}
