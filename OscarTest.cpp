@@ -81,7 +81,7 @@ void avoidObstacle() {
 				BP.set_motor_position_relative(PORT_D, -105);
 				moveStop();
 				usleep(1000000);
-				while (looking < 4000) {
+				while (looking < 2000) {
 					if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 						looking++;
 						cout << Ultrasonic2.cm << " cm" << endl;
@@ -91,7 +91,6 @@ void avoidObstacle() {
 						else {
 							stepTwo = 1;
 							cout << "step two complete..." << endl;
-							break;
 						}
 					}
 				}
