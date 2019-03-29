@@ -455,7 +455,7 @@ int main()
 
     BP.set_motor_limits(PORT_B, 30, 0);
     BP.set_motor_limits(PORT_C, 30, 0);
-    BP.set_motor_limits(PORT_D, 45, 0);
+    BP.set_motor_limits(PORT_D, 80, 0);
 
 
     cout << "Enter 'move' to control the robot via this terminal, enter 'bt' to control the robot via bluetooth or enter 'debug' to enter debug menu." << endl;
@@ -473,16 +473,4 @@ int main()
     BP.reset_all();
     return 0;
 
-}
-
-
-// Signal handler that will be called when Ctrl+C is pressed to stop the program
-void exit_signal_handler(int signo){
-    sleep(1);
-    cout << "Exiting..." << endl;
-  if(signo == SIGINT){
-    BP.reset_all();    // Reset everything so there are no run-away motors
-    sleep(1);
-    exit(-2);
-  }
 }
