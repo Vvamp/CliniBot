@@ -112,7 +112,6 @@ void avoidObstacle() {
 				cout << "step six complete..." << endl;
 				cout << "obstacle avoidence completed..." << endl;
 				usleep(3000000);
-				stepSix = 1;
 				return;
 			}
 		}
