@@ -59,13 +59,13 @@ void obstacleAvoidenceFwd() {
 				cout << Ultrasonic2.cm << " cm" << endl;
 				motorPos += 20;
 				BP.set_motor_position_relative(PORT_D, -20);
-				usleep(500000);
+				usleep(250000);
 			}
 			else
 			{
 				motorPos += 20;
 				BP.set_motor_position_relative(PORT_D, -20);
-				usleep(500000);
+				usleep(250000);
 				break;
 			}
 			
@@ -152,7 +152,7 @@ void obstacleAvoidenceEnding() {
 }
 
 void avoidObstacle() {
-	cout << "starting obstacel detection..." << endl;
+	cout << "starting obstacle detection..." << endl;
 	obstacleAvoidenceLeft();
 	obstacleAvoidenceFwd();
 	obstacleAvoidenceRight();
