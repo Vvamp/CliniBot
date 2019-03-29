@@ -40,6 +40,35 @@ void moveStop(){
     // Zet stroom van poort B en C op 0, waardoor de robot stopt.
 }
 
+void moveBot(const int measurement, const int valueLeft, const int valueRight) {
+	BP.set_motor_power(PORT_C, valueLeft); //Left motor
+    BP.set_motor_power(PORT_B, valueRight); // Right motor
+
+    if(enableDebug){
+        cout << "\033[2J\033[1;1H"; //Clear screen
+        cout << "CLINIBOT ============" << endl;
+
+    //    cout << endl << "-BOT STATUS:" << endl;
+    //    cout << " " << botStatus << endl;
+
+        cout << endl << "-INFORMATION:" << endl;
+        cout << " Battery voltage: " << BP.get_voltage_battery() << endl;
+        cout << " 9v voltage: " << BP.get_voltage_9v() << endl;
+        cout << " 5v voltage: " << BP.get_voltage_5v() << endl;
+        cout << " 3.3v voltage: " << BP.get_voltage_3v3() << endl;
+
+        cout << endl << "-MOTOR VALUES: " << endl;
+        cout << " Left: " << valueLeft << "v" << endl;
+        cout << " Right: " << valueRight << "v" << endl;
+
+        cout << endl << "-DETECTION:" << endl ;
+        cout << " LIGHT REFLECTION: " << measurement << endl;
+        cout << " ULTRASONIC: " << endl;
+
+        cout << endl << "=====================" << endl;
+    }
+}
+
 void moveLeft() {
     BP.set_motor_dps(PORT_B, 80);
     BP.set_motor_dps(PORT_C, -80);
@@ -595,9 +624,7 @@ void controlGrid(){
     // Check if the battery is still sufficiently charged, else shutdown
     if (BP.get_voltage_battery() >= 9) {
 		while (true) {
-            //cout << BP.get_sensor(PORT_2, Ultrasonic2) << endl;
-            //cout << Ultrasonic2.cm << endl;
-
+            
 			if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 				if (BP.get_sensor(PORT_3, Light3) == 0) {
                     if(enableDebug){
@@ -608,14 +635,16 @@ void controlGrid(){
                             if(enableDebug){
                                 cout << "half" << endl;
                             }
-							moveFwd(100000);
+							//moveFwd(100000);
+                            moveBot(Light3.reflected, 50, 50);
 							//rechtdoor
 						}
 						else if (Light3.reflected > 1800 && Light3.reflected < 2000) {
                             if(enableDebug){
                                 cout << "wit" << endl;
                             }
-							moveLeft(100000);
+							//moveLeft(100000);
+                            moveBot(Light3.reflected, 5, 50);
 							//als ie het wit in gaat
 						}
 						else if (Light3.reflected > 2200) {
@@ -627,8 +656,8 @@ void controlGrid(){
                                 sleep(1);
                                 checkGrid();
                             }
-
-							moveRight(100000);
+                            moveBot(measurement, 50, 5);
+							//moveRight(100000);
 
 							//als ie het zwart in gaat
 
