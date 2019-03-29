@@ -107,14 +107,13 @@ int main() {
 	int measurement = 0;
 
     ofstream logfile;
-    logfile << endl << "-- Begin log file" << endl;
     
 
 	while (true) {
 
         int logUpdate = 0;
 
-        logfile.open("log-new.txt", fstream::out);
+        logfile.open("log-new.txt");
 
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 			if (Ultrasonic2.cm > 10) {
@@ -129,7 +128,7 @@ int main() {
                             logfile << "Moving forward" << " =[ " << 0 << "," << 0 << " ]\n";
                             // logUpdate == 10 ? (logfile << "Moving forward" << " =[ " << 0 << "," << 0 << " ]\n") : cout << endl;
                             // logUpdate == 10 ? logUpdate = 0 : logUpdate++;
-                            // logfile.close();
+                            logfile.close();
                         }
                         if (measurement > 1800 && measurement < 2000) {
                             // moveBot(measurement, 5, 50, "Moving left"); //Left
@@ -137,7 +136,7 @@ int main() {
                             logfile << "Moving left" << " =[ " << 0 << "," << 0 << " ]\n";
                             // logUpdate == 10 ? (logfile << "Moving left" << " =[ " << 5 << ", " << 50 << "]\n") : cout << endl;
                             // logUpdate == 10 ? logUpdate = 0 : logUpdate++;
-                            // logfile.close();
+                            logfile.close();
                         }
                         else if (measurement > 2200) {
                             // moveBot(measurement, 50, 5, "Moving right"); //Right
@@ -145,7 +144,7 @@ int main() {
                             logfile << "Moving right" << " =[ " << 0 << "," << 0 << " ]\n";
                             // logUpdate == 10 ? (logfile << "Moving right" << " =[ " << 50 << ", " << 5 << "]\n") : cout << endl;
                             // logUpdate == 10 ? logUpdate = 0 : logUpdate++;
-                            // logfile.close();
+                            logfile.close();
                         }
                     }
                 // } else {
@@ -158,7 +157,7 @@ int main() {
                 logfile << "Stopped moving" << " =[ " << 0 << "," << 0 << " ]\n";
                 // logUpdate == 10 ? (logfile << "Stopped moving" << " =[ " << 0 << ", " << 0 << "]\n") : cout << endl;
                 // logUpdate == 10 ? logUpdate = 0 : logUpdate++;
-                // logfile.close();
+                logfile.close();
                 
 			}
 
@@ -171,7 +170,7 @@ int main() {
             logfile << "Ultra sonic not found" << " =[ " << 0 << "," << 0 << " ]\n";
             // logUpdate == 10 ? (logfile << "Ultra sonic not found" << " =[ " << 0 << ", " << 0 << "]\n") : cout << endl;
             // logUpdate == 10 ? logUpdate = 0 : logUpdate++;
-            // logfile.close();
+            logfile.close();
 		}
 
         
