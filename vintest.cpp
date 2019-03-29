@@ -22,12 +22,14 @@ sensor_light_t      Light3; //RGB Light sensor
 sensor_color_t      Color1; //Infrared sensor
 sensor_ultrasonic_t Ultrasonic2; //Ultrasonic sensor
 
+// Debugging bool
+bool enableDebug = false;
+
 // Error handler
 void eHandler(int s){
-            cout << "Caught ctrl c" << endl;
-            BP.reset_all();
-            exit(0);
-
+    cout << "Exiting..." << endl;
+    BP.reset_all();
+    exit(0);
 }
 
 //-- Movement functions
@@ -36,95 +38,60 @@ void moveStop(){
     BP.set_motor_power(PORT_B, 0);
     BP.set_motor_power(PORT_C, 0);
     // Zet stroom van poort B en C op 0, waardoor de robot stopt.
-
-    //cout << " Stopped - ";
 }
 
 void moveLeft() {
-
-		BP.set_motor_dps(PORT_B, 80);
-		BP.set_motor_dps(PORT_C, -80);
-		/*BP.set_motor_position_relative(PORT_B, 45);
-		BP.set_motor_position_relative(PORT_C, -45);*/
-
-//	cout << " Left - ";
-
+    BP.set_motor_dps(PORT_B, 80);
+    BP.set_motor_dps(PORT_C, -80);
 }
 
 void moveRight() {
 		BP.set_motor_dps(PORT_B, -80);
 		BP.set_motor_dps(PORT_C, 80);
-		/*BP.set_motor_position_relative(PORT_B, -45);
-		BP.set_motor_position_relative(PORT_C, 45);*/
-
-//	cout << " Right - ";
-
 }
 
 void moveFwd() {
-	//BP.set_motor_dps(PORT_B, 360);
-	//BP.set_motor_dps(PORT_C, 360);
-	// Draai de motor op port B en C 360 graden
     BP.set_motor_position_relative(PORT_B, 420);
     BP.set_motor_position_relative(PORT_C, 420);
-	//cout << " Forward - ";
-
 }
 
 void moveBack() {
-	//BP.set_motor_dps(PORT_B, -360);
-	//BP.set_motor_dps(PORT_C, -360);
-	// Draai de motor op port B en C -360 graden
     BP.set_motor_position_relative(PORT_B, -420);
     BP.set_motor_position_relative(PORT_C, -420);
-
-//	cout << " Back - ";
-
-
 }
 
 void moveFwd(const int & time) {
 	BP.set_motor_power(PORT_B, 20);
 	BP.set_motor_power(PORT_C, 20);
 	usleep(time);
-	// Draai de motor op port B en C 360 graden
-	return;
 }
 
 void moveLeft(const int & time) {
 	BP.set_motor_power(PORT_B, 20);
 	BP.set_motor_power(PORT_C, -20);
 	usleep(time);
-	return;
 }
 
 void moveRight(const int & time) {
 	BP.set_motor_power(PORT_B, -20);
 	BP.set_motor_power(PORT_C, 20);
-		usleep(time);
-	return;
+	usleep(time);
 }
 
 void moveBack(const int &time) {
 	BP.set_motor_power(PORT_B, -20);
 	BP.set_motor_power(PORT_C, -20);
 	usleep(time);
-	// Draai de motor op port B en C -360 graden
-	return;
 }
 
 void turnLeft(){
     BP.set_motor_position_relative(PORT_B, 420);
     BP.set_motor_position_relative(PORT_C, -420);
-    //cout << "L-turn" << endl;
-    //should be 90 degrees
 }
 
 void turnRight(){
     BP.set_motor_position_relative(PORT_B, -420);
     BP.set_motor_position_relative(PORT_C, 420);
-//    cout << "R-turn" << endl;
-    //should be 90 degrees
 }
 
 void vvDance(){
@@ -137,7 +104,7 @@ void vvDance(){
     usleep(500000);
     BP.set_motor_dps(PORT_B, 360);
     BP.set_motor_dps(PORT_C, -360);
-    sleep(10);
+    sleep(2);
     BP.set_motor_dps(PORT_B, -360);
     BP.set_motor_dps(PORT_C, -360);
     usleep(500000);
@@ -148,7 +115,7 @@ void vvDance(){
 
 
 //-Eye functions
-int lookAngle = 105;
+const int lookAngle = 105;
 
 // Turn the eyes left
 void lookLeft(){
@@ -160,57 +127,21 @@ void lookRight(){
     BP.set_motor_position_relative(PORT_D, -lookAngle);
 }
 
-
-//- Control functions
-// Check if there is a regular crossing(both sensors would be black)
-bool isCrossing(){
-    // check if other sensor is black
-    //sensor_ultrasonic_t Ultrasonic2;
-
-    int measurement = 0;
-    bool s1 = false;
-    bool s2 = false;
-
-    if (BP.get_sensor(PORT_1, Color1) == 0) {
-        measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
-    //    cout << "rgb val: " << measurement << endl;
-        cout << "rgb: " << measurement << endl;
-        if(measurement >=200 && measurement < 450){
-            s1 = true;
-        }
-    }
-
-
-    if (BP.get_sensor(PORT_3, Light3) == 0) {
-        measurement = Light3.reflected;
-        cout << "ir: " << measurement << endl;
-        if(measurement >= 2200){
-            s2 = true;
-        }
-    }
-
-    if(s1 && s2){
-        return true;
-    }else{
-        return false;
-    }
-
-
-
-}
-
+//- Debugging functions
+// Read all data read from the sensors
 void testValues(){
     int measurement = 0;
     while(true){
-
             if (BP.get_sensor(PORT_1, Color1) == 0) {
                 measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
+                if(enableDebug)
                 cout << "Value for RGB: " << measurement;
             }
 
 
             if (BP.get_sensor(PORT_3, Light3) == 0) {
                 measurement = Light3.reflected;
+                if(enableDebug)
                 cout << " - Value for IR: " << measurement;
 
             }
@@ -219,6 +150,42 @@ void testValues(){
 
             }
             sleep(1);
+    }
+}
+
+//- Control functions
+// Check if there is a regular crossing(both sensors would be black)
+bool isCrossing(){
+    int measurement = 0;
+    bool s1 = false;
+    bool s2 = false;
+
+    // Check if RGB sensor reads black
+    if (BP.get_sensor(PORT_1, Color1) == 0) {
+        measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
+        if(enableDebug)
+        cout << "rgb: " << measurement << endl;
+        if(measurement >=200 && measurement < 450){
+            s1 = true;
+        }
+    }
+
+
+    // Check if IR sensor reads black
+    if (BP.get_sensor(PORT_3, Light3) == 0) {
+        measurement = Light3.reflected;
+        if(enableDebug)
+        cout << "ir: " << measurement << endl;
+        if(measurement >= 2200){
+            s2 = true;
+        }
+    }
+
+    // if both read black it's a crossing
+    if(s1 && s2){
+        return true;
+    }else{
+        return false;
     }
 }
 
@@ -239,29 +206,33 @@ bool obstacleDetected(){
 
         }
     }
-    //cout << endl << "cm: " << Ultrasonic2.cm << endl;
+    if(enableDebug)
+    cout << endl << "cm: " << Ultrasonic2.cm << endl;
     return false;
 
 }
 
+// Check if there is a line
 bool lineDetected(){
     int measurement = 0;
-    //cout << endl << endl << "checking line";
+    if(enableDebug)
+    cout << endl << endl << "checking line";
     bool s1 = false;
     bool s2 = false;
     if (BP.get_sensor(PORT_3, Light3) == 0) {
         measurement = Light3.reflected;
-        //cout << endl << "m: " << measurement << " borders: 2000 <= x < 2700" << endl;
+        if(enableDebug)
+        cout << endl << "measured RGB: " << measurement << " borders: 2000 <= x < 2700" << endl;
         if(measurement >=2000 && measurement < 2700){
             s1 = true;
         }else{
             s1 = false;
-
         }
     }
     if (BP.get_sensor(PORT_1, Color1) == 0) {
         measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
-        //cout << endl << "m: " << measurement << " borders: 2000 <= x < 2700" << endl;
+        if(enableDebug)
+        cout << endl << "m: " << measurement << " borders: 200 <= x < 400" << endl;
         if(measurement < 400 && measurement > 200){
             s2 = true;
         }else{
@@ -277,113 +248,162 @@ bool lineDetected(){
 
 }
 
+// Check a crossing
 void checkGrid(){
-    unsigned int routesToCheck = 3; // MIN 3
+    const unsigned int routesToCheck = 3;
+    const int sleepTime = 2;
+
     vector<bool> values = {false, false, false};
     bool driveRequired = false;
-    int sleepTime = 2;
 
 
     for(unsigned int i = 0; i < routesToCheck; i++){
         switch(i){
-            case 0: cout << endl << "Forward: ";
-            cout << "Checking route: " << i;
-            if(!obstacleDetected()){
-                cout << "...clear!" << endl;
-                cout << "checking if path...";
-                moveFwd();
-                sleep(sleepTime);
-                moveStop();
-                bool lDetected = lineDetected();
-                if(!lDetected){
-                    cout << "no path" << endl;
-                }else{
-                    cout << "path found" << endl;
-                    values[0] = true;
-                }
-                moveBack();
-                sleep(sleepTime);
 
-            }else{
-                cout << "...blocked!" << endl;
-            }
+            // Route forward check
+            case 0:
+                if(enableDebug){
+                    cout << endl << "Forward: ";
+                    cout << "Checking route: " << i;
+                }
+
+                // Check if there is an object
+                if(!obstacleDetected()){
+                    if(enableDebug){
+                    cout << "...clear!" << endl;
+                    cout << "checking if path...";
+                    }
+
+                    // Go to forward-line
+                    moveFwd();
+                    sleep(sleepTime);
+                    moveStop();
+
+                    // check if there is a line
+                    if(!lineDetected()){
+                        if(enableDebug)
+                        cout << "no path" << endl;
+                    }else{
+                        if(enableDebug)
+                        cout << "path found" << endl;
+                        values[0] = true;
+                    }
+
+                    // Go back to original location
+                    moveBack();
+                    sleep(sleepTime);
+
+                }else{
+                    if(enableDebug)
+                    cout << "...blocked!" << endl;
+                }
             break;
 
-            case 1: cout << endl << "Left: ";
+            case 1:
+            if(enableDebug){
+            cout << endl << "Left: ";
             cout << "Checking route: " << i;
+            }
+
+            // Turn eyes left and check if there is an object
             lookLeft();
             sleep(sleepTime);
             if(!obstacleDetected()){
+                if(enableDebug)
                 cout << "...clear!" << endl;
-                lookRight();
+                lookRight();                    // Reset eyes
+                if(enableDebug)
                 cout << "checking if path...";
+                // Bring wheels to crossing center and turn left
                 moveFwd(1500000);
                 turnLeft();
 
+                // Go to left-line
                 sleep(sleepTime);
                 moveFwd();
                 sleep(sleepTime);
                 moveStop();
 
+                // Check if there is a line
                 if(!lineDetected()){
+                    if(enableDebug)
                     cout << "no path" << endl;
                 }else{
+                    if(enableDebug)
                     cout << "path found" << endl;
                     values[1] = true;
-
                 }
+                // Go back to center
                 moveBack();
                 sleep(sleepTime);
 
+                // Turn back to face the middle-line and move back to original position
                 turnRight();
                 sleep(sleepTime);
                 moveBack(1500000);
 
             }else{
+                if(enableDebug)
                 cout << "...blocked!" << endl;
+                lookRight();            // Reset eyes
+                sleep(sleepTime);
+
+            }
+            break;
+            case 2:
+                if(enableDebug){
+                cout << endl << "Right: ";
+                cout << "Checking route: " << i << endl;
+                }
+
+                // Turn eyes right and check if there is an object
                 lookRight();
-                sleep(sleepTime);
+                if(!obstacleDetected()){
+                    if(enableDebug)
+                    cout << "...clear!" << endl;
+                    lookLeft();         // Reset eyes
+                    if(enableDebug)
+                    cout << "checking if path...";
 
-            }
-            break;
-            case 2: cout << endl << "Right: ";
-            cout << "Checking route: " << i << endl;
-            lookRight();
-            if(!obstacleDetected()){
-                cout << "...clear!" << endl;
-                lookLeft();
-                cout << "checking if path...";
-                moveFwd(1500000);
-                turnRight();
-                sleep(sleepTime);
-                moveFwd();
-                sleep(sleepTime);
-                moveStop();
+                    // Move wheels to center and turn right
+                    moveFwd(1500000);
+                    turnRight();
+                    sleep(sleepTime);
 
-                if(!lineDetected()){
-                    cout << "no path" << endl;
+                    // Go to right-line
+                    moveFwd();
+                    sleep(sleepTime);
+                    moveStop();
+
+                    // Check if there is a line
+                    if(!lineDetected()){
+                        if(enableDebug)
+                        cout << "no path" << endl;
+                    }else{
+                        if(enableDebug)
+                        cout << "path found" << endl;
+                        values[2] = true;
+                    }
+
+                    // Go back to the center of crossing
+                    moveBack();
+                    sleep(sleepTime);
+
+                    // Turn back to face the middle-line and go back to original position
+                    turnLeft();
+                    sleep(sleepTime);
+                    moveBack(1500000);
                 }else{
-                    cout << "path found" << endl;
-                    values[2] = true;
-
+                    if(enableDebug)
+                    cout << "...blocked!" << endl;
+                    lookLeft();
+                    sleep(sleepTime);
                 }
-
-                moveBack();
-                sleep(sleepTime);
-
-                turnLeft();
-                sleep(sleepTime);
-                moveBack(1500000);
-
-
-            }else{
-                cout << "...blocked!" << endl;
-                lookLeft();
-                sleep(sleepTime);
-
-            }
             break;
-            default: cout << endl << "Unknown: ";
+                default:
+                if(enableDebug)
+                cout << endl << "[ERROR]";
+                exit(-2);
             break;
         }
 
@@ -415,6 +435,7 @@ void checkGrid(){
 
     string uinDirection;
     while(true){
+        cout << "Direction > ";
         cin >> uinDirection;
 
         if(uinDirection == "left"){
@@ -465,16 +486,14 @@ void checkGrid(){
     }
 }
 
-
-
-
+//- Display functions
 // Show the movement controls on-screen
 void showControls(){
     cout << "Controls: " << endl << "W - Forwards" << endl << "A - Left" << endl << "S - Backwards" << endl << "D - Right" << endl << endl << "Press enter to continue...";
-
-
 }
 
+//- Main functions
+// Control CliniBot via bluetooth
 void controlBluetooth(){
     BluetoothServerSocket serversock(2, 1);  //2 is het channel-number
 	cout << "Waiting for a bluetooth device..." << endl;
@@ -486,6 +505,7 @@ void controlBluetooth(){
 		string input;
 		while(mb.isRunning()) {
 			input = mb.readMessage();  //blokkeert niet
+            if(enableDebug)
             cout << "Executing Action: " << input << endl;
 			if(input != ""){
                 // input
@@ -502,12 +522,10 @@ void controlBluetooth(){
                 }else if(input.find("FIRE") != std::string::npos){
                     moveStop();
                 }
-                // cout << endl << input << endl;
             }
 
-			//doe andere dingen.
 			cout.flush();
-			sleep(1); // wacht 500 ms
+			sleep(1);
 		}
 
 		clientsock->close();
@@ -515,18 +533,18 @@ void controlBluetooth(){
 	}
 }
 
+// Control CliniBot with WASD
 void controlTerminal(){
     // Show movement controls
     showControls();
-
 
     // Curses settings
     initscr();      // Init curses !!! Anything that gets printed after this will be printed weirdly
     cbreak();       // Sets that the code buffers per-key and not per newline
     noecho();       // Don't print the characters entered
     timeout(1750);  // Check once every 1,750ms
-    //signal(SIGINT, exit_signal_handler);    // register the exit function for Ctrl+C
 
+    // Control the robot
     while (true){
         int userIn = getch();   // Request a single character from the user
         refresh();              // Refresh the screen
@@ -548,35 +566,36 @@ void controlTerminal(){
      }
 }
 
-void testgrid(){
+// Let CliniBot follow a grid
+void controlGrid(){
     int measurement = 0;
+    // Check if the battery is still sufficiently charged, else shutdown
     if (BP.get_voltage_battery() >= 9) {
 		while (true) {
 			if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 				if (BP.get_sensor(PORT_3, Light3) == 0) {
-					//cout << "searching line..." << endl;
-
 					if (Ultrasonic2.cm > 10) {
-
-						//cout << Light3.reflected << endl;
 						if (Light3.reflected >= 2000 && Light3.reflected <= 2200) {
-							cout << "half" << endl;
+                            if(enableDebug)
+                            cout << "half" << endl;
 							moveFwd(100000);
 							//rechtdoor
 						}
 						else if (Light3.reflected > 1800 && Light3.reflected < 2000) {
+                            if(enableDebug)
 							cout << "wit" << endl;
 							moveLeft(100000);
 							//als ie het wit in gaat
 						}
 						else if (Light3.reflected > 2200) {
                             if(isCrossing()){
-                                cout << "Crossing Detected" << endl;
+                                if(enableDebug)
+                                cout << "Crossing Detected!" << endl;
                                 moveStop();
-                                sleep(2);
                                 checkGrid();
                             }
 							moveRight(100000);
+                            if(enableDebug)
 							cout << "zwart" << endl;
 							//als ie het zwart in gaat
 
@@ -586,23 +605,22 @@ void testgrid(){
 				}
 				else
 				{
-					cout << "Can't read ultra-red sensor..." << endl;
+					cout << "ERROR: Can't read ultra-red sensor..." << endl;
 				}
 			}
 			else {
-				cout << "Can't read ultrasonic sensor..." << endl;
+				cout << "ERROR: Can't read ultrasonic sensor..." << endl;
 			}
 		}
 		usleep(100000);
 	}
 	else {
-		cout << "Battery voltage is: " << BP.get_voltage_battery() << ". This is to low to continue..." << endl;
+		cout << "Battery voltage is: " << BP.get_voltage_battery() << ". This is too low to continue..." << endl;
 	}
 	cout << "Robot stopped..." << endl;
-
 }
 
-// debug function
+// Debug menu
 void debug(){
     cout << "VV DEBUG" << endl;
     cout << "a - turn left 90 degrees" << endl << "t - check if there is a crossing"<< endl << "o - check if there is an obstacle" << endl << "oa - check all obstacles" << endl << "tv - test values" << endl;
@@ -636,8 +654,6 @@ void debug(){
             }
         }else if(uin == "oa"){
             checkGrid();
-        }else if(uin == "testgrid"){
-            testgrid();
         }else if(uin == "tv"){
             testValues();
         }else if(uin == "cr"){
@@ -661,15 +677,16 @@ void debug(){
 
 // Main execution
 int main(){
-    cout << "Setting up ctrl c check..." << endl;
-    struct sigaction sigIntHandler;
+    cout << "[INIT] Starting..." << endl;
 
+    // Initialize the ctrl + c catch
+    struct sigaction sigIntHandler;
     sigIntHandler.sa_handler = eHandler;
     sigemptyset(&sigIntHandler.sa_mask);
     sigIntHandler.sa_flags = 0;
-
     sigaction(SIGINT, &sigIntHandler, NULL);
 
+    // Check the voltage levels
     cout << "Checking voltage..." << endl;
     int cvoltage = BP.get_voltage_battery();
     if (cvoltage < 10) {
@@ -684,6 +701,7 @@ int main(){
 
 
     cout << "Setting up sensors..." << endl;
+
     BP.detect(); // Make sure that the BrickPi3 is communicating and that the firmware is compatible with the drivers.
 	BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
 	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
@@ -693,8 +711,24 @@ int main(){
     BP.set_motor_limits(PORT_C, 30, 0);
     BP.set_motor_limits(PORT_D, 90, 0);
 
+    cout << "[INIT] Complete!" << endl;
 
-    cout << "Enter 'move' to control the robot via this terminal, enter 'bt' to control the robot via bluetooth or enter 'debug' to enter debug menu." << endl;
+    // Request debugging options
+    string doption;
+    while(true){
+        cout << "Would you like to enable debugging options(y/n) $";
+        cin >> doption;
+        if(doption == "y"){
+            enableDebug = true;
+            break;
+        }else if(doption == "n"){
+            enableDebug = false;
+            break;
+        }
+    }
+
+    // Show menu
+    cout << "Enter 'move' to control the robot via this terminal, enter 'bt' to control the robot via bluetooth, enter 'grid' to let the robot follow a grid, or enter 'debug' to enter debug menu." << endl;
     string userChoice;
     cin >> userChoice;
     if(userChoice == "bt"){
@@ -703,6 +737,8 @@ int main(){
         debug();
     }else if(userChoice == "move"){
         controlTerminal();
+    }else if(userChoice == "grid"){
+        controlGrid();
     }
 
     BP.reset_all();
