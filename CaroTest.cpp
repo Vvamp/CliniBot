@@ -13,7 +13,7 @@ using std::endl;
 using std::getline;
 using std::cin;
 using std::string;
-
+using std::vector;
 
 BrickPi3 BP; // Define an instance of BrickPi3, called 'BP'
 
@@ -21,6 +21,9 @@ BrickPi3 BP; // Define an instance of BrickPi3, called 'BP'
 sensor_light_t      Light3; //RGB Light sensor
 sensor_color_t      Color1; //Infrared sensor
 sensor_ultrasonic_t Ultrasonic2; //Ultrasonic sensor
+
+const bool enableDebug = false;
+
 
 // Error handler
 void eHandler(int s){
@@ -116,6 +119,24 @@ void turnLeft(){
 void turnRight(){
     BP.set_motor_position_relative(PORT_B, -420);
     BP.set_motor_position_relative(PORT_C, 420);
+}
+void vvDance(){
+    cout << "Het dak moet er af...!" << endl;
+    BP.set_motor_dps(PORT_B, -360);
+    BP.set_motor_dps(PORT_C, -360);
+    usleep(500000);
+    BP.set_motor_dps(PORT_B, 360);
+    BP.set_motor_dps(PORT_C, 360);
+    usleep(500000);
+    BP.set_motor_dps(PORT_B, 360);
+    BP.set_motor_dps(PORT_C, -360);
+    sleep(2);
+    BP.set_motor_dps(PORT_B, -360);
+    BP.set_motor_dps(PORT_C, -360);
+    usleep(500000);
+    BP.set_motor_dps(PORT_B, 360);
+    BP.set_motor_dps(PORT_C, 360);
+    usleep(500000);
 }
 
 //-Eye functions
@@ -687,13 +708,13 @@ if(Keuze == "1"){
     controlTerminal();
 }
 else if(Keuze == "2"){
-    cout << "Bluetooth programma" << endl;
+    controlBluetooth();
 }
 else if(Keuze == "3"){
     cout << "Lijn rijden" << endl;
 }
 else if(Keuze == "4"){
-    cout << "Grid rijden" << endl;
+    controlGrid();
 }
 else if(Keuze == "5"){
     cout << "...Exiting Keuzemenu..." << endl;
