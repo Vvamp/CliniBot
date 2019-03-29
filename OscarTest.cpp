@@ -85,7 +85,7 @@ void avoidObstacle() {
 					if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 						looking++;
 						cout << Ultrasonic2.cm << " cm" << endl;
-						if (Ultrasonic2.cm < 45) {
+						if (Ultrasonic2.cm < 50) {
 							stepTwo = 0;
 						}
 						else {
