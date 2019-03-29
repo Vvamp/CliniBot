@@ -118,6 +118,8 @@ void obstacleAvoidenceRight() {
 		obstacleAvoidenceRight();
 	}
 	else {
+		moveLeft(500000);
+		moveStop();
 		return;
 	}
 }
