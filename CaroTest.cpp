@@ -120,6 +120,24 @@ void turnRight(){
     BP.set_motor_position_relative(PORT_B, -420);
     BP.set_motor_position_relative(PORT_C, 420);
 }
+void vvDance(){
+    cout << "Het dak moet er af...!" << endl;
+    BP.set_motor_dps(PORT_B, -360);
+    BP.set_motor_dps(PORT_C, -360);
+    usleep(500000);
+    BP.set_motor_dps(PORT_B, 360);
+    BP.set_motor_dps(PORT_C, 360);
+    usleep(500000);
+    BP.set_motor_dps(PORT_B, 360);
+    BP.set_motor_dps(PORT_C, -360);
+    sleep(2);
+    BP.set_motor_dps(PORT_B, -360);
+    BP.set_motor_dps(PORT_C, -360);
+    usleep(500000);
+    BP.set_motor_dps(PORT_B, 360);
+    BP.set_motor_dps(PORT_C, 360);
+    usleep(500000);
+}
 
 //-Eye functions
 const int lookAngle = 105;
