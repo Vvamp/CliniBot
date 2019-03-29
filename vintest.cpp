@@ -149,7 +149,7 @@ void testValues(){
             if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
                     cout << " - Value for ultrasonic: " << Ultrasonic2.cm << endl;
             }
-            sleep(1);
+            usleep(500000);
     }
 }
 
