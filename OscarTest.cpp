@@ -29,7 +29,7 @@ void moveFwd(const int & time) {
 }
 
 void moveLeft(const int & time) {
-	BP.set_motor_power(PORT_B, 20);
+	BP.set_motor_power(PORT_B, 40);
 	BP.set_motor_power(PORT_C, 5);
 	usleep(time);
 	return;
@@ -37,7 +37,7 @@ void moveLeft(const int & time) {
 
 void moveRight(const int & time) {
 	BP.set_motor_power(PORT_B, 5);
-	BP.set_motor_power(PORT_C, 20);
+	BP.set_motor_power(PORT_C, 40);
 		usleep(time);
 	return;
 }
