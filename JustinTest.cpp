@@ -36,25 +36,25 @@ void moveBot(const int measurement, const int valueLeft, const int valueRight) {
 
 }
 
-void askDirection(){
-    sting direction;
-    cout << endl << "Which direction do you want to go?" << endl;
-    cout >> "-GO DIRECTION: ";
-    cin >> direction;
+// void askDirection(){
+//     sting direction;
+//     cout << endl << "Which direction do you want to go? [left/right]" << endl;
+//     cout >> "-GO DIRECTION: ";
+//     cin >> direction;
 
-    while(true){
-        if(direction == "L" || direction == "left"){
-            moveBot(measurement, 10, 50);
-            break
-        } else if(direction == "L" || direction == "left"){
-            moveBot(measurement, 50, 10);
-            break
-        } else {
-            cout << endl << "-INVALID DIRECION, TRY AGAIN!" << endl;
-        }
-    }
+//     while(true){
+//         if(direction == "l" || direction == "left"){
+//             moveBot(measurement, 10, 50);
+//             break
+//         } else if(direction == "r" || direction == "right"){
+//             moveBot(measurement, 50, 10);
+//             break
+//         } else {
+//             cout << endl << "-INVALID DIRECION, TRY AGAIN!" << endl;
+//         }
+//     }
     
-}
+// }
 
 // check if other sensor is black
 bool isCrossing(){
@@ -106,7 +106,7 @@ int main() {
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 			if (Ultrasonic2.cm > 10) {
 
-                if(!isCrossing()){
+                // if(!isCrossing()){
 
                     if (BP.get_sensor(PORT_3, Light3) == 0) {
                         measurement = Light3.reflected;
@@ -120,9 +120,9 @@ int main() {
                             moveBot(measurement, 50, 10); //Right
                         }
                     }
-                } else {
-                    askDirection();
-                }
+                // } else {
+                //     askDirection();
+                // }
 			}
 			else
 			{
