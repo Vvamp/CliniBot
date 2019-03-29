@@ -99,13 +99,13 @@ void avoidObstacle() {
 				usleep(1000000);
 			}
 			else if (stepTwo == 1 && stepThree == 0) {
-				for (int i = 0; i < stepperLeft; i++) {
+				for (int i = 0; i < stepperLeft / 2; i++) {
 					moveRight(1000000);
 				}
 				for (int j = 0; j < stepper; j++) {
 					moveFwd(1000000);
 				}
-				for (int a = 0; a < stepperLeft; a++) {
+				for (int a = 0; a < stepperLeft / 2; a++) {
 					moveRight(1000000);
 				}
 				stepThree = 1;
