@@ -77,6 +77,7 @@ void obstacleAvoidenceFwd() {
 			if (Ultrasonic2.cm < 30) {
 				cout << Ultrasonic2.cm << " cm" << endl;
 				moveFwd(1500000);
+				usleep(100000);
 			}
 			else if (Ultrasonic2.cm >= 30){
 				cout << Ultrasonic2.cm << " cm" << endl;
