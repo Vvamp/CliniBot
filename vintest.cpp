@@ -210,6 +210,10 @@ void checkGrid(){
     vector<bool> values = {false, false, false};
     bool driveRequired = false;
     int sleepTime = 2;
+
+    moveFwd();
+    sleep(1);
+    moveStop();
     for(unsigned int i = 0; i < routesToCheck; i++){
         switch(i){
             case 0: cout << endl << "Forward: ";
@@ -421,7 +425,46 @@ void controlTerminal(){
      }
 }
 
+void testgrid(){
+    while (true) {
 
+		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+			if (Ultrasonic2.cm > 10) {
+
+                // if(!isCrossing()){
+                    if(isCrossing()){
+                        checkGrid();
+                    }else{
+                    if (BP.get_sensor(PORT_3, Light3) == 0) {
+                        measurement = Light3.reflected;
+                        if (measurement >= 2000 && measurement <= 2200) {
+                            moveBot(measurement, 50, 50); //Forward
+                        }
+                        if (measurement > 1800 && measurement < 2000) {
+                            moveBot(measurement, 10, 50); //Left
+                        }
+                        else if (measurement > 2200) {
+                            moveBot(measurement, 50, 10); //Right
+                        }
+                    }
+                }
+
+			}
+			else
+			{
+				moveBot(measurement, 0, 0);
+			}
+
+            usleep(50000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
+
+		}
+		else
+		{
+			cout << "can't find the ultrasonic sensor" << endl;
+		}
+	}
+
+}
 // debug function
 void debug(){
     cout << "VV DEBUG" << endl;
@@ -450,6 +493,8 @@ void debug(){
             }
         }else if(uin == "oa"){
             checkGrid();
+        }else if(uin == "testgrid"){
+            testgrid();
         }else if(uin == "tv"){
             testValues();
         }else if(uin == "cr"){
