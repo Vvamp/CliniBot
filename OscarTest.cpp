@@ -77,6 +77,7 @@ void avoidObstacle() {
 					BP.set_motor_position_relative(PORT_D, 105);
 					moveFwd(2000000);
 					stepTwo = 0;
+					cout << "repeating step two..." << endl;
 				}
 				else {
 					stepTwo = 1;
