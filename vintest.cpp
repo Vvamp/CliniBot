@@ -120,7 +120,7 @@ bool isCrossing(){
 
     if (BP.get_sensor(PORT_1, Color1) == 0) {
         measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
-        cout << "rgb val: " << measurement << endl;
+    //    cout << "rgb val: " << measurement << endl;
 
         if(measurement >=300 && measurement < 500){
             s1 = true;
@@ -130,7 +130,7 @@ bool isCrossing(){
 
     if (BP.get_sensor(PORT_3, Light3) == 0) {
         measurement = Light3.reflected;
-        cout << "ir val: " << measurement << endl;
+        //cout << "ir val: " << measurement << endl;
         if(measurement >= 2200){
             s2 = true;
         }
@@ -221,9 +221,7 @@ void checkGrid(){
     bool driveRequired = false;
     int sleepTime = 2;
 
-    moveFwd();
-    sleep(1);
-    moveStop();
+
     for(unsigned int i = 0; i < routesToCheck; i++){
         switch(i){
             case 0: cout << endl << "Forward: ";
@@ -256,6 +254,11 @@ void checkGrid(){
                 cout << "...clear!" << endl;
                 lookRight();
                 cout << "checking if path...";
+                moveFwd();
+                sleep(1);
+                moveStop();
+
+                sleep(sleepTime);
                 turnLeft();
                 sleep(sleepTime);
                 moveFwd();
@@ -288,6 +291,11 @@ void checkGrid(){
                 cout << "...clear!" << endl;
                 lookLeft();
                 cout << "checking if path...";
+                moveFwd();
+                sleep(1);
+                moveStop();
+
+                sleep(sleepTime);
                 turnRight();
                 sleep(sleepTime);
                 moveFwd();
@@ -359,8 +367,7 @@ void vvDance(){
 // Show the movement controls on-screen
 void showControls(){
     cout << "Controls: " << endl << "W - Forwards" << endl << "A - Left" << endl << "S - Backwards" << endl << "D - Right" << endl << endl << "Press enter to continue...";
-    string cinput;
-    cin >> cinput;
+
 
 }
 void controlBluetooth(){
@@ -406,6 +413,7 @@ void controlBluetooth(){
 void controlTerminal(){
     // Show movement controls
     showControls();
+
 
     // Curses settings
     initscr();      // Init curses !!! Anything that gets printed after this will be printed weirdly
