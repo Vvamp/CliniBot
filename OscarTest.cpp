@@ -50,7 +50,7 @@ void moveBack(const int &time) {
 	return;
 }
 void obstacleAvoidenceFwd() {
-
+	cout << "obstacle avoidence, going forward..." << endl;
 	int looking = 0;
 	bool object = false;
 	moveFwd(1500000);
@@ -81,6 +81,7 @@ void obstacleAvoidenceFwd() {
 }
 
 void obstacleAvoidenceLeft() {
+	cout << "obstacle avoidence, going left..." << endl;
 	while (true) {
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 			if (Ultrasonic2.cm < 30) {
@@ -95,6 +96,7 @@ void obstacleAvoidenceLeft() {
 	
 }
 void obstacleAvoidenceRight() {
+	cout << "obstacle avoidence, going right" << endl;
 	int looking = 0;
 	bool object = false;
 	moveRight(500000);
@@ -125,6 +127,7 @@ void obstacleAvoidenceRight() {
 }
 
 void obstacleAvoidenceEnding() {
+	cout << "obstacle avoidence, searching for the line" << endl;
 	while (true) {
 		if (BP.get_sensor(PORT_3, Light3) == 0) {
 			if (Light3.reflected > 1800 && Light3.reflected < 2000) {
