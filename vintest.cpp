@@ -576,9 +576,7 @@ void testgrid(){
 					//cout << "searching line..." << endl;
 
 					if (Ultrasonic2.cm > 10) {
-                        if(isCrossing()){
-                            checkGrid();
-                        }
+
 						cout << Light3.reflected << endl;
 						if (Light3.reflected >= 2000 && Light3.reflected <= 2200) {
 							cout << "half" << endl;
@@ -591,9 +589,16 @@ void testgrid(){
 							//als ie het wit in gaat
 						}
 						else if (Light3.reflected > 2200) {
+                            if(isCrossing()){
+                                cout << "Crossing Detected" << endl;
+                                moveStop();
+                                sleep(2);
+                                checkGrid();
+                            }
 							moveRight(100000);
 							cout << "zwart" << endl;
 							//als ie het zwart in gaat
+
 						}
 					}
 
