@@ -78,7 +78,7 @@ void avoidObstacle() {
 				int looking = 0;
 				stepper++;
 				moveFwd(1000000);
-				BP.set_motor_position_relative(PORT_D, -90);
+				BP.set_motor_position_relative(PORT_D, -105);
 				moveStop();
 				usleep(1000000);
 				while (looking < 4000) {
@@ -95,7 +95,7 @@ void avoidObstacle() {
 						}
 					}
 				}
-				BP.set_motor_position_relative(PORT_D, 90);
+				BP.set_motor_position_relative(PORT_D, 105);
 				usleep(1000000);
 			}
 			else if (stepTwo == 1 && stepThree == 0) {
