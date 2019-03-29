@@ -132,6 +132,8 @@ void obstacleAvoidenceEnding() {
 			}
 			else
 			{
+				moveFwd(500000);
+				moveLeft(250000);
 				moveStop();
 				return;
 			}
