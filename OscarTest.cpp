@@ -103,7 +103,7 @@ void avoidObstacle() {
 				looking = 0;
 				moveRight(500000);
 				moveStop();
-				BP.set_motor_position_relative(PORT_D, -105);
+				BP.set_motor_position_relative(PORT_D, -70);
 				usleep(1000000);
 				while (looking <= 2000) {
 					looking++;
@@ -122,7 +122,7 @@ void avoidObstacle() {
 				else {
 					cout << "step three complete..." << endl;
 				}
-				BP.set_motor_position_relative(PORT_D, 105);
+				BP.set_motor_position_relative(PORT_D, 70);
 				usleep(1000000);
 				
 			}
