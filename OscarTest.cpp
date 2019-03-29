@@ -49,105 +49,102 @@ void moveBack(const int &time) {
 	// Draai de motor op port B en C -360 graden
 	return;
 }
+void obstacleAvoidenceFwd() {
+	int looking = 0;
+	bool object = false;
+	moveFwd(1500000);
+	moveStop();
+	BP.set_motor_position_relative(PORT_D, -110);
+	usleep(1000000);
+	while (looking <= 2000) {
+		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+			if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+				looking++;
+				cout << Ultrasonic2.cm << " cm" << endl;
+				if (Ultrasonic2.cm < 60) {
+					object = true;
+				}
+				else {
+					object = false;
+				}
+			}
+		}
+	}
+	BP.set_motor_position_relative(PORT_D, 110);
+	usleep(1000000);
+	if (object == true) {
+		obstacleAvoidenceFwd();
+	}
+	else {
+		return;
+	}
+}
+
+void obstacleAvoidenceLeft() {
+	while (true) {
+		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+			if (Ultrasonic2.cm < 30) {
+				moveLeft(100000);
+			}
+			else if (Ultrasonic2.cm > 30) {
+				moveLeft(1500000);
+				return;
+			}
+		}
+	}
+	
+}
+void obstacleAvoidenceRight() {
+	int looking = 0;
+	bool object = false;
+	moveRight(500000);
+	moveStop();
+	BP.set_motor_position_relative(PORT_D, -80);
+	usleep(1000000);
+	while (looking <= 2000) {
+		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+			looking++;
+			if (Ultrasonic2.cm > 50) {
+				object = true;
+			}
+			else {
+				object = false;
+			}
+		}
+	}
+	BP.set_motor_position_relative(PORT_D, 80);
+	if (object == true) {
+		obstacleAvoidenceRight();
+	}
+	else {
+		return;
+	}
+}
+
+void obstacleAvoidenceEnding() {
+	while (true) {
+		if (BP.get_sensor(PORT_3, Light3) == 0) {
+			if (Light3.reflected > 1800 && Light3.reflected < 2000) {
+				moveFwd(1000000);
+			}
+			else
+			{
+				moveStop();
+				return;
+			}
+			
+		}
+	}
+}
 
 void avoidObstacle() {
 	cout << "starting obstacel detection..." << endl;
-	int stepOne = 0;
-	int stepTwo = 0;
-	int stepThree = 0;
-	int stepFour = 0;
-	int stepFive = 0;
-	int stepSix = 0;
-	int looking = 0;
-	while (true) {
-		if (BP.get_sensor(PORT_3, Light3) == 0 && BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
-			if (stepOne == 0) {
-				if (Ultrasonic2.cm < 30) {
-					moveLeft(100000);
-				}
-				else if (Ultrasonic2.cm > 30) {
-					moveLeft(1500000);
-					stepOne = 1;
-					cout << "step one complete..." << endl;
-				}
-			}
-			else if (stepOne == 1 && stepTwo == 0) {
-				looking = 0;
-				moveFwd(1500000);
-				BP.set_motor_position_relative(PORT_D, -110);
-				moveStop();
-				usleep(1000000);
-				while (looking <= 2000) {
-					if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
-						looking++;
-						cout << Ultrasonic2.cm << " cm" << endl;
-						if (Ultrasonic2.cm < 60) {
-							stepTwo = 0;
-						}
-						else {
-							stepTwo = 1;
-						}
-					}
-				}
-				if (stepTwo == 0) {
-					cout << "step two repeating..." << endl;
-				}
-				else {
-					cout << "step two complete..." << endl;
-				}
-				BP.set_motor_position_relative(PORT_D, 110);
-				usleep(1000000);
-			}
-			else if (stepTwo == 1 && stepThree == 0) {
-				looking = 0;
-				moveRight(500000);
-				moveStop();
-				BP.set_motor_position_relative(PORT_D, -80);
-				usleep(1000000);
-				while (looking <= 2000) {
-					looking++;
-					if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
-						if (Ultrasonic2.cm > 50) {
-							stepThree = 0;
-						}
-						else {
-							stepThree = 1;
-						}
-					}
-				}
-				if (stepThree == 0) {
-					cout << "step three repeating..." << endl;
-				}
-				else {
-					moveLeft(500000);
-					moveStop();
-					stepTwo = 0;
-					cout << "step three complete..." << endl;
-				}
-				BP.set_motor_position_relative(PORT_D, 80);				
-				usleep(1000000);
-				
-			}
-			else if (stepThree == 1 && stepFour == 0) {
-				if (Light3.reflected < 2100) {
-					moveFwd(100000);
-				}
-				else {
-					moveFwd(600000);
-					moveLeft(250000);
-					stepFour = 1;
-					cout << "step five complete..." << endl;
-					cout << "obstacle avoidence completed..." << endl;
-					moveStop();
-					usleep(3000000);
-					return;
-				}
-				
-			}
-		}
-		
-	}	
-	
+	obstacleAvoidenceLeft();
+	obstacleAvoidenceFwd();
+	obstacleAvoidenceRight();
+	obstacleAvoidenceFwd();
+	obstacleAvoidenceRight();
+	obstacleAvoidenceEnding();
 }
 
 
