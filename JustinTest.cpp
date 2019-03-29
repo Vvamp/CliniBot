@@ -4,6 +4,7 @@
 #include <unistd.h>     // for sleep
 #include <signal.h>     // for catching exit signals
 #include <iomanip>		// for setw and setprecision
+#include <fstream>      // for creating a log files
 
 using namespace std;
 
@@ -37,6 +38,12 @@ void moveBot(const int measurement, const int valueLeft, const int valueRight, s
     cout << " ULTRASONIC: " << endl;
 
     cout << endl << "=====================" << endl;
+
+}
+
+void createLog(ofstream logfile, const int valueLeft, const int valueRight, string botStatus){
+
+    logfile << botStatus << " =[ " << valueLeft << ", " << valueRight << "]\n";
 
 }
 
@@ -107,6 +114,9 @@ int main() {
 
 	while (true) {
 
+        ofstream logfile ("log.txt", fstream::out); //Create log file
+        logfile << "-- Begin log\n";
+
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 			if (Ultrasonic2.cm > 10) {
 
@@ -115,16 +125,19 @@ int main() {
                     if (BP.get_sensor(PORT_3, Light3) == 0) {
                         measurement = Light3.reflected;
                         if (measurement >= 2000 && measurement <= 2200) {
-                            moveBot(measurement, 50, 50, "Moving forward"); //Forward
-                            // moveBot(measurement, 0, 0, "Moving forward"); //Forward
+                            // moveBot(measurement, 50, 50, "Moving forward"); //Forward
+                            moveBot(measurement, 0, 0, "Moving forward"); //Forward
+                            createLog(logfile, 0, 0, "Moving forward");
                         }
                         if (measurement > 1800 && measurement < 2000) {
-                            moveBot(measurement, 5, 50, "Moving left"); //Left
-                            // moveBot(measurement, 0, 0, "Moving left"); //Left
+                            // moveBot(measurement, 5, 50, "Moving left"); //Left
+                            moveBot(measurement, 0, 0, "Moving left"); //Left
+                            createLog(logfile, 0, 0, "Moving Left");
                         }
                         else if (measurement > 2200) {
-                            moveBot(measurement, 50, 5, "Moving right"); //Right
-                            // moveBot(measurement, 0, 0, "Moving right"); //Right
+                            // moveBot(measurement, 50, 5, "Moving right"); //Right
+                            moveBot(measurement, 0, 0, "Moving right"); //Right
+                            createLog(logfile, 0, 0, "Moving right");
                         }
                     }
                 // } else {
@@ -143,6 +156,8 @@ int main() {
 		{
 			cout << "ERROR: can't find the ultrasonic sensor" << endl;
 		}
+
+        newFile.close();
 	}	
 	
 }
