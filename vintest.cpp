@@ -228,8 +228,11 @@ void checkGrid(){
             break;
             case 1: cout << endl << "Left: ";
             cout << "Checking route: " << i;
+            lookLeft();
+            sleep(2);
             if(!obstacleDetected()){
                 cout << "...clear!" << endl;
+                lookRight();
                 cout << "checking if path...";
                 turnLeft();
                 sleep(3);
@@ -250,12 +253,16 @@ void checkGrid(){
 
             }else{
                 cout << "...blocked!" << endl;
+                lookRight();
+
             }
             break;
             case 2: cout << endl << "Right: ";
             cout << "Checking route: " << i << endl;
+            lookRight();
             if(!obstacleDetected()){
                 cout << "...clear!" << endl;
+                lookLeft();
                 cout << "checking if path...";
                 turnRight();
                 sleep(3);
@@ -277,6 +284,7 @@ void checkGrid(){
 
             }else{
                 cout << "...blocked!" << endl;
+                lookLeft();
             }
             break;
             default: cout << endl << "Unknown: ";
