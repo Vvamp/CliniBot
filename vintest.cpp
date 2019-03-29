@@ -205,6 +205,16 @@ bool lineDetected(){
 
 
 }
+
+
+//Function to move robot (left, right)
+void moveBot(const int measurement, const int valueLeft, const int valueRight) {
+	BP.set_motor_power(PORT_C, valueLeft); //Left motor
+    BP.set_motor_power(PORT_B, valueRight); // Right motor
+
+}
+
+
 void checkGrid(){
     unsigned int routesToCheck = 3; // MIN 3
     vector<bool> values = {false, false, false};
