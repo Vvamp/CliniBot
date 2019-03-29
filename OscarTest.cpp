@@ -51,11 +51,24 @@ void moveBack(const int &time) {
 }
 void obstacleAvoidenceFwd() {
 	cout << "obstacle avoidence, going forward..." << endl;
-	int looking = 0;
-	bool object = false;
-	moveFwd(1500000);
-	moveStop();
 	BP.set_motor_position_relative(PORT_D, -110);
+	while (true) {
+		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+			if (Ultrasonic2.cm < 30) {
+				moveFwd(100000);
+			}
+			else {
+				moveFwd(1000000);
+				moveStop();
+				BP.set_motor_position_relative(PORT_D, 110);
+				usleep(1000000);
+				break;
+			}
+		}
+	}
+	return;
+}
+	
 	usleep(1000000);
 	while (looking <= 4000) {
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
