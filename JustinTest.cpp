@@ -113,7 +113,8 @@ int main() {
 	int average = 0;
 	int measurement = 0;
 
-    ofstream logfile ("log.txt", fstream::out); //Create log file
+    ofstream logfile; //Create log file
+    logfile.open("log.txt", ios::app);
     logfile << "-- Begin log\n";
 
 	while (true) {
