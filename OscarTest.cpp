@@ -99,13 +99,13 @@ void avoidObstacle() {
 			}
 			else if (stepTwo == 1 && stepThree == 0) {
 				for (int i = 0; i < stepperLeft; i++) {
-					moveRight(1000000);
+					moveRight(500000);
 				}
 				for (int j = 0; j < stepper; j++) {
 					moveFwd(1000000);
 				}
 				for (int a = 0; a < stepperLeft; a++) {
-					moveRight(1000000);
+					moveRight(500000);
 				}
 				stepThree = 1;
 				cout << "step three complete..." << endl;
