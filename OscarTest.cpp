@@ -88,14 +88,24 @@ void avoidObstacle() {
 				}
 				else {
 					moveFwd(500000);
-					moveRight(250000);
 					stepFour = 1;
 				}
-
 			}
-			else if (stepFour == 1) {
+			else if (stepFour == 1 && stepFive == 0) {
+				if (Light3.reflected > 1800 && Light3.reflected < 2000) {
+					cout << "wit" << endl;
+					moveLeft(100000);
+				}
+				else
+				{
+					stepFive = 1;
+				}
+				
+			}
+			else if (stepFive == 1 && stepSix == 0) {
 				cout << "obstacle avoidence completed..." << endl;
 				usleep(3000000);
+				stepSix = 1;
 				return;
 			}
 		}
