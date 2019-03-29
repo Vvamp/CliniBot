@@ -309,14 +309,6 @@ bool lineDetected(){
 
 }
 
-//Function to move robot (left, right)
-void moveBot(const int measurement, const int valueLeft, const int valueRight) {
-	BP.set_motor_power(PORT_C, valueLeft); //Left motor
-    BP.set_motor_power(PORT_B, valueRight); // Right motor
-
-}
-
-
 void checkGrid(){
     unsigned int routesToCheck = 3; // MIN 3
     vector<bool> values = {false, false, false};
@@ -429,10 +421,17 @@ void checkGrid(){
 
 
     }
+    moveStop();
     cout << "Possible paths: ";
     if(!values[0] && !values[1] && !values[2]){
         cout << "None" << endl;
         cout << "Moving back" << endl; //rotate 180 and follow line
+        turnRight();
+        sleep(sleepTime);
+        turnRight();
+        sleep(sleepTime);
+        return;
+
     }else{
         if(values[0]){
             cout << "Forward ";
@@ -447,18 +446,42 @@ void checkGrid(){
     cout << endl;
 
     string uinDirection;
-    cin >> uinDirection;
+    while(true){
+        cin >> uinDirection;
 
-    if(uinDirection == "left"){
-        cout << "left" << endl;
-    }else if(uinDirection == "right"){
-        cout << "right" << endl;
-    }else if(uinDirection == "foward"){
-        cout <<"forwards" << endl;
-    }else{
-        cout << "unknown" << endl;
+        if(uinDirection == "left"){
+            if(values[1]){
+                moveFwd(1500000);
+                turnLeft();
+                sleep(sleepTime);
+                return;
+            }else{
+                cout << "Impossible to go to this direction" << endl;
+            }
+        }else if(uinDirection == "right"){
+            if(values[2]){
+                moveFwd(1500000);
+                turnRight();
+                sleep(sleepTime);
+                return;
+
+            }else{
+                cout << "Impossible to go to this direction" << endl;
+            }
+        }else if(uinDirection == "foward"){
+            if(values[0]){
+                moveFwd(1500000);
+                moveFwd();
+                sleep(sleepTime);
+                return;
+
+            }else{
+                cout << "Impossible to go to this direction" << endl;
+            }
+        }else{
+            cout << "Unknown direction" << endl;
+        }
     }
-
 }
 
 
