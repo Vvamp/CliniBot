@@ -436,7 +436,7 @@ void checkGrid(){
             }else{
                 cout << "Impossible to go to this direction" << endl;
             }
-        }else if(uinDirection == "foward"){
+        }else if(uinDirection == "forward"){
             if(values[0]){
                 moveFwd(1500000);
                 moveFwd();
