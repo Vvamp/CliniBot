@@ -724,6 +724,7 @@ void checkGrid(){
     int randomDirectionChooser = 0;
     while(true){
         randomDirectionChooser = rand() % 4 + 1;
+        cout << randomDirectionChooser << endl;
         switch(randomDirectionChooser){
             case 1:
                 uinDirection =  "left";
@@ -736,6 +737,7 @@ void checkGrid(){
                 break;
             default:
                 uinDirection = "backwards";
+                cout << "ERROR IN SHIT" << endl;
                 break;
         }
 
