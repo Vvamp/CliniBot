@@ -384,11 +384,59 @@ void reverseBot(){
     cout << "Reversing..." << endl;
     for(int i = pathLogger.size(); i > 0; i--){
         movement cmove = pathLogger[i];
-        switch(cmove.dir){
-            case forward:
-                if(cmove.type == mb){
-                    moveBot(0, -cmove.stepsL, -cmove.stepsR);
-                }
+        if(cmove.type == mb){
+            botMove(0, -cmove.stepsL, -cmove.stepsR);
+        }else if(cmove.type == stop){
+            moveStop();
+        }else{
+            switch(cmove.direction){
+                case forward:
+                    if(cmove.type == timeScale){
+                        moveBack(cmove.leftL);
+                    }else if(cmove.type == motorRelative){
+                        moveBack();
+                    }else if(cmove.type == "motorDPS"){
+                        moveBack();
+                    }else{
+                        cout << "error in reverse" << endl;
+                    }
+                    break;
+                case left:
+                    if(cmove.type == timeScale){
+                        moveRight(cmove.leftL);
+                    }else if(cmove.type == motorRelative){
+                        turnRight();
+                    }else if(cmove.type == "motorDPS"){
+                        moveRight();
+                    }else{
+                        cout << "error in reverse" << endl;
+                    }
+                    break;
+                case right:
+                    if(cmove.type == timeScale){
+                        moveLeft(cmove.leftL);
+                    }else if(cmove.type == motorRelative){
+                        turnLeft();
+                    }else if(cmove.type == "motorDPS"){
+                        moveLeft();
+                    }else{
+                        cout << "error in reverse" << endl;
+                    }
+                    break;
+                case backwards:
+                    if(cmove.type == timeScale){
+                        moveFwd(cmove.leftL);
+                    }else if(cmove.type == motorRelative){
+                        moveFwd();
+                    }else if(cmove.type == "motorDPS"){
+                        moveFwd();
+                    }else{
+                        cout << "error in reverse" << endl;
+                    }
+                    break;
+                case none:
+                    moveStop();
+            }
         }
     }
 }
