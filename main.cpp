@@ -392,6 +392,8 @@ void reverseBot(){
         }else{
             switch(cmove.dir){
                 case forward:
+                cout << "fwd > reverse" << endl;
+
                     if(cmove.type == timeScale){
                         moveBack(cmove.stepsL);
                     }else if(cmove.type == motorRelative){
@@ -403,6 +405,8 @@ void reverseBot(){
                     }
                     break;
                 case left:
+                cout << "left > reverse" << endl;
+
                     if(cmove.type == timeScale){
                         moveRight(cmove.stepsL);
                     }else if(cmove.type == motorRelative){
@@ -414,6 +418,8 @@ void reverseBot(){
                     }
                     break;
                 case right:
+                cout << "right > reverse" << endl;
+
                     if(cmove.type == timeScale){
                         moveLeft(cmove.stepsL);
                     }else if(cmove.type == motorRelative){
@@ -425,6 +431,7 @@ void reverseBot(){
                     }
                     break;
                 case backwards:
+                cout << "back > reverse" << endl;
                     if(cmove.type == timeScale){
                         moveFwd(cmove.stepsL);
                     }else if(cmove.type == motorRelative){
@@ -439,6 +446,7 @@ void reverseBot(){
                     moveStop();
             }
         }
+    sleep(1);
     }
 }
 // Check if there is a regular crossing(both sensors would be black)
