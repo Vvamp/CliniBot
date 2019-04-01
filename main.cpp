@@ -682,6 +682,7 @@ void checkGrid(){
         if(pathLogger[pathLogger.size() -1].dir == left){
             pathLogger.pop_back();
             turnRight();
+
         }else if(pathLogger[pathLogger.size() - 1].dir == right){
             pathLogger.pop_back();
             turnLeft();
@@ -710,8 +711,8 @@ void controlGrid(){
     int measurement = 0;
     // Check if the battery is still sufficiently charged, else shutdown
     if (BP.get_voltage_battery() >= 9) {
-		while (pathLogger.size() >= 1) {
-
+        while(true){
+            if(isReversing && pathLogger.size() > 0){
 			if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 				if (BP.get_sensor(PORT_3, Light3) == 0) {
                     if(enableDebug){
@@ -756,13 +757,15 @@ void controlGrid(){
 				{
 					cout << "ERROR: Can't read ultra-red sensor..." << endl;
 				}
+
 			}
 			else {
 				cout << "ERROR: Can't read ultrasonic sensor..." << endl;
-			}
-		}
-        isReversing = false;
-        return;
+			}}else{
+                return;
+            }
+        }
+
 	}
 	else {
 		cout << "Battery voltage is: " << BP.get_voltage_battery() << ". This is too low to continue..." << endl;
