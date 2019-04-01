@@ -28,8 +28,11 @@ int main() {
 	BP.set_motor_limits(PORT_C, 30, 0);
 
 	while (true) {
-		cout << Touch4.pressed << endl;
-		usleep(250000);
+		if (BP.get_sensor(PORT_4, Touch4) == 0) {
+			cout << Touch4.pressed << endl;
+			usleep(250000);
+		}
+		
 	}
 	return 0;
 }
