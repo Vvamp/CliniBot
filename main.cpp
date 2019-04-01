@@ -12,6 +12,7 @@ using std::endl;
 using std::getline;
 using std::cin;
 using std::string;
+using std::to_string;
 using std::vector;
 
 BrickPi3 BP; // Define an instance of BrickPi3, called 'BP'
@@ -74,7 +75,7 @@ void eHandler(int s){
                 direction = "error in movement switch/case";
                 break;
         };
-        out2 = "- " + direction + " -L: " + moveStep.stepsL + " -R: " + moveStep.stepsR;
+        out2 = "- " + direction + " -L: " + to_string(moveStep.stepsL) + " -R: " + to_string(moveStep.stepsR);
         if(out1 == out2){
             x++;
         }else{
