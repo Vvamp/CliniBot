@@ -42,13 +42,6 @@ void eHandler(int s);
 //-- Movement functions
 // Stop the robot by setting the motor power to '0'
 void moveStop(){
-    movement movementStep;
-    movementStep.dir = none;
-    movementStep.type = stop;
-    movementStep.stepsL = 0;
-    movementStep.stepsR = 0;
-    pathLogger.push_back(movementStep);
-
     BP.set_motor_power(PORT_B, 0);
     BP.set_motor_power(PORT_C, 0);
 
@@ -56,12 +49,6 @@ void moveStop(){
 }
 
 void moveBot(const int measurement, const int valueLeft, const int valueRight) {
-    movement movementStep;
-    movementStep.dir = forward;
-    movementStep.type = mb;
-    movementStep.stepsL = valueLeft;
-    movementStep.stepsR = valueRight;
-    pathLogger.push_back(movementStep);
 
 	BP.set_motor_power(PORT_C, valueLeft); //Left motor
     BP.set_motor_power(PORT_B, valueRight); // Right motor
@@ -92,13 +79,6 @@ void moveBot(const int measurement, const int valueLeft, const int valueRight) {
 void moveLeft() {
     int speed = 80;
 
-    movement movementStep;
-    movementStep.dir = left;
-    movementStep.type = motorDPS;
-    movementStep.stepsL = speed;
-    movementStep.stepsR = -speed;
-
-    pathLogger.push_back(movementStep);
 
     BP.set_motor_dps(PORT_B, speed);
     BP.set_motor_dps(PORT_C, -speed);
@@ -107,13 +87,6 @@ void moveLeft() {
 void moveRight() {
     int speed = 80;
 
-    movement movementStep;
-    movementStep.dir = right;
-    movementStep.type = motorDPS;
-    movementStep.stepsL = -speed;
-    movementStep.stepsR = speed;
-
-    pathLogger.push_back(movementStep);
 
 	BP.set_motor_dps(PORT_B, -speed);
 	BP.set_motor_dps(PORT_C, speed);
@@ -122,13 +95,7 @@ void moveRight() {
 void moveFwd() {
     int speed = 420;
 
-    movement movementStep;
-    movementStep.dir = forward;
-    movementStep.type = motorRelative;
-    movementStep.stepsL = speed;
-    movementStep.stepsR = speed;
 
-    pathLogger.push_back(movementStep);
     BP.set_motor_position_relative(PORT_B, speed);
     BP.set_motor_position_relative(PORT_C, speed);
 }
@@ -136,13 +103,7 @@ void moveFwd() {
 void moveBack() {
     int speed = -420;
 
-    movement movementStep;
-    movementStep.dir =backwards;
-    movementStep.type = motorRelative;
-    movementStep.stepsL = speed;
-    movementStep.stepsR = speed;
 
-    pathLogger.push_back(movementStep);
     BP.set_motor_position_relative(PORT_B, speed);
     BP.set_motor_position_relative(PORT_C, speed);
 }
@@ -150,52 +111,28 @@ void moveBack() {
 void moveFwd(const int & time) {
     int speed = 20;
 
-    movement movementStep;
-    movementStep.dir = forward;
-    movementStep.type = timeScale;
-    movementStep.stepsL = time;
-    movementStep.stepsR = time;
 
-    pathLogger.push_back(movementStep);
 	BP.set_motor_power(PORT_B, speed);
 	BP.set_motor_power(PORT_C, speed);
 	usleep(time);
 }
 
 void moveLeft(const int & time) {
-    movement movementStep;
-    movementStep.dir = left;
-    movementStep.type = timeScale;
-    movementStep.stepsL = time;
-    movementStep.stepsR = time;
 
-    pathLogger.push_back(movementStep);
 	BP.set_motor_power(PORT_B, 20);
 	BP.set_motor_power(PORT_C, -20);
 	usleep(time);
 }
 
 void moveRight(const int & time) {
-    movement movementStep;
-    movementStep.dir = right;
-    movementStep.type = timeScale;
-    movementStep.stepsL = time;
-    movementStep.stepsR = time;
 
-    pathLogger.push_back(movementStep);
 	BP.set_motor_power(PORT_B, -20);
 	BP.set_motor_power(PORT_C, 20);
 	usleep(time);
 }
 
 void moveBack(const int &time) {
-    movement movementStep;
-    movementStep.dir = backwards;
-    movementStep.type = timeScale;
-    movementStep.stepsL = time;
-    movementStep.stepsR = time;
 
-    pathLogger.push_back(movementStep);
 	BP.set_motor_power(PORT_B, -20);
 	BP.set_motor_power(PORT_C, -20);
 	usleep(time);
@@ -203,12 +140,6 @@ void moveBack(const int &time) {
 
 void turnLeft(){
     int speed = 420;
-    movement movementStep;
-    movementStep.dir = left;
-    movementStep.type = motorRelative;
-    movementStep.stepsL = speed;
-    movementStep.stepsR = -speed;
-    pathLogger.push_back(movementStep);
 
     BP.set_motor_position_relative(PORT_B, speed);
     BP.set_motor_position_relative(PORT_C, -speed);
@@ -216,13 +147,7 @@ void turnLeft(){
 
 void turnRight(){
     int speed = 420;
-    movement movementStep;
-    movementStep.dir = right;
-    movementStep.type = motorRelative;
-    movementStep.stepsL = -speed;
-    movementStep.stepsR = speed;
-
-    pathLogger.push_back(movementStep);
+    
     BP.set_motor_position_relative(PORT_B, -speed);
     BP.set_motor_position_relative(PORT_C, speed);
 }
