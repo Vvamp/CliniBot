@@ -193,8 +193,8 @@ void moveBack() {
     movementStep.stepsR = speed;
 
     pathLogger.push_back(movementStep);
-    BP.set_motor_position_relative(PORT_B, -speed);
-    BP.set_motor_position_relative(PORT_C, -speed);
+    BP.set_motor_position_relative(PORT_B, speed);
+    BP.set_motor_position_relative(PORT_C, speed);
 }
 
 void moveFwd(const int & time) {
