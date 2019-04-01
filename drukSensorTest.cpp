@@ -31,6 +31,7 @@ void main() {
 		cout << Touch4.pressed << endl;
 		usleep(250000);
 	}
+	return;
 }
 
 // Signal handler that will be called when Ctrl+C is pressed to stop the program
