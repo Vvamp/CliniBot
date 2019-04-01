@@ -385,17 +385,17 @@ void reverseBot(){
     for(int i = pathLogger.size(); i > 0; i--){
         movement cmove = pathLogger[i];
         if(cmove.type == mb){
-            botMove(0, -cmove.stepsL, -cmove.stepsR);
+            moveBot(0, -cmove.stepsL, -cmove.stepsR);
         }else if(cmove.type == stop){
             moveStop();
         }else{
-            switch(cmove.direction){
+            switch(cmove.dir){
                 case forward:
                     if(cmove.type == timeScale){
-                        moveBack(cmove.leftL);
+                        moveBack(cmove.stepsL);
                     }else if(cmove.type == motorRelative){
                         moveBack();
-                    }else if(cmove.type == "motorDPS"){
+                    }else if(cmove.type == motorDPS){
                         moveBack();
                     }else{
                         cout << "error in reverse" << endl;
@@ -403,10 +403,10 @@ void reverseBot(){
                     break;
                 case left:
                     if(cmove.type == timeScale){
-                        moveRight(cmove.leftL);
+                        moveRight(cmove.stepsL);
                     }else if(cmove.type == motorRelative){
                         turnRight();
-                    }else if(cmove.type == "motorDPS"){
+                    }else if(cmove.type == motorDPS){
                         moveRight();
                     }else{
                         cout << "error in reverse" << endl;
@@ -414,10 +414,10 @@ void reverseBot(){
                     break;
                 case right:
                     if(cmove.type == timeScale){
-                        moveLeft(cmove.leftL);
+                        moveLeft(cmove.stepsL);
                     }else if(cmove.type == motorRelative){
                         turnLeft();
-                    }else if(cmove.type == "motorDPS"){
+                    }else if(cmove.type == motorDPS){
                         moveLeft();
                     }else{
                         cout << "error in reverse" << endl;
@@ -425,10 +425,10 @@ void reverseBot(){
                     break;
                 case backwards:
                     if(cmove.type == timeScale){
-                        moveFwd(cmove.leftL);
+                        moveFwd(cmove.stepsL);
                     }else if(cmove.type == motorRelative){
                         moveFwd();
-                    }else if(cmove.type == "motorDPS"){
+                    }else if(cmove.type == motorDPS){
                         moveFwd();
                     }else{
                         cout << "error in reverse" << endl;
