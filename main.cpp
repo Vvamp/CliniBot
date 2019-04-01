@@ -300,6 +300,7 @@ void reverseBot(){
     cout << "Reversing..." << endl;
     isReversing = true;
     turnRight();
+    sleep(1);
     controlGrid();
     return;
 }
