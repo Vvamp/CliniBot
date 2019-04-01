@@ -12,6 +12,36 @@ BrickPi3 BP;
 
 void exit_signal_handler(int signo);
 
+int calibrateSensor(const int measurement){
+
+    //Set time of calc in seconds
+    int setTime = 0;
+
+    cout << "-- Enter time of calc in seconds: ";
+    cin << setTime;
+
+    //Calc black
+    int black = 0;
+    int left, foward, right = 0;
+    
+    cout << " -- Press enter to calibrate";
+    cin.ignore;
+
+    for(unsigned i=0; i > setTime; i++){
+        black += measurement;
+        sleep(1);
+    };
+
+    //Calc values
+    black = black / setTime;
+
+    right = black;
+    foward = right - 200;
+    left = forward - 200;
+
+    return left, foward, right;
+};
+
 //Function to move robot (left, right)
 void moveBot(const int measurement, const int valueLeft, const int valueRight, string botStatus) {
 	BP.set_motor_power(PORT_C, valueLeft); //Left motor
@@ -41,57 +71,6 @@ void moveBot(const int measurement, const int valueLeft, const int valueRight, s
 
 }
 
-// void askDirection(){
-//     sting direction;
-//     cout << endl << "Which direction do you want to go? [left/right]" << endl;
-//     cout >> "-GO DIRECTION: ";
-//     cin >> direction;
-
-//     while(true){
-//         if(direction == "l" || direction == "left"){
-//             moveBot(measurement, 10, 50);
-//             break
-//         } else if(direction == "r" || direction == "right"){
-//             moveBot(measurement, 50, 10);
-//             break
-//         } else {
-//             cout << endl << "-INVALID DIRECION, TRY AGAIN!" << endl;
-//         }
-//     }
-    
-// }
-
-// // check if other sensor is black
-// bool isCrossing(){
-
-//     //sensor_ultrasonic_t Ultrasonic2;
-
-//     int measurement = 0;
-//     bool s1 = false;
-//     bool s2 = false;
-
-//     if (BP.get_sensor(PORT_1, Color1) == 0) {
-//         measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
-//         if(measurement >=250 && measurement < 400){
-//             s1 = true;
-//         }
-//     }
-
-
-//     if (BP.get_sensor(PORT_3, Light3) == 0) {
-//         measurement = Light3.reflected;
-//         if(measurement >= 2400){
-//             s2 = true;
-//         }
-//     }
-
-//     if(s1 && s2){
-//         return true;
-//     }else{
-//         return false;
-//     }
-// }
-
 int main() {
 	
 	signal(SIGINT, exit_signal_handler); // register the exit function for Ctrl+C
@@ -107,7 +86,9 @@ int main() {
 	int measurement = 0;
 
     ofstream logfile;
-    
+
+    measurement = Light3.reflected;
+    int left, foward, right = calibrateSensor(measurement);
 
 	while (true) {
 
@@ -121,29 +102,23 @@ int main() {
                 // if(!isCrossing()){
 
                     if (BP.get_sensor(PORT_3, Light3) == 0) {
-                        measurement = Light3.reflected;
+                        
                         if (measurement >= 2000 && measurement <= 2200) {
                             // moveBot(measurement, 50, 50, "Moving forward"); //Forward
                             moveBot(measurement, 0, 0, "Moving forward"); //Forward
                             logfile << "Moving forward" << " =[ " << 0 << "," << 0 << " ]\n";
-                            // logUpdate == 10 ? (logfile << "Moving forward" << " =[ " << 0 << "," << 0 << " ]\n") : cout << endl;
-                            // logUpdate == 10 ? logUpdate = 0 : logUpdate++;
                             logfile.close();
                         }
                         if (measurement > 1800 && measurement < 2000) {
                             // moveBot(measurement, 5, 50, "Moving left"); //Left
                             moveBot(measurement, 0, 0, "Moving left"); //Right
                             logfile << "Moving left" << " =[ " << 0 << "," << 0 << " ]\n";
-                            // logUpdate == 10 ? (logfile << "Moving left" << " =[ " << 5 << ", " << 50 << "]\n") : cout << endl;
-                            // logUpdate == 10 ? logUpdate = 0 : logUpdate++;
                             logfile.close();
                         }
                         else if (measurement > 2200) {
                             // moveBot(measurement, 50, 5, "Moving right"); //Right
                             moveBot(measurement, 0, 0, "Moving right"); //Right
                             logfile << "Moving right" << " =[ " << 0 << "," << 0 << " ]\n";
-                            // logUpdate == 10 ? (logfile << "Moving right" << " =[ " << 50 << ", " << 5 << "]\n") : cout << endl;
-                            // logUpdate == 10 ? logUpdate = 0 : logUpdate++;
                             logfile.close();
                         }
                     }
