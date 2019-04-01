@@ -73,8 +73,8 @@ void moveStop(){
 
 void moveBot(const int measurement, const int valueLeft, const int valueRight) {
     movement movementStep;
-    movementStep.dir = direction.forward;
-    movementStep.type = directType.mb;
+    movementStep.dir = forward;
+    movementStep.type = mb;
     movementStep.stepsL = valueLeft;
     movementStep.stepsR = valueRight;
     pathLogger.push_back(movementStep);
@@ -109,8 +109,8 @@ void moveLeft() {
     int speed = 80;
 
     movement movementStep;
-    movementStep.dir = direction.left;
-    movementStep.type = directType.motorDPS;
+    movementStep.dir = left;
+    movementStep.type = motorDPS;
     movementStep.stepsL = speed;
     movementStep.stepsR = -speed;
 
@@ -124,8 +124,8 @@ void moveRight() {
     int speed = 80;
 
     movement movementStep;
-    movementStep.dir = direction.right;
-    movementStep.type = directType.motorDPS;
+    movementStep.dir = right;
+    movementStep.type = motorDPS;
     movementStep.stepsL = -speed;
     movementStep.stepsR = speed;
 
@@ -139,8 +139,8 @@ void moveFwd() {
     int speed = 420;
 
     movement movementStep;
-    movementStep.dir = direction.forward;
-    movementStep.type = directType.motorRelative;
+    movementStep.dir = forward;
+    movementStep.type = motorRelative;
     movementStep.stepsL = speed;
     movementStep.stepsR = speed;
 
@@ -153,8 +153,8 @@ void moveBack() {
     int speed = -420;
 
     movement movementStep;
-    movementStep.dir = direction.backwards;
-    movementStep.type = directType.motorRelative;
+    movementStep.dir =backwards;
+    movementStep.type = motorRelative;
     movementStep.stepsL = speed;
     movementStep.stepsR = speed;
 
@@ -167,8 +167,8 @@ void moveFwd(const int & time) {
     int speed = 20;
 
     movement movementStep;
-    movementStep.dir = direction.forward;
-    movementStep.type = directType.timeScale;
+    movementStep.dir = forward;
+    movementStep.type = timeScale;
     movementStep.stepsL = time;
     movementStep.stepsR = time;
 
@@ -180,8 +180,8 @@ void moveFwd(const int & time) {
 
 void moveLeft(const int & time) {
     movement movementStep;
-    movementStep.dir = direction.left;
-    movementStep.type = directType.timeScale;
+    movementStep.dir = left;
+    movementStep.type = timeScale;
     movementStep.stepsL = time;
     movementStep.stepsR = time;
 
@@ -193,8 +193,8 @@ void moveLeft(const int & time) {
 
 void moveRight(const int & time) {
     movement movementStep;
-    movementStep.dir = direction.right;
-    movementStep.type = directType.timeScale;
+    movementStep.dir = right;
+    movementStep.type = timeScale;
     movementStep.stepsL = time;
     movementStep.stepsR = time;
 
@@ -206,8 +206,8 @@ void moveRight(const int & time) {
 
 void moveBack(const int &time) {
     movement movementStep;
-    movementStep.dir = direction.back;
-    movementStep.type = directType.timeScale;
+    movementStep.dir = back;
+    movementStep.type = timeScale;
     movementStep.stepsL = time;
     movementStep.stepsR = time;
 
@@ -220,8 +220,8 @@ void moveBack(const int &time) {
 void turnLeft(){
     int speed = 420;
     movement movementStep;
-    movementStep.dir = direction.left;
-    movementStep.type = directType.motorRelative;
+    movementStep.dir = left;
+    movementStep.type = motorRelative;
     movementStep.stepsL = speed;
     movementStep.stepsR = -speed;
 
@@ -232,8 +232,8 @@ void turnLeft(){
 void turnRight(){
     int speed = 420;
     movement movementStep;
-    movementStep.dir = direction.right;
-    movementStep.type = directType.motorRelative;
+    movementStep.dir = right;
+    movementStep.type = motorRelative;
     movementStep.stepsL = -speed;
     movementStep.stepsR = speed;
 
