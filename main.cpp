@@ -802,16 +802,16 @@ void controlGrid(){
                             if(enableDebug){
                                 cout << "half" << endl;
                             }
-							//moveFwd(100000);
-                            moveBot(Light3.reflected, 50, 50);
+							moveFwd(100000);
+                            //moveBot(Light3.reflected, 50, 50);
 							//rechtdoor
 						}
 						else if (Light3.reflected > 1850 && Light3.reflected < 2200) {
                             if(enableDebug){
                                 cout << "wit" << endl;
                             }
-							//moveLeft(100000);
-                            moveBot(Light3.reflected, 5, 50);
+							moveLeft(100000);
+                            //moveBot(Light3.reflected, 5, 50);
 							//als ie het wit in gaat
 						}
 						else if (Light3.reflected > 2300) {
@@ -823,8 +823,8 @@ void controlGrid(){
                                 sleep(2);
                                 checkGrid();
                             }
-                            moveBot(measurement, 50, 5);
-							//moveRight(100000);
+                            //moveBot(measurement, 50, 5);
+							moveRight(100000);
 
 							//als ie het zwart in gaat
 
