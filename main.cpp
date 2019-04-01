@@ -23,26 +23,16 @@ sensor_color_t      Color1; //Infrared sensor
 sensor_ultrasonic_t Ultrasonic2; //Ultrasonic sensor
 
 const bool enableDebug = true;
+bool isReversing = false;
 enum direction{
     left,
     right,
     forward,
     backwards,
-    none
-};
-enum directType{
-    motorRelative,
-    timeScale,
-    motorDPS,
-    stop,
-    mb
 };
 
 struct movement{
     direction dir;    //Direction robot went
-    directType type;        //Type of direction(movement by relative motor or a time-based)
-    int stepsL;              //Amount of steps taken left
-    int stepsR;             //AMount of steps taken right
 };
 
 vector<movement> pathLogger;
@@ -382,72 +372,10 @@ void lookRight(){
 //- Control functions
 void reverseBot(){
     cout << "Reversing..." << endl;
-    cout << pathLogger.size() << endl;
-    for(int i = pathLogger.size(); i > 0; i--){
-        movement cmove = pathLogger[i];
-        if(cmove.type == mb){
-            moveBot(0, -cmove.stepsL, -cmove.stepsR);
-        }else if(cmove.type == stop){
-            moveStop();
-        }else{
-            switch(cmove.dir){
-                case forward:
-                cout << "fwd > reverse" << endl;
-
-                    if(cmove.type == timeScale){
-                        moveBack(cmove.stepsL);
-                    }else if(cmove.type == motorRelative){
-                        moveBack();
-                    }else if(cmove.type == motorDPS){
-                        moveBack();
-                    }else{
-                        cout << "error in reverse" << endl;
-                    }
-                    break;
-                case left:
-                cout << "left > reverse" << endl;
-
-                    if(cmove.type == timeScale){
-                        moveRight(cmove.stepsL);
-                    }else if(cmove.type == motorRelative){
-                        turnRight();
-                    }else if(cmove.type == motorDPS){
-                        moveRight();
-                    }else{
-                        cout << "error in reverse" << endl;
-                    }
-                    break;
-                case right:
-                cout << "right > reverse" << endl;
-
-                    if(cmove.type == timeScale){
-                        moveLeft(cmove.stepsL);
-                    }else if(cmove.type == motorRelative){
-                        turnLeft();
-                    }else if(cmove.type == motorDPS){
-                        moveLeft();
-                    }else{
-                        cout << "error in reverse" << endl;
-                    }
-                    break;
-                case backwards:
-                cout << "back > reverse" << endl;
-                    if(cmove.type == timeScale){
-                        moveFwd(cmove.stepsL);
-                    }else if(cmove.type == motorRelative){
-                        moveFwd();
-                    }else if(cmove.type == motorDPS){
-                        moveFwd();
-                    }else{
-                        cout << "error in reverse" << endl;
-                    }
-                    break;
-                case none:
-                    moveStop();
-            }
-        }
-    usleep(1000);
-    }
+    isReversing = true;
+    turnRight();
+    controlGrid();
+    return;
 }
 // Check if there is a regular crossing(both sensors would be black)
 bool isCrossing(){
@@ -558,7 +486,7 @@ void checkGrid(){
     vector<bool> values = {false, false, false};
     bool driveRequired = false;
 
-
+    if(!isReversing){
     for(unsigned int i = 0; i < routesToCheck; i++){
         switch(i){
 
@@ -725,11 +653,14 @@ void checkGrid(){
 
 
     }
+
     moveStop();
     cout << "Possible paths: ";
     if(!values[0] && !values[1] && !values[2]){
         cout << "None" << endl;
         cout << "Moving back" << endl; //rotate 180 and follow line
+        currentMovement.dir = backwards
+        pathLogger.push_back(currentMovement);
         turnRight();
         sleep(sleepTime);
         turnRight();
@@ -752,6 +683,7 @@ void checkGrid(){
     string uinDirection;
     int randomDirectionChooser = 0;
     while(true){
+        movement currentMovement;
         srand((unsigned) time(0));
         randomDirectionChooser = rand() % 3 + 1;
         cout << randomDirectionChooser << endl;
@@ -778,6 +710,9 @@ void checkGrid(){
                 sleep(sleepTime);
                 if (BP.get_sensor(PORT_3, Light3) == 0) {
                     if (Light3.reflected >= 2000 && Light3.reflected <= 2200) {
+                        currentMovement.dir = left;
+                        pathLogger.push_back(currentMovement);
+
                         turnLeft();
                     }
                 }
@@ -792,6 +727,8 @@ void checkGrid(){
                 sleep(sleepTime);
                 if (BP.get_sensor(PORT_3, Light3) == 0) {
                     if (Light3.reflected >= 2000 && Light3.reflected <= 2200) {
+                        currentMovement.dir = right;
+                        pathLogger.push_back(currentMovement);
                         turnRight();
                     }
                 }
@@ -800,6 +737,9 @@ void checkGrid(){
             }
         }else if(uinDirection == "forward"){
             if(values[0]){
+                currentMovement.dir = forward;
+                pathLogger.push_back(currentMovement);
+
                 moveFwd(1500000);
                 moveFwd();
                 sleep(sleepTime);
@@ -810,6 +750,27 @@ void checkGrid(){
         }else{
             cout << "Unknown direction" << endl;
         }
+    }
+    }else{
+        if(pathLogger[pathLogger.size() -1].dir == left){
+            pathLogger.pop_back();
+            turnRight();
+        }else if(pathLogger(pathLogger.size() - 1).dir == right){
+            pathLogger.pop_back();
+            turnLeft();
+        }else if(pathLogger(pathLogger.size() -1).dir == forward){
+            pathLogger.pop_back();
+            moveFwd(1500000);
+            moveFwd();
+            sleep(sleepTime);
+
+        }else{
+            pathLogger.pop_back();
+            turnRight();
+            sleep(sleepTime);
+            turnRight();
+            sleep(sleepTime);
+             }
     }
 }
 
@@ -822,7 +783,7 @@ void controlGrid(){
     int measurement = 0;
     // Check if the battery is still sufficiently charged, else shutdown
     if (BP.get_voltage_battery() >= 9) {
-		while (true) {
+		while (pathLogger.size() >= 1) {
 
 			if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 				if (BP.get_sensor(PORT_3, Light3) == 0) {
@@ -873,7 +834,8 @@ void controlGrid(){
 				cout << "ERROR: Can't read ultrasonic sensor..." << endl;
 			}
 		}
-		usleep(100000);
+        isReversing = false;
+        return;
 	}
 	else {
 		cout << "Battery voltage is: " << BP.get_voltage_battery() << ". This is too low to continue..." << endl;
