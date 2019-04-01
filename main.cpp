@@ -37,7 +37,7 @@ enum directType{
     moveBot
 };
 struct movement{
-    direction direction;    //Direction robot went
+    direction dir;    //Direction robot went
     directType type;        //Type of direction(movement by relative motor or a time-based)
     int stepsL;              //Amount of steps taken left
     int stepsR;             //AMount of steps taken right
@@ -59,7 +59,7 @@ void eHandler(int s){
 // Stop the robot by setting the motor power to '0'
 void moveStop(){
     movement movementStep;
-    movementStep.direction = direction.none;
+    movementStep.dir = direction.none;
     movementStep.type = directType.stop;
     movementStep.stepsL = 0;
     movementStep.stepsR = 0;
@@ -73,7 +73,7 @@ void moveStop(){
 
 void moveBot(const int measurement, const int valueLeft, const int valueRight) {
     movement movementStep;
-    movementStep.direction = direction.forward;
+    movementStep.dir = direction.forward;
     movementStep.type = directType.moveBot;
     movementStep.stepsL = valueLeft;
     movementStep.stepsR = valueRight;
@@ -109,7 +109,7 @@ void moveLeft() {
     int speed = 80;
 
     movement movementStep;
-    movementStep.direction = direction.left;
+    movementStep.dir = direction.left;
     movementStep.type = directType.motorDPS;
     movementStep.stepsL = speed;
     movementStep.stepsR = -speed;
@@ -124,7 +124,7 @@ void moveRight() {
     int speed = 80;
 
     movement movementStep;
-    movementStep.direction = direction.right;
+    movementStep.dir = direction.right;
     movementStep.type = directType.motorDPS;
     movementStep.stepsL = -speed;
     movementStep.stepsR = speed;
@@ -139,7 +139,7 @@ void moveFwd() {
     int speed = 420;
 
     movement movementStep;
-    movementStep.direction = direction.forward;
+    movementStep.dir = direction.forward;
     movementStep.type = directType.motorRelative;
     movementStep.stepsL = speed;
     movementStep.stepsR = speed;
@@ -153,7 +153,7 @@ void moveBack() {
     int speed = -420;
 
     movement movementStep;
-    movementStep.direction = direction.backwards;
+    movementStep.dir = direction.backwards;
     movementStep.type = directType.motorRelative;
     movementStep.stepsL = speed;
     movementStep.stepsR = speed;
@@ -167,7 +167,7 @@ void moveFwd(const int & time) {
     int speed = 20;
 
     movement movementStep;
-    movementStep.direction = direction.forward;
+    movementStep.dir = direction.forward;
     movementStep.type = directType.timeScale;
     movementStep.stepsL = time;
     movementStep.stepsR = time;
@@ -180,7 +180,7 @@ void moveFwd(const int & time) {
 
 void moveLeft(const int & time) {
     movement movementStep;
-    movementStep.direction = direction.left;
+    movementStep.dir = direction.left;
     movementStep.type = directType.timeScale;
     movementStep.stepsL = time;
     movementStep.stepsR = time;
@@ -193,7 +193,7 @@ void moveLeft(const int & time) {
 
 void moveRight(const int & time) {
     movement movementStep;
-    movementStep.direction = direction.right;
+    movementStep.dir = direction.right;
     movementStep.type = directType.timeScale;
     movementStep.stepsL = time;
     movementStep.stepsR = time;
@@ -206,7 +206,7 @@ void moveRight(const int & time) {
 
 void moveBack(const int &time) {
     movement movementStep;
-    movementStep.direction = direction.back;
+    movementStep.dir = direction.back;
     movementStep.type = directType.timeScale;
     movementStep.stepsL = time;
     movementStep.stepsR = time;
@@ -220,7 +220,7 @@ void moveBack(const int &time) {
 void turnLeft(){
     int speed = 420;
     movement movementStep;
-    movementStep.direction = direction.left;
+    movementStep.dir = direction.left;
     movementStep.type = directType.motorRelative;
     movementStep.stepsL = speed;
     movementStep.stepsR = -speed;
@@ -232,7 +232,7 @@ void turnLeft(){
 void turnRight(){
     int speed = 420;
     movement movementStep;
-    movementStep.direction = direction.right;
+    movementStep.dir = direction.right;
     movementStep.type = directType.motorRelative;
     movementStep.stepsL = -speed;
     movementStep.stepsR = speed;
