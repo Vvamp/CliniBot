@@ -82,7 +82,7 @@ void eHandler(int s){
                 x++;
             }else{
                 out1 = out2;
-                string oute += " * " + x;
+                string oute = " * " + x;
                 cout << x << " " << out1  << oute << endl;
                 x = 0;
 
