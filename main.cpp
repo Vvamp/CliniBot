@@ -34,7 +34,7 @@ enum directType{
     timeScale,
     motorDPS,
     stop,
-    moveBot
+    mb
 };
 struct movement{
     direction dir;    //Direction robot went
@@ -49,7 +49,7 @@ vector<movement> pathLogger;
 void eHandler(int s){
     cout << "Exiting..." << endl;
     for(movement moveStep : pathLogger){
-        cout << "- " << moveStep.direction << " -L: " << moveStep.stepsL << " -R: " << moveStep.stepsR << endl;
+        cout << "- " << moveStep.dir << " -L: " << moveStep.stepsL << " -R: " << moveStep.stepsR << endl;
     }
     BP.reset_all();
     exit(0);
@@ -74,7 +74,7 @@ void moveStop(){
 void moveBot(const int measurement, const int valueLeft, const int valueRight) {
     movement movementStep;
     movementStep.dir = direction.forward;
-    movementStep.type = directType.moveBot;
+    movementStep.type = directType.mb;
     movementStep.stepsL = valueLeft;
     movementStep.stepsR = valueRight;
     pathLogger.push_back(movementStep);
