@@ -172,13 +172,13 @@ void moveRight() {
 void moveFwd() {
     int speed = 420;
 
-    movement movementStep;
-    movementStep.dir = forward;
-    movementStep.type = motorRelative;
-    movementStep.stepsL = speed;
-    movementStep.stepsR = speed;
+    //movement movementStep;
+    //movementStep.dir = forward;
+    //movementStep.type = motorRelative;
+    //movementStep.stepsL = speed;
+    //movementStep.stepsR = speed;
 
-    pathLogger.push_back(movementStep);
+    //pathLogger.push_back(movementStep);
     BP.set_motor_position_relative(PORT_B, speed);
     BP.set_motor_position_relative(PORT_C, speed);
 }
