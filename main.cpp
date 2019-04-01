@@ -258,6 +258,7 @@ void turnLeft(){
     movementStep.type = motorRelative;
     movementStep.stepsL = speed;
     movementStep.stepsR = -speed;
+    pathLogger.push_back(movementStep);
 
     BP.set_motor_position_relative(PORT_B, speed);
     BP.set_motor_position_relative(PORT_C, -speed);
@@ -797,7 +798,7 @@ void controlGrid(){
                     cout << "searching line..." << endl;
                     }
 					if (Ultrasonic2.cm > 10) {
-						if (Light3.reflected >= 2000 && Light3.reflected <= 2200) {
+						if (Light3.reflected >= 2200 && Light3.reflected <= 2300) {
                             if(enableDebug){
                                 cout << "half" << endl;
                             }
@@ -805,7 +806,7 @@ void controlGrid(){
                             moveBot(Light3.reflected, 50, 50);
 							//rechtdoor
 						}
-						else if (Light3.reflected > 1800 && Light3.reflected < 2000) {
+						else if (Light3.reflected > 1850 && Light3.reflected < 2200) {
                             if(enableDebug){
                                 cout << "wit" << endl;
                             }
@@ -813,7 +814,7 @@ void controlGrid(){
                             moveBot(Light3.reflected, 5, 50);
 							//als ie het wit in gaat
 						}
-						else if (Light3.reflected > 2200) {
+						else if (Light3.reflected > 2300) {
                             if(enableDebug){
                                 cout << "zwart" << endl;
                             }
