@@ -209,17 +209,17 @@ void driveByLine() {
 
 					if (Ultrasonic2.cm > 10) {
 						cout << Light3.reflected << endl;
-						if (Light3.reflected > 1850 && Light3.reflected < 2200) {
+						if (Light3.reflected > 1800 && Light3.reflected < 2000) {
 							cout << "wit" << endl;
 							moveLeft(100000);
 							//als ie het wit in gaat
 						}
-						else if (Light3.reflected >= 2200 && Light3.reflected <= 2300) {
+						else if (Light3.reflected >= 2000 && Light3.reflected <= 2200) {
 							cout << "half" << endl;
 							moveFwd(100000);
 							//rechtdoor
 						}
-						else if (Light3.reflected > 2300) {
+						else if (Light3.reflected > 2200) {
 							moveRight(100000);
 							cout << "zwart" << endl;
 							//als ie het zwart in gaat
@@ -838,7 +838,7 @@ else if(Keuze == "2"){
     controlBluetooth();
 }
 else if(Keuze == "3"){
-	driveByLine();
+    driveByLine();
 }
 else if(Keuze == "4"){
     controlGrid();
