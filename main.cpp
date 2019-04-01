@@ -48,8 +48,18 @@ vector<movement> pathLogger;
 // Error handler
 void eHandler(int s){
     cout << "Exiting..." << endl;
+    string out1 = "";
+    int x = 0;
     for(movement moveStep : pathLogger){
-        cout << "- " << moveStep.dir << " -L: " << moveStep.stepsL << " -R: " << moveStep.stepsR << endl;
+        out2 = "- " + moveStep.dir + " -L: " + moveStep.stepsL + " -R: " + moveStep.stepsR;
+        if(out1 == out2){
+            x++;
+        }else{
+            out1 = out2;
+            out1 += " * " + x;
+            x = 0;
+        }
+        cout out2 << endl;
     }
     BP.reset_all();
     exit(0);
