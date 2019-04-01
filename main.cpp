@@ -76,9 +76,9 @@ void eHandler(int s){
                 break;
             };
             out2 = "- " + direction + " -L: " + to_string(moveStep.stepsL) + " -R: " + to_string(moveStep.stepsR);
-            cout << out1 << " - " << out2 << endl;
+            //cout << out1 << " - " << out2 << endl;
             if(out1 == out2){
-                cout << "true" << endl;
+            //    cout << "true" << endl;
                 x++;
             }else{
                 out1 = out2;
