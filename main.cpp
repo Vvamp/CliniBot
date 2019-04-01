@@ -51,7 +51,8 @@ void eHandler(int s){
     string out1 = "";
     int x = 0;
     for(movement moveStep : pathLogger){
-        out2 = "- " + moveStep.dir + " -L: " + moveStep.stepsL + " -R: " + moveStep.stepsR;
+        string out2;
+        out2 = "- " + (string)moveStep.dir + " -L: " + moveStep.stepsL + " -R: " + moveStep.stepsR;
         if(out1 == out2){
             x++;
         }else{
@@ -59,7 +60,7 @@ void eHandler(int s){
             out1 += " * " + x;
             x = 0;
         }
-        cout out2 << endl;
+        cout << out2 << endl;
     }
     BP.reset_all();
     exit(0);
