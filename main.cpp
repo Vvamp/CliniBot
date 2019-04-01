@@ -382,6 +382,7 @@ void lookRight(){
 //- Control functions
 void reverseBot(){
     cout << "Reversing..." << endl;
+    cout << pathLogger.size() << endl;
     for(int i = pathLogger.size(); i > 0; i--){
         movement cmove = pathLogger[i];
         if(cmove.type == mb){
