@@ -723,6 +723,7 @@ void checkGrid(){
     string uinDirection;
     int randomDirectionChooser = 0;
     while(true){
+        srand((unsigned) time(&t));
         randomDirectionChooser = rand() % 3 + 1;
         cout << randomDirectionChooser << endl;
         switch(randomDirectionChooser){
