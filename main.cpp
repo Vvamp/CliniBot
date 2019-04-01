@@ -37,6 +37,7 @@ struct movement{
 
 vector<movement> pathLogger;
 void eHandler(int s);
+void controlGrid();
 
 
 //-- Movement functions
@@ -147,7 +148,7 @@ void turnLeft(){
 
 void turnRight(){
     int speed = 420;
-    
+
     BP.set_motor_position_relative(PORT_B, -speed);
     BP.set_motor_position_relative(PORT_C, speed);
 }
@@ -582,6 +583,7 @@ void checkGrid(){
     moveStop();
     cout << "Possible paths: ";
     if(!values[0] && !values[1] && !values[2]){
+        movement currentMovement;
         cout << "None" << endl;
         cout << "Moving back" << endl; //rotate 180 and follow line
         currentMovement.dir = backwards
@@ -680,10 +682,10 @@ void checkGrid(){
         if(pathLogger[pathLogger.size() -1].dir == left){
             pathLogger.pop_back();
             turnRight();
-        }else if(pathLogger(pathLogger.size() - 1).dir == right){
+        }else if(pathLogger[pathLogger.size() - 1].dir == right){
             pathLogger.pop_back();
             turnLeft();
-        }else if(pathLogger(pathLogger.size() -1).dir == forward){
+        }else if(pathLogger[pathLogger.size() -1].dir == forward){
             pathLogger.pop_back();
             moveFwd(1500000);
             moveFwd();
@@ -836,44 +838,6 @@ void eHandler(int s){
     string out1 = "";
     int x = 0;
     reverseBot();
-    if(false){
-    for(movement moveStep : pathLogger){
-        string out2;
-        string direction;
-        switch(moveStep.dir){
-            case left:
-                direction = "left";
-                break;
-            case right:
-                direction = "right";
-                break;
-            case forward:
-                direction = "forward";
-                break;
-            case backwards:
-                direction = "backwards";
-                break;
-            case none:
-                direction = "none";
-                break;
-            default:
-                direction = "error in movement switch/case";
-                break;
-            };
-            out2 = "- " + direction + " -L: " + to_string(moveStep.stepsL) + " -R: " + to_string(moveStep.stepsR);
-            //cout << out1 << " - " << out2 << endl;
-            if(out1 == out2){
-            //    cout << "true" << endl;
-                x++;
-            }else{
-                out1 = out2;
-                string oute = " * " + x;
-                cout << out1  << oute << endl;
-                x = 0;
-
-            }
-        //cout << out2 << endl;
-    }}
     BP.reset_all();
     exit(0);
 }
