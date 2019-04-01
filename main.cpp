@@ -613,7 +613,7 @@ void checkGrid(){
         movement currentMovement;
         srand((unsigned) time(0));
         randomDirectionChooser = rand() % 3 + 1;
-        cout << randomDirectionChooser << endl;
+        //cout << randomDirectionChooser << endl;
         switch(randomDirectionChooser){
             case 1:
                 uinDirection =  "left";
