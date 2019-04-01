@@ -446,7 +446,7 @@ void reverseBot(){
                     moveStop();
             }
         }
-    usleep(100000);
+    usleep(100);
     }
 }
 // Check if there is a regular crossing(both sensors would be black)
