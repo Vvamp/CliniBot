@@ -301,6 +301,10 @@ void reverseBot(){
     isReversing = true;
     turnRight();
     sleep(1);
+    turnRight();
+    sleep(1);
+    turnRight();
+    sleep(1);
     controlGrid();
     return;
 }
