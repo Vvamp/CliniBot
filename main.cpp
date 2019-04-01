@@ -12,6 +12,7 @@ using std::endl;
 using std::getline;
 using std::cin;
 using std::string;
+using std::to_string;
 using std::vector;
 
 BrickPi3 BP; // Define an instance of BrickPi3, called 'BP'
@@ -21,7 +22,7 @@ sensor_light_t      Light3; //RGB Light sensor
 sensor_color_t      Color1; //Infrared sensor
 sensor_ultrasonic_t Ultrasonic2; //Ultrasonic sensor
 
-const bool enableDebug = false;
+const bool enableDebug = true;
 enum direction{
     left,
     right,
@@ -36,6 +37,7 @@ enum directType{
     stop,
     mb
 };
+
 struct movement{
     direction dir;    //Direction robot went
     directType type;        //Type of direction(movement by relative motor or a time-based)
@@ -51,7 +53,29 @@ void eHandler(int s){
     string out1 = "";
     int x = 0;
     for(movement moveStep : pathLogger){
-        out2 = "- " + moveStep.dir + " -L: " + moveStep.stepsL + " -R: " + moveStep.stepsR;
+        string out2;
+        string direction;
+        switch(moveStep.dir){
+            case left:
+                direction = "left";
+                break;
+            case right:
+                direction = "right";
+                break;
+            case forward:
+                direction = "forward";
+                break;
+            case backwards:
+                direction = "backwards";
+                break;
+            case none:
+                direction = "none";
+                break;
+            default:
+                direction = "error in movement switch/case";
+                break;
+        };
+        out2 = "- " + direction + " -L: " + to_string(moveStep.stepsL) + " -R: " + to_string(moveStep.stepsR);
         if(out1 == out2){
             x++;
         }else{
@@ -59,7 +83,7 @@ void eHandler(int s){
             out1 += " * " + x;
             x = 0;
         }
-        cout out2 << endl;
+        cout << out2 << endl;
     }
     BP.reset_all();
     exit(0);
@@ -169,8 +193,8 @@ void moveBack() {
     movementStep.stepsR = speed;
 
     pathLogger.push_back(movementStep);
-    BP.set_motor_position_relative(PORT_B, -speed);
-    BP.set_motor_position_relative(PORT_C, -speed);
+    BP.set_motor_position_relative(PORT_B, speed);
+    BP.set_motor_position_relative(PORT_C, speed);
 }
 
 void moveFwd(const int & time) {
@@ -234,6 +258,7 @@ void turnLeft(){
     movementStep.type = motorRelative;
     movementStep.stepsL = speed;
     movementStep.stepsR = -speed;
+    pathLogger.push_back(movementStep);
 
     BP.set_motor_position_relative(PORT_B, speed);
     BP.set_motor_position_relative(PORT_C, -speed);
@@ -699,6 +724,7 @@ void checkGrid(){
     int randomDirectionChooser = 0;
     while(true){
         randomDirectionChooser = rand() % 4 + 1;
+        cout << randomDirectionChooser << endl;
         switch(randomDirectionChooser){
             case 1:
                 uinDirection =  "left";
@@ -711,6 +737,7 @@ void checkGrid(){
                 break;
             default:
                 uinDirection = "backwards";
+                cout << "ERROR IN SHIT" << endl;
                 break;
         }
 
@@ -773,7 +800,7 @@ void controlGrid(){
                     cout << "searching line..." << endl;
                     }
 					if (Ultrasonic2.cm > 10) {
-						if (Light3.reflected >= 2000 && Light3.reflected <= 2200) {
+						if (Light3.reflected >= 2200 && Light3.reflected <= 2300) {
                             if(enableDebug){
                                 cout << "half" << endl;
                             }
@@ -781,7 +808,7 @@ void controlGrid(){
                             moveBot(Light3.reflected, 50, 50);
 							//rechtdoor
 						}
-						else if (Light3.reflected > 1800 && Light3.reflected < 2000) {
+						else if (Light3.reflected > 1850 && Light3.reflected < 2200) {
                             if(enableDebug){
                                 cout << "wit" << endl;
                             }
@@ -789,7 +816,7 @@ void controlGrid(){
                             moveBot(Light3.reflected, 5, 50);
 							//als ie het wit in gaat
 						}
-						else if (Light3.reflected > 2200) {
+						else if (Light3.reflected > 2300) {
                             if(enableDebug){
                                 cout << "zwart" << endl;
                             }
@@ -798,7 +825,7 @@ void controlGrid(){
                                 sleep(2);
                                 checkGrid();
                             }
-                            moveBot(measurement, 50, 5);
+                            moveBot(Light3.reflected, 50, 5);
 							//moveRight(100000);
 
 							//als ie het zwart in gaat
