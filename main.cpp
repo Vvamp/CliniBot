@@ -206,7 +206,7 @@ void moveRight(const int & time) {
 
 void moveBack(const int &time) {
     movement movementStep;
-    movementStep.dir = back;
+    movementStep.dir = backwards;
     movementStep.type = timeScale;
     movementStep.stepsL = time;
     movementStep.stepsR = time;
@@ -700,7 +700,7 @@ void checkGrid(){
                 uinDirection = "forward";
                 break;
             default:
-                uinDirection = "backwards"
+                uinDirection = "backwards";
                 break;
         }
 
