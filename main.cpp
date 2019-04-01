@@ -47,52 +47,7 @@ struct movement{
 
 vector<movement> pathLogger;
 
-// Error handler
-void eHandler(int s){
-    cout << "Exiting..." << endl;
-    string out1 = "";
-    int x = 0;
-    if(false){
-    for(movement moveStep : pathLogger){
-        string out2;
-        string direction;
-        switch(moveStep.dir){
-            case left:
-                direction = "left";
-                break;
-            case right:
-                direction = "right";
-                break;
-            case forward:
-                direction = "forward";
-                break;
-            case backwards:
-                direction = "backwards";
-                break;
-            case none:
-                direction = "none";
-                break;
-            default:
-                direction = "error in movement switch/case";
-                break;
-            };
-            out2 = "- " + direction + " -L: " + to_string(moveStep.stepsL) + " -R: " + to_string(moveStep.stepsR);
-            //cout << out1 << " - " << out2 << endl;
-            if(out1 == out2){
-            //    cout << "true" << endl;
-                x++;
-            }else{
-                out1 = out2;
-                string oute = " * " + x;
-                cout << out1  << oute << endl;
-                x = 0;
 
-            }
-        //cout << out2 << endl;
-    }}
-    BP.reset_all();
-    exit(0);
-}
 
 //-- Movement functions
 // Stop the robot by setting the motor power to '0'
@@ -425,6 +380,17 @@ void lookRight(){
 
 
 //- Control functions
+void reverseBot(){
+    for(int i = pathLogger.size(); size > 0; i--){
+        movement cmove = pathLogger[i];
+        switch(cmove.dir){
+            case forward:
+                if(cmove.type == mb){
+                    moveBot(0, -cmove.stepsL, -cmove.stepsR);
+                }
+        }
+    }
+}
 // Check if there is a regular crossing(both sensors would be black)
 bool isCrossing(){
     int measurement = 0;
@@ -915,4 +881,54 @@ else if(Keuze == "2"){
 }
 }
 BP.reset_all();
+}
+
+
+
+// Error handler
+void eHandler(int s){
+    cout << "Exiting..." << endl;
+    string out1 = "";
+    int x = 0;
+    reverseBot();
+    if(false){
+    for(movement moveStep : pathLogger){
+        string out2;
+        string direction;
+        switch(moveStep.dir){
+            case left:
+                direction = "left";
+                break;
+            case right:
+                direction = "right";
+                break;
+            case forward:
+                direction = "forward";
+                break;
+            case backwards:
+                direction = "backwards";
+                break;
+            case none:
+                direction = "none";
+                break;
+            default:
+                direction = "error in movement switch/case";
+                break;
+            };
+            out2 = "- " + direction + " -L: " + to_string(moveStep.stepsL) + " -R: " + to_string(moveStep.stepsR);
+            //cout << out1 << " - " << out2 << endl;
+            if(out1 == out2){
+            //    cout << "true" << endl;
+                x++;
+            }else{
+                out1 = out2;
+                string oute = " * " + x;
+                cout << out1  << oute << endl;
+                x = 0;
+
+            }
+        //cout << out2 << endl;
+    }}
+    BP.reset_all();
+    exit(0);
 }
