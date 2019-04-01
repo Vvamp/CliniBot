@@ -712,7 +712,12 @@ void controlGrid(){
     // Check if the battery is still sufficiently charged, else shutdown
     if (BP.get_voltage_battery() >= 9) {
         while(true){
-            if(isReversing && pathLogger.size() > 0){
+            if(isReversing){
+                if(pathLogger.size() == 0){
+                    isReversing = false;
+                    return;
+                }
+            }
 			if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 				if (BP.get_sensor(PORT_3, Light3) == 0) {
                     if(enableDebug){
@@ -761,9 +766,7 @@ void controlGrid(){
 			}
 			else {
 				cout << "ERROR: Can't read ultrasonic sensor..." << endl;
-			}}else{
-                return;
-            }
+			}
         }
 
 	}
