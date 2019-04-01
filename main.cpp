@@ -46,7 +46,7 @@ struct movement{
 };
 
 vector<movement> pathLogger;
-
+void eHandler(int s);
 
 
 //-- Movement functions
