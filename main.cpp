@@ -59,8 +59,8 @@ void eHandler(int s){
 // Stop the robot by setting the motor power to '0'
 void moveStop(){
     movement movementStep;
-    movementStep.dir = direction.none;
-    movementStep.type = directType.stop;
+    movementStep.dir = none;
+    movementStep.type = stop;
     movementStep.stepsL = 0;
     movementStep.stepsR = 0;
     pathLogger.push_back(movementStep);
