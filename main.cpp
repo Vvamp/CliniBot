@@ -22,7 +22,7 @@ sensor_light_t      Light3; //RGB Light sensor
 sensor_color_t      Color1; //Infrared sensor
 sensor_ultrasonic_t Ultrasonic2; //Ultrasonic sensor
 
-const bool enableDebug = false;
+const bool enableDebug = true;
 enum direction{
     left,
     right,
