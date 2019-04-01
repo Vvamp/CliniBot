@@ -381,7 +381,7 @@ void lookRight(){
 
 //- Control functions
 void reverseBot(){
-    for(int i = pathLogger.size(); size > 0; i--){
+    for(int i = pathLogger.size(); i > 0; i--){
         movement cmove = pathLogger[i];
         switch(cmove.dir){
             case forward:
