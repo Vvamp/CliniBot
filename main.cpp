@@ -52,6 +52,7 @@ void eHandler(int s){
     cout << "Exiting..." << endl;
     string out1 = "";
     int x = 0;
+    if(false){
     for(movement moveStep : pathLogger){
         string out2;
         string direction;
@@ -88,7 +89,7 @@ void eHandler(int s){
 
             }
         //cout << out2 << endl;
-    }
+    }}
     BP.reset_all();
     exit(0);
 }
