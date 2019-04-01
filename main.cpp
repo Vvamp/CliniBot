@@ -74,18 +74,19 @@ void eHandler(int s){
             default:
                 direction = "error in movement switch/case";
                 break;
-        };
-        out2 = "- " + direction + " -L: " + to_string(moveStep.stepsL) + " -R: " + to_string(moveStep.stepsR);
-        cout << out1 << " - " << out2 << endl;
-        if(out1 == out2){
-            x++;
-        }else{
-            out1 = out2;
-            out1 += " * " + x;
-            cout << x << " " << out1 << endl;
-            x = 0;
+            };
+            out2 = "- " + direction + " -L: " + to_string(moveStep.stepsL) + " -R: " + to_string(moveStep.stepsR);
+            cout << out1 << " - " << out2 << endl;
+            if(out1 == out2){
+                cout << "true" << endl;
+                x++;
+            }else{
+                out1 = out2;
+                out1 += " * " + x;
+                cout << x << " " << out1 << endl;
+                x = 0;
 
-        }
+            }
         //cout << out2 << endl;
     }
     BP.reset_all();
