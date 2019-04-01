@@ -586,7 +586,7 @@ void checkGrid(){
         movement currentMovement;
         cout << "None" << endl;
         cout << "Moving back" << endl; //rotate 180 and follow line
-        currentMovement.dir = backwards
+        currentMovement.dir = backwards;
         pathLogger.push_back(currentMovement);
         turnRight();
         sleep(sleepTime);
