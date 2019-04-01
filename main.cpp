@@ -36,6 +36,7 @@ enum directType{
     stop,
     mb
 };
+
 struct movement{
     direction dir;    //Direction robot went
     directType type;        //Type of direction(movement by relative motor or a time-based)
@@ -52,7 +53,28 @@ void eHandler(int s){
     int x = 0;
     for(movement moveStep : pathLogger){
         string out2;
-        out2 = "- " + (string)moveStep.dir + " -L: " + moveStep.stepsL + " -R: " + moveStep.stepsR;
+        string direction;
+        switch(moveStep.dir){
+            case left:
+                direction = "left";
+                break;
+            case right:
+                direction = "right";
+                break;
+            case forward:
+                direction = "forward";
+                break;
+            case backwards:
+                direction = "backwards";
+                break;
+            case none:
+                direction = "none";
+                break;
+            default:
+                direction = "error in movement switch/case";
+                break;
+        };
+        out2 = "- " + direction + " -L: " + moveStep.stepsL + " -R: " + moveStep.stepsR;
         if(out1 == out2){
             x++;
         }else{
