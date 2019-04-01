@@ -14,7 +14,7 @@ sensor_touch_t      Touch4;
 
 void exit_signal_handler(int signo);
 
-void main() {
+int main() {
 
 	signal(SIGINT, exit_signal_handler); // register the exit function for Ctrl+C
 
@@ -31,7 +31,7 @@ void main() {
 		cout << Touch4.pressed << endl;
 		usleep(250000);
 	}
-	return;
+	return 0;
 }
 
 // Signal handler that will be called when Ctrl+C is pressed to stop the program
