@@ -637,7 +637,7 @@ void checkGrid(){
                 turnLeft();
                 sleep(sleepTime);
                 if (BP.get_sensor(PORT_3, Light3) == 0) {
-                    if (Light3.reflected >= 2000 && Light3.reflected <= 2200) {
+                    if (Light3.reflected >= whiteHigh && Light3.reflected <= blackLow) {
                         currentMovement.dir = left;
                         pathLogger.push_back(currentMovement);
                         isSearchingAfterCrossing = true;
@@ -654,7 +654,7 @@ void checkGrid(){
                 turnRight();
                 sleep(sleepTime);
                 if (BP.get_sensor(PORT_3, Light3) == 0) {
-                    if (Light3.reflected >= 2000 && Light3.reflected <= 2200) {
+                    if (Light3.reflected >= whiteHigh && Light3.reflected <= blackLow) {
                         currentMovement.dir = right;
                         pathLogger.push_back(currentMovement);
                         isSearchingAfterCrossing = true;
