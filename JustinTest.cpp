@@ -144,7 +144,7 @@ int main() {
 			}
 			else
 			{
-				moveBot(measurement, 0, 0, "Stopped moving", getLeft, getFoward, getRight);
+				moveBot(measurement, 0, 0, "Stopped moving", calbValues);
                 // logfile << "Stopped moving" << " =[ " << 0 << "," << 0 << " ]\n";
                 // logUpdate == 10 ? (logfile << "Stopped moving" << " =[ " << 0 << ", " << 0 << "]\n") : cout << endl;
                 // logUpdate == 10 ? logUpdate = 0 : logUpdate++;
@@ -157,7 +157,7 @@ int main() {
 		}
 		else
 		{
-			moveBot(measurement, 0, 0, "Ultra sonic not found", getLeft, getFoward, getRight);
+			moveBot(measurement, 0, 0, "Ultra sonic not found", calbValues);
             // logfile << "Ultra sonic not found" << " =[ " << 0 << "," << 0 << " ]\n";
             // logUpdate == 10 ? (logfile << "Ultra sonic not found" << " =[ " << 0 << ", " << 0 << "]\n") : cout << endl;
             // logUpdate == 10 ? logUpdate = 0 : logUpdate++;
