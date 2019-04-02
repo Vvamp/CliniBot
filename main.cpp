@@ -507,7 +507,7 @@ void checkGrid(){
 				moveStop();
 				while (true) {
 					if (BP.get_sensor(PORT_3, Light3) == 0) {
-						if (Light3.reflected <= 2200) {
+						if (Light3.reflected <= 2300) {
 							moveLeft(100000);
 							stepsLeft += 100000;
 						}
