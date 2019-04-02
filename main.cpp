@@ -40,6 +40,7 @@ void Calibration() {
 			if (input == 's') {
 				for (int i = 0; i < time; i++) {
 					if (BP.get_sensor(PORT_3, Light3)) {
+						cout << Light3.reflected << " ";
 						black += Light3.reflected;
 						stepper++;
 						usleep(1000);
@@ -57,6 +58,7 @@ void Calibration() {
 			if (input == 's') {
 				for (int a = 0; a < time; a++) {
 					if (BP.get_sensor(PORT_3, Light3)) {
+						cout << Light3.reflected << " ";
 						white += Light3.reflected;
 						stepper++;
 						usleep(1000);
@@ -74,6 +76,7 @@ void Calibration() {
 			if (input == 's') {
 				for (int j = 0; j < time; j++) {
 					if (BP.get_sensor(PORT_3, Light3)) {
+						cout << Light3.reflected << " ";
 						half += Light3.reflected;
 						stepper++;
 						usleep(1000);
