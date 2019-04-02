@@ -25,48 +25,57 @@ sensor_ultrasonic_t Ultrasonic2; //Ultrasonic sensor
 const bool enableDebug = true;
 bool isSearchingAfterCrossing = false;
 bool isReversing = false;
-int black = 0;
-int white = 0;
-int half = 0;
+int blackHigh = 0;
+int blackLow = 1000000;
+int whiteHigh = 0;
+int whiteLow = 1000000;
+int halfHigh = 0;
+int halfLow = 1000000;
 
 void Calibration() {
 	int time = 4000;
 	int stepper = 0;
 	char input;
 	while (true) {
-		if (black == 0) {
+		if (blackHigh == 0) {
 			cout << "place the robot on black and press s + enter to start" << endl;
 			cin >> input;
 			if (input == 's') {
 				for (int i = 0; i < time; i++) {
 					if (BP.get_sensor(PORT_3, Light3) == 0) {
-						black += Light3.reflected;
+						if (Light3.reflected > blackHigh) {
+							blackHigh = Light3.reflected;
+						}
+						if (Light3.reflected < blackLow) {
+							blackLow = Light3.reflected;
+						}
 						stepper++;
 						usleep(1000);
 					}
 				}
 			}
-			black = black / stepper;
 			stepper = 0;
 			input = ' ';
-			cout << "black value is: " << black << endl;
 		}
-		if (white == 0) {
+		if (whiteHigh == 0) {
 			cout << "place the robot on white and press s + enter to start" << endl;
 			cin >> input;
 			if (input == 's') {
 				for (int a = 0; a < time; a++) {
 					if (BP.get_sensor(PORT_3, Light3) == 0) {
-						white += Light3.reflected;
+						if (Light3.reflected > whiteHigh) {
+							whiteHigh = Light3.reflected;
+						}
+						if (Light3.reflected < whiteLow) {
+							whiteLow = Light3.reflected;
+						}
 						stepper++;
 						usleep(1000);
 					}
 				}
 			}
-			white = white / stepper;
 			stepper = 0;
 			input = ' ';
-			cout << "white value is: " << white << endl;
 		}
 		if (half == 0) {
 			cout << "place the robot half on the line and press s + enter to start" << endl;
@@ -74,19 +83,39 @@ void Calibration() {
 			if (input == 's') {
 				for (int j = 0; j < time; j++) {
 					if (BP.get_sensor(PORT_3, Light3) == 0) {
-						half += Light3.reflected;
+						if (Light3.reflected > halfHigh) {
+							halfHigh = Light3.reflected;
+						}
+						if (Light3.reflected < halfLow) {
+							halfLow = Light3.reflected;
+						}
 						stepper++;
 						usleep(1000);
 					}
 				}
 			}
-			half = half / stepper;
 			stepper = 0;
 			input = ' ';
-			cout << "half value is: " << half << endl;
 		}
-		break;
+		if (blackHigh > halfHigh && halfHigh > whiteHigh) {
+			break;
+		}
+		else {
+			cout << "calibration went wrong... starting again." << endl;
+			blackLow = 1000000;
+			blackHigh = 0;
+			whiteLow = 1000000;
+			whiteHigh = 0;
+			halfHigh = 0;
+			halfLow = 1000000;
+		}
 	}
+	cout << "black high value is: " << blackHigh << endl;
+	cout << "black low value is: " << blackLow << endl;
+	cout << "white high value is: " << whiteHigh << endl;
+	cout << "white low value is: " << whiteLow << endl;
+	cout << "half high value is: " << halfHigh << endl;
+	cout << "half low value is: " << halfLow << endl;
 	cout << "calibration complete..." << endl;
 	return;
 }
