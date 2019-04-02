@@ -273,7 +273,7 @@ void reverseBot() {
 	moveRight(1000000);
 	while (true) {
 		if (BP.get_sensor(PORT_3, Light3) == 0) {
-			if (Light3.reflected >= 1700 && Light3.reflected <= 2300) {
+			if (Light3.reflected >= whiteLow && Light3.reflected <= whiteHigh) {
 				moveRight(100000);
 			}
 			else {
@@ -298,7 +298,7 @@ bool isCrossing(){
         /*if(enableDebug){
         cout << "rgb: " << measurement << endl;
     }*/
-        if(measurement >=200 && measurement < 450){
+        if(measurement >=RGBBlackLow && measurement < RGBBlackHigh){
             s1 = true;
         }
     }
@@ -372,7 +372,7 @@ bool lineDetected(){
         if(enableDebug){
         cout << endl << "m: " << measurement << " borders: 200 <= x < 400" << endl;
         }
-        if(measurement < 400 && measurement > 200){
+        if(measurement < RGBBlackHigh && measurement > RGBWhiteHigh){
             s2 = true;
         }else{
             s2 = false;
