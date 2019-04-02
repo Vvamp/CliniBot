@@ -508,8 +508,8 @@ void checkGrid(){
 				while (true) {
 					if (BP.get_sensor(PORT_3, Light3) == 0) {
 						if (Light3.reflected <= 2200) {
-							stepsLeft += 100000;
 							moveLeft(100000);
+							stepsLeft += 100000;
 						}
 						else {
 							moveRight(1000000);
@@ -581,8 +581,8 @@ void checkGrid(){
 					while (true) {
 						if (BP.get_sensor(PORT_3, Light3) == 0) {
 							if (Light3.reflected <= 2200) {
-								stepsRight += 100000;
 								moveRight(100000);
+								stepsRight += 100000;
 							}
 							else {
 								stepsRight += 1500000;
