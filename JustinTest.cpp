@@ -19,7 +19,9 @@ int calibrateSensor(){
     //Set time of calc in seconds
     int setTime = 0;
     int black = 0;
-    int left, foward, right = 0;
+    int left = 0;
+    int foward = 0;
+    int right = 0;
     string tmp;
 
     cout << "-- Enter time of calibration in seconds: ";
