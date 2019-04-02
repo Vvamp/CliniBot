@@ -402,6 +402,7 @@ void checkGrid(){
 
 	int stepsLeft = 0;
 	int stepsRight = 0;
+	int average = 0;
 
     vector<bool> values = {false, false, false};
     bool driveRequired = false;
@@ -481,9 +482,22 @@ void checkGrid(){
 							stepsLeft += 100000;
 						}
 						else {
-							moveRight(1000000);
 							moveStop();
-							usleep(500000);
+							usleep(100000);
+							break;
+						}
+					}
+				}
+				while (true) {
+					if (BP.get_sensor(PORT_1, Color1)) {
+						average = (Color1.reflected_blue + Color1.reflected_green + Color1.reflected_red) / 3;
+						if (average > RGBBlackLow) {
+							moveLeft(100000);
+							stepsLeft += 100000;
+						}
+						else {
+							moveStop();
+							usleep(100000);
 							break;
 						}
 					}
