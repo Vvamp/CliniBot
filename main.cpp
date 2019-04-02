@@ -567,8 +567,20 @@ void checkGrid(){
 
                     // Move wheels to center and turn right
                     moveFwd(1500000);
-                    turnRight();
-                    sleep(sleepTime);
+					moveRight(1000000);
+					moveStop();
+					while (true) {
+						if (BP.get_sensor(PORT_3, Light3) == 0) {
+							if (Light3.reflected <= 2200) {
+								moveRight(100000);
+							}
+							else {
+								moveLeft(1000000);
+								moveStop();
+								break;
+							}
+						}
+					}
 
                     // Go to right-line
                     moveFwd();
