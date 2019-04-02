@@ -21,7 +21,7 @@ sensor_ultrasonic_t Ultrasonic2; //Ultrasonic sensor
 void KleurenDans(){
 
 while(true){
-    
+
     sleep(1);
 
     if(BP.get_sensor(PORT_1, Color1) == 0){
@@ -34,6 +34,7 @@ while(true){
     cout << "Kleurwaarde voor Rood = "<< Rood << endl;
     cout << "Kleurwaarde voor Groen = " << Groen << endl;
     cout << "Kleurwaarde voor Blauw = " << Blauw << endl;
+    cout << endl;
 
 
 
