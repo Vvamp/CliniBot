@@ -314,8 +314,7 @@ void reverseBot() {
 
 			}
 		}
-		controlGrid();
-		return;
+		return controlGrid();
 	}
 }
 // Check if there is a regular crossing(both sensors would be black)
