@@ -77,7 +77,7 @@ void Calibration() {
 			stepper = 0;
 			input = ' ';
 		}
-		if (half == 0) {
+		if (halfHigh == 0) {
 			cout << "place the robot half on the line and press s + enter to start" << endl;
 			cin >> input;
 			if (input == 's') {
