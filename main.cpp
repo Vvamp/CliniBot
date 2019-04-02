@@ -79,7 +79,7 @@ void Calibration() {
 			cout << "white high value is: " << whiteHigh << endl;
 			cout << "white low value is: " << whiteLow << endl;
 		}
-		if (blackLow < whiteHigh) {
+		if (blackLow > whiteHigh) {
 			break;
 		}
 		else {
