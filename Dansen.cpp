@@ -30,11 +30,11 @@ while(true){
     int Groen = Color1.reflected_green;
     int Blauw = Color1.reflected_blue;
 
-
+    cout << endl;
     cout << "Kleurwaarde voor Rood = "<< Rood << endl;
     cout << "Kleurwaarde voor Groen = " << Groen << endl;
     cout << "Kleurwaarde voor Blauw = " << Blauw << endl;
-    cout << endl;
+    
 
 
 
