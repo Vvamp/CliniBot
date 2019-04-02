@@ -483,6 +483,7 @@ void checkGrid(){
 						else if (Light3.reflected > blackLow && Light3.reflected <= blackHigh) {
 							moveRight(500000);
 							moveStop();
+							usleep(500000);
 							break;
 						}
 					}
@@ -557,6 +558,7 @@ void checkGrid(){
 								stepsRight += 1500000;
 								moveRight(500000);
 								moveStop();
+								usleep(500000);
 								break;
 							}
 						}
