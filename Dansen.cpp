@@ -26,7 +26,7 @@ void Dansje(){
     if(Rood > Groen && Rood > Blauw){
         cout << "Doet iets bij rood" << endl;
     }
-    else if(Groen > Rood && Groen >> Blauw){
+    else if(Groen > Rood && Groen > Blauw){
         cout << "Doet iets bij groen" << endl;
     }
     else if(Blauw > Rood && Blauw > Groen){
