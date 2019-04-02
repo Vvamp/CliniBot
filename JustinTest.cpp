@@ -91,7 +91,7 @@ int main() {
     // ofstream logfile;
 
     measurement = Light3.reflected;
-    int left, foward, right = calibrateSensor();
+    int getLeft, getFoward, getRight = calibrateSensor();
 
 	while (true) {
 
@@ -106,15 +106,15 @@ int main() {
 
                     if (BP.get_sensor(PORT_3, Light3) == 0) {
                         
-                        if (measurement >= 2000 && measurement <= 2200) {
+                        if (measurement >= getFoward && measurement <= getRight) {
                             // moveBot(measurement, 50, 50, "Moving forward"); //Forward
                             moveBot(measurement, 0, 0, "Moving forward"); //Forward
                         }
-                        if (measurement > 1800 && measurement < 2000) {
+                        if (measurement > getLeft && measurement < getFoward) {
                             // moveBot(measurement, 5, 50, "Moving left"); //Left
                             moveBot(measurement, 0, 0, "Moving left"); //Right
                         }
-                        else if (measurement > 2200) {
+                        else if (measurement > getRight) {
                             // moveBot(measurement, 50, 5, "Moving right"); //Right
                             moveBot(measurement, 0, 0, "Moving right"); //Right
                             // logfile << "Moving right" << " =[ " << 0 << "," << 0 << " ]\n";
