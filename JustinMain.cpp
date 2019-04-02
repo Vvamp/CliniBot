@@ -469,7 +469,7 @@ int calibrateSensor(const int measurement){
     string tmp;
     
     cout << " -- Press enter to calibrate";
-    cin << tmp;
+    cin >> tmp;
 
     for(unsigned i=0; i > setTime; i++){
         black += measurement;
