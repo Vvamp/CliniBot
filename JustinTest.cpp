@@ -125,10 +125,10 @@ int main() {
 			else
 			{
 				moveBot(measurement, 0, 0, "Stopped moving");
-                logfile << "Stopped moving" << " =[ " << 0 << "," << 0 << " ]\n";
+                // logfile << "Stopped moving" << " =[ " << 0 << "," << 0 << " ]\n";
                 // logUpdate == 10 ? (logfile << "Stopped moving" << " =[ " << 0 << ", " << 0 << "]\n") : cout << endl;
                 // logUpdate == 10 ? logUpdate = 0 : logUpdate++;
-                logfile.close();
+                // logfile.close();
                 
 			}
 
@@ -138,10 +138,10 @@ int main() {
 		else
 		{
 			moveBot(measurement, 0, 0, "Ultra sonic not found");
-            logfile << "Ultra sonic not found" << " =[ " << 0 << "," << 0 << " ]\n";
+            // logfile << "Ultra sonic not found" << " =[ " << 0 << "," << 0 << " ]\n";
             // logUpdate == 10 ? (logfile << "Ultra sonic not found" << " =[ " << 0 << ", " << 0 << "]\n") : cout << endl;
             // logUpdate == 10 ? logUpdate = 0 : logUpdate++;
-            logfile.close();
+            // logfile.close();
 		}
 
         
