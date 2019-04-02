@@ -492,8 +492,8 @@ void checkGrid(){
 					if (BP.get_sensor(PORT_1, Color1)) {
 						average = (Color1.reflected_blue + Color1.reflected_green + Color1.reflected_red) / 3;
 						if (average > RGBBlackLow) {
-							moveLeft(100000);
-							stepsLeft += 100000;
+							moveRight(100000);
+							stepsLeft -= 100000;
 						}
 						else {
 							moveStop();
