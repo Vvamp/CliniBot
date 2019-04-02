@@ -43,6 +43,8 @@ int calibrateSensor(){
     left = black - 400;
 
     cout << "-- Successfully calibrated black, values:" << endl;
+    cout << "Right: [" << right << "] Foward: [" << foward << "] Left: [" << left << "]" << endl;
+    sleep(3);
 
     return left, foward, right;
 };
