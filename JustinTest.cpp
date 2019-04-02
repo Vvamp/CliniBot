@@ -5,6 +5,7 @@
 #include <signal.h>     // for catching exit signals
 #include <iomanip>		// for setw and setprecision
 #include <fstream>      // for creating a log files
+#include <vector>
 
 using namespace std;
 
@@ -14,14 +15,13 @@ sensor_light_t Light3;
 
 void exit_signal_handler(int signo);
 
-int calibrateSensor(){
+vector<int> calibrateSensor(){
 
     //Set time of calc in seconds
     int setTime = 0;
     int black = 0;
-    int left = 0;
-    int foward = 0;
-    int right = 0;
+    int left, foward, right;
+    vector<int> calbValues;
     string tmp;
 
     cout << "-- Enter time of calibration in seconds: ";
@@ -44,9 +44,13 @@ int calibrateSensor(){
     foward = black - 200;
     left = black - 400;
 
+    calbValues.push_back(left);
+    calbValues.push_back(foward);
+    calbValues.push_back(right);
+
     cout << "-- Successfully calibrated black, values:" << endl;
 
-    return left, foward, right;
+    return calbValues;
 };
 
 //Function to move robot (left, right)
@@ -97,10 +101,13 @@ int main() {
     // ofstream logfile;
 
     measurement = Light3.reflected;
-    int getLeft, getFoward, getRight = calibrateSensor();
+    vector<int> calbValues = calibrateSensor();
+    getLeft = calbValues[0];
+    getFoward = calbValues[1];
+    getRight = calbValues[2];
 
-    cout << "Right: [" << getRight << "] Foward: [" << getFoward << "] Left: [" << getLeft << "]" << endl;
-    sleep(3);
+    cout << "Left: [" << getLeft << "] Foward: [" << getFoward << "] Right: [" << getRight << "]" << endl;
+    sleep(1);
 
 	while (true) {
 
