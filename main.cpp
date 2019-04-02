@@ -56,6 +56,8 @@ void Calibration() {
 			}
 			stepper = 0;
 			input = ' ';
+			cout << "black high value is: " << blackHigh << endl;
+			cout << "black low value is: " << blackLow << endl;
 		}
 		if (whiteHigh == 0) {
 			cout << "place the robot on white and press s + enter to start" << endl;
@@ -76,6 +78,8 @@ void Calibration() {
 			}
 			stepper = 0;
 			input = ' ';
+			cout << "white high value is: " << whiteHigh << endl;
+			cout << "white low value is: " << whiteLow << endl;
 		}
 		if (halfHigh == 0) {
 			cout << "place the robot half on the line and press s + enter to start" << endl;
@@ -94,6 +98,8 @@ void Calibration() {
 					}
 				}
 			}
+			cout << "half high value is: " << halfHigh << endl;
+			cout << "half low value is: " << halfLow << endl;
 			stepper = 0;
 			input = ' ';
 		}
@@ -108,14 +114,9 @@ void Calibration() {
 			whiteHigh = 0;
 			halfHigh = 0;
 			halfLow = 1000000;
+			input = ' ';
 		}
 	}
-	cout << "black high value is: " << blackHigh << endl;
-	cout << "black low value is: " << blackLow << endl;
-	cout << "white high value is: " << whiteHigh << endl;
-	cout << "white low value is: " << whiteLow << endl;
-	cout << "half high value is: " << halfHigh << endl;
-	cout << "half low value is: " << halfLow << endl;
 	cout << "calibration complete..." << endl;
 	return;
 }
