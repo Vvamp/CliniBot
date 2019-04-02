@@ -502,11 +502,6 @@ void checkGrid(){
 						}
 					}
 				}
-                // Go to left-line
-                sleep(sleepTime);
-                moveFwd();
-                sleep(sleepTime);
-                moveStop();
 
                 // Check if there is a line
                 if(!lineDetected()){
