@@ -154,7 +154,7 @@ void turnRight(){
     BP.set_motor_position_relative(PORT_C, speed);
 }
 void turnAround(){
-    moveRight(2000000);
+    moveRight(200000);
 }
 void obstacleAvoidenceFwd() {
 	cout << "obstacle avoidence, going forward..." << endl;
