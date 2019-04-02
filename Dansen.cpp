@@ -55,7 +55,7 @@ while(true){
     cout << "Kleurwaarde voor Groen = " << Groen << endl;
     cout << "Kleurwaarde voor Blauw = " << Blauw << endl;
     
-    Dansje()
+    Dansje();
 
     }
 
