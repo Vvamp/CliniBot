@@ -744,60 +744,56 @@ void controlGrid(){
                     return;
                 }
             }
-			if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
-				if (BP.get_sensor(PORT_3, Light3) == 0) {
+			if (BP.get_sensor(PORT_3, Light3) == 0) {
+                /*if(enableDebug){
+                cout << "searching line..." << endl;
+            }*/
+					
+				if (Light3.reflected >= 2200 && Light3.reflected <= 2300) {
                     /*if(enableDebug){
-                    cout << "searching line..." << endl;
-                }*/
-					if (Ultrasonic2.cm > 10) {
-						if (Light3.reflected >= 2200 && Light3.reflected <= 2300) {
-                            /*if(enableDebug){
-                                cout << "half" << endl;
-                            }*/
-                            if(isSearchingAfterCrossing){
-                                isSearchingAfterCrossing = false;
-                            }
-							//moveFwd(100000);
-                            moveBot(Light3.reflected, 50, 50);
-							//rechtdoor
-						}
-						else if (Light3.reflected > 1850 && Light3.reflected < 2200) {
-                            /*if(enableDebug){
-                                cout << "wit" << endl;
-                            }*/
-							//moveLeft(100000);
-                            moveBot(Light3.reflected, 5, 50);
-							//als ie het wit in gaat
-						}
-						else if (Light3.reflected > 2300) {
-                        /*    if(enableDebug){
-                                cout << "zwart" << endl;
-                            }*/
-                            if(isCrossing()){
-                                if(!isSearchingAfterCrossing){
-                                moveStop();
-                                sleep(2);
-                                checkGrid();
-                            }
-                            }
-                            moveBot(Light3.reflected, 50, 5);
-							//moveRight(100000);
+                        cout << "half" << endl;
+                    }*/
+                    if(isSearchingAfterCrossing){
+                        isSearchingAfterCrossing = false;
+                    }
+					//moveFwd(100000);
+                    moveBot(Light3.reflected, 50, 50);
+					//rechtdoor
+				}
+				else if (Light3.reflected > 1850 && Light3.reflected < 2200) {
+                    /*if(enableDebug){
+                        cout << "wit" << endl;
+                    }*/
+					//moveLeft(100000);
+                    moveBot(Light3.reflected, 5, 50);
+					//als ie het wit in gaat
+				}
+				else if (Light3.reflected > 2300) {
+                /*    if(enableDebug){
+                        cout << "zwart" << endl;
+                    }*/
+                    if(isCrossing()){
+                        if(!isSearchingAfterCrossing){
+                        moveStop();
+                        sleep(2);
+                        checkGrid();
+                    }
+                    }
+                    moveBot(Light3.reflected, 50, 5);
+					//moveRight(100000);
 
-							//als ie het zwart in gaat
-
-						}
-					}
+					//als ie het zwart in gaat
 
 				}
-				else
-				{
-					cout << "ERROR: Can't read ultra-red sensor..." << endl;
-				}
+					
 
 			}
-			else {
-				cout << "ERROR: Can't read ultrasonic sensor..." << endl;
+			else
+			{
+				cout << "ERROR: Can't read ultra-red sensor..." << endl;
 			}
+
+
         }
 
 	}
