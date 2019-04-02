@@ -484,6 +484,7 @@ void checkGrid(){
 						else {
 							moveStop();
 							usleep(100000);
+							cout << "break 1" << endl;
 							break;
 						}
 					}
@@ -498,6 +499,7 @@ void checkGrid(){
 						else {
 							moveStop();
 							usleep(100000);
+							cout << "break 2" << endl;
 							break;
 						}
 					}
