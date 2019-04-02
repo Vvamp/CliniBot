@@ -297,14 +297,25 @@ void lookRight(){
 
 
 //- Control functions
-void reverseBot(){
-    cout << "Reversing..." << endl;
-    isReversing = true;
-    //rotate 180 degrees
-    moveRight(2000000);
-    sleep(1);
-    controlGrid();
-    return;
+void reverseBot() {
+	cout << "Reversing..." << endl;
+	isReversing = true;
+	//rotate 180 degrees
+	moveRight(1000000);
+	while (true) {
+		if (BP.get_sensor(PORT_3, Light3) == 0) {
+			if (Light3.reflected > 1850 && Light3.reflected < 2200) {
+				moveRight(100000);
+				if (Light3.reflected > 2300) {
+					moveRight(500000);
+					sleep(1);
+					break;
+				}
+
+			}
+		}
+		return controlGrid();
+	}
 }
 // Check if there is a regular crossing(both sensors would be black)
 bool isCrossing(){
