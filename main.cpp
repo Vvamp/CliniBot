@@ -540,7 +540,7 @@ void checkGrid(){
                 sleep(sleepTime);
 
                 // Turn back to face the middle-line and move back to original position
-				moveRight(stepsLeft);
+				moveRight(stepsLeft/1.2);
                 sleep(sleepTime);
                 moveBack(1500000);
 
