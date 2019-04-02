@@ -481,7 +481,7 @@ void checkGrid(){
 							stepsLeft += 100000;
 						}
 						else if (Light3.reflected > blackLow && Light3.reflected <= blackHigh) {
-							moveRight(500000);
+							moveRight(1000000);
 							moveStop();
 							usleep(500000);
 							break;
@@ -510,7 +510,7 @@ void checkGrid(){
                 sleep(sleepTime);
 
                 // Turn back to face the middle-line and move back to original position
-				moveRight(stepsLeft/1.2);
+				moveRight(stepsLeft);
 				moveStop();
                 sleep(sleepTime);
                 moveBack(1500000);
@@ -587,7 +587,7 @@ void checkGrid(){
                     sleep(sleepTime);
 
                     // Turn back to face the middle-line and go back to original position
-					moveLeft(stepsRight/1.2);
+					moveLeft(stepsRight);
                     sleep(sleepTime);
                     moveBack(1500000);
                 }else{
