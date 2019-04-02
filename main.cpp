@@ -207,7 +207,7 @@ void moveBack() {
 }
 
 void moveFwd(const int & time) {
-    int speed = 20;
+    int speed = 25;
 
 
 	BP.set_motor_power(PORT_B, speed);
@@ -217,22 +217,22 @@ void moveFwd(const int & time) {
 
 void moveLeft(const int & time) {
 
-	BP.set_motor_power(PORT_B, 20);
-	BP.set_motor_power(PORT_C, -20);
+	BP.set_motor_power(PORT_B, 25);
+	BP.set_motor_power(PORT_C, -25);
 	usleep(time);
 }
 
 void moveRight(const int & time) {
 
-	BP.set_motor_power(PORT_B, -20);
-	BP.set_motor_power(PORT_C, 20);
+	BP.set_motor_power(PORT_B, -25);
+	BP.set_motor_power(PORT_C, 25);
 	usleep(time);
 }
 
 void moveBack(const int &time) {
 
-	BP.set_motor_power(PORT_B, -20);
-	BP.set_motor_power(PORT_C, -20);
+	BP.set_motor_power(PORT_B, -25);
+	BP.set_motor_power(PORT_C, -25);
 	usleep(time);
 }
 
@@ -491,7 +491,7 @@ void checkGrid(){
 				while (true) {
 					if (BP.get_sensor(PORT_1, Color1) == 0) {
 						average = (Color1.reflected_blue + Color1.reflected_green + Color1.reflected_red) / 3;
-						if (average < RGBBlackHigh) {
+						if (average <= RGBBlackHigh) {
 							moveRight(100000);
 							stepsLeft -= 100000;
 						}
