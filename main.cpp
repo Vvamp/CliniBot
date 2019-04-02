@@ -85,11 +85,11 @@ void Calibration() {
 					}
 					if (BP.get_sensor(PORT_1, Color1) == 0) {
 						average = (Color1.reflected_blue + Color1.reflected_green + Color1.reflected_red) / 3;
-						if (average > RGBBlackHigh) {
-							RGBBlackHigh = average;
+						if (average > RGBWhiteHigh) {
+							RGBWhiteHigh = average;
 						}
-						if (average < RGBBlackLow) {
-							RGBBlackLow = average;
+						if (average < RGBWhiteLow) {
+							RGBWhiteLow = average;
 						}
 					}
 					usleep(1000);
