@@ -18,14 +18,15 @@ int calibrateSensor(const int measurement){
     int setTime = 0;
 
     cout << "-- Enter time of calc in seconds: ";
-    cin << setTime;
+    cin >> setTime;
 
     //Calc black
     int black = 0;
     int left, foward, right = 0;
+    string tmp;
     
     cout << " -- Press enter to calibrate";
-    cin.ignore;
+    cin >> tmp;
 
     for(unsigned i=0; i > setTime; i++){
         black += measurement;
@@ -36,8 +37,8 @@ int calibrateSensor(const int measurement){
     black = black / setTime;
 
     right = black;
-    foward = right - 200;
-    left = forward - 200;
+    foward = black - 200;
+    left = black - 400;
 
     return left, foward, right;
 };
