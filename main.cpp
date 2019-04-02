@@ -44,6 +44,9 @@ void Calibration() {
 						stepper++;
 						usleep(1000);
 					}
+					else {
+						i -= 1;
+					}
 				}
 			}
 			cout << "black: " << black << endl;
