@@ -42,6 +42,9 @@ int calibrateSensor(){
     foward = black - 200;
     left = black - 400;
 
+    cout << "-- Successfully calibrated black, values:" << endl;
+    cout << "Right: " << right << "Foward: " << foward << "Left: " << left << endl;
+
     return left, foward, right;
 };
 
@@ -85,7 +88,7 @@ int main() {
 	int average = 0;
 	int measurement = 0;
 
-    ofstream logfile;
+    // ofstream logfile;
 
     measurement = Light3.reflected;
     int left, foward, right = calibrateSensor();
@@ -94,7 +97,7 @@ int main() {
 
         int logUpdate = 0;
 
-        logfile.open("log-new.txt", ios::app);
+        // logfile.open("log-new.txt", ios::app);
 
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 			if (Ultrasonic2.cm > 10) {
@@ -106,20 +109,16 @@ int main() {
                         if (measurement >= 2000 && measurement <= 2200) {
                             // moveBot(measurement, 50, 50, "Moving forward"); //Forward
                             moveBot(measurement, 0, 0, "Moving forward"); //Forward
-                            logfile << "Moving forward" << " =[ " << 0 << "," << 0 << " ]\n";
-                            logfile.close();
                         }
                         if (measurement > 1800 && measurement < 2000) {
                             // moveBot(measurement, 5, 50, "Moving left"); //Left
                             moveBot(measurement, 0, 0, "Moving left"); //Right
-                            logfile << "Moving left" << " =[ " << 0 << "," << 0 << " ]\n";
-                            logfile.close();
                         }
                         else if (measurement > 2200) {
                             // moveBot(measurement, 50, 5, "Moving right"); //Right
                             moveBot(measurement, 0, 0, "Moving right"); //Right
-                            logfile << "Moving right" << " =[ " << 0 << "," << 0 << " ]\n";
-                            logfile.close();
+                            // logfile << "Moving right" << " =[ " << 0 << "," << 0 << " ]\n";
+                            // logfile.close();
                         }
                     }
                 // } else {
@@ -129,10 +128,10 @@ int main() {
 			else
 			{
 				moveBot(measurement, 0, 0, "Stopped moving");
-                logfile << "Stopped moving" << " =[ " << 0 << "," << 0 << " ]\n";
+                // logfile << "Stopped moving" << " =[ " << 0 << "," << 0 << " ]\n";
                 // logUpdate == 10 ? (logfile << "Stopped moving" << " =[ " << 0 << ", " << 0 << "]\n") : cout << endl;
                 // logUpdate == 10 ? logUpdate = 0 : logUpdate++;
-                logfile.close();
+                // logfile.close();
                 
 			}
 
@@ -142,10 +141,10 @@ int main() {
 		else
 		{
 			moveBot(measurement, 0, 0, "Ultra sonic not found");
-            logfile << "Ultra sonic not found" << " =[ " << 0 << "," << 0 << " ]\n";
+            // logfile << "Ultra sonic not found" << " =[ " << 0 << "," << 0 << " ]\n";
             // logUpdate == 10 ? (logfile << "Ultra sonic not found" << " =[ " << 0 << ", " << 0 << "]\n") : cout << endl;
             // logUpdate == 10 ? logUpdate = 0 : logUpdate++;
-            logfile.close();
+            // logfile.close();
 		}
 
         
