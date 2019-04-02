@@ -304,15 +304,12 @@ void reverseBot() {
 	moveRight(1000000);
 	while (true) {
 		if (BP.get_sensor(PORT_3, Light3) == 0) {
-			if (Light3.reflected <= 2300) {
+			if (Light3.reflected >= 1800 && Light3.reflected <= 2100) {
 				moveRight(100000);
-				usleep(100000);
-				if (Light3.reflected > 2300) {
-					moveRight(500000);
-					sleep(1);
-					break;
-				}
-
+			}
+			else {
+				moveRight(1000000);
+				moveStop();
 			}
 		}
 		return controlGrid();
