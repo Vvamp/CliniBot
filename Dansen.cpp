@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "BrickPi3.h"
+#include <unistd.h>
 
 
 using std::cin;
@@ -20,6 +21,9 @@ sensor_ultrasonic_t Ultrasonic2; //Ultrasonic sensor
 void KleurenDans(){
 
 while(true){
+    
+    sleep(1);
+
     if(BP.get_sensor(PORT_1, Color1) == 0){
 
     int Rood = Color1.reflected_red;
@@ -27,7 +31,9 @@ while(true){
     int Blauw = Color1.reflected_blue;
 
 
-    cout << Rood << endl << Groen << endl << Blauw << endl;
+    cout << "Kleurwaarde voor Rood = "<< Rood << endl;
+    cout << "Kleurwaarde voor Groen = " << Groen << endl;
+    cout << "Kleurwaarde voor Blauw = " << Blauw << endl;
 
 
 
