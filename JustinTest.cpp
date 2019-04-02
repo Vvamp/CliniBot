@@ -58,9 +58,9 @@ void moveBot(int measurement, int valueLeft, int valueRight, string botStatus, c
 	BP.set_motor_power(PORT_C, valueLeft); //Left motor
     BP.set_motor_power(PORT_B, valueRight); // Right motor
 
-    int getLeft = calbValues[0];
-    int getFoward = calbValues[1];
-    int getRight = calbValues[2];
+    int calbLeft = calbValues[0];
+    int calbFowd = calbValues[1];
+    int calbRight = calbValues[2];
 
     cout << "\033[2J\033[1;1H"; //Clear screen
     cout << "CLINIBOT ============" << endl;
