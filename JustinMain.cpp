@@ -59,7 +59,7 @@ void eHandler(int s){
             out1 += " * " + x;
             x = 0;
         }
-        cout out2 << endl;
+        cout << out2 << endl;
     }
     BP.reset_all();
     exit(0);
