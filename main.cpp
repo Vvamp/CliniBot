@@ -507,6 +507,7 @@ void checkGrid(){
 							moveLeft(100000);
 						}
 						else {
+							moveRight(1000000);
 							moveStop();
 							break;
 						}
