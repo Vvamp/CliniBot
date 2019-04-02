@@ -431,6 +431,9 @@ void checkGrid(){
     const unsigned int routesToCheck = 3;
     const int sleepTime = 2;
 
+	int stepsLeft = 0;
+	int stepsRight = 0;
+
     vector<bool> values = {false, false, false};
     bool driveRequired = false;
 
@@ -505,6 +508,7 @@ void checkGrid(){
 				while (true) {
 					if (BP.get_sensor(PORT_3, Light3) == 0) {
 						if (Light3.reflected <= 2200) {
+							stepsLeft += 100000;
 							moveLeft(100000);
 						}
 						else {
@@ -536,7 +540,7 @@ void checkGrid(){
                 sleep(sleepTime);
 
                 // Turn back to face the middle-line and move back to original position
-                turnRight();
+				moveRight(stepsLeft);
                 sleep(sleepTime);
                 moveBack(1500000);
 
@@ -577,9 +581,11 @@ void checkGrid(){
 					while (true) {
 						if (BP.get_sensor(PORT_3, Light3) == 0) {
 							if (Light3.reflected <= 2200) {
+								stepsRight += 100000;
 								moveRight(100000);
 							}
 							else {
+								stepsRight += 1500000;
 								moveRight(500000);
 								moveStop();
 								break;
@@ -609,7 +615,7 @@ void checkGrid(){
                     sleep(sleepTime);
 
                     // Turn back to face the middle-line and go back to original position
-                    turnLeft();
+					moveLeft(stepsRight);
                     sleep(sleepTime);
                     moveBack(1500000);
                 }else{
