@@ -101,7 +101,7 @@ void Calibration() {
 			cout << "RGB white high value is: " << RGBWhiteHigh << endl;
 			cout << "RGB white low value is: " << RGBWhiteLow << endl;
 		}
-		if (blackLow > whiteHigh && RGBBlackLow > RGBWhiteHigh) {
+		if (blackLow > whiteHigh && RGBWhiteLow > RGBBlackHigh) {
 			break;
 		}
 		else {
