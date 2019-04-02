@@ -25,6 +25,7 @@ int calibrateSensor(const int measurement){
 
     for(unsigned i=0; i >= setTime; i++){
         usleep(125000);
+        cout << endl << "icecream" << endl;
         black += measurement;
         cout << "-- Calibrated: " << i << " sec" << endl;
         sleep(1);
