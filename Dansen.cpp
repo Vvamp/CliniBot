@@ -19,6 +19,7 @@ sensor_ultrasonic_t Ultrasonic2; //Ultrasonic sensor
 
 void KleurenDans(){
 
+while(true){
     if(BP.get_sensor(PORT_1, Color1) == 0){
 
     int Rood = Color1.reflected_red;
@@ -29,9 +30,13 @@ void KleurenDans(){
     cout << Rood << endl << Groen << endl << Blauw << endl;
 
 
+
+    }
+    else{
+        cout << "dinges werkt niet" << endl;
     }
 }
-
+}
 int main(){
 
 BP.detect(); // Make sure that the BrickPi3 is communicating and that the firmware is compatible with the drivers.
