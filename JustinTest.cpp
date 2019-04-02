@@ -28,7 +28,8 @@ int calibrateSensor(const int measurement){
     cout << "-- Press enter to calibrate";
     cin >> tmp;
 
-    for(unsigned i=0; i > setTime; i++){
+    for(unsigned i=0; i >= setTime; i++){
+        usleep(125000);
         black += measurement;
         cout << "-- Calibrated: " << i << " sec" << endl;
         sleep(1);
