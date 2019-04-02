@@ -499,8 +499,19 @@ void checkGrid(){
                 }
                 // Bring wheels to crossing center and turn left
                 moveFwd(1500000);
-                turnLeft();
-
+				moveLeft(1000000);
+				moveStop();
+				while (true) {
+					if (BP.get_sensor(PORT_3, Light3) == 0) {
+						if (Light3.reflected < 2000 && Light3.reflected > 2200) {
+							moveLeft(100000);
+						}
+						else {
+							moveStop();
+							break;
+						}
+					}
+				}
                 // Go to left-line
                 sleep(sleepTime);
                 moveFwd();
