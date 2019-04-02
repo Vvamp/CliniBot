@@ -310,10 +310,12 @@ void reverseBot() {
 			else {
 				moveRight(1000000);
 				moveStop();
+				sleep(1);
+				break;
 			}
-		}
-		return controlGrid();
+		}	
 	}
+	return controlGrid();
 }
 // Check if there is a regular crossing(both sensors would be black)
 bool isCrossing(){
