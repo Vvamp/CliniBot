@@ -9,10 +9,12 @@
 using namespace std;
 
 BrickPi3 BP;
+sensor_ultrasonic_t Ultrasonic2;
+sensor_light_t Light3;
 
 void exit_signal_handler(int signo);
 
-int calibrateSensor(const int measurement){
+int calibrateSensor(){
 
     //Set time of calc in seconds
     int setTime = 0;
@@ -24,10 +26,13 @@ int calibrateSensor(const int measurement){
     cin >> setTime;
 
     for(unsigned i=0; i >= setTime; i++){
-        usleep(125000);
-        black += measurement;
-        cout << "-- Calibrated: " << i << " sec" << endl;
-        sleep(1);
+		if (BP.get_sensor(PORT_3, Light3) == 0) {
+			usleep(125000);
+				black += Light3.reflected;
+				cout << "-- Calibrated: " << i << " sec" << endl;
+				sleep(1);
+		}
+        
     };
 
     //Calc values
@@ -77,16 +82,13 @@ int main() {
 	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
 	BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
 
-	sensor_ultrasonic_t Ultrasonic2;
-	sensor_light_t      Light3;
-
 	int average = 0;
 	int measurement = 0;
 
     ofstream logfile;
 
     measurement = Light3.reflected;
-    int left, foward, right = calibrateSensor(measurement);
+    int left, foward, right = calibrateSensor();
 
 	while (true) {
 

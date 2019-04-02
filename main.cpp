@@ -734,8 +734,7 @@ void checkGrid(){
 //- Main functions
 // Let CliniBot follow a grid
 void controlGrid(){
-    int measurement = 0;
-    // Check if the battery is still sufficiently charged, else shutdown
+	// Check if the battery is still sufficiently charged, else shutdown
     if (BP.get_voltage_battery() >= 9) {
         while(true){
             if(isReversing){
@@ -745,33 +744,18 @@ void controlGrid(){
                 }
             }
 			if (BP.get_sensor(PORT_3, Light3) == 0) {
-                /*if(enableDebug){
-                cout << "searching line..." << endl;
-            }*/
-					
 				if (Light3.reflected >= 2200 && Light3.reflected <= 2300) {
-                    /*if(enableDebug){
-                        cout << "half" << endl;
-                    }*/
                     if(isSearchingAfterCrossing){
                         isSearchingAfterCrossing = false;
                     }
-					//moveFwd(100000);
                     moveBot(Light3.reflected, 50, 50);
 					//rechtdoor
 				}
 				else if (Light3.reflected > 1850 && Light3.reflected < 2200) {
-                    /*if(enableDebug){
-                        cout << "wit" << endl;
-                    }*/
-					//moveLeft(100000);
                     moveBot(Light3.reflected, 5, 50);
 					//als ie het wit in gaat
 				}
 				else if (Light3.reflected > 2300) {
-                /*    if(enableDebug){
-                        cout << "zwart" << endl;
-                    }*/
                     if(isCrossing()){
                         if(!isSearchingAfterCrossing){
                         moveStop();
@@ -780,8 +764,6 @@ void controlGrid(){
                     }
                     }
                     moveBot(Light3.reflected, 50, 5);
-					//moveRight(100000);
-
 					//als ie het zwart in gaat
 
 				}
