@@ -313,7 +313,7 @@ void reverseBot() {
 				sleep(1);
 				break;
 			}
-		}	
+		}
 	}
 	return controlGrid();
 }
@@ -494,6 +494,7 @@ void checkGrid(){
                 cout << "...clear!" << endl;
                 }
                 lookRight();                    // Reset eyes
+                sleep(sleepTime);               // give the eyes time to look
                 if(enableDebug){
                 cout << "checking if path...";
                 }
@@ -556,11 +557,15 @@ void checkGrid(){
 
                 // Turn eyes right and check if there is an object
                 lookRight();
+                sleep(sleepTime);
+
                 if(!obstacleDetected()){
                     if(enableDebug){
                     cout << "...clear!" << endl;
                     }
                     lookLeft();         // Reset eyes
+                    sleep(sleepTime);
+
                     if(enableDebug){
                     cout << "checking if path...";
                     }
@@ -791,7 +796,7 @@ void controlGrid(){
 					//als ie het zwart in gaat
 
 				}
-					
+
 
 			}
 			else
@@ -876,9 +881,12 @@ BP.reset_all();
 // Error handler
 void eHandler(int s){
     cout << "Exiting..." << endl;
-    string out1 = "";
-    int x = 0;
+    cout << "Reverse bot? ";
+    string uin;
+    cin >> uin;
+    if(uin == "y"){
     reverseBot();
+    }
     BP.reset_all();
     exit(0);
 }
