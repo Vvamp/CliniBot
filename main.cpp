@@ -514,9 +514,6 @@ void checkGrid(){
                     }
                     values[1] = true;
                 }
-                // Go back to center
-                moveBack();
-                sleep(sleepTime);
 
                 // Turn back to face the middle-line and move back to original position
 				moveRight(stepsLeft);
