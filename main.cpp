@@ -153,7 +153,9 @@ void turnRight(){
     BP.set_motor_position_relative(PORT_B, -speed);
     BP.set_motor_position_relative(PORT_C, speed);
 }
-
+void turnAround(){
+    moveRight(2000000);
+}
 void obstacleAvoidenceFwd() {
 	cout << "obstacle avoidence, going forward..." << endl;
 	int object = false;
@@ -838,6 +840,8 @@ getline(cin,Keuze);
 
 if(Keuze == "1"){
     controlGrid();
+}else if(Keuze == "3"){
+    turnAround();
 }
 else if(Keuze == "2"){
     cout << "...Exiting Keuzemenu..." << endl;
