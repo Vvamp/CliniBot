@@ -22,7 +22,7 @@ int calibrateSensor(){
     int left, foward, right = 0;
     string tmp;
 
-    cout << "-- Enter time of calc in seconds: ";
+    cout << "-- Enter time of calibration in seconds: ";
     cin >> setTime;
 
     for(unsigned i=0; i <= setTime; i++){
@@ -43,13 +43,12 @@ int calibrateSensor(){
     left = black - 400;
 
     cout << "-- Successfully calibrated black, values:" << endl;
-    cout << "Right: [" << right << "] Foward: [" << foward << "] Left: [" << left << "]" << endl;
 
     return left, foward, right;
 };
 
 //Function to move robot (left, right)
-void moveBot(const int measurement, const int valueLeft, const int valueRight, string botStatus) {
+void moveBot(int measurement, int valueLeft, int valueRight, string botStatus, int calbLeft, int calbFowd, int calbRight) {
 	BP.set_motor_power(PORT_C, valueLeft); //Left motor
     BP.set_motor_power(PORT_B, valueRight); // Right motor
 
@@ -58,6 +57,11 @@ void moveBot(const int measurement, const int valueLeft, const int valueRight, s
 
     cout << endl << "-BOT STATUS:" << endl;
     cout << " " << botStatus << endl;
+
+    cout << endl << "-CALIBRATION:" << endl;
+    cout << "Left: " << calbLeft << endl;  
+    cout << "Foward: " << calbFowd << endl;  
+    cout << "Right: " << calbRight << endl;  
 
     cout << endl << "-INFORMATION:" << endl;
     cout << " Battery voltage: " << BP.get_voltage_battery() << endl;
@@ -108,15 +112,15 @@ int main() {
                         
                         if (measurement >= getFoward && measurement <= getRight) {
                             // moveBot(measurement, 50, 50, "Moving forward"); //Forward
-                            moveBot(measurement, 0, 0, "Moving forward"); //Forward
+                            moveBot(measurement, 0, 0, "Moving forward", getLeft, getFoward, getRight); //Forward
                         }
                         if (measurement > getLeft && measurement < getFoward) {
                             // moveBot(measurement, 5, 50, "Moving left"); //Left
-                            moveBot(measurement, 0, 0, "Moving left"); //Right
+                            moveBot(measurement, 0, 0, "Moving left", getLeft, getFoward, getRight); //Right
                         }
                         else if (measurement > getRight) {
                             // moveBot(measurement, 50, 5, "Moving right"); //Right
-                            moveBot(measurement, 0, 0, "Moving right"); //Right
+                            moveBot(measurement, 0, 0, "Moving right", getLeft, getFoward, getRight); //Right
                             // logfile << "Moving right" << " =[ " << 0 << "," << 0 << " ]\n";
                             // logfile.close();
                         }
@@ -127,7 +131,7 @@ int main() {
 			}
 			else
 			{
-				moveBot(measurement, 0, 0, "Stopped moving");
+				moveBot(measurement, 0, 0, "Stopped moving", getLeft, getFoward, getRight);
                 // logfile << "Stopped moving" << " =[ " << 0 << "," << 0 << " ]\n";
                 // logUpdate == 10 ? (logfile << "Stopped moving" << " =[ " << 0 << ", " << 0 << "]\n") : cout << endl;
                 // logUpdate == 10 ? logUpdate = 0 : logUpdate++;
@@ -140,7 +144,7 @@ int main() {
 		}
 		else
 		{
-			moveBot(measurement, 0, 0, "Ultra sonic not found");
+			moveBot(measurement, 0, 0, "Ultra sonic not found", getLeft, getFoward, getRight);
             // logfile << "Ultra sonic not found" << " =[ " << 0 << "," << 0 << " ]\n";
             // logUpdate == 10 ? (logfile << "Ultra sonic not found" << " =[ " << 0 << ", " << 0 << "]\n") : cout << endl;
             // logUpdate == 10 ? logUpdate = 0 : logUpdate++;
