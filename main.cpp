@@ -300,13 +300,8 @@ void lookRight(){
 void reverseBot(){
     cout << "Reversing..." << endl;
     isReversing = true;
-    turnRight();
-    sleep(1);
-    turnRight();
-    sleep(1);
-    turnRight();
-    sleep(1);
-    turnRight();
+    //rotate 180 degrees
+    moveRight(2000000);
     sleep(1);
     controlGrid();
     return;
@@ -320,9 +315,9 @@ bool isCrossing(){
     // Check if RGB sensor reads black
     if (BP.get_sensor(PORT_1, Color1) == 0) {
         measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
-        if(enableDebug){
+        /*if(enableDebug){
         cout << "rgb: " << measurement << endl;
-        }
+    }*/
         if(measurement >=200 && measurement < 450){
             s1 = true;
         }
@@ -332,9 +327,9 @@ bool isCrossing(){
     // Check if IR sensor reads black
     if (BP.get_sensor(PORT_3, Light3) == 0) {
         measurement = Light3.reflected;
-        if(enableDebug){
+    /*    if(enableDebug){
         cout << "ir: " << measurement << endl;
-        }
+    }*/
         if(measurement >= 2200){
             s2 = true;
         }
@@ -342,6 +337,7 @@ bool isCrossing(){
 
     // if both read black it's a crossing
     if(s1 && s2){
+        cout << " > Crossing detected" << endl;
         return true;
     }else{
         return false;
@@ -732,14 +728,14 @@ void controlGrid(){
             }
 			if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 				if (BP.get_sensor(PORT_3, Light3) == 0) {
-                    if(enableDebug){
+                    /*if(enableDebug){
                     cout << "searching line..." << endl;
-                    }
+                }*/
 					if (Ultrasonic2.cm > 10) {
 						if (Light3.reflected >= 2200 && Light3.reflected <= 2300) {
-                            if(enableDebug){
+                            /*if(enableDebug){
                                 cout << "half" << endl;
-                            }
+                            }*/
                             if(isSearchingAfterCrossing){
                                 isSearchingAfterCrossing = false;
                             }
@@ -748,17 +744,17 @@ void controlGrid(){
 							//rechtdoor
 						}
 						else if (Light3.reflected > 1850 && Light3.reflected < 2200) {
-                            if(enableDebug){
+                            /*if(enableDebug){
                                 cout << "wit" << endl;
-                            }
+                            }*/
 							//moveLeft(100000);
                             moveBot(Light3.reflected, 5, 50);
 							//als ie het wit in gaat
 						}
 						else if (Light3.reflected > 2300) {
-                            if(enableDebug){
+                        /*    if(enableDebug){
                                 cout << "zwart" << endl;
-                            }
+                            }*/
                             if(isCrossing()){
                                 if(!isSearchingAfterCrossing){
                                 moveStop();
