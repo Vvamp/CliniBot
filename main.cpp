@@ -46,6 +46,8 @@ void Calibration() {
 					}
 				}
 			}
+			cout << "black: " << black << endl;
+			cout << "stepper: " << stepper << endl;
 			black = black / stepper;
 			stepper = 0;
 			input = ' ';
