@@ -28,9 +28,7 @@ bool isReversing = false;
 int blackHigh = 0;
 int blackLow = 1000000;
 int whiteHigh = 0;
-int whiteLow = 1000000;
-int halfHigh = 0;
-int halfLow = 1000000;
+int whiteLow = 10000000;
 
 void Calibration() {
 	int time = 4000;
@@ -81,29 +79,7 @@ void Calibration() {
 			cout << "white high value is: " << whiteHigh << endl;
 			cout << "white low value is: " << whiteLow << endl;
 		}
-		if (halfHigh == 0) {
-			cout << "place the robot half on the line and press s + enter to start" << endl;
-			cin >> input;
-			if (input == 's') {
-				for (int j = 0; j < time; j++) {
-					if (BP.get_sensor(PORT_3, Light3) == 0) {
-						if (Light3.reflected > halfHigh) {
-							halfHigh = Light3.reflected;
-						}
-						if (Light3.reflected < halfLow) {
-							halfLow = Light3.reflected;
-						}
-						stepper++;
-						usleep(1000);
-					}
-				}
-			}
-			cout << "half high value is: " << halfHigh << endl;
-			cout << "half low value is: " << halfLow << endl;
-			stepper = 0;
-			input = ' ';
-		}
-		if (blackHigh > halfHigh && halfHigh > whiteHigh) {
+		if (blackLow < whiteHigh) {
 			break;
 		}
 		else {
