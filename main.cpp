@@ -304,7 +304,7 @@ void reverseBot() {
 	moveRight(1000000);
 	while (true) {
 		if (BP.get_sensor(PORT_3, Light3) == 0) {
-			if (Light3.reflected >= 1800 && Light3.reflected <= 2100) {
+			if (Light3.reflected >= 1700 && Light3.reflected <= 2100) {
 				moveRight(100000);
 			}
 			else {
