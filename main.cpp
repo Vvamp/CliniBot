@@ -306,6 +306,7 @@ void reverseBot() {
 		if (BP.get_sensor(PORT_3, Light3) == 0) {
 			if (Light3.reflected <= 2300) {
 				moveRight(100000);
+				usleep(100000);
 				if (Light3.reflected > 2300) {
 					moveRight(500000);
 					sleep(1);
