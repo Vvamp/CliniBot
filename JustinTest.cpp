@@ -43,14 +43,12 @@ int calibrateSensor(){
     left = black - 400;
 
     cout << "-- Successfully calibrated black, values:" << endl;
-    cout << "Right: [" << right << "] Foward: [" << foward << "] Left: [" << left << "]" << endl;
-    sleep(3);
 
     return left, foward, right;
 };
 
 //Function to move robot (left, right)
-void moveBot(int measurement, int valueLeft, int valueRight, string botStatus, int calbLeft, int calbFowd, int calbRight) {
+void moveBot(int measurement, int valueLeft, int valueRight, const string botStatus, int calbLeft, int calbFowd, int calbRight) {
 	BP.set_motor_power(PORT_C, valueLeft); //Left motor
     BP.set_motor_power(PORT_B, valueRight); // Right motor
 
@@ -99,6 +97,9 @@ int main() {
     measurement = Light3.reflected;
     int getLeft, getFoward, getRight = calibrateSensor();
 
+    cout << "Right: [" << getRight << "] Foward: [" << getFoward << "] Left: [" << getLeft << "]" << endl;
+    sleep(3);
+
 	while (true) {
 
         int logUpdate = 0;
@@ -114,15 +115,15 @@ int main() {
                         
                         if (measurement >= getFoward && measurement <= getRight) {
                             // moveBot(measurement, 50, 50, "Moving forward"); //Forward
-                            moveBot(measurement, 0, 0, "Moving forward", getLeft, getFoward, getRight); //Forward
+                            moveBot(measurement, 50, 50, "Moving forward", getLeft, getFoward, getRight); //Forward
                         }
                         if (measurement > getLeft && measurement < getFoward) {
                             // moveBot(measurement, 5, 50, "Moving left"); //Left
-                            moveBot(measurement, 0, 0, "Moving left", getLeft, getFoward, getRight); //Right
+                            moveBot(measurement, 5, 50, "Moving left", getLeft, getFoward, getRight); //Right
                         }
                         else if (measurement > getRight) {
                             // moveBot(measurement, 50, 5, "Moving right"); //Right
-                            moveBot(measurement, 0, 0, "Moving right", getLeft, getFoward, getRight); //Right
+                            moveBot(measurement, 50, 5, "Moving right", getLeft, getFoward, getRight); //Right
                             // logfile << "Moving right" << " =[ " << 0 << "," << 0 << " ]\n";
                             // logfile.close();
                         }
