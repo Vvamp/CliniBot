@@ -106,9 +106,6 @@ int main() {
     int getFoward = calbValues[1];
     int getRight = calbValues[2];
 
-    cout << "Left: [" << getLeft << "] Foward: [" << getFoward << "] Right: [" << getRight << "]" << endl;
-    sleep(1);
-
 	while (true) {
 
         int logUpdate = 0;
