@@ -46,15 +46,10 @@ void Calibration() {
 					}
 				}
 			}
-			if (black != 0 && stepper != 0) {
-				cout << "black: " << black << endl;
-				cout << "stepper: " << stepper << endl;
-				black = black / stepper;
-				stepper = 0;
-				input = ' ';
-				cout << "black value is: " << black << endl;
-			}
-			
+			black = black / stepper;
+			stepper = 0;
+			input = ' ';
+			cout << "black value is: " << black << endl;
 		}
 		if (white == 0) {
 			cout << "place the robot on white and press s + enter to start" << endl;
