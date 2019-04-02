@@ -483,7 +483,7 @@ void checkGrid(){
 						}
 						else {
 							moveStop();
-							usleep(100000);
+							usleep(3000000);
 							break;
 						}
 					}
@@ -497,7 +497,7 @@ void checkGrid(){
 						}
 						else {
 							moveStop();
-							usleep(100000);
+							usleep(3000000);
 							break;
 						}
 					}
