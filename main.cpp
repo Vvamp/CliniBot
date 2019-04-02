@@ -49,6 +49,7 @@ void Calibration() {
 			black = black / stepper;
 			stepper = 0;
 			input = ' ';
+			cout << "black value is: " << black << endl;
 		}
 		if (white == 0) {
 			cout << "place the robot on white and press s + enter to start" << endl;
@@ -65,6 +66,7 @@ void Calibration() {
 			white = white / stepper;
 			stepper = 0;
 			input = ' ';
+			cout << "white value is: " << white << endl;
 		}
 		if (half == 0) {
 			cout << "place the robot half on the line and press s + enter to start" << endl;
@@ -81,6 +83,7 @@ void Calibration() {
 			half = half / stepper;
 			stepper = 0;
 			input = ' ';
+			cout << "half value is: " << half << endl;
 		}
 		break;
 	}
