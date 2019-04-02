@@ -25,6 +25,66 @@ sensor_ultrasonic_t Ultrasonic2; //Ultrasonic sensor
 const bool enableDebug = true;
 bool isSearchingAfterCrossing = false;
 bool isReversing = false;
+int black = 0;
+int white = 0;
+int half = 0;
+
+void Calibration() {
+	int time = 4000;
+	int stepper = 0;
+	char input;
+	while (true) {
+		if (black == 0) {
+			cout << "place the robot on black and press s + enter to start" << endl;
+			cin >> input;
+			if (input == 's') {
+				for (int i = 0; i < time; i++) {
+					if (BP.get_sensor(PORT_3, Light3)) {
+						black += Light3.reflected;
+						stepper++;
+					}
+				}
+			}
+			black = black / stepper;
+			stepper = 0;
+			input = ' ';
+		}
+		if (white == 0) {
+			cout << "place the robot on white and press s + enter to start" << endl;
+			cin >> input;
+			if (input == 's') {
+				for (int a = 0; a < time; a++) {
+					if (BP.get_sensor(PORT_3, Light3)) {
+						white += Light3.reflected;
+						stepper++;
+					}
+				}
+			}
+			white = white / stepper;
+			stepper = 0;
+			input = ' ';
+		}
+		if (half == 0) {
+			cout << "place the robot half on the line and press s + enter to start" << endl;
+			cin >> input;
+			if (input == 's') {
+				for (int j = 0; j < time; j++) {
+					if (BP.get_sensor(PORT_3, Light3)) {
+						half += Light3.reflected;
+						stepper++;
+					}
+				}
+			}
+			half = half / stepper;
+			stepper = 0;
+			input = ' ';
+		}
+		break;
+	}
+	cout << "calibration complete..." << endl;
+	return;
+}
+
 enum direction{
     left,
     right,
@@ -841,7 +901,7 @@ if (cvoltage < 10) {
     BP.reset_all();
     exit(0);
 }
-
+Calibration();
 BP.detect(); // Make sure that the BrickPi3 is communicating and that the firmware is compatible with the drivers.
 BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
 BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
