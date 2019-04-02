@@ -88,8 +88,6 @@ void Calibration() {
 			blackHigh = 0;
 			whiteLow = 1000000;
 			whiteHigh = 0;
-			halfHigh = 0;
-			halfLow = 1000000;
 			input = ' ';
 		}
 	}
