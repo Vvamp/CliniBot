@@ -25,11 +25,12 @@ int calibrateSensor(const int measurement){
     int left, foward, right = 0;
     string tmp;
     
-    cout << " -- Press enter to calibrate";
+    cout << "-- Press enter to calibrate";
     cin >> tmp;
 
     for(unsigned i=0; i > setTime; i++){
         black += measurement;
+        cout << "-- Calibrated: " << i << " sec" << endl;
         sleep(1);
     };
 
