@@ -313,7 +313,7 @@ void reverseBot() {
 				sleep(1);
 				break;
 			}
-		}	
+		}
 	}
 	return controlGrid();
 }
@@ -494,6 +494,7 @@ void checkGrid(){
                 cout << "...clear!" << endl;
                 }
                 lookRight();                    // Reset eyes
+                sleep(sleepTime);               // give the eyes time to look
                 if(enableDebug){
                 cout << "checking if path...";
                 }
@@ -503,10 +504,11 @@ void checkGrid(){
 				moveStop();
 				while (true) {
 					if (BP.get_sensor(PORT_3, Light3) == 0) {
-						if (Light3.reflected < 2000 && Light3.reflected > 2300) {
+						if (Light3.reflected <= 2200) {
 							moveLeft(100000);
 						}
 						else {
+							moveRight(1000000);
 							moveStop();
 							break;
 						}
@@ -555,19 +557,35 @@ void checkGrid(){
 
                 // Turn eyes right and check if there is an object
                 lookRight();
+                sleep(sleepTime);
+
                 if(!obstacleDetected()){
                     if(enableDebug){
                     cout << "...clear!" << endl;
                     }
                     lookLeft();         // Reset eyes
+                    sleep(sleepTime);
+
                     if(enableDebug){
                     cout << "checking if path...";
                     }
 
                     // Move wheels to center and turn right
                     moveFwd(1500000);
-                    turnRight();
-                    sleep(sleepTime);
+					moveRight(1000000);
+					moveStop();
+					while (true) {
+						if (BP.get_sensor(PORT_3, Light3) == 0) {
+							if (Light3.reflected <= 2200) {
+								moveRight(100000);
+							}
+							else {
+								moveRight(500000);
+								moveStop();
+								break;
+							}
+						}
+					}
 
                     // Go to right-line
                     moveFwd();
@@ -778,7 +796,7 @@ void controlGrid(){
 					//als ie het zwart in gaat
 
 				}
-					
+
 
 			}
 			else
@@ -863,9 +881,12 @@ BP.reset_all();
 // Error handler
 void eHandler(int s){
     cout << "Exiting..." << endl;
-    string out1 = "";
-    int x = 0;
+    cout << "Reverse bot? ";
+    string uin;
+    cin >> uin;
+    if(uin == "y"){
     reverseBot();
+    }
     BP.reset_all();
     exit(0);
 }
