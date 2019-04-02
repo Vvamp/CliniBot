@@ -153,14 +153,7 @@ void turnRight(){
     BP.set_motor_position_relative(PORT_B, -speed);
     BP.set_motor_position_relative(PORT_C, speed);
 }
-void turnAround(){
-    while(!lineDetected){
-        moveRight(2);
-    }
-    cout << "Found line";
-    moveStop();
-    
-}
+
 void obstacleAvoidenceFwd() {
 	cout << "obstacle avoidence, going forward..." << endl;
 	int object = false;
@@ -413,7 +406,14 @@ bool lineDetected(){
     }
 
 }
+void turnAround(){
+    while(!lineDetected){
+        moveRight(2);
+    }
+    cout << "Found line";
+    moveStop();
 
+}
 
 // Check a crossing
 void checkGrid(){
