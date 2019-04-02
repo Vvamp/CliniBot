@@ -42,6 +42,7 @@ void Calibration() {
 					if (BP.get_sensor(PORT_3, Light3)) {
 						black += Light3.reflected;
 						stepper++;
+						usleep(100000);
 					}
 				}
 			}
@@ -57,6 +58,7 @@ void Calibration() {
 					if (BP.get_sensor(PORT_3, Light3)) {
 						white += Light3.reflected;
 						stepper++;
+						usleep(100000);
 					}
 				}
 			}
@@ -72,6 +74,7 @@ void Calibration() {
 					if (BP.get_sensor(PORT_3, Light3)) {
 						half += Light3.reflected;
 						stepper++;
+						usleep(100000);
 					}
 				}
 			}
