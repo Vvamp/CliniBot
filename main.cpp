@@ -511,6 +511,7 @@ void checkGrid(){
 
                 // Turn back to face the middle-line and move back to original position
 				moveRight(stepsLeft/1.2);
+				moveStop();
                 sleep(sleepTime);
                 moveBack(1500000);
 
@@ -586,7 +587,7 @@ void checkGrid(){
                     sleep(sleepTime);
 
                     // Turn back to face the middle-line and go back to original position
-					moveLeft(stepsRight);
+					moveLeft(stepsRight/1.2);
                     sleep(sleepTime);
                     moveBack(1500000);
                 }else{
