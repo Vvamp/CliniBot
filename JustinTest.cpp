@@ -16,19 +16,15 @@ int calibrateSensor(const int measurement){
 
     //Set time of calc in seconds
     int setTime = 0;
+    int black = 0;
+    int left, foward, right = 0;
+    string tmp;
 
     cout << "-- Enter time of calc in seconds: ";
     cin >> setTime;
 
-    //Calc black
-    int black = 0;
-    int left, foward, right = 0;
-    string tmp;
-    
-    cout << "-- Press enter to calibrate";
-    cin >> tmp;
-
-    for(unsigned i=0; i > setTime; i++){
+    for(unsigned i=0; i >= setTime; i++){
+        usleep(125000);
         black += measurement;
         cout << "-- Calibrated: " << i << " sec" << endl;
         sleep(1);
