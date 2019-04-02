@@ -102,12 +102,9 @@ int main() {
 
     measurement = Light3.reflected;
     vector<int> calbValues = calibrateSensor();
-    getLeft = calbValues[0];
-    getFoward = calbValues[1];
-    getRight = calbValues[2];
-
-    cout << "Left: [" << getLeft << "] Foward: [" << getFoward << "] Right: [" << getRight << "]" << endl;
-    sleep(1);
+    int getLeft = calbValues[0];
+    int getFoward = calbValues[1];
+    int getRight = calbValues[2];
 
 	while (true) {
 
