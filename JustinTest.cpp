@@ -54,9 +54,13 @@ vector<int> calibrateSensor(){
 };
 
 //Function to move robot (left, right)
-void moveBot(int measurement, int valueLeft, int valueRight, const string botStatus, int calbLeft, int calbFowd, int calbRight) {
+void moveBot(int measurement, int valueLeft, int valueRight, string botStatus, const vector<int> & calbValues) {
 	BP.set_motor_power(PORT_C, valueLeft); //Left motor
     BP.set_motor_power(PORT_B, valueRight); // Right motor
+
+    int calbLeft = calbValues[0];
+    int calbFowd = calbValues[1];
+    int calbRight = calbValues[2];
 
     cout << "\033[2J\033[1;1H"; //Clear screen
     cout << "CLINIBOT ============" << endl;
@@ -121,15 +125,15 @@ int main() {
                         
                         if (measurement >= getFoward && measurement <= getRight) {
                             // moveBot(measurement, 50, 50, "Moving forward"); //Forward
-                            moveBot(measurement, 50, 50, "Moving forward", getLeft, getFoward, getRight); //Forward
+                            moveBot(measurement, 50, 50, "Moving forward", calbValues); //Forward
                         }
                         if (measurement > getLeft && measurement < getFoward) {
                             // moveBot(measurement, 5, 50, "Moving left"); //Left
-                            moveBot(measurement, 5, 50, "Moving left", getLeft, getFoward, getRight); //Right
+                            moveBot(measurement, 5, 50, "Moving left", calbValues); //Right
                         }
                         else if (measurement > getRight) {
                             // moveBot(measurement, 50, 5, "Moving right"); //Right
-                            moveBot(measurement, 50, 5, "Moving right", getLeft, getFoward, getRight); //Right
+                            moveBot(measurement, 50, 5, "Moving right", calbValues); //Right
                             // logfile << "Moving right" << " =[ " << 0 << "," << 0 << " ]\n";
                             // logfile.close();
                         }
@@ -140,7 +144,7 @@ int main() {
 			}
 			else
 			{
-				moveBot(measurement, 0, 0, "Stopped moving", getLeft, getFoward, getRight);
+				moveBot(measurement, 0, 0, "Stopped moving", calbValues);
                 // logfile << "Stopped moving" << " =[ " << 0 << "," << 0 << " ]\n";
                 // logUpdate == 10 ? (logfile << "Stopped moving" << " =[ " << 0 << ", " << 0 << "]\n") : cout << endl;
                 // logUpdate == 10 ? logUpdate = 0 : logUpdate++;
@@ -148,12 +152,12 @@ int main() {
                 
 			}
 
-            usleep(50000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
+            usleep(100000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
 
 		}
 		else
 		{
-			moveBot(measurement, 0, 0, "Ultra sonic not found", getLeft, getFoward, getRight);
+			moveBot(measurement, 0, 0, "Ultra sonic not found", calbValues);
             // logfile << "Ultra sonic not found" << " =[ " << 0 << "," << 0 << " ]\n";
             // logUpdate == 10 ? (logfile << "Ultra sonic not found" << " =[ " << 0 << ", " << 0 << "]\n") : cout << endl;
             // logUpdate == 10 ? logUpdate = 0 : logUpdate++;
