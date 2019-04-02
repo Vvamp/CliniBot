@@ -25,7 +25,7 @@ int calibrateSensor(){
     cout << "-- Enter time of calc in seconds: ";
     cin >> setTime;
 
-    for(unsigned i=0; i >= setTime; i++){
+    for(unsigned i=0; i <= setTime; i++){
 		if (BP.get_sensor(PORT_3, Light3) == 0) {
 			usleep(125000);
 				black += Light3.reflected;
