@@ -480,7 +480,7 @@ void checkGrid(){
 							moveLeft(100000);
 							stepsLeft += 100000;
 						}
-						else if (Light3.reflected > blackLow && Light3.reflected < blackLow) {
+						else if (Light3.reflected > blackLow && Light3.reflected <= blackHigh) {
 							moveRight(500000);
 							moveStop();
 							break;
