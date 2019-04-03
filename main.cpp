@@ -555,50 +555,40 @@ void checkGrid(){
                     }
 
                     // Move wheels to center and turn right
-                    moveFwd(1500000);
+                    moveFwd(1000000);
 					moveRight(1000000);
+					stepsRight += 1000000;
 					moveStop();
+					usleep(100000);
 					while (true) {
 						if (BP.get_sensor(PORT_3, Light3) == 0) {
-							if (Light3.reflected <= blackLow) {
+							if (Light3.reflected <= blackLow - 10) {
 								moveRight(100000);
 								stepsRight += 100000;
+								moveStop();
+								usleep(50000);
+								if (stepsRight >= 2400000) {
+									cout << "no path found" << endl;
+									moveStop();
+									usleep(2000000);
+									break;
+								}
 							}
 							else {
-								stepsRight += 1500000;
-								moveRight(500000);
+								cout << "steps: " << stepsLeft << endl;
+								cout << "path found" << endl;
+								values[2] = true;
 								moveStop();
-								usleep(500000);
+								usleep(2000000);
 								break;
 							}
 						}
 					}
 
-                    // Go to right-line
-                    moveFwd();
-                    sleep(sleepTime);
-                    moveStop();
-
-                    // Check if there is a line
-                    if(!lineDetected()){
-                        if(enableDebug){
-                        cout << "no path" << endl;
-                        }
-                    }else{
-                        if(enableDebug){
-                        cout << "path found" << endl;
-                        }
-                        values[2] = true;
-                    }
-
-                    // Go back to the center of crossing
-                    moveBack();
-                    sleep(sleepTime);
-
                     // Turn back to face the middle-line and go back to original position
 					moveLeft(stepsRight);
                     sleep(sleepTime);
-                    moveBack(1500000);
+                    moveBack(1000000);
                 }else{
                     if(enableDebug){
                     cout << "...blocked!" << endl;
