@@ -479,10 +479,10 @@ void checkGrid(){
 				while (true) {
 					if (BP.get_sensor(PORT_3, Light3) == 0) {
 						if (Light3.reflected < blackLow - 10) {
-							moveLeft(10000);
-							stepsLeft += 10000;
+							moveLeft(100000);
+							stepsLeft += 100000;
 							moveStop();
-							usleep(10000);
+							usleep(50000);
 						}
 						else {
 							cout <<"steps: " << stepsLeft << endl;

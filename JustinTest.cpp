@@ -110,6 +110,9 @@ int main() {
     int getFoward = calbValues[1];
     int getRight = calbValues[2];
 
+    cout << "[L:" << getLeft << "] [F:" << getFoward << "] [R:" << getRight << "]" << endl; 
+    usleep(1250000);
+
 	while (true) {
 
         int logUpdate = 0;
@@ -127,7 +130,7 @@ int main() {
                             // moveBot(measurement, 50, 50, "Moving forward"); //Forward
                             moveBot(measurement, 50, 50, "Moving forward", calbValues); //Forward
                         }
-                        if (measurement > getLeft && measurement < getFoward) {
+                        else if (measurement > getLeft && measurement < getFoward) {
                             // moveBot(measurement, 5, 50, "Moving left"); //Left
                             moveBot(measurement, 5, 50, "Moving left", calbValues); //Right
                         }
