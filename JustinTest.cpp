@@ -15,63 +15,108 @@ sensor_light_t Light3;
 
 void exit_signal_handler(int signo);
 
-vector<int> calibrateSensor(){
+int calibrateRight(){
 
-    //Set time of calc in seconds
-    int setTime = 0;
-    int black = 0;
-    int left, foward, right;
-    vector<int> calbValues;
-    string tmp;
+    int calbRight = 0;
 
-    cout << "-- Enter time of calibration in seconds: ";
-    cin >> setTime;
+    cout << "-- Started calibration of right" << endl;
 
-    for(unsigned i=0; i <= setTime; i++){
+    for(unsigned int i=0; i <= 5; i++){
 		if (BP.get_sensor(PORT_3, Light3) == 0) {
 			usleep(125000);
-				black += Light3.reflected;
-				cout << "-- Calibrated: " << i << " sec" << endl;
-				sleep(1);
+            calbRight += Light3.reflected;
+            cout << "- Calibrating right: " << i << " sec, value: "<< Light3.reflected << endl;
+            usleep(500000);
 		}
         
     };
 
-    //Calc values
-    black = black / setTime;
+    return calbRight / 5;
 
-    right = black;
-    foward = black - 200;
-    left = black - 400;
+}
 
-    calbValues.push_back(left);
-    calbValues.push_back(foward);
-    calbValues.push_back(right);
+int calibrateFoward(){
 
-    cout << "-- Successfully calibrated black, values:" << endl;
+    int calbFoward = 0;
 
-    return calbValues;
-};
+    cout << "-- Started calibration of foward" << endl;
+
+    BP.set_motor_dps(PORT_C, 45);
+    BP.set_motor_dps(PORT_B, -45);
+
+    sleep(3);
+
+    BP.set_motor_power(PORT_C, 0);
+    BP.set_motor_power(PORT_B, 0);
+
+    for(unsigned int i=0; i <= 5; i++){
+		if (BP.get_sensor(PORT_3, Light3) == 0) {
+			usleep(125000);
+            calbFoward += Light3.reflected;
+            cout << "- Calibrating foward: " << i << " sec, value: "<< Light3.reflected << endl;
+            usleep(500000);
+		}
+        
+    };
+
+    BP.set_motor_dps(PORT_C, -45);
+    BP.set_motor_dps(PORT_B, 45);
+
+    sleep(3);
+
+    BP.set_motor_power(PORT_C, 0);
+    BP.set_motor_power(PORT_B, 0);
+
+    return calbFoward / 5;
+
+}
+
+int calibrateLeft(){
+
+    int calbLeft = 0;
+
+    cout << "-- Started calibration of left" << endl;
+
+    BP.set_motor_dps(PORT_C, -45);
+    BP.set_motor_dps(PORT_B, 45);
+
+    sleep(3);
+
+    BP.set_motor_power(PORT_C, 0);
+    BP.set_motor_power(PORT_B, 0);
+
+    for(unsigned int i=0; i <= 5; i++){
+		if (BP.get_sensor(PORT_3, Light3) == 0) {
+			usleep(125000);
+            calbLeft += Light3.reflected;
+            cout << "- Calibrating left: " << i << " sec, value: "<< Light3.reflected << endl;
+            usleep(500000);
+		}
+        
+    };
+
+    BP.set_motor_dps(PORT_C, 45);
+    BP.set_motor_dps(PORT_B, -45);
+
+    sleep(3);
+
+    BP.set_motor_power(PORT_C, 0);
+    BP.set_motor_power(PORT_B, 0);
+
+    return calbLeft / 5;
+
+}
 
 //Function to move robot (left, right)
-void moveBot(int measurement, int valueLeft, int valueRight, string botStatus, const vector<int> & calbValues) {
+void moveBot(int measurement, int valueLeft, int valueRight, string botStatus) {
 	BP.set_motor_power(PORT_C, valueLeft); //Left motor
     BP.set_motor_power(PORT_B, valueRight); // Right motor
 
-    int calbLeft = calbValues[0];
-    int calbFowd = calbValues[1];
-    int calbRight = calbValues[2];
-
     cout << "\033[2J\033[1;1H"; //Clear screen
-    cout << "CLINIBOT ============" << endl;
+    cout << "CUPBOT ==============" << endl;
 
     cout << endl << "-BOT STATUS:" << endl;
     cout << " " << botStatus << endl;
-
-    cout << endl << "-CALIBRATION:" << endl;
-    cout << "Left: " << calbLeft << endl;  
-    cout << "Foward: " << calbFowd << endl;  
-    cout << "Right: " << calbRight << endl;  
 
     cout << endl << "-INFORMATION:" << endl;
     cout << " Battery voltage: " << BP.get_voltage_battery() << endl;
@@ -103,15 +148,17 @@ int main() {
 	int measurement = 0;
 
     // ofstream logfile;
+    string tmp;
+    cout << "-- Press enter to start calibration" << endl;
+    cin >> tmp;
 
-    
-    vector<int> calbValues = calibrateSensor();
-    int getLeft = calbValues[0];
-    int getFoward = calbValues[1];
-    int getRight = calbValues[2];
+    int getRight = calibrateRight();
+    int getFoward = calibrateFoward();
+    int getLeft = calibrateLeft();
 
+    cout << "-- Successfully calibrated with values:" << endl;
     cout << "[L:" << getLeft << "] [F:" << getFoward << "] [R:" << getRight << "]" << endl; 
-    usleep(1250000);
+    sleep(3);
 
 	while (true) {
 
@@ -130,17 +177,17 @@ int main() {
                     
                     if (measurement >= getFoward && measurement <= getRight) {
                         // moveBot(measurement, 50, 50, "Moving forward"); //Forward
-                        moveBot(measurement, 50, 50, "Moving forward", calbValues); //Forward
+                        moveBot(measurement, 50, 50, "Moving forward"); //Forward
                         cout << "Left" << endl;
                     }
                     else if (measurement > getLeft && measurement < getFoward) {
                         // moveBot(measurement, 5, 50, "Moving left"); //Left
-                        moveBot(measurement, 5, 50, "Moving left", calbValues); //Right
+                        moveBot(measurement, 5, 50, "Moving left"); //Left
                         cout << "Foward" << endl;
                     }
                     else if (measurement > getRight) {
                         // moveBot(measurement, 50, 5, "Moving right"); //Right
-                        moveBot(measurement, 50, 5, "Moving right", calbValues); //Right
+                        moveBot(measurement, 50, 5, "Moving right"); //Right
                         cout << "Right" << endl;
                         // logfile << "Moving right" << " =[ " << 0 << "," << 0 << " ]\n";
                         // logfile.close();
@@ -148,7 +195,7 @@ int main() {
                 }
 			}
 			else{
-				moveBot(measurement, 0, 0, "Stopped moving", calbValues);
+				moveBot(measurement, 0, 0, "Stopped moving");
                 cout << "Stopped moving" << endl;
                 // logfile << "Stopped moving" << " =[ " << 0 << "," << 0 << " ]\n";
                 // logUpdate == 10 ? (logfile << "Stopped moving" << " =[ " << 0 << ", " << 0 << "]\n") : cout << endl;
@@ -162,7 +209,7 @@ int main() {
 		}
 		else
 		{
-			moveBot(measurement, 0, 0, "Ultra sonic not found", calbValues);
+			moveBot(measurement, 0, 0, "Ultra sonic not found");
             cout << "Ultra not found" << endl;
             // logfile << "Ultra sonic not found" << " =[ " << 0 << "," << 0 << " ]\n";
             // logUpdate == 10 ? (logfile << "Ultra sonic not found" << " =[ " << 0 << ", " << 0 << "]\n") : cout << endl;
