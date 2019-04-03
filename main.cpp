@@ -747,9 +747,6 @@ void checkGrid(){
                 isSearchingAfterCrossing = true;
 
                 moveFwd(1500000);
-                moveFwd();
-                sleep(sleepTime);
-
                 return;
 
             }
