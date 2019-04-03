@@ -485,20 +485,9 @@ void checkGrid(){
 							usleep(10000);
 						}
 						else {
-							moveStop();
-							usleep(3000000);
-							break;
-						}
-					}
-				}
-				while (true) {
-					if (BP.get_sensor(PORT_1, Color1) == 0) {
-						average = (Color1.reflected_blue + Color1.reflected_green + Color1.reflected_red) / 3;
-						if (average >= RGBBlackHigh-20) {
-							moveRight(100000);
-							stepsLeft -= 100000;
-						}
-						else {
+							cout <<"steps: " << stepsLeft << endl;
+							cout << "path found" << endl;
+							values[1] = true;
 							moveStop();
 							usleep(3000000);
 							break;
@@ -506,17 +495,6 @@ void checkGrid(){
 					}
 				}
 
-                // Check if there is a line
-                if(!lineDetected()){
-                    if(enableDebug){
-                    cout << "no path" << endl;
-                    }
-                }else{
-                    if(enableDebug){
-                    cout << "path found" << endl;
-                    }
-                    values[1] = true;
-                }
 
                 // Turn back to face the middle-line and move back to original position
 				moveRight(stepsLeft);
