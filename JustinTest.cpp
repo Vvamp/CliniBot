@@ -151,9 +151,9 @@ int main() {
     cout << "-- Press enter to start calibration" << endl;
     cin >> tmp;
 
-    int calbRight = calibrateRight();
-    int calbFoward = calibrateFoward();
-    int calbLeft = calibrateLeft();
+    int getRight = calibrateRight();
+    int getFoward = calibrateFoward();
+    int getLeft = calibrateLeft();
 
     cout << "-- Successfully calibrated with values:" << endl;
     cout << "[L:" << getLeft << "] [F:" << getFoward << "] [R:" << getRight << "]" << endl; 
