@@ -473,8 +473,9 @@ void checkGrid(){
                 }
                 // Bring wheels to crossing center and turn left
                 moveFwd(1000000);
-				moveLeft(1000000);
+				moveLeft(500000);
 				moveStop();
+				usleep(100000);
 				while (true) {
 					if (BP.get_sensor(PORT_3, Light3) == 0) {
 						if (Light3.reflected <= blackLow) {
