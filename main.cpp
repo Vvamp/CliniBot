@@ -23,7 +23,7 @@ sensor_color_t      Color1; //Infrared sensor
 sensor_ultrasonic_t Ultrasonic2; //Ultrasonic sensor
 
 const bool enableDebug = true;
-bool isSearchingAfterCrossing = false;
+
 bool isReversing = false;
 int blackHigh = 0;
 int blackLow = 1000000;
@@ -273,11 +273,11 @@ void reverseBot() {
 	moveRight(1000000);
 	while (true) {
 		if (BP.get_sensor(PORT_3, Light3) == 0) {
-			if (Light3.reflected <= whiteHigh) {
+			if (Light3.reflected >= whiteLow && Light3.reflected <= whiteHigh) {
 				moveRight(100000);
 			}
 			else {
-				moveRight(500000);
+				moveRight(1000000);
 				moveStop();
 				sleep(1);
 				break;
@@ -663,7 +663,6 @@ void checkGrid(){
         movement currentMovement;
         cout << "None" << endl;
         cout << "Moving back" << endl; //rotate 180 and follow line
-        isSearchingAfterCrossing = true;
         currentMovement.dir = backwards;
         pathLogger.push_back(currentMovement);
         turnRight();
@@ -717,7 +716,6 @@ void checkGrid(){
                     if (Light3.reflected >= whiteHigh && Light3.reflected <= blackLow) {
                         currentMovement.dir = left;
                         pathLogger.push_back(currentMovement);
-                        isSearchingAfterCrossing = true;
                         turnLeft();
                     }
                 }
@@ -734,8 +732,6 @@ void checkGrid(){
                     if (Light3.reflected >= whiteHigh && Light3.reflected <= blackLow) {
                         currentMovement.dir = right;
                         pathLogger.push_back(currentMovement);
-                        isSearchingAfterCrossing = true;
-
                         turnRight();
                     }
                 }
@@ -746,7 +742,7 @@ void checkGrid(){
             if(values[0]){
                 currentMovement.dir = forward;
                 pathLogger.push_back(currentMovement);
-                isSearchingAfterCrossing = true;
+
 
                 moveFwd(1500000);
                 return;
@@ -797,9 +793,7 @@ void controlGrid(){
             }
 			if (BP.get_sensor(PORT_3, Light3) == 0) {
 				if (Light3.reflected >= whiteHigh && Light3.reflected <= blackLow) { //2200 - 2300
-                    if(isSearchingAfterCrossing){
-                        isSearchingAfterCrossing = false;
-                    }
+
                     moveBot(Light3.reflected, 50, 50);
 					//rechtdoor
 				}
@@ -808,13 +802,13 @@ void controlGrid(){
 					//als ie het wit in gaat
 				}
 				else if (Light3.reflected > blackLow) { // > 2300
+					cout << "I'm in the black" << endl;
                     if(isCrossing()){
-                        if(!isSearchingAfterCrossing){
                         moveStop();
                         sleep(2);
                         checkGrid();
                     }
-                    }
+
                     moveBot(Light3.reflected, 50, -50);
 					//als ie het zwart in gaat
 
