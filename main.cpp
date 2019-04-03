@@ -282,7 +282,6 @@ void reverseBot() {
 				sleep(1);
 				break;
 			}
-
 		}
 	}
 	controlGrid();
@@ -481,7 +480,7 @@ void checkGrid(){
 				usleep(100000);
 				while (true) {
 					if (BP.get_sensor(PORT_3, Light3) == 0) {
-						if (Light3.reflected < whiteHigh) {
+						if (Light3.reflected < blackLow - 10) {
 							moveLeft(100000);
 							stepsLeft += 100000;
 							moveStop();
@@ -506,8 +505,8 @@ void checkGrid(){
 
 
                 // Turn back to face the middle-line and move back to original position
-				moveRight(stepsLeft-100000);
-				stepsRight += stepsLeft-100000;
+				moveRight(stepsLeft);
+				stepsRight += stepsLeft;
 				stepsLeft += 200000;
 				moveStop();
 				usleep(50000);
@@ -794,11 +793,11 @@ void controlGrid(){
 			if (BP.get_sensor(PORT_3, Light3) == 0) {
 				if (Light3.reflected >= whiteHigh && Light3.reflected <= blackLow) { //2200 - 2300
 
-                    moveBot(Light3.reflected, 50, 50);
+                    moveBot(Light3.reflected, 30, 30);
 					//rechtdoor
 				}
 				else if (Light3.reflected > whiteLow && Light3.reflected < whiteHigh) { //1850 - 2200
-                    moveBot(Light3.reflected, -50, 50);
+                    moveBot(Light3.reflected, -30, 30);
 					//als ie het wit in gaat
 				}
 				else if (Light3.reflected > blackLow) { // > 2300
@@ -809,7 +808,7 @@ void controlGrid(){
                         checkGrid();
                     }
 
-                    moveBot(Light3.reflected, 50, -50);
+                    moveBot(Light3.reflected, 30, -30);
 					//als ie het zwart in gaat
 
 				}
