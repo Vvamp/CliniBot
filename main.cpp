@@ -708,7 +708,7 @@ void checkGrid(){
 
         if(uinDirection == "left"){
             if(values[1]){
-                moveFwd(1500000);
+                moveFwd(1000000);
                 turnLeft();
                 sleep(sleepTime);
                 if (BP.get_sensor(PORT_3, Light3) == 0) {
