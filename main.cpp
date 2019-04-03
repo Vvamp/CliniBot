@@ -273,11 +273,11 @@ void reverseBot() {
 	moveRight(1000000);
 	while (true) {
 		if (BP.get_sensor(PORT_3, Light3) == 0) {
-			if (Light3.reflected <= whiteHigh) {
+			if (Light3.reflected >= whiteLow && Light3.reflected <= whiteHigh) {
 				moveRight(100000);
 			}
 			else {
-				moveRight(500000);
+				moveRight(1000000);
 				moveStop();
 				sleep(1);
 				break;
@@ -808,12 +808,11 @@ void controlGrid(){
 				}
 				else if (Light3.reflected > blackLow) { // > 2300
                     if(isCrossing()){
-                        if(!isSearchingAfterCrossing){
                         moveStop();
                         sleep(2);
                         checkGrid();
                     }
-                    }
+                    
                     moveBot(Light3.reflected, 50, -50);
 					//als ie het zwart in gaat
 
