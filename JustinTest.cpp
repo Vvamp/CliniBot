@@ -49,8 +49,8 @@ int calibrateFoward(){
 
     usleep(3000000);
 
-    BP.set_motor_position_relative(PORT_C, 0);
-    BP.set_motor_position_relative(PORT_B, 0);
+    BP.set_motor_power(PORT_C, 0);
+    BP.set_motor_power(PORT_B, 0);
 
     for(unsigned int i=1; i <= 5; i++){
 		if (BP.get_sensor(PORT_3, Light3) == 0) {
@@ -67,8 +67,8 @@ int calibrateFoward(){
 
     usleep(3000000);
 
-    BP.set_motor_position_relative(PORT_C, 0);
-    BP.set_motor_position_relative(PORT_B, 0);
+    BP.set_motor_power(PORT_C, 0);
+    BP.set_motor_power(PORT_B, 0);
 
     cout << endl;
     return calbFoward / 5;
@@ -81,8 +81,8 @@ int calibrateLeft(){
 
     cout << "-- Started calibration of left" << endl;
 
-    BP.set_motor_dps(PORT_C, -90);
-    BP.set_motor_dps(PORT_B, 90);
+    BP.set_motor_position_relative(PORT_C, -90);
+    BP.set_motor_position_relative(PORT_B, 90);
 
     usleep(3000000);
 
@@ -99,8 +99,8 @@ int calibrateLeft(){
         
     };
 
-    BP.set_motor_dps(PORT_C, 90);
-    BP.set_motor_dps(PORT_B, -90);
+    BP.set_motor_position_relative(PORT_C, 90);
+    BP.set_motor_position_relative(PORT_B, -90);
 
     usleep(3000000);
 
@@ -222,7 +222,7 @@ int main() {
                 
 			}
 
-            usleep(500000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
+            usleep(1000000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
 
 		}
 		else {
