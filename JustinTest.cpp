@@ -131,14 +131,17 @@ int main() {
                     if (measurement >= getFoward && measurement <= getRight) {
                         // moveBot(measurement, 50, 50, "Moving forward"); //Forward
                         moveBot(measurement, 50, 50, "Moving forward", calbValues); //Forward
+                        cout << "Left" << endl;
                     }
                     else if (measurement > getLeft && measurement < getFoward) {
                         // moveBot(measurement, 5, 50, "Moving left"); //Left
                         moveBot(measurement, 5, 50, "Moving left", calbValues); //Right
+                        cout << "Foward" << endl;
                     }
                     else if (measurement > getRight) {
                         // moveBot(measurement, 50, 5, "Moving right"); //Right
                         moveBot(measurement, 50, 5, "Moving right", calbValues); //Right
+                        cout << "Right" << endl;
                         // logfile << "Moving right" << " =[ " << 0 << "," << 0 << " ]\n";
                         // logfile.close();
                     }
@@ -146,6 +149,7 @@ int main() {
 			}
 			else{
 				moveBot(measurement, 0, 0, "Stopped moving", calbValues);
+                cout << "Stopped moving" << endl;
                 // logfile << "Stopped moving" << " =[ " << 0 << "," << 0 << " ]\n";
                 // logUpdate == 10 ? (logfile << "Stopped moving" << " =[ " << 0 << ", " << 0 << "]\n") : cout << endl;
                 // logUpdate == 10 ? logUpdate = 0 : logUpdate++;
@@ -159,6 +163,7 @@ int main() {
 		else
 		{
 			moveBot(measurement, 0, 0, "Ultra sonic not found", calbValues);
+            cout << "Ultra not found" << endl;
             // logfile << "Ultra sonic not found" << " =[ " << 0 << "," << 0 << " ]\n";
             // logUpdate == 10 ? (logfile << "Ultra sonic not found" << " =[ " << 0 << ", " << 0 << "]\n") : cout << endl;
             // logUpdate == 10 ? logUpdate = 0 : logUpdate++;
