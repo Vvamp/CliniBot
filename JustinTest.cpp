@@ -104,7 +104,7 @@ int main() {
 
     // ofstream logfile;
 
-    measurement = Light3.reflected;
+    
     vector<int> calbValues = calibrateSensor();
     int getLeft = calbValues[0];
     int getFoward = calbValues[1];
@@ -112,7 +112,6 @@ int main() {
 
     cout << "[L:" << getLeft << "] [F:" << getFoward << "] [R:" << getRight << "]" << endl; 
     usleep(1250000);
-    cout << "--CHECK" << endl;
 
 	while (true) {
 
@@ -120,34 +119,32 @@ int main() {
 
         // logfile.open("log-new.txt", ios::app);
 
+        cout << "--CHECK" << endl;
+
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
 			if (Ultrasonic2.cm > 10) {
 
-                // if(!isCrossing()){
-
-                    if (BP.get_sensor(PORT_3, Light3) == 0) {
-                        
-                        if (measurement >= getFoward && measurement <= getRight) {
-                            // moveBot(measurement, 50, 50, "Moving forward"); //Forward
-                            moveBot(measurement, 50, 50, "Moving forward", calbValues); //Forward
-                        }
-                        else if (measurement > getLeft && measurement < getFoward) {
-                            // moveBot(measurement, 5, 50, "Moving left"); //Left
-                            moveBot(measurement, 5, 50, "Moving left", calbValues); //Right
-                        }
-                        else if (measurement > getRight) {
-                            // moveBot(measurement, 50, 5, "Moving right"); //Right
-                            moveBot(measurement, 50, 5, "Moving right", calbValues); //Right
-                            // logfile << "Moving right" << " =[ " << 0 << "," << 0 << " ]\n";
-                            // logfile.close();
-                        }
+                if (BP.get_sensor(PORT_3, Light3) == 0) {
+                    
+                    measurement = Light3.reflected;
+                    
+                    if (measurement >= getFoward && measurement <= getRight) {
+                        // moveBot(measurement, 50, 50, "Moving forward"); //Forward
+                        moveBot(measurement, 50, 50, "Moving forward", calbValues); //Forward
                     }
-                // } else {
-                //     askDirection();
-                // }
+                    else if (measurement > getLeft && measurement < getFoward) {
+                        // moveBot(measurement, 5, 50, "Moving left"); //Left
+                        moveBot(measurement, 5, 50, "Moving left", calbValues); //Right
+                    }
+                    else if (measurement > getRight) {
+                        // moveBot(measurement, 50, 5, "Moving right"); //Right
+                        moveBot(measurement, 50, 5, "Moving right", calbValues); //Right
+                        // logfile << "Moving right" << " =[ " << 0 << "," << 0 << " ]\n";
+                        // logfile.close();
+                    }
+                }
 			}
-			else
-			{
+			else{
 				moveBot(measurement, 0, 0, "Stopped moving", calbValues);
                 // logfile << "Stopped moving" << " =[ " << 0 << "," << 0 << " ]\n";
                 // logUpdate == 10 ? (logfile << "Stopped moving" << " =[ " << 0 << ", " << 0 << "]\n") : cout << endl;
