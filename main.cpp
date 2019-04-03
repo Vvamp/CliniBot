@@ -521,8 +521,18 @@ void checkGrid(){
 						}
 					}
 				}
-                moveBack(1000000);
-				moveStop();
+				while (true) {
+					if (!isCrossing) {
+						moveBack(100000);
+						moveStop();
+						usleep(50000);
+					}
+					else {
+						moveStop();
+						usleep(50000);
+						break;
+					}
+				}
 
             }else{
                 if(enableDebug){
@@ -602,7 +612,18 @@ void checkGrid(){
 							}
 						}
 					}
-                    moveBack(1000000);
+					while (true) {
+						if (!isCrossing) {
+							moveBack(100000);
+							moveStop();
+							usleep(50000);
+						}
+						else {
+							moveStop();
+							usleep(50000);
+							break;
+						}
+					}
                 }
 				else{
                     if(enableDebug){
