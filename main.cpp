@@ -522,7 +522,7 @@ void checkGrid(){
 					}
 				}
 				while (true) {
-					if (!isCrossing) {
+					if (!isCrossing() {
 						moveBack(100000);
 						moveStop();
 						usleep(50000);
@@ -613,7 +613,7 @@ void checkGrid(){
 						}
 					}
 					while (true) {
-						if (!isCrossing) {
+						if (!isCrossing()) {
 							moveBack(100000);
 							moveStop();
 							usleep(50000);
