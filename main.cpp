@@ -284,7 +284,8 @@ void reverseBot() {
 			}
 		}
 	}
-	return controlGrid();
+	controlGrid();
+	return;
 }
 // Check if there is a regular crossing(both sensors would be black)
 bool isCrossing(){
@@ -483,6 +484,7 @@ void checkGrid(){
 							moveLeft(100000);
 							stepsLeft += 100000;
 							moveStop();
+							usleep(50000);
 							if (stepsLeft >= 2800000) {
 								cout << "no path found" << endl;
 								moveStop();
@@ -498,7 +500,6 @@ void checkGrid(){
 							usleep(2000000);
 							break;
 						}
-						usleep(50000);
 					}
 				}
 
@@ -583,6 +584,7 @@ void checkGrid(){
 								moveRight(100000);
 								stepsRight += 100000;
 								moveStop();
+								usleep(50000);
 								if (stepsRight >= 2000000) {
 									cout << "no path found" << endl;
 									moveStop();
@@ -591,14 +593,13 @@ void checkGrid(){
 								}
 							}
 							else {
-								cout << "steps: " << stepsRight << endl;
+								cout << "steps: " << stepsLeft << endl;
 								cout << "path found" << endl;
 								values[2] = true;
 								moveStop();
 								usleep(2000000);
 								break;
 							}
-							usleep(50000);
 						}
 					}
 
@@ -708,7 +709,7 @@ void checkGrid(){
 
         if(uinDirection == "left"){
             if(values[1]){
-                moveFwd(800000);
+                moveFwd(1500000);
                 turnLeft();
                 sleep(sleepTime);
                 if (BP.get_sensor(PORT_3, Light3) == 0) {
@@ -725,7 +726,7 @@ void checkGrid(){
 
         }else if(uinDirection == "right"){
             if(values[2]){
-                moveFwd(800000);
+                //moveFwd(1500000);
                 turnRight();
                 sleep(sleepTime);
                 if (BP.get_sensor(PORT_3, Light3) == 0) {
@@ -745,7 +746,8 @@ void checkGrid(){
                 currentMovement.dir = forward;
                 pathLogger.push_back(currentMovement);
                 isSearchingAfterCrossing = true;
-                moveFwd(800000);
+
+                moveFwd(1500000);
                 return;
 
             }
@@ -797,11 +799,11 @@ void controlGrid(){
                     if(isSearchingAfterCrossing){
                         isSearchingAfterCrossing = false;
                     }
-                    moveBot(Light3.reflected, 30, 30);
+                    moveBot(Light3.reflected, 50, 50);
 					//rechtdoor
 				}
 				else if (Light3.reflected > whiteLow && Light3.reflected < whiteHigh) { //1850 - 2200
-                    moveBot(Light3.reflected, -30, 30);
+                    moveBot(Light3.reflected, -50, 50);
 					//als ie het wit in gaat
 				}
 				else if (Light3.reflected > blackLow) { // > 2300
@@ -812,7 +814,7 @@ void controlGrid(){
                         checkGrid();
                     }
                     }
-                    moveBot(Light3.reflected, 30, -30);
+                    moveBot(Light3.reflected, 50, -50);
 					//als ie het zwart in gaat
 
 				}
