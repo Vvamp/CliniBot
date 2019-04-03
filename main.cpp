@@ -480,6 +480,8 @@ void checkGrid(){
 					if (BP.get_sensor(PORT_3, Light3) == 0) {
 						if (Light3.reflected < blackLow) {
 							moveLeft(50000);
+							moveStop();
+							usleep(100000);
 							stepsLeft += 100000;
 						}
 						else {
