@@ -16,6 +16,7 @@ sensor_light_t Light3;
 void exit_signal_handler(int signo);
 
 int calibrateRight(){
+    cout << "-REACHED RIGHT!" << endl;
 
     int calbRight = 0;
 
@@ -151,6 +152,7 @@ int main() {
     string tmp;
     cout << "-- Press enter to start calibration" << endl;
     cin >> tmp;
+    cout << "--Check, tmp" << endl;
 
     int getRight = calibrateRight();
     int getFoward = calibrateFoward();
