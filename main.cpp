@@ -341,9 +341,9 @@ bool obstacleDetected(){
 
         }
     }
-    if(enableDebug){
-    cout << endl << "cm: " << Ultrasonic2.cm << endl;
-    }
+    //if(enableDebug){
+    //cout << endl << "cm: " << Ultrasonic2.cm << endl;
+    //}
     return false;
 
 }
@@ -351,16 +351,16 @@ bool obstacleDetected(){
 // Check if there is a line
 bool lineDetected(){
     int measurement = 0;
-    if(enableDebug){
-    cout << endl << endl << "checking line";
-    }
+//    if(enableDebug){
+//    cout << endl << endl << "checking line";
+//    }
     bool s1 = false;
     bool s2 = false;
     if (BP.get_sensor(PORT_3, Light3) == 0) {
         measurement = Light3.reflected;
-        if(enableDebug){
-        cout << endl << "measured RGB: " << measurement << " borders: 2000 <= x < 2700" << endl;
-        }
+        //if(enableDebug){
+    //   cout << endl << "measured RGB: " << measurement << " borders: 2000 <= x < 2700" << endl;
+    //    }
         if(measurement >=whiteHigh && measurement < blackHigh){
             s1 = true;
         }else{
@@ -369,9 +369,9 @@ bool lineDetected(){
     }
     if (BP.get_sensor(PORT_1, Color1) == 0) {
         measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
-        if(enableDebug){
-        cout << endl << "m: " << measurement << " borders: 200 <= x < 400" << endl;
-        }
+    //    if(enableDebug){
+    //    cout << endl << "m: " << measurement << " borders: 200 <= x < 400" << endl;
+    //    }
         if(measurement < RGBBlackHigh && measurement > RGBWhiteHigh){
             s2 = true;
         }else{
@@ -480,7 +480,9 @@ void checkGrid(){
 					if (BP.get_sensor(PORT_3, Light3) == 0) {
 						if (Light3.reflected < blackLow - 10) {
 							moveLeft(10000);
-							stepsLeft += 100000;
+							stepsLeft += 10000;
+							moveStop();
+							usleep(10000);
 						}
 						else {
 							moveStop();
