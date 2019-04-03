@@ -798,11 +798,11 @@ void controlGrid(){
                     if(isSearchingAfterCrossing){
                         isSearchingAfterCrossing = false;
                     }
-                    moveBot(Light3.reflected, 50, 50);
+                    moveBot(Light3.reflected, 30, 30);
 					//rechtdoor
 				}
 				else if (Light3.reflected > whiteLow && Light3.reflected < whiteHigh) { //1850 - 2200
-                    moveBot(Light3.reflected, -50, 50);
+                    moveBot(Light3.reflected, -30, 30);
 					//als ie het wit in gaat
 				}
 				else if (Light3.reflected > blackLow) { // > 2300
@@ -813,7 +813,7 @@ void controlGrid(){
                         checkGrid();
                     }
                     }
-                    moveBot(Light3.reflected, 50, -50);
+                    moveBot(Light3.reflected, 30, -30);
 					//als ie het zwart in gaat
 
 				}
