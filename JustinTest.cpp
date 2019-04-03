@@ -148,6 +148,7 @@ int main() {
 	int measurement = 0;
 
     // ofstream logfile;
+    string tmp;
     cout << "-- Press enter to start calibration" << endl;
     cin >> tmp;
 
