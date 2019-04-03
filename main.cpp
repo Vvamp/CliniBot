@@ -472,7 +472,7 @@ void checkGrid(){
                 cout << "checking if path...";
                 }
                 // Bring wheels to crossing center and turn left
-                moveFwd(1500000);
+                moveFwd(1000000);
 				moveLeft(1000000);
 				moveStop();
 				while (true) {
@@ -491,7 +491,7 @@ void checkGrid(){
 				while (true) {
 					if (BP.get_sensor(PORT_1, Color1) == 0) {
 						average = (Color1.reflected_blue + Color1.reflected_green + Color1.reflected_red) / 3;
-						if (average <= RGBBlackHigh) {
+						if (average >= RGBBlackHigh) {
 							moveRight(100000);
 							stepsLeft -= 100000;
 						}
@@ -519,7 +519,7 @@ void checkGrid(){
 				moveRight(stepsLeft);
 				moveStop();
                 sleep(sleepTime);
-                moveBack(1500000);
+                moveBack(1000000);
 
             }else{
                 if(enableDebug){
