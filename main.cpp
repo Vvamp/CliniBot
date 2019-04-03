@@ -483,13 +483,19 @@ void checkGrid(){
 							stepsLeft += 100000;
 							moveStop();
 							usleep(50000);
+							if (stepsLeft >= 2800000) {
+								cout << "no path found" << endl;
+								moveStop();
+								usleep(2000000);
+								break;
+							}
 						}
 						else {
 							cout <<"steps: " << stepsLeft << endl;
 							cout << "path found" << endl;
 							values[1] = true;
 							moveStop();
-							usleep(3000000);
+							usleep(2000000);
 							break;
 						}
 					}
