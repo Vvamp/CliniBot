@@ -509,14 +509,17 @@ void checkGrid(){
 				while (true) {
 					if (BP.get_sensor(PORT_1, Color1) == 0) {
 						average = (Color1.reflected_blue + Color1.reflected_green + Color1.reflected_red) / 3;
-						if (average > RGBBlackHigh)
+						if (average > RGBBlackHigh && stepsRight <= stepsLeft)
 						{
 							moveRight(100000);
 							moveStop();
+							stepsRight++
 							usleep(50000);
 						}
 						else {
 							moveStop();
+							stepsRight = 0;
+							stepsLeft = 0;
 							usleep(50000);
 							break;
 						}
@@ -597,13 +600,14 @@ void checkGrid(){
 					}
 
                     // Turn back to face the middle-line and go back to original position
-					moveLeft(1000000);
+					moveLeft(stepsRight);
 					while (true) {
 						if (BP.get_sensor(PORT_3, Light3) == 0) {
-							if (Light3.reflected < whiteHigh)
+							if (Light3.reflected < whiteHigh && stepsLeft <= stepsRight)
 							{
 								moveLeft(100000);
 								moveStop();
+								stepsLeft++;
 								usleep(50000);
 							}
 							else {
