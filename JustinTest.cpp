@@ -23,7 +23,7 @@ int calibrateRight(){
 
     cout << "-- Started calibration of right" << endl;
 
-    for(unsigned int i=0; i <= 5; i++){
+    for(unsigned int i=1; i <= 5; i++){
 		if (BP.get_sensor(PORT_3, Light3) == 0) {
 			usleep(125000);
             calbRight += Light3.reflected;
@@ -44,15 +44,15 @@ int calibrateFoward(){
 
     cout << "-- Started calibration of foward" << endl;
 
-    BP.set_motor_position_relative(PORT_C, 45);
-    BP.set_motor_position_relative(PORT_B, -45);
+    BP.set_motor_power(PORT_C, 90);
+    BP.set_motor_power(PORT_B, -90);
 
     usleep(3000000);
 
-    BP.set_motor_position_relative(PORT_C, 0);
-    BP.set_motor_position_relative(PORT_B, 0);
+    BP.set_motor_power(PORT_C, 0);
+    BP.set_motor_power(PORT_B, 0);
 
-    for(unsigned int i=0; i <= 5; i++){
+    for(unsigned int i=1; i <= 5; i++){
 		if (BP.get_sensor(PORT_3, Light3) == 0) {
 			usleep(125000);
             calbFoward += Light3.reflected;
@@ -62,13 +62,13 @@ int calibrateFoward(){
         
     };
 
-    BP.set_motor_position_relative(PORT_C, -45);
-    BP.set_motor_position_relative(PORT_B, 45);
+    BP.set_motor_power(PORT_C, -90);
+    BP.set_motor_power(PORT_B, 90);
 
     usleep(3000000);
 
-    BP.set_motor_position_relative(PORT_C, 0);
-    BP.set_motor_position_relative(PORT_B, 0);
+    BP.set_motor_power(PORT_C, 0);
+    BP.set_motor_power(PORT_B, 0);
 
     cout << endl;
     return calbFoward / 5;
@@ -81,15 +81,15 @@ int calibrateLeft(){
 
     cout << "-- Started calibration of left" << endl;
 
-    BP.set_motor_dps(PORT_C, -45);
-    BP.set_motor_dps(PORT_B, 45);
+    BP.set_motor_power(PORT_C, -90);
+    BP.set_motor_power(PORT_B, 90);
 
     usleep(3000000);
 
     BP.set_motor_power(PORT_C, 0);
     BP.set_motor_power(PORT_B, 0);
 
-    for(unsigned int i=0; i <= 5; i++){
+    for(unsigned int i=1; i <= 5; i++){
 		if (BP.get_sensor(PORT_3, Light3) == 0) {
 			usleep(125000);
             calbLeft += Light3.reflected;
@@ -99,8 +99,8 @@ int calibrateLeft(){
         
     };
 
-    BP.set_motor_dps(PORT_C, 45);
-    BP.set_motor_dps(PORT_B, -45);
+    BP.set_motor_power(PORT_C, 90);
+    BP.set_motor_power(PORT_B, -90);
 
     usleep(3000000);
 
@@ -186,6 +186,8 @@ int main() {
                     cout << "--CHECK 3" << endl;
                     
                     measurement = Light3.reflected;
+
+                    cout << "-MEASUREMENT: " << measurement << endl;
                     
                     if (measurement >= getFoward && measurement <= getRight) {
                         cout << "--CHECK F" << endl;
@@ -220,7 +222,7 @@ int main() {
                 
 			}
 
-            usleep(500000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
+            usleep(1000000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
 
 		}
 		else {
