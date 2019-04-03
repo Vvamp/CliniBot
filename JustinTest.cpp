@@ -110,7 +110,7 @@ int main() {
     int getFoward = calbValues[1];
     int getRight = calbValues[2];
 
-    cout << "[L:" getLeft << "] [F:" << getFoward << "] [R:" << getRight << "]" << endl; 
+    cout << "[L:" << getLeft << "] [F:" << getFoward << "] [R:" << getRight << "]" << endl; 
     usleep(1250000);
 
 	while (true) {
