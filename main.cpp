@@ -588,9 +588,8 @@ void checkGrid(){
                     // Turn back to face the middle-line and go back to original position
 					moveLeft(1000000);
 					while (true) {
-						if (BP.get_sensor(PORT_1, Color1) == 0) {
-							average = (Color1.reflected_blue + Color1.reflected_green + Color1.reflected_red) / 3;
-							if (average > RGBBlackHigh)
+						if (BP.get_sensor(PORT_3, Light3) == 0) {
+							if (Light3.reflected < blackHigh - ((blackHigh-blackLow)/2))
 							{
 								moveLeft(100000);
 								moveStop();
