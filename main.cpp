@@ -479,6 +479,7 @@ void checkGrid(){
 				while (true) {
 					if (BP.get_sensor(PORT_3, Light3) == 0) {
 						if (Light3.reflected < blackLow) {
+							cout << Light3.reflected << " ";
 							moveLeft(50000);
 							moveStop();
 							usleep(100000);
