@@ -33,6 +33,7 @@ int calibrateRight(){
         
     };
 
+    cout << endl;
     return calbRight / 5;
 
 }
@@ -43,8 +44,8 @@ int calibrateFoward(){
 
     cout << "-- Started calibration of foward" << endl;
 
-    BP.set_motor_position_relative(PORT_C, 450);
-    BP.set_motor_position_relative(PORT_B, -450);
+    BP.set_motor_position_relative(PORT_C, 45);
+    BP.set_motor_position_relative(PORT_B, -45);
 
     usleep(3000000);
 
@@ -61,14 +62,15 @@ int calibrateFoward(){
         
     };
 
-    BP.set_motor_position_relative(PORT_C, -450);
-    BP.set_motor_position_relative(PORT_B, 450);
+    BP.set_motor_position_relative(PORT_C, -45);
+    BP.set_motor_position_relative(PORT_B, 45);
 
     usleep(3000000);
 
     BP.set_motor_position_relative(PORT_C, 0);
     BP.set_motor_position_relative(PORT_B, 0);
 
+    cout << endl;
     return calbFoward / 5;
 
 }
@@ -79,8 +81,8 @@ int calibrateLeft(){
 
     cout << "-- Started calibration of left" << endl;
 
-    BP.set_motor_dps(PORT_C, -450);
-    BP.set_motor_dps(PORT_B, 450);
+    BP.set_motor_dps(PORT_C, -45);
+    BP.set_motor_dps(PORT_B, 45);
 
     usleep(3000000);
 
@@ -97,14 +99,15 @@ int calibrateLeft(){
         
     };
 
-    BP.set_motor_dps(PORT_C, 450);
-    BP.set_motor_dps(PORT_B, -450);
+    BP.set_motor_dps(PORT_C, 45);
+    BP.set_motor_dps(PORT_B, -45);
 
     usleep(3000000);
 
     BP.set_motor_power(PORT_C, 0);
     BP.set_motor_power(PORT_B, 0);
 
+    cout << endl;
     return calbLeft / 5;
 
 }
@@ -171,23 +174,33 @@ int main() {
         cout << "--CHECK" << endl;
 
 		if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+
+            cout << "--CHECK 1" << endl;
+
 			if (Ultrasonic2.cm > 10) {
 
+                cout << "--CHECK 2" << endl;
+
                 if (BP.get_sensor(PORT_3, Light3) == 0) {
+
+                    cout << "--CHECK 3" << endl;
                     
                     measurement = Light3.reflected;
                     
                     if (measurement >= getFoward && measurement <= getRight) {
+                        cout << "--CHECK F" << endl;
                         // moveBot(measurement, 50, 50, "Moving forward"); //Forward
                         moveBot(measurement, 50, 50, "Moving forward"); //Forward
                         cout << "Left" << endl;
                     }
                     else if (measurement > getLeft && measurement < getFoward) {
+                        cout << "--CHECK L" << endl;
                         // moveBot(measurement, 5, 50, "Moving left"); //Left
                         moveBot(measurement, 5, 50, "Moving left"); //Left
                         cout << "Foward" << endl;
                     }
                     else if (measurement > getRight) {
+                        cout << "--CHECK R" << endl;
                         // moveBot(measurement, 50, 5, "Moving right"); //Right
                         moveBot(measurement, 50, 5, "Moving right"); //Right
                         cout << "Right" << endl;
@@ -197,6 +210,7 @@ int main() {
                 }
 			}
 			else{
+                cout << "--CHECK S" << endl;
 				moveBot(measurement, 0, 0, "Stopped moving");
                 cout << "Stopped moving" << endl;
                 // logfile << "Stopped moving" << " =[ " << 0 << "," << 0 << " ]\n";
@@ -206,12 +220,12 @@ int main() {
                 
 			}
 
-            usleep(100000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
+            usleep(500000);//slaap een kwart seconde (1 usleep = 1 miljoenste van een seconde)
 
 		}
-		else
-		{
+		else {
 			moveBot(measurement, 0, 0, "Ultra sonic not found");
+            cout << "--CHECK U" << endl;
             cout << "Ultra not found" << endl;
             // logfile << "Ultra sonic not found" << " =[ " << 0 << "," << 0 << " ]\n";
             // logUpdate == 10 ? (logfile << "Ultra sonic not found" << " =[ " << 0 << ", " << 0 << "]\n") : cout << endl;
