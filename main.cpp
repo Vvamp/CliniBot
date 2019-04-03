@@ -586,10 +586,24 @@ void checkGrid(){
 					}
 
                     // Turn back to face the middle-line and go back to original position
-					moveLeft(stepsRight);
-                    sleep(sleepTime);
+					moveLeft(1000000);
+					while (true) {
+						if (BP.get_sensor(PORT_3, Light3) == 0) {
+							if (Light3.reflected < blackLow - 10) {
+								moveLeft(100000);
+								moveStop();
+								usleep(50000);
+							}
+							else {
+								moveStop();
+								usleep(50000);
+								break;
+							}
+						}
+					}
                     moveBack(1000000);
-                }else{
+                }
+				else{
                     if(enableDebug){
                     cout << "...blocked!" << endl;
                     }
