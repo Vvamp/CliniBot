@@ -273,11 +273,11 @@ void reverseBot() {
 	moveRight(1000000);
 	while (true) {
 		if (BP.get_sensor(PORT_3, Light3) == 0) {
-			if (Light3.reflected >= whiteLow && Light3.reflected <= whiteHigh) {
+			if (Light3.reflected <= whiteHigh) {
 				moveRight(100000);
 			}
 			else {
-				moveRight(1000000);
+				moveRight(500000);
 				moveStop();
 				sleep(1);
 				break;
