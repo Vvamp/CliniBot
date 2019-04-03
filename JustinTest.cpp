@@ -44,8 +44,8 @@ int calibrateFoward(){
 
     cout << "-- Started calibration of foward" << endl;
 
-    BP.set_motor_position_relative(PORT_C, 90);
-    BP.set_motor_position_relative(PORT_B, -90);
+    BP.set_motor_power(PORT_C, 90);
+    BP.set_motor_power(PORT_B, -90);
 
     usleep(3000000);
 
@@ -62,8 +62,8 @@ int calibrateFoward(){
         
     };
 
-    BP.set_motor_position_relative(PORT_C, -90);
-    BP.set_motor_position_relative(PORT_B, 90);
+    BP.set_motor_power(PORT_C, -90);
+    BP.set_motor_power(PORT_B, 90);
 
     usleep(3000000);
 
@@ -81,8 +81,8 @@ int calibrateLeft(){
 
     cout << "-- Started calibration of left" << endl;
 
-    BP.set_motor_position_relative(PORT_C, -90);
-    BP.set_motor_position_relative(PORT_B, 90);
+    BP.set_motor_power(PORT_C, -90);
+    BP.set_motor_power(PORT_B, 90);
 
     usleep(3000000);
 
@@ -99,8 +99,8 @@ int calibrateLeft(){
         
     };
 
-    BP.set_motor_position_relative(PORT_C, 90);
-    BP.set_motor_position_relative(PORT_B, -90);
+    BP.set_motor_power(PORT_C, 90);
+    BP.set_motor_power(PORT_B, -90);
 
     usleep(3000000);
 
