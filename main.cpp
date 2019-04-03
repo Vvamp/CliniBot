@@ -586,7 +586,7 @@ void checkGrid(){
 					}
 
                     // Turn back to face the middle-line and go back to original position
-					moveLeft(100000);
+					moveLeft(1000000);
 					while (true) {
 						if (BP.get_sensor(PORT_3, Light3) == 0) {
 							if (Light3.reflected < blackLow) {
