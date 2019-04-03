@@ -24,16 +24,16 @@ int Blauw;
 void Dansje(){
 
     if(Rood > Groen && Rood > Blauw){
-        cout << "Doet iets bij rood" << endl;
+        cout << "=> Doet iets bij rood" << endl;
     }
     else if(Groen > Rood && Groen > Blauw){
-        cout << "Doet iets bij groen" << endl;
+        cout << "=> Doet iets bij groen" << endl;
     }
     else if(Blauw > Rood && Blauw > Groen){
-        cout << "Doet iets bij blauw" << endl;
+        cout << "=> Doet iets bij blauw" << endl;
     }
     else{
-        cout << "ongeldige waarde !!!" << endl;
+        cout << "Ongeldige waarde !!!" << endl;
     }
 
 }
