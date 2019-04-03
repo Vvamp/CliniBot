@@ -505,6 +505,23 @@ void checkGrid(){
                 // Turn back to face the middle-line and move back to original position
 				moveRight(stepsLeft);
 				moveStop();
+				while (true) {
+					if (BP.get_sensor(PORT_1, Color1) == 0) {
+						average = (Color1.reflected_blue + Color1.reflected_green + Color1.reflected_red) / 3;
+						if (average > RGBBlackHigh)
+						{
+							moveRight(100000);
+							moveStop();
+							usleep(50000);
+						}
+						else {
+							moveRight(250000);
+							moveStop();
+							usleep(50000);
+							break;
+						}
+					}
+				}
                 sleep(sleepTime);
                 moveBack(1000000);
 
