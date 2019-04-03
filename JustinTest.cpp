@@ -112,6 +112,7 @@ int main() {
 
     cout << "[L:" << getLeft << "] [F:" << getFoward << "] [R:" << getRight << "]" << endl; 
     usleep(1250000);
+    cout << "--CHECK" << endl;
 
 	while (true) {
 
