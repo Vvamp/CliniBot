@@ -474,6 +474,7 @@ void checkGrid(){
                 // Bring wheels to crossing center and turn left
                 moveFwd(1000000);
 				moveLeft(1000000);
+				stepsLeft += 1000000;
 				moveStop();
 				usleep(100000);
 				while (true) {
