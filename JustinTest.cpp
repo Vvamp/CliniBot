@@ -17,6 +17,7 @@ void exit_signal_handler(int signo);
 
 int calibrateRight(){
     cout << "-REACHED RIGHT!" << endl;
+    usleep(1000000);
 
     int calbRight = 0;
 
@@ -45,7 +46,7 @@ int calibrateFoward(){
     BP.set_motor_dps(PORT_C, 45);
     BP.set_motor_dps(PORT_B, -45);
 
-    sleep(3);
+    usleep(3000000);
 
     BP.set_motor_power(PORT_C, 0);
     BP.set_motor_power(PORT_B, 0);
@@ -63,7 +64,7 @@ int calibrateFoward(){
     BP.set_motor_dps(PORT_C, -45);
     BP.set_motor_dps(PORT_B, 45);
 
-    sleep(3);
+    usleep(3000000);
 
     BP.set_motor_power(PORT_C, 0);
     BP.set_motor_power(PORT_B, 0);
@@ -81,7 +82,7 @@ int calibrateLeft(){
     BP.set_motor_dps(PORT_C, -45);
     BP.set_motor_dps(PORT_B, 45);
 
-    sleep(3);
+    usleep(3000000);
 
     BP.set_motor_power(PORT_C, 0);
     BP.set_motor_power(PORT_B, 0);
@@ -99,7 +100,7 @@ int calibrateLeft(){
     BP.set_motor_dps(PORT_C, 45);
     BP.set_motor_dps(PORT_B, -45);
 
-    sleep(3);
+    usleep(3000000);
 
     BP.set_motor_power(PORT_C, 0);
     BP.set_motor_power(PORT_B, 0);
@@ -149,10 +150,9 @@ int main() {
 	int measurement = 0;
 
     // ofstream logfile;
-    string tmp;
-    cout << "-- Press enter to start calibration" << endl;
-    cin >> tmp;
-    cout << "--Check, tmp" << endl;
+
+    cout << "--Starting calb" << endl;
+    usleep(1000000);
 
     int getRight = calibrateRight();
     int getFoward = calibrateFoward();
@@ -160,7 +160,7 @@ int main() {
 
     cout << "-- Successfully calibrated with values:" << endl;
     cout << "[L:" << getLeft << "] [F:" << getFoward << "] [R:" << getRight << "]" << endl; 
-    sleep(3);
+    usleep(3000000);
 
 	while (true) {
 
