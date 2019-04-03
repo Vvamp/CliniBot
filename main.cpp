@@ -479,10 +479,7 @@ void checkGrid(){
 				while (true) {
 					if (BP.get_sensor(PORT_3, Light3) == 0) {
 						if (Light3.reflected < blackLow - 10) {
-							cout << Light3.reflected << endl;
-							moveLeft(50000);
-							moveStop();
-							usleep(100000);
+							moveLeft(10000);
 							stepsLeft += 100000;
 						}
 						else {
@@ -495,7 +492,7 @@ void checkGrid(){
 				while (true) {
 					if (BP.get_sensor(PORT_1, Color1) == 0) {
 						average = (Color1.reflected_blue + Color1.reflected_green + Color1.reflected_red) / 3;
-						if (average >= RGBBlackHigh) {
+						if (average >= RGBBlackHigh-20) {
 							moveRight(100000);
 							stepsLeft -= 100000;
 						}
