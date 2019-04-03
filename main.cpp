@@ -484,7 +484,7 @@ void checkGrid(){
 							stepsLeft += 100000;
 							moveStop();
 							usleep(50000);
-							if (stepsLeft >= 2900000) {
+							if (stepsLeft >= 2800000) {
 								cout << "no path found" << endl;
 								moveStop();
 								usleep(2000000);
@@ -592,7 +592,7 @@ void checkGrid(){
 								}
 							}
 							else {
-								cout << "steps: " << stepsLeft << endl;
+								cout << "steps: " << stepsRight << endl;
 								cout << "path found" << endl;
 								values[2] = true;
 								moveStop();
@@ -708,7 +708,7 @@ void checkGrid(){
 
         if(uinDirection == "left"){
             if(values[1]){
-                moveFwd(1500000);
+                moveFwd(800000);
                 turnLeft();
                 sleep(sleepTime);
                 if (BP.get_sensor(PORT_3, Light3) == 0) {
@@ -725,7 +725,7 @@ void checkGrid(){
 
         }else if(uinDirection == "right"){
             if(values[2]){
-                //moveFwd(1500000);
+                moveFwd(800000);
                 turnRight();
                 sleep(sleepTime);
                 if (BP.get_sensor(PORT_3, Light3) == 0) {
@@ -745,8 +745,7 @@ void checkGrid(){
                 currentMovement.dir = forward;
                 pathLogger.push_back(currentMovement);
                 isSearchingAfterCrossing = true;
-
-                moveFwd(1500000);
+                moveFwd(800000);
                 return;
 
             }
