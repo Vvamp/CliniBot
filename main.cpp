@@ -482,7 +482,7 @@ void checkGrid(){
 							moveLeft(10000);
 							stepsLeft += 10000;
 							moveStop();
-							usleep(10000);
+							usleep(50000);
 						}
 						else {
 							cout <<"steps: " << stepsLeft << endl;
