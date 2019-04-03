@@ -521,8 +521,8 @@ void checkGrid(){
 						}
 					}
 				}
-                sleep(sleepTime);
                 moveBack(1000000);
+				moveStop();
 
             }else{
                 if(enableDebug){
