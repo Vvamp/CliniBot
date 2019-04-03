@@ -282,6 +282,7 @@ void reverseBot() {
 				sleep(1);
 				break;
 			}
+
 		}
 	}
 	controlGrid();
@@ -480,7 +481,7 @@ void checkGrid(){
 				usleep(100000);
 				while (true) {
 					if (BP.get_sensor(PORT_3, Light3) == 0) {
-						if (Light3.reflected < blackLow - 10) {
+						if (Light3.reflected < blackLow) {
 							moveLeft(100000);
 							stepsLeft += 100000;
 							moveStop();
@@ -505,8 +506,8 @@ void checkGrid(){
 
 
                 // Turn back to face the middle-line and move back to original position
-				moveRight(stepsLeft);
-				stepsRight += stepsLeft;
+				moveRight(stepsLeft-100000);
+				stepsRight += stepsLeft-100000;
 				stepsLeft += 200000;
 				moveStop();
 				usleep(50000);
