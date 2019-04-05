@@ -21,7 +21,7 @@ int Rood;
 int Groen;
 int Blauw;
 
-// Control CliniBot with WASD
+/* Control CliniBot with WASD
 void controlTerminal(){
     // Show movement controls
     showControls();
@@ -53,6 +53,7 @@ void controlTerminal(){
         }
      }
 }
+*/
 
 //-Eye functions
 const int lookAngle = 105;
@@ -92,7 +93,7 @@ void Dansje(){
         sleep(1);
 
         BP.set_motor_power(PORT_B,-20);
-        Bp.set_motor_power(PORT_C, 20);
+        BP.set_motor_power(PORT_C, 20);
         usleep(750000);
         BP.set_motor_power(PORT_B,-20);
         Bp.set_motor_power(PORT_C, 20);
@@ -135,7 +136,7 @@ void Dansje(){
 	    BP.set_motor_power(PORT_C, -12);
         sleep(1);
         lookLeft();
-        sleep(1)
+        sleep(1);
         
         /*BP.set_motor_dps(PORT_B, 120);
         BP.set_motor_dps(PORt_C, -60);
