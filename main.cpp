@@ -499,7 +499,7 @@ void checkGrid(){
 				while (true) {
 					if (BP.get_sensor(PORT_3, Light3) == 0) {
 						if (Light3.reflected < blackLow) {
-							if (stepsLeft > 2900000) {
+							if (stepsLeft > 6000000) {
 								cout << "no path found" << endl;
 								moveStop();
 								usleep(2000000);
