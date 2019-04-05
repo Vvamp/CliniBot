@@ -929,7 +929,7 @@ sigaction(SIGINT, &sigIntHandler, NULL);
 
 // Check the voltage levels
 int cvoltage = BP.get_voltage_battery();
-if (cvoltage < 10) {
+if (cvoltage <= 9) {
     cout << "[ERROR] BATTERY CRITICAL!" << endl;
     cout << "Voltage Level: " << cvoltage << endl;
     BP.reset_all();
