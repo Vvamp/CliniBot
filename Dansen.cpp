@@ -2,6 +2,7 @@
 #include <string>
 #include "BrickPi3.h"
 #include <unistd.h>
+#include <signal.h> 
 
 
 using std::cin;
@@ -92,6 +93,9 @@ void Dansje(){
         usleep(750000);
         BP.set_motor_power(PORT_B, 20);
         BP.set_motor_power(PORT_C, -20);
+        usleep(750000);
+        BP.set_motor_power(PORT_B, 20);
+        BP.set_motor_power(PORT_C, -20);
         sleep(2);
         BP.set_motor_power(PORT_B, 0);
         BP.set_motor_power(PORT_C, 0);
@@ -101,6 +105,9 @@ void Dansje(){
         lookRight();
         sleep(2);
 
+        BP.set_motor_power(PORT_B,-20);
+        BP.set_motor_power(PORT_C, 20);
+        usleep(750000);
         BP.set_motor_power(PORT_B,-20);
         BP.set_motor_power(PORT_C, 20);
         usleep(750000);
@@ -122,8 +129,8 @@ void Dansje(){
 
         cout << "=> Groene Dans !!" << endl;
         
-        BP.set_motor_power(PORT_B, 12);
-	    BP.set_motor_power(PORT_C, -12);
+        BP.set_motor_power(PORT_B, 20);
+	    BP.set_motor_power(PORT_C, -20);
 
         sleep(1);
         lookLeft();
@@ -132,11 +139,11 @@ void Dansje(){
         BP.set_motor_power(PORT_B, -20);
         BP.set_motor_power(PORT_C, -20);
         usleep(750000);
-        BP.set_motor_power(PORT_B, -12);
-	    BP.set_motor_power(PORT_C, 12);
+        BP.set_motor_power(PORT_B, -20);
+	    BP.set_motor_power(PORT_C, 20);
         usleep(750000);
-        BP.set_motor_power(PORT_B, -12);
-	    BP.set_motor_power(PORT_C, 12);
+        BP.set_motor_power(PORT_B, -20);
+	    BP.set_motor_power(PORT_C, 20);
 
         sleep(1);
         lookRight();
