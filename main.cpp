@@ -755,8 +755,7 @@ void checkGrid(){
 				currentMovement.dir = right;
 				pathLogger.push_back(currentMovement);
                 moveFwd(1000000);
-                turnRight();
-                sleep(sleepTime);
+				moveRight(1500000);
                 if (BP.get_sensor(PORT_1, Color1) == 0) {
 					average = (Color1.reflected_blue + Color1.reflected_red + Color1.reflected_green) / 3;
                     if (average <= RGBBlackLow) {
