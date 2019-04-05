@@ -757,8 +757,9 @@ void checkGrid(){
                 moveFwd(1000000);
                 turnRight();
                 sleep(sleepTime);
-                if (BP.get_sensor(PORT_3, Light3) == 0) {
-                    if (Light3.reflected >= whiteHigh && Light3.reflected <= blackLow) {
+                if (BP.get_sensor(PORT_1, Color1) == 0) {
+					average = (Color1.reflected_blue + Color1.reflected_red + Color1.reflected_green) / 3;
+                    if (average <= RGBBlackLow) {
 						moveRight(100000);
                     }
                 }
