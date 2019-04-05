@@ -732,13 +732,17 @@ void checkGrid(){
 				pathLogger.push_back(currentMovement);
                 moveFwd(1000000);
 				moveLeft(1000000);
-                sleep(sleepTime);
-                if (BP.get_sensor(PORT_3, Light3) == 0) {
-                    if (Light3.reflected >= whiteHigh && Light3.reflected <= blackLow) {
-						moveLeft(50000);
-                    }
-                }
-                return;
+				while (true) {
+					if (BP.get_sensor(PORT_3, Light3) == 0) {
+						if (Light3.reflected >= whiteHigh && Light3.reflected <= blackLow) {
+							moveLeft(50000);
+						}
+						else
+						{
+							return;
+						}
+					}
+				}
             }
 
 
@@ -748,14 +752,18 @@ void checkGrid(){
 				pathLogger.push_back(currentMovement);
                 moveFwd(1000000);
 				moveRight(1500000);
-                if (BP.get_sensor(PORT_1, Color1) == 0) {
-					average = (Color1.reflected_blue + Color1.reflected_red + Color1.reflected_green) / 3;
-                    if (average <= RGBBlackLow) {
-						moveRight(50000);
-                    }
-                }
-                return;
-
+				while (true) {
+					if (BP.get_sensor(PORT_1, Color1) == 0) {
+						average = (Color1.reflected_blue + Color1.reflected_red + Color1.reflected_green) / 3;
+						if (average <= RGBBlackLow) {
+							moveRight(50000);
+						}
+						else {
+							return;
+						}
+					}
+					
+				}
             }
         }else if(uinDirection == "forward"){
             if(values[0]){
