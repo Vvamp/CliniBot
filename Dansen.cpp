@@ -2,6 +2,7 @@
 #include <string>
 #include "BrickPi3.h"
 #include <unistd.h>
+#include <signal.h> 
 
 
 using std::cin;
