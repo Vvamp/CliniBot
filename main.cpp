@@ -853,11 +853,21 @@ void controlGrid(){
 
 			if (BP.get_sensor(PORT_3, Light3) == 0) {
 				if (Light3.reflected >= whiteHigh && Light3.reflected <= blackLow) { //2200 - 2300
+					cout << "infrarood: " << Light3.reflected << endl;
+					cout << "blackLow: " << blackLow << endl;
+					cout << "blackHigh: " << blackHigh << endl;
+					cout << "whiteLow: " << whiteLow << endl;
+					cout << "whiteHigh: " << whiteHigh << endl;
                     moveBot(Light3.reflected, 30, 30);
 					//rechtdoor
 				}
 				else if (Light3.reflected >= whiteLow && Light3.reflected < whiteHigh) { //1850 - 2200
                     moveBot(Light3.reflected, -30, 30);
+					cout << "infrarood: " << Light3.reflected << endl;
+					cout << "blackLow: " << blackLow << endl;
+					cout << "blackHigh: " << blackHigh << endl;
+					cout << "whiteLow: " << whiteLow << endl;
+					cout << "whiteHigh: " << whiteHigh << endl;
 					//als ie het wit in gaat
 				}
 				else if (Light3.reflected > blackLow) { // > 2300
