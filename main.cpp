@@ -175,16 +175,21 @@ void moveBot(const int measurement, const int valueLeft, const int valueRight) {
 */
 }
 bool buttonPressed(){
+	cout << "Button check" << endl;
+
 	unsigned int i = 0;
 	while (i <= 4000) {
 		i++;
 		if (BP.get_sensor(PORT_4, Touch4) == 0) {
 			if(Touch4.pressed){
+				cout << "pressed" << endl;
+
 				return true;
 			}
 		}
 
 	}
+	cout << "Button wasn't not pressed" << endl;
 	return false;
 }
 void moveLeft() {
@@ -814,7 +819,8 @@ void controlGrid(){
                     return;
                 }
             }
-			if(!buttonPressed){
+			if(!buttonPressed()){
+				cout << "Button is not pressed" << endl;
 				reverseBot();
 			}
 			if (BP.get_sensor(PORT_3, Light3) == 0) {
