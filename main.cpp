@@ -295,7 +295,7 @@ void reverseBot() {
 				moveRight(100000);
 			}
 			else {
-				moveRight(1000000);
+				moveRight(500000);
 				moveStop();
 				sleep(1);
 				break;
@@ -635,6 +635,7 @@ void checkGrid(){
 					moveLeft(stepsRight);
 					stepsLeft += stepsRight;
 					stepsRight += 200000;
+					moveStop();
 					usleep(50000);
 					while (true) {
 						if (BP.get_sensor(PORT_3, Light3) == 0) {
