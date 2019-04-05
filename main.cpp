@@ -808,7 +808,7 @@ void controlGrid(){
                     return;
                 }
             }
-			if(!buttonPressed){
+			if(!buttonPressed()){
 				cout << "Button is not pressed" << endl;
 				reverseBot();
 			}
