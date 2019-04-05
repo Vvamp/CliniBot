@@ -39,7 +39,11 @@ void Calibration() {
 	int time = 4000;
 	int average;
 	char input;
+
 	while (true) {
+		if(!buttonPressed){
+			cout << "*** DO NOT FORGET THE CUP, PLEASE!!! ***" << endl;
+		}
 		if (blackHigh == 0) {
 			cout << "place the robot on black and press s + enter to start" << endl;
 			cin >> input;
