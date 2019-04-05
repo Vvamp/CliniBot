@@ -505,8 +505,6 @@ void checkGrid(){
 							}
 							moveLeft(100000);
 							stepsLeft += 100000;
-							moveStop();
-							usleep(50000);
 						}
 						else {
 							cout <<"steps: " << stepsLeft << endl;
@@ -540,9 +538,7 @@ void checkGrid(){
 								break;
 							}
 							moveRight(100000);
-							moveStop();
 							stepsRight += 100000;
-							usleep(50000);
 						}
 						else {
 							moveStop();
@@ -614,8 +610,6 @@ void checkGrid(){
 								}
 								moveRight(100000);
 								stepsRight += 100000;
-								moveStop();
-								usleep(50000);
 							}
 							else {
 								cout << "steps: " << stepsLeft << endl;
@@ -644,9 +638,7 @@ void checkGrid(){
 									break;
 								}
 								moveLeft(100000);
-								moveStop();
 								stepsLeft+=100000;
-								usleep(50000);
 							}
 							else {
 								moveStop();
