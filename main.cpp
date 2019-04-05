@@ -497,13 +497,15 @@ void checkGrid(){
                 moveFwd(1000000);
 				moveLeft(1000000);
 				stepsLeft += 1000000;
+				moveStop();
+				usleep(50000);
 				while (true) {
 					if (BP.get_sensor(PORT_3, Light3) == 0) {
 						if (Light3.reflected < whiteHigh) {
 							if (stepsLeft > 3200000) {
 								cout << "no path found" << endl;
 								moveStop();
-								usleep(1000000);
+								usleep(50000);
 								break;
 							}
 							moveLeft(50000);
@@ -514,7 +516,7 @@ void checkGrid(){
 							cout << "path found" << endl;
 							values[1] = true;
 							moveStop();
-							usleep(1000000);
+							usleep(50000);
 							break;
 						}
 					}
@@ -525,6 +527,8 @@ void checkGrid(){
 				moveRight(stepsLeft);
 				stepsRight += stepsLeft;
 				stepsLeft += 200000;
+				moveStop();
+				usleep(50000);
 				while (true) {
 					if (BP.get_sensor(PORT_1, Color1) == 0) {
 						average = (Color1.reflected_blue + Color1.reflected_green + Color1.reflected_red) / 3;
@@ -533,6 +537,7 @@ void checkGrid(){
 							if (stepsRight <= stepsLeft) {
 								moveLeft(200000);
 								moveStop();
+								usleep(50000);
 								stepsRight = 0;
 								stepsLeft = 0;
 								break;
@@ -594,25 +599,26 @@ void checkGrid(){
                     moveFwd(1000000);
 					moveRight(1000000);
 					stepsRight += 1000000;
+					moveStop();
+					usleep(50000);
 					while (true) {
 						if (BP.get_sensor(PORT_3, Light3) == 0) {
 							if (Light3.reflected < blackLow) {
 								if (stepsRight >= 2600000) {
 									cout << "no path found" << endl;
 									moveStop();
-									usleep(1000000);
+									usleep(50000);
 									break;
 								}
 								moveRight(50000);
 								stepsRight += 50000;
-
 							}
 							else {
 								cout << "steps: " << stepsRight << endl;
 								cout << "path found" << endl;
 								values[2] = true;
 								moveStop();
-								usleep(1000000);
+								usleep(50000);
 								break;
 							}
 						}
@@ -622,9 +628,11 @@ void checkGrid(){
 					moveLeft(stepsRight);
 					stepsLeft += stepsRight;
 					stepsRight += 200000;
+					moveStop();
+					usleep(50000);
 					while (true) {
 						if (BP.get_sensor(PORT_3, Light3) == 0) {
-							if (Light3.reflected < whiteHigh){
+							if (Light3.reflected < blackLow){
 								if (stepsLeft <= stepsRight) {
 									moveRight(200000);
 									moveStop();
