@@ -771,12 +771,40 @@ void checkGrid(){
     }else{
         if(pathLogger[pathLogger.size() -1].dir == left){
             pathLogger.pop_back();
-            turnRight();
+
+			moveRight(1000000);
+			moveStop();
+			while (true) {
+				if (BP.get_sensor(PORT_3, Light3) == 0) {
+					if (Light3.reflected < blackLow) {
+						moveRight(100000);
+					}
+					else {
+						moveStop();
+						usleep(1000000);
+						break;
+					}
+				}
+			}
 
         }else if(pathLogger[pathLogger.size() - 1].dir == right){
             pathLogger.pop_back();
-            turnLeft();
-        }else if(pathLogger[pathLogger.size() -1].dir == forward){
+
+			moveLeft(1000000);
+			moveStop();
+			while (true) {
+				if (BP.get_sensor(PORT_3, Light3) == 0) {
+					if (Light3.reflected < blackLow) {
+						moveLeft(100000);
+					}
+					else {
+						moveStop();
+						usleep(1000000);
+						break;
+					}
+				}
+			}
+		}else if(pathLogger[pathLogger.size() -1].dir == forward){
             pathLogger.pop_back();
             moveFwd(1500000);
             moveFwd();
