@@ -856,7 +856,7 @@ void controlGrid(){
                     moveBot(Light3.reflected, 30, 30);
 					//rechtdoor
 				}
-				else if (Light3.reflected > whiteLow && Light3.reflected < whiteHigh) { //1850 - 2200
+				else if (Light3.reflected >= whiteLow && Light3.reflected < whiteHigh) { //1850 - 2200
                     moveBot(Light3.reflected, -30, 30);
 					//als ie het wit in gaat
 				}
@@ -866,6 +866,7 @@ void controlGrid(){
                         sleep(2);
                         checkGrid();
                     }
+					moveBot(Light3.reflected, 30, -30);
 					//als ie het zwart in gaat
 				}
 
