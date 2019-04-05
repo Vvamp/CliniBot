@@ -506,9 +506,9 @@ void checkGrid(){
 								usleep(2000000);
 								break;
 							}
-							moveLeft(100000);
+							moveLeft(200000);
 							moveStop();
-							stepsLeft += 100000;
+							stepsLeft += 200000;
 							usleep(50000);
 						}
 						else {
@@ -540,9 +540,9 @@ void checkGrid(){
 								usleep(50000);
 								break;
 							}
-							moveRight(100000);
+							moveRight(200000);
 							moveStop();
-							stepsRight += 100000;
+							stepsRight += 200000;
 							usleep(50000);
 						}
 						else {
@@ -611,9 +611,9 @@ void checkGrid(){
 									usleep(2000000);
 									break;
 								}
-								moveRight(100000);
+								moveRight(200000);
 								moveStop();
-								stepsRight += 100000;
+								stepsRight += 200000;
 								usleep(50000);
 							}
 							else {
@@ -640,9 +640,9 @@ void checkGrid(){
 									usleep(50000);
 									break;
 								}
-								moveLeft(100000);
+								moveLeft(200000);
 								moveStop();
-								stepsLeft+=100000;
+								stepsLeft+=200000;
 								usleep(50000);
 							}
 							else {
@@ -840,7 +840,7 @@ void checkGrid(){
 // Let CliniBot follow a grid
 void controlGrid(){
 	// Check if the battery is still sufficiently charged, else shutdown
-    if (BP.get_voltage_battery() >= 7) {
+    if (BP.get_voltage_battery() >= 9) {
         while(true){
 			cout << "Size of history: " << pathLogger.size() << endl;
 			if(!isReversing){
@@ -910,7 +910,7 @@ sigaction(SIGINT, &sigIntHandler, NULL);
 
 // Check the voltage levels
 int cvoltage = BP.get_voltage_battery();
-if (cvoltage < 7) {
+if (cvoltage < 10) {
     cout << "[ERROR] BATTERY CRITICAL!" << endl;
     cout << "Voltage Level: " << cvoltage << endl;
     BP.reset_all();
