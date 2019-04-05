@@ -844,16 +844,13 @@ void controlGrid(){
 					//als ie het wit in gaat
 				}
 				else if (Light3.reflected > blackLow) { // > 2300
-					cout << "I'm in the black" << endl;
                     if(isCrossing()){
                         moveStop();
                         sleep(2);
                         checkGrid();
                     }
-
                     moveBot(Light3.reflected, 30, -30);
 					//als ie het zwart in gaat
-
 				}
 
 
