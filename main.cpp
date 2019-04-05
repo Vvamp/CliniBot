@@ -835,12 +835,13 @@ void controlGrid(){
 
 			if (BP.get_sensor(PORT_3, Light3) == 0) {
 				if (Light3.reflected >= whiteHigh && Light3.reflected <= blackLow) { //2200 - 2300
-
+					cout << Light3.reflected << endl;
                     moveBot(Light3.reflected, 30, 30);
 					//rechtdoor
 				}
 				else if (Light3.reflected > whiteLow && Light3.reflected < whiteHigh) { //1850 - 2200
                     moveBot(Light3.reflected, -30, 30);
+					cout << Light3.reflected << endl;
 					//als ie het wit in gaat
 				}
 				else if (Light3.reflected > blackLow) { // > 2300
@@ -849,6 +850,7 @@ void controlGrid(){
                         sleep(2);
                         checkGrid();
                     }
+					cout << Light3.reflected << endl;
                     moveBot(Light3.reflected, 30, -30);
 					//als ie het zwart in gaat
 				}
