@@ -541,7 +541,6 @@ void checkGrid(){
 							stepsRight += 50000;
 						}
 						else {
-							moveLeft(200000);
 							moveStop();
 							stepsRight = 0;
 							stepsLeft = 0;
@@ -552,9 +551,7 @@ void checkGrid(){
 				}
 				while (true) {
 					if (!isCrossing()) {
-						moveBack(100000);
-						moveStop();
-						usleep(50000);
+						moveBack(50000);
 					}
 					else {
 						moveStop();
@@ -646,9 +643,7 @@ void checkGrid(){
 					}
 					while (true) {
 						if (!isCrossing()) {
-							moveBack(100000);
-							moveStop();
-							usleep(50000);
+							moveBack(50000);
 						}
 						else {
 							moveStop();
