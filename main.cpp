@@ -851,7 +851,7 @@ void waitForCup(){
 // Let CliniBot follow a grid
 void controlGrid(){
 	// Check if the battery is still sufficiently charged, else shutdown
-    if (BP.get_voltage_battery() >= 9) {
+    if (BP.get_voltage_battery() >= 9.0) {
         while(true){
 			cout << "Size of history: " << pathLogger.size() << endl;
 			if(!isReversing){
@@ -929,7 +929,7 @@ sigaction(SIGINT, &sigIntHandler, NULL);
 
 // Check the voltage levels
 int cvoltage = BP.get_voltage_battery();
-if (cvoltage <= 9) {
+if (cvoltage <= 9.0) {
     cout << "[ERROR] BATTERY CRITICAL!" << endl;
     cout << "Voltage Level: " << cvoltage << endl;
     BP.reset_all();
