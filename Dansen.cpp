@@ -96,10 +96,10 @@ void Dansje(){
         BP.set_motor_power(PORT_C, 20);
         usleep(750000);
         BP.set_motor_power(PORT_B,-20);
-        Bp.set_motor_power(PORT_C, 20);
+        BP.set_motor_power(PORT_C, 20);
         usleep(750000);
         BP.set_motor_power(PORT_B,-20);
-        Bp.set_motor_power(PORT_C, 20);
+        BP.set_motor_power(PORT_C, 20);
         usleep(750000);
 
         }
