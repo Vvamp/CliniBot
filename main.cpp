@@ -547,6 +547,7 @@ void checkGrid(){
 							usleep(50000);
 						}
 						else {
+							moveLeft(150000);
 							moveStop();
 							stepsRight = 0;
 							stepsLeft = 0;
