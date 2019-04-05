@@ -810,8 +810,8 @@ void controlGrid(){
     if (BP.get_voltage_battery() >= 9) {
         while(true){
 			cout << "Size of history: " << pathLogger.size() << endl;
-			if(!buttonPressed()){
-				if(!isReversing){
+			if(!isReversing){
+				if(!buttonPressed()){
 				cout << "Button is not pressed" << endl;
 				return reverseBot();
 				}
@@ -820,6 +820,7 @@ void controlGrid(){
                 if(pathLogger.size() == 0){
                     //isReversing = false;
 					cout << "size = 0" << endl;
+					moveStop();
                     return;
                 }
             }
