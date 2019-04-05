@@ -491,8 +491,6 @@ void checkGrid(){
                 moveFwd(1000000);
 				moveLeft(1000000);
 				stepsLeft += 1000000;
-				moveStop();
-				usleep(100000);
 				while (true) {
 					if (BP.get_sensor(PORT_3, Light3) == 0) {
 						if (Light3.reflected < blackLow) {
@@ -522,8 +520,6 @@ void checkGrid(){
 				moveRight(stepsLeft);
 				stepsRight += stepsLeft;
 				stepsLeft += 200000;
-				moveStop();
-				usleep(50000);
 				while (true) {
 					if (BP.get_sensor(PORT_1, Color1) == 0) {
 						average = (Color1.reflected_blue + Color1.reflected_green + Color1.reflected_red) / 3;
@@ -596,8 +592,6 @@ void checkGrid(){
                     moveFwd(1000000);
 					moveRight(1000000);
 					stepsRight += 1000000;
-					moveStop();
-					usleep(100000);
 					while (true) {
 						if (BP.get_sensor(PORT_3, Light3) == 0) {
 							if (Light3.reflected < blackLow) {
@@ -626,8 +620,6 @@ void checkGrid(){
 					moveLeft(stepsRight);
 					stepsLeft += stepsRight;
 					stepsRight += 200000;
-					moveStop();
-					usleep(50000);
 					while (true) {
 						if (BP.get_sensor(PORT_3, Light3) == 0) {
 							if (Light3.reflected < whiteHigh){
