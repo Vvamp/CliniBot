@@ -77,6 +77,7 @@ void Dansje(){
         cout << "=> Rode dans !!" << endl;
 
         lookLeft();
+        sleep(2);
         BP.set_motor_power(PORT_B, 20);
 	    BP.set_motor_power(PORT_C, -20);
 	    usleep(750000);
@@ -90,7 +91,7 @@ void Dansje(){
         lookRight();
         sleep(2);
         lookRight();
-        sleep(1);
+        sleep(2);
 
         BP.set_motor_power(PORT_B,-20);
         BP.set_motor_power(PORT_C, 20);
@@ -101,6 +102,9 @@ void Dansje(){
         BP.set_motor_power(PORT_B,-20);
         BP.set_motor_power(PORT_C, 20);
         usleep(750000);
+        
+        lookLeft();
+        sleep(2);
 
         }
     else if(Groen > Rood && Groen > Blauw){
