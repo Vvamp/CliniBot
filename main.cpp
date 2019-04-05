@@ -820,8 +820,10 @@ void controlGrid(){
                 }
             }
 			if(!buttonPressed()){
+				if(!isReversing){
 				cout << "Button is not pressed" << endl;
 				reverseBot();
+			}
 			}
 			if (BP.get_sensor(PORT_3, Light3) == 0) {
 				if (Light3.reflected >= whiteHigh && Light3.reflected <= blackLow) { //2200 - 2300
