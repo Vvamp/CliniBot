@@ -300,7 +300,7 @@ void reverseBot() {
 			}
 		}
 	}
-	//controlGrid();
+	return controlGrid();
 }
 // Check if there is a regular crossing(both sensors would be black)
 bool isCrossing(){
@@ -813,7 +813,7 @@ void controlGrid(){
 			if(!buttonPressed()){
 				if(!isReversing){
 				cout << "Button is not pressed" << endl;
-				reverseBot();
+				return reverseBot();
 				}
 			}
             if(isReversing){
