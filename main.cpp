@@ -302,7 +302,7 @@ void reverseBot() {
 			}
 		}
 	}
-	controlGrid();
+	//controlGrid();
 	return;
 }
 // Check if there is a regular crossing(both sensors would be black)
@@ -817,18 +817,21 @@ void controlGrid(){
 	// Check if the battery is still sufficiently charged, else shutdown
     if (BP.get_voltage_battery() >= 9) {
         while(true){
-            if(isReversing){
-                if(pathLogger.size() == 0){
-                    isReversing = false;
-                    return;
-                }
-            }
+			cout << "Size of history: " << pathLogger.size() << endl;
 			if(!buttonPressed()){
 				if(!isReversing){
 				cout << "Button is not pressed" << endl;
 				reverseBot();
+				}
 			}
-			}
+            if(isReversing){
+                if(pathLogger.size() == 0){
+                    //isReversing = false;
+					cout << "size = 0" << endl;
+                    return;
+                }
+            }
+
 			if (BP.get_sensor(PORT_3, Light3) == 0) {
 				if (Light3.reflected >= whiteHigh && Light3.reflected <= blackLow) { //2200 - 2300
 
