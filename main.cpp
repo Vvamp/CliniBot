@@ -741,13 +741,14 @@ void checkGrid(){
 
         if(uinDirection == "left"){
             if(values[1]){
+				currentMovement.dir = left;
+				pathLogger.push_back(currentMovement);
                 moveFwd(1000000);
                 turnLeft();
                 sleep(sleepTime);
                 if (BP.get_sensor(PORT_3, Light3) == 0) {
                     if (Light3.reflected >= whiteHigh && Light3.reflected <= blackLow) {
-                        currentMovement.dir = left;
-                        pathLogger.push_back(currentMovement);
+
                         turnLeft();
                     }
                 }
@@ -757,13 +758,14 @@ void checkGrid(){
 
         }else if(uinDirection == "right"){
             if(values[2]){
+				currentMovement.dir = right;
+				pathLogger.push_back(currentMovement);
                 moveFwd(1000000);
                 turnRight();
                 sleep(sleepTime);
                 if (BP.get_sensor(PORT_3, Light3) == 0) {
                     if (Light3.reflected >= whiteHigh && Light3.reflected <= blackLow) {
-                        currentMovement.dir = right;
-                        pathLogger.push_back(currentMovement);
+
                         turnRight();
                     }
                 }
