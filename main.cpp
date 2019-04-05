@@ -813,6 +813,7 @@ void controlGrid(){
 	// Check if the battery is still sufficiently charged, else shutdown
     if (BP.get_voltage_battery() >= 9) {
         while(true){
+			cout << "Size of history: " << pathLogger.size() << endl;
 			if(!buttonPressed()){
 				if(!isReversing){
 				cout << "Button is not pressed" << endl;
