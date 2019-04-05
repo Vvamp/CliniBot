@@ -35,13 +35,28 @@ int RGBBlackHigh = 0;
 int RGBWhiteLow = 1000000;
 int RGBWhiteHigh = 0;
 
+bool buttonPressed(){
+
+	unsigned int i = 0;
+	while (i <= 4000) {
+		i++;
+		if (BP.get_sensor(PORT_4, Touch4) == 0) {
+			if(Touch4.pressed){
+				return true;
+			}
+		}
+
+	}
+	return false;
+}
+
 void Calibration() {
 	int time = 4000;
 	int average;
 	char input;
 
 	while (true) {
-		if(!buttonPressed){
+		if(!buttonPressed()){
 			cout << "*** DO NOT FORGET THE CUP, PLEASE!!! ***" << endl;
 		}
 		if (blackHigh == 0) {
@@ -179,20 +194,7 @@ void moveBot(const int measurement, const int valueLeft, const int valueRight) {
     cout << endl << "=====================" << endl;
 */
 }
-bool buttonPressed(){
 
-	unsigned int i = 0;
-	while (i <= 4000) {
-		i++;
-		if (BP.get_sensor(PORT_4, Touch4) == 0) {
-			if(Touch4.pressed){
-				return true;
-			}
-		}
-
-	}
-	return false;
-}
 void moveLeft() {
     int speed = 80;
 
