@@ -762,7 +762,7 @@ void checkGrid(){
 							return;
 						}
 					}
-					
+
 				}
             }
         }else if(uinDirection == "forward"){
@@ -861,7 +861,7 @@ void controlGrid(){
 					cout << "size = 0" << endl;
 					moveStop();
 						//rotate 180
-
+					const int sleepTime=2;
 					turnRight();
 					sleep(sleepTime);
 					turnRight();
