@@ -786,6 +786,7 @@ void checkGrid(){
     }else{
         if(pathLogger[pathLogger.size() -1].dir == left){
             pathLogger.pop_back();
+			moveFwd(5000000);
 
 			moveRight(1000000);
 			moveStop();
@@ -804,6 +805,7 @@ void checkGrid(){
 
         }else if(pathLogger[pathLogger.size() - 1].dir == right){
             pathLogger.pop_back();
+			moveFwd(5000000);
 
 			moveLeft(1000000);
 			moveStop();
@@ -867,7 +869,7 @@ void controlGrid(){
 				}
 				else if (Light3.reflected >= whiteLow && Light3.reflected < whiteHigh) { //1850 - 2200
                     moveBot(Light3.reflected, -30, 30);
-					
+
 					//als ie het wit in gaat
 				}
 				else if (Light3.reflected > blackLow) { // > 2300
