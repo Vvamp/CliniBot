@@ -292,7 +292,6 @@ void reverseBot() {
 				moveRight(100000);
 			}
 			else {
-				moveRight(500000);
 				moveStop();
 				usleep(1000000);
 				cout << "end of reversing" << endl;
