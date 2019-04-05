@@ -291,7 +291,7 @@ void reverseBot() {
 	moveRight(1000000);
 	while (true) {
 		if (BP.get_sensor(PORT_3, Light3) == 0) {
-			if (Light3.reflected >= whiteLow && Light3.reflected <= whiteHigh) {
+			if (Light3.reflected < blackLow) {
 				moveRight(100000);
 			}
 			else {
@@ -500,7 +500,7 @@ void checkGrid(){
 					if (BP.get_sensor(PORT_3, Light3) == 0) {
 						if (Light3.reflected < blackLow) {
 							cout << Light3.reflected << " " << blackLow << endl;
-							if (stepsLeft > 3100000) {
+							if (stepsLeft > 3200000) {
 								cout << "no path found" << endl;
 								moveStop();
 								usleep(2000000);
@@ -535,7 +535,7 @@ void checkGrid(){
 						if (average > RGBBlackHigh)
 						{
 							if (stepsRight <= stepsLeft) {
-								moveLeft(100000);
+								moveLeft(200000);
 								moveStop();
 								stepsRight = 0;
 								stepsLeft = 0;
@@ -640,7 +640,7 @@ void checkGrid(){
 						if (BP.get_sensor(PORT_3, Light3) == 0) {
 							if (Light3.reflected < whiteHigh){
 								if (stepsLeft <= stepsRight) {
-									moveRight(100000);
+									moveRight(200000);
 									moveStop();
 									usleep(50000);
 									break;
