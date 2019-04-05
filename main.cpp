@@ -826,7 +826,13 @@ void checkGrid(){
 }
 
 
+void waitForCup(){
+	while(!buttonPressed()){
+		cout << "Waiting for the cup" << endl;
+	}
+	return;
 
+}
 
 //- Main functions
 // Let CliniBot follow a grid
@@ -846,7 +852,15 @@ void controlGrid(){
                     //isReversing = false;
 					cout << "size = 0" << endl;
 					moveStop();
-                    return;
+						//rotate 180
+
+					turnRight();
+					sleep(sleepTime);
+					turnRight();
+					sleep(sleepTime);
+
+					waitForCup();
+					isReversing = false;
                 }
             }
 
