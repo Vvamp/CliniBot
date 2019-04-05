@@ -499,23 +499,22 @@ void checkGrid(){
 				stepsLeft += 1000000;
 				while (true) {
 					if (BP.get_sensor(PORT_3, Light3) == 0) {
-						if (Light3.reflected < blackLow) {
+						if (Light3.reflected < whiteHigh) {
 							if (stepsLeft > 3200000) {
 								cout << "no path found" << endl;
 								moveStop();
 								usleep(1000000);
 								break;
 							}
-							moveLeft(200000);
-							moveStop();
-							stepsLeft += 200000;
+							moveLeft(50000);
+							stepsLeft += 50000;
 						}
 						else {
 							cout <<"steps: " << stepsLeft << endl;
 							cout << "path found" << endl;
 							values[1] = true;
 							moveStop();
-							usleep(2000000);
+							usleep(1000000);
 							break;
 						}
 					}
@@ -538,9 +537,8 @@ void checkGrid(){
 								stepsLeft = 0;
 								break;
 							}
-							moveRight(200000);
-							moveStop();
-							stepsRight += 200000;
+							moveRight(50000);
+							stepsRight += 50000;
 						}
 						else {
 							moveLeft(200000);
@@ -608,9 +606,8 @@ void checkGrid(){
 									usleep(1000000);
 									break;
 								}
-								moveRight(200000);
-								moveStop();
-								stepsRight += 200000;
+								moveRight(50000);
+								stepsRight += 50000;
 
 							}
 							else {
@@ -637,9 +634,8 @@ void checkGrid(){
 									usleep(50000);
 									break;
 								}
-								moveLeft(200000);
-								moveStop();
-								stepsLeft+=200000;
+								moveLeft(50000);
+								stepsLeft+=50000;
 							}
 							else {
 								moveStop();
