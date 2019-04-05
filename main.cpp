@@ -500,7 +500,7 @@ void checkGrid(){
 					if (BP.get_sensor(PORT_3, Light3) == 0) {
 						if (Light3.reflected < blackLow) {
 							cout << Light3.reflected << " " << blackLow << endl;
-							if (stepsLeft > 6000000) {
+							if (stepsLeft > 3000000) {
 								cout << "no path found" << endl;
 								moveStop();
 								usleep(2000000);
@@ -608,7 +608,7 @@ void checkGrid(){
 						if (BP.get_sensor(PORT_3, Light3) == 0) {
 							if (Light3.reflected < blackLow) {
 								cout << Light3.reflected << " " << blackLow << endl;
-								if (stepsRight >= 2000000) {
+								if (stepsRight >= 2400000) {
 									cout << "no path found" << endl;
 									moveStop();
 									usleep(2000000);
