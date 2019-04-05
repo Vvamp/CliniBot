@@ -21,16 +21,149 @@ int Rood;
 int Groen;
 int Blauw;
 
+// Control CliniBot with WASD
+void controlTerminal(){
+    // Show movement controls
+    showControls();
+
+    // Curses settings
+    initscr();      // Init curses !!! Anything that gets printed after this will be printed weirdly
+    cbreak();       // Sets that the code buffers per-key and not per newline
+    noecho();       // Don't print the characters entered
+    timeout(1750);  // Check once every 1,750ms
+
+    // Control the robot
+    while (true){
+        int userIn = getch();   // Request a single character from the user
+        refresh();              // Refresh the screen
+
+        // Check the input of the user
+        if (userIn == 'w'){
+            moveFwd();
+       }else if(userIn == 'a'){
+           moveLeft();
+       }else if(userIn == 'd'){
+           moveRight();
+       }else if(userIn == 's'){
+            moveBack();
+       }else if(userIn == 'e'){
+           break;
+       }else if(userIn == 'p'){
+            moveStop();
+        }
+     }
+}
+
+//-Eye functions
+const int lookAngle = 105;
+
+// Turn the eyes left
+void lookLeft(){
+    BP.set_motor_position_relative(PORT_D, lookAngle);
+}
+
+// Turn the eyes right
+void lookRight(){
+    BP.set_motor_position_relative(PORT_D, -lookAngle);
+}
+
+
 void Dansje(){
 
+
     if(Rood > Groen && Rood > Blauw){
-        cout << "=> Doet iets bij rood" << endl;
-    }
+
+        cout << "=> Rode dans !!" << endl;
+
+        lookLeft();
+        BP.set_motor_power(PORT_B, 20);
+	    BP.set_motor_power(PORT_C, -20);
+	    usleep(750000);
+        BP.set_motor_power(PORT_B, 20);
+        BP.set_motor_power(PORT_C, -20);
+        usleep(750000);
+        BP.set_motor_power(PORT_B, 20);
+        BP.set_motor_power(PORT_C, -20);
+        usleep(750000);
+
+        lookRight();
+        sleep(2);
+        lookRight();
+        sleep(1);
+
+        BP.set_motor_power(PORT_B,-20);
+        Bp.set_motor_power(PORT_C, 20);
+        usleep(750000);
+        BP.set_motor_power(PORT_B,-20);
+        Bp.set_motor_power(PORT_C, 20);
+        usleep(750000);
+        BP.set_motor_power(PORT_B,-20);
+        Bp.set_motor_power(PORT_C, 20);
+        usleep(750000);
+
+        }
     else if(Groen > Rood && Groen > Blauw){
-        cout << "=> Doet iets bij groen" << endl;
+
+        cout << "=> Groene Dans !!" << endl;
+        
+        BP.set_motor_power(PORT_B, 12);
+	    BP.set_motor_power(PORT_C, -12);
+
+        sleep(1);
+        lookLeft();
+        sleep(1);
+
+        BP.set_motor_power(PORT_B, -20);
+        BP.set_motor_power(PORT_C, -20);
+        usleep(750000);
+        BP.set_motor_power(PORT_B, -12);
+	    BP.set_motor_power(PORT_C, 12);
+        usleep(750000);
+        BP.set_motor_power(PORT_B, -12);
+	    BP.set_motor_power(PORT_C, 12);
+
+        sleep(1);
+        lookRight();
+        sleep(2);
+        lookRight();
+        sleep(1);
+
+        BP.set_motor_power(PORT_B, -20);
+        BP.set_motor_power(PORT_C, -20);
+        usleep(750000);
+        BP.set_motor_power(PORT_B, 12);
+	    BP.set_motor_power(PORT_C, -12);
+        sleep(1);
+        lookLeft();
+        sleep(1)
+        
+        /*BP.set_motor_dps(PORT_B, 120);
+        BP.set_motor_dps(PORt_C, -60);
+        sleep(1);
+        BP.set_motor_dps(PORT_B, 120);
+        BP.set_motor_dps(PORT_C, -60);
+        sleep(1);
+        BP.set_motor_dps(PORT_B, 120);
+        BP.set_motor_dps(PORT_C, -60);
+        sleep(1);*/
+
     }
     else if(Blauw > Rood && Blauw > Groen){
-        cout << "=> Doet iets bij blauw" << endl;
+
+        cout << "=> Blauwe dans !!" << endl;
+
+        BP.set_motor_power(PORT_B, 5);
+        BP.set_motor_power(PORT_C, -10);
+        sleep(1);
+        BP.set_motor_power(PORT_B, -10);
+        BP.set_motor_power(PORT_C, 5);
+        sleep(1);
+        BP.set_motor_power(PORT_B, -5);
+        BP.set_motor_power(PORT_C, 10);
+        sleep(1);
+        BP.set_motor_power(PORT_B, 10);
+        BP.set_motor_power(PORT_C, -5);
+        sleep(1);
     }
     else{
         cout << "Ongeldige waarde !!!" << endl;
