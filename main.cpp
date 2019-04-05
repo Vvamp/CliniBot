@@ -21,6 +21,7 @@ BrickPi3 BP; // Define an instance of BrickPi3, called 'BP'
 sensor_light_t      Light3; //RGB Light sensor
 sensor_color_t      Color1; //Infrared sensor
 sensor_ultrasonic_t Ultrasonic2; //Ultrasonic sensor
+sensor_touch_t      Touch4;		// Touch sensor
 
 const bool enableDebug = true;
 
