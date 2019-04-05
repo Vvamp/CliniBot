@@ -870,6 +870,8 @@ BP.detect(); // Make sure that the BrickPi3 is communicating and that the firmwa
 BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
 BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
 BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
+BP.set_sensor_type(PORT_4, SENSOR_TYPE_TOUCH_NXT);
+
 Calibration();
 BP.set_motor_limits(PORT_B, 30, 0);
 BP.set_motor_limits(PORT_C, 30, 0);
