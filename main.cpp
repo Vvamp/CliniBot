@@ -151,7 +151,7 @@ void moveBot(const int measurement, const int valueLeft, const int valueRight) {
 
 	BP.set_motor_power(PORT_C, valueLeft); //Left motor
     BP.set_motor_power(PORT_B, valueRight); // Right motor
-	usleep(100000);
+	usleep(50000);
 /*
     cout << "\033[2J\033[1;1H"; //Clear screen
     cout << "CLINIBOT ============" << endl;
@@ -301,7 +301,6 @@ void reverseBot() {
 		}
 	}
 	//controlGrid();
-	return;
 }
 // Check if there is a regular crossing(both sensors would be black)
 bool isCrossing(){
