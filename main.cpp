@@ -59,7 +59,7 @@ void Calibration() {
 		if(!buttonPressed()){
 			cout << "*** DO NOT FORGET THE CUP, PLEASE!!! ***" << endl;
 		}
-		if (blackHigh == 0) {
+		else if (blackHigh == 0) {
 			cout << "place the robot on black and press s + enter to start" << endl;
 			cin >> input;
 			if (input == 's') {
@@ -90,7 +90,7 @@ void Calibration() {
 			cout << "RGB black high value is: " << RGBBlackHigh << endl;
 			cout << "RGB black low value is: " << RGBBlackLow << endl;
 		}
-		if (whiteHigh == 0) {
+		else if (whiteHigh == 0) {
 			cout << "place the robot on white and press s + enter to start" << endl;
 			cin >> input;
 			if (input == 's') {
