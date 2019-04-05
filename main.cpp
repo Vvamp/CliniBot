@@ -519,10 +519,6 @@ void checkGrid(){
 							break;
 						}
 					}
-					else
-					{
-						moveStop();
-					}
 				}
 
 
@@ -553,9 +549,6 @@ void checkGrid(){
 							usleep(50000);
 							break;
 						}
-					}
-					else {
-						moveStop();
 					}
 				}
 				while (true) {
@@ -627,9 +620,6 @@ void checkGrid(){
 								break;
 							}
 						}
-						else {
-							moveStop();
-						}
 					}
 
                     // Turn back to face the middle-line and go back to original position
@@ -653,9 +643,6 @@ void checkGrid(){
 								usleep(50000);
 								break;
 							}
-						}
-						else {
-							moveStop();
 						}
 					}
 					while (true) {
