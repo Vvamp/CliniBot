@@ -175,21 +175,17 @@ void moveBot(const int measurement, const int valueLeft, const int valueRight) {
 */
 }
 bool buttonPressed(){
-	cout << "Button check" << endl;
 
 	unsigned int i = 0;
 	while (i <= 4000) {
 		i++;
 		if (BP.get_sensor(PORT_4, Touch4) == 0) {
 			if(Touch4.pressed){
-				cout << "pressed" << endl;
-
 				return true;
 			}
 		}
 
 	}
-	cout << "Button wasn't not pressed" << endl;
 	return false;
 }
 void moveLeft() {
@@ -289,6 +285,7 @@ void reverseBot() {
 	isReversing = true;
 	//rotate 180 degrees
 	moveRight(1000000);
+	moveStop();
 	while (true) {
 		if (BP.get_sensor(PORT_3, Light3) == 0) {
 			if (Light3.reflected < blackLow) {
@@ -297,7 +294,8 @@ void reverseBot() {
 			else {
 				moveRight(500000);
 				moveStop();
-				sleep(1);
+				usleep(1000000);
+				cout << "end of reversing" << endl;
 				break;
 			}
 		}
