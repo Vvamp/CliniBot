@@ -547,7 +547,7 @@ void checkGrid(){
 							usleep(50000);
 						}
 						else {
-							moveLeft(150000);
+							moveLeft(200000);
 							moveStop();
 							stepsRight = 0;
 							stepsLeft = 0;
@@ -786,7 +786,7 @@ void checkGrid(){
     }else{
         if(pathLogger[pathLogger.size() -1].dir == left){
             pathLogger.pop_back();
-			moveFwd(5000000);
+			moveFwd(500000);
 
 			moveRight(1000000);
 			moveStop();
@@ -805,7 +805,7 @@ void checkGrid(){
 
         }else if(pathLogger[pathLogger.size() - 1].dir == right){
             pathLogger.pop_back();
-			moveFwd(5000000);
+			moveFwd(500000);
 
 			moveLeft(1000000);
 			moveStop();
