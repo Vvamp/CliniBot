@@ -68,6 +68,12 @@ void lookRight(){
     BP.set_motor_position_relative(PORT_D, -lookAngle);
 }
 
+// Error handler
+void eHandler(int s){
+    cout << "Exiting..." << endl;
+    BP.reset_all();
+    exit(0);
+}
 
 void Dansje(){
 
@@ -86,7 +92,9 @@ void Dansje(){
         usleep(750000);
         BP.set_motor_power(PORT_B, 20);
         BP.set_motor_power(PORT_C, -20);
-        usleep(750000);
+        sleep(2);
+        BP.set_motor_power(PORT_B, 0);
+        BP.set_motor_power(PORT_C, 0);
 
         lookRight();
         sleep(2);
@@ -101,8 +109,11 @@ void Dansje(){
         usleep(750000);
         BP.set_motor_power(PORT_B,-20);
         BP.set_motor_power(PORT_C, 20);
-        usleep(750000);
-        
+        sleep(2);
+
+        BP.set_motor_power(PORT_B, 0);
+        BP.set_motor_power(PORT_C, 0);
+
         lookLeft();
         sleep(2);
 
@@ -207,6 +218,13 @@ int main(){
 
 BP.detect(); // Make sure that the BrickPi3 is communicating and that the firmware is compatible with the drivers.
 	BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
+
+    // Initialize the ctrl + c catch
+    struct sigaction sigIntHandler;
+    sigIntHandler.sa_handler = eHandler;
+    sigemptyset(&sigIntHandler.sa_mask);
+    sigIntHandler.sa_flags = 0;
+    sigaction(SIGINT, &sigIntHandler, NULL);
 
     MeetKleuren();
 
