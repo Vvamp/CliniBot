@@ -302,7 +302,7 @@ void reverseBot() {
 			}
 		}
 	}
-	controlGrid();
+	//controlGrid();
 	return;
 }
 // Check if there is a regular crossing(both sensors would be black)
@@ -499,8 +499,7 @@ void checkGrid(){
 				while (true) {
 					if (BP.get_sensor(PORT_3, Light3) == 0) {
 						if (Light3.reflected < blackLow) {
-							cout << Light3.reflected << " " << blackLow << endl;
-							if (stepsLeft > 3000000) {
+							if (stepsLeft > 2900000) {
 								cout << "no path found" << endl;
 								moveStop();
 								usleep(2000000);
@@ -606,9 +605,8 @@ void checkGrid(){
 					usleep(100000);
 					while (true) {
 						if (BP.get_sensor(PORT_3, Light3) == 0) {
-							if (Light3.reflected < blackLow) {
-								cout << Light3.reflected << " " << blackLow << endl;
-								if (stepsRight >= 2400000) {
+							if (Light3.reflected <= blackLow) {
+								if (stepsRight >= 2000000) {
 									cout << "no path found" << endl;
 									moveStop();
 									usleep(2000000);
@@ -815,18 +813,20 @@ void controlGrid(){
 	// Check if the battery is still sufficiently charged, else shutdown
     if (BP.get_voltage_battery() >= 9) {
         while(true){
-            if(isReversing){
-                if(pathLogger.size() == 0){
-                    isReversing = false;
-                    return;
-                }
-            }
 			if(!buttonPressed()){
 				if(!isReversing){
 				cout << "Button is not pressed" << endl;
 				reverseBot();
+				}
 			}
-			}
+            if(isReversing){
+                if(pathLogger.size() == 0){
+                    //isReversing = false;
+					cout << "size = 0" << endl;
+                    return;
+                }
+            }
+
 			if (BP.get_sensor(PORT_3, Light3) == 0) {
 				if (Light3.reflected >= whiteHigh && Light3.reflected <= blackLow) { //2200 - 2300
 
