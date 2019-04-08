@@ -823,9 +823,10 @@ void checkGrid(){
 		string input;
 		while(mb.isRunning()) {
 			input = mb.readMessage();  //blokkeert niet
-			cout << "Input: " << input << endl;
 			if(input != ""){
 				// input
+				cout << "Input: " << input << endl;
+
 				if(input.find("UP") != std::string::npos){
 					if(values[0]){
 						cout << "Direction > Forward" << endl;
