@@ -904,13 +904,13 @@ void checkGrid(){
 					sleep(sleepTime);
 					turnRight();
 					sleep(sleepTime);
-							}
+				}
 			}
 
-		cout.flush();
-	}
+			cout.flush();
+			}
 
-
+		}
 
 
 
