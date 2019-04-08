@@ -327,7 +327,7 @@ bool isCrossing(){
         /*if(enableDebug){
         cout << "rgb: " << measurement << endl;
     }*/
-        if(measurement >=RGBBlackLow && measurement < RGBBlackHigh){
+        if(measurement >=RGBBlackLow && measurement <= RGBBlackHigh){
             s1 = true;
         }
     }
@@ -832,7 +832,7 @@ void checkGrid(){
 								moveRight(50000);
 							}
 							else {
-								moveRight(50000);
+								moveRight(500000);
 								moveStop();
 								return;
 							}
