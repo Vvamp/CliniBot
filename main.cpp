@@ -27,7 +27,7 @@ sensor_touch_t      Touch4;		// Touch sensor
 
 //Bluetooth definition
 BluetoothServerSocket serversock(2, 1);  //2 is het channel-number
-
+BluetoothSocket* clientsock;
 
 const bool enableDebug = true;
 
@@ -816,7 +816,7 @@ void checkGrid(){
         }
     }*/
 		bool foundDirection = false;
-
+		movement currentMovement;
 		while(!foundDirection){
 		cout << "Waiting for direction..." << endl;
 		MessageBox& mb = clientsock->getMessageBox();
@@ -1098,7 +1098,7 @@ if(Keuze == "1"){
     controlGrid();
 }else if(Keuze == "3"){
 	cout << "Waiting for bluetooth device" << endl;
-	BluetoothSocket* clientsock = serversock.accept();
+	clientsock = serversock.accept();
 	cout << "accepted from " << clientsock->getForeignAddress().getAddress() << endl;
 	controlGrid();
 }
