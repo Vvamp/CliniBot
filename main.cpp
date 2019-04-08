@@ -424,33 +424,58 @@ void turnAround(){
 }
 
 void shakeHead(){
-	//BP.set_motor_limits(PORT_D, 90, 0);
-	lookLeft();
-	usleep(100000);
-	BP.set_motor_power(PORT_D, 0);
-	lookRight();
-	usleep(100000);
-	BP.set_motor_power(PORT_D, 0);
-	lookRight();
-	usleep(100000);
-	BP.set_motor_power(PORT_D, 0);
-	lookLeft();
-	usleep(100000);
-	BP.set_motor_power(PORT_D, 0);
+	BP.set_motor_limits(PORT_D, 50, 0);
 
 	lookLeft();
 	usleep(100000);
+	lookRight();
+	usleep(2000);
+
+	lookRight();
+	usleep(100000);
+	lookLeft();
+	usleep(2000);
+
 	BP.set_motor_power(PORT_D, 0);
 	lookRight();
 	usleep(100000);
-	BP.set_motor_power(PORT_D, 0);
-	lookRight();
-	usleep(100000);
+	lookLeft();
+	usleep(2000);
+
 	BP.set_motor_power(PORT_D, 0);
 	lookLeft();
 	usleep(100000);
+	lookRight();
+	usleep(2000);
+
 	BP.set_motor_power(PORT_D, 0);
-	//BP.set_motor_limits(PORT_D, 90, 0);
+
+
+	lookLeft();
+	usleep(100000);
+	lookRight();
+	usleep(2000);
+
+	BP.set_motor_power(PORT_D, 0);
+	lookRight();
+	usleep(100000);
+	lookLeft();
+	usleep(2000);
+
+	BP.set_motor_power(PORT_D, 0);
+	lookRight();
+	usleep(100000);
+	lookLeft();
+	usleep(2000);
+
+	BP.set_motor_power(PORT_D, 0);
+	lookLeft();
+	usleep(100000);
+	lookRight();
+	usleep(2000);
+
+	BP.set_motor_power(PORT_D, 0);
+	BP.set_motor_limits(PORT_D, 90, 0);
 }
 
 
@@ -1094,7 +1119,8 @@ cout << "|                                               |" << endl;
 cout << "|        Hoe wilt u de robot gebruiken?         |" << endl;
 cout << "|                                               |" << endl;
 cout << "| Keuze 1: De robot over een grid laten rijden. |" << endl;
-cout << "| Keuze 2: Keuzemenu verlaten.                  |" << endl;
+cout << "| Keuze 2: De robot over een grid laten rijden (bt) |" << endl;
+cout << "| Keuze 3: Keuzemenu verlaten.                  |" << endl;
 cout << "|                                               |" << endl;
 cout << "|    Selecteer uw keuze met 1, 2, 3, 4 of 5.    |" << endl;
 cout << "|_______________________________________________|" << endl;
@@ -1107,15 +1133,18 @@ getline(cin,Keuze);
 
 if(Keuze == "1"){
     controlGrid();
-}else if(Keuze == "3"){
+}else if(Keuze == "2"){
 	cout << "Waiting for bluetooth device" << endl;
 	clientsock = serversock.accept();
 	cout << "accepted from " << clientsock->getForeignAddress().getAddress() << endl;
 	controlGrid();
 }
-else if(Keuze == "2"){
+else if(Keuze == "3"){
     cout << "...Exiting Keuzemenu..." << endl;
     break;
+}else if(Keuze == "4"){
+	shakeHead();
+	break;
 }else{
     cout << "Geen geldige keuze! Probeer opnieuw..." << endl;
 }
