@@ -1148,7 +1148,7 @@ if(Keuze == "1"){
 	clientsock = serversock.accept();
 	cout << "accepted from " << clientsock->getForeignAddress().getAddress() << endl;
 	cout << "Type s and enter to start" << endl;
-	string input = "":
+	string input = "";
 	cin >> input;
 	controlGrid();
 }
