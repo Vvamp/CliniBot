@@ -427,21 +427,29 @@ void shakeHead(){
 	//BP.set_motor_limits(PORT_D, 90, 0);
 	lookLeft();
 	usleep(100000);
+	BP.set_motor_power(PORT_D, 0);
 	lookRight();
 	usleep(100000);
+	BP.set_motor_power(PORT_D, 0);
 	lookRight();
 	usleep(100000);
+	BP.set_motor_power(PORT_D, 0);
 	lookLeft();
 	usleep(100000);
+	BP.set_motor_power(PORT_D, 0);
 
 	lookLeft();
 	usleep(100000);
+	BP.set_motor_power(PORT_D, 0);
 	lookRight();
 	usleep(100000);
+	BP.set_motor_power(PORT_D, 0);
 	lookRight();
 	usleep(100000);
+	BP.set_motor_power(PORT_D, 0);
 	lookLeft();
 	usleep(100000);
+	BP.set_motor_power(PORT_D, 0);
 	//BP.set_motor_limits(PORT_D, 90, 0);
 }
 
