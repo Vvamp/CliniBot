@@ -643,7 +643,7 @@ void checkGrid(){
 								stepsLeft+=50000;
 							}
 							else {
-								moveRight(100000);
+								moveRight(500000);
 								moveStop();
 								usleep(50000);
 								break;
