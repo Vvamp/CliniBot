@@ -495,9 +495,9 @@ void checkGrid(){
                 }
                 // Bring wheels to crossing center and turn left
                 moveFwd(1000000);
+				moveStop();
 				moveLeft(1000000);
 				stepsLeft += 1000000;
-				moveStop();
 				usleep(50000);
 				while (true) {
 					if (BP.get_sensor(PORT_3, Light3) == 0) {
@@ -525,9 +525,9 @@ void checkGrid(){
 
                 // Turn back to face the middle-line and move back to original position
 				moveRight(stepsLeft);
+				moveStop();
 				stepsRight += stepsLeft;
 				stepsLeft += 200000;
-				moveStop();
 				usleep(50000);
 				while (true) {
 					if (BP.get_sensor(PORT_1, Color1) == 0) {
@@ -597,9 +597,9 @@ void checkGrid(){
 
                     // Move wheels to center and turn right
                     moveFwd(1000000);
+					moveStop();
 					moveRight(1000000);
 					stepsRight += 1000000;
-					moveStop();
 					usleep(50000);
 					while (true) {
 						if (BP.get_sensor(PORT_3, Light3) == 0) {
@@ -626,9 +626,9 @@ void checkGrid(){
 
                     // Turn back to face the middle-line and go back to original position
 					moveLeft(stepsRight);
+					moveStop();
 					stepsLeft += stepsRight;
 					stepsRight += 200000;
-					moveStop();
 					usleep(50000);
 					while (true) {
 						if (BP.get_sensor(PORT_3, Light3) == 0) {
