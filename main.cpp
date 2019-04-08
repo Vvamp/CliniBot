@@ -805,11 +805,12 @@ void checkGrid(){
 					moveLeft(1500000);
 					while (true) {
 						if (BP.get_sensor(PORT_3, Light3) == 0) {
-							if (Light3.reflected >= whiteHigh && Light3.reflected <= blackLow) {
+							if (Light3.reflected <= whiteHigh) {
 								moveLeft(50000);
 							}
 							else
 							{
+								moveRight(100000);
 								moveStop();
 								return;
 							}
@@ -827,7 +828,7 @@ void checkGrid(){
 					while (true) {
 						if (BP.get_sensor(PORT_3, Light3) == 0) {
 							//average = (Color1.reflected_blue + Color1.reflected_red + Color1.reflected_green) / 3;
-							if (Light3.reflected < whiteHigh) {
+							if (Light3.reflected <= whiteHigh) {
 								moveRight(50000);
 							}
 							else {
