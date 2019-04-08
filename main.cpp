@@ -634,7 +634,7 @@ void checkGrid(){
 						if (BP.get_sensor(PORT_3, Light3) == 0) {
 							if (Light3.reflected < blackLow){
 								if (stepsLeft > stepsRight) {
-									moveLeft(200000);
+									moveRight(200000);
 									moveStop();
 									usleep(50000);
 									break;
@@ -852,7 +852,6 @@ void controlGrid(){
 	// Check if the battery is still sufficiently charged, else shutdown
     if (BP.get_voltage_battery() >= 9.0) {
         while(true){
-			cout << "Size of history: " << pathLogger.size() << endl;
 			if(!isReversing){
 				if(!buttonPressed()){
 				cout << "Button is not pressed" << endl;
