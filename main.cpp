@@ -743,6 +743,7 @@ void checkGrid(){
 						}
 						else
 						{
+							moveStop();
 							return;
 						}
 					}
@@ -763,6 +764,8 @@ void checkGrid(){
 							moveRight(50000);
 						}
 						else {
+							moveRight(50000);
+							moveStop();
 							return;
 						}
 					}
