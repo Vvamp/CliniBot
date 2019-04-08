@@ -535,7 +535,7 @@ void checkGrid(){
 						if (average > RGBBlackHigh)
 						{
 							if (stepsRight <= stepsLeft) {
-								moveLeft(200000);
+								moveLeft(300000);
 								moveStop();
 								usleep(50000);
 								stepsRight = 0;
@@ -546,7 +546,6 @@ void checkGrid(){
 							stepsRight += 50000;
 						}
 						else {
-							moveRight(100000);
 							moveStop();
 							stepsRight = 0;
 							stepsLeft = 0;
@@ -635,7 +634,7 @@ void checkGrid(){
 						if (BP.get_sensor(PORT_3, Light3) == 0) {
 							if (Light3.reflected < blackLow){
 								if (stepsLeft <= stepsRight) {
-									moveRight(200000);
+									moveRight(300000);
 									moveStop();
 									usleep(50000);
 									break;
