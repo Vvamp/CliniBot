@@ -1147,6 +1147,9 @@ if(Keuze == "1"){
 	cout << "Waiting for bluetooth device" << endl;
 	clientsock = serversock.accept();
 	cout << "accepted from " << clientsock->getForeignAddress().getAddress() << endl;
+	cout << "Type s and enter to start" << endl;
+	string input = "":
+	cin >> input;
 	controlGrid();
 }
 else if(Keuze == "3"){
