@@ -30,6 +30,7 @@ BluetoothServerSocket serversock(2, 1);  //2 is het channel-number
 BluetoothSocket* clientsock;
 
 const bool enableDebug = true;
+bool useBluetooth = false;
 
 bool isReversing = false;
 int blackHigh = 0;
@@ -424,33 +425,59 @@ void turnAround(){
 }
 
 void shakeHead(){
-	//BP.set_motor_limits(PORT_D, 90, 0);
-	lookLeft();
-	usleep(100000);
-	BP.set_motor_power(PORT_D, 0);
-	lookRight();
-	usleep(100000);
-	BP.set_motor_power(PORT_D, 0);
-	lookRight();
-	usleep(100000);
-	BP.set_motor_power(PORT_D, 0);
-	lookLeft();
-	usleep(100000);
-	BP.set_motor_power(PORT_D, 0);
+	BP.set_motor_limits(PORT_D, 50, 0);
 
 	lookLeft();
 	usleep(100000);
+	lookRight();
+	usleep(2000);
+
+	lookRight();
+	usleep(100000);
+	lookLeft();
+	usleep(2000);
+
 	BP.set_motor_power(PORT_D, 0);
 	lookRight();
 	usleep(100000);
-	BP.set_motor_power(PORT_D, 0);
-	lookRight();
-	usleep(100000);
+	lookLeft();
+	usleep(2000);
+
 	BP.set_motor_power(PORT_D, 0);
 	lookLeft();
 	usleep(100000);
+	lookRight();
+	usleep(2000);
+
 	BP.set_motor_power(PORT_D, 0);
-	//BP.set_motor_limits(PORT_D, 90, 0);
+
+
+	lookLeft();
+	usleep(100000);
+	lookRight();
+	usleep(2000);
+
+	BP.set_motor_power(PORT_D, 0);
+	lookRight();
+	usleep(100000);
+	lookLeft();
+	usleep(2000);
+
+	BP.set_motor_power(PORT_D, 0);
+	lookRight();
+	usleep(100000);
+	lookLeft();
+	usleep(2000);
+
+	BP.set_motor_power(PORT_D, 0);
+	lookLeft();
+	usleep(100000);
+	lookRight();
+	usleep(20000);
+
+
+	BP.set_motor_power(PORT_D, 0);
+	BP.set_motor_limits(PORT_D, 90, 0);
 }
 
 
@@ -745,86 +772,89 @@ void checkGrid(){
     cout << endl;
 
 
-	// random
-	/*string uinDirection;
-    int randomDirectionChooser = 0;
-    while(true){
-        movement currentMovement;
-        srand((unsigned) time(0));
-        randomDirectionChooser = rand() % 3 + 1;
-        //cout << randomDirectionChooser << endl;
-        switch(randomDirectionChooser){
-            case 1:
-                uinDirection =  "left";
-                break;
-            case 2:
-                uinDirection = "right";
-                break;
-            case 3:
-                uinDirection = "forward";
-                break;
-            default:
-                uinDirection = "backwards";
-                cout << "ERROR IN SHIT" << endl;
-                break;
-        }
+	if(!useBluetooth){
+		// Random choice
+		string uinDirection;
+	    int randomDirectionChooser = 0;
+	    while(true){
+	        movement currentMovement;
+	        srand((unsigned) time(0));
+	        randomDirectionChooser = rand() % 3 + 1;
+	        //cout << randomDirectionChooser << endl;
+	        switch(randomDirectionChooser){
+	            case 1:
+	                uinDirection =  "left";
+	                break;
+	            case 2:
+	                uinDirection = "right";
+	                break;
+	            case 3:
+	                uinDirection = "forward";
+	                break;
+	            default:
+	                uinDirection = "backwards";
+	                cout << "ERROR IN SHIT" << endl;
+	                break;
+	        }
 
-        if(uinDirection == "left"){
-            if(values[1]){
-				currentMovement.dir = left;
-				pathLogger.push_back(currentMovement);
-                moveFwd(1000000);
-				moveLeft(1500000);
-				while (true) {
-					if (BP.get_sensor(PORT_3, Light3) == 0) {
-						if (Light3.reflected >= whiteHigh && Light3.reflected <= blackLow) {
-							moveLeft(50000);
-						}
-						else
-						{
-							moveStop();
-							return;
-						}
-					}
-				}
-            }
-
-
-        }else if(uinDirection == "right"){
-            if(values[2]){
-				currentMovement.dir = right;
-				pathLogger.push_back(currentMovement);
-                moveFwd(1000000);
-				moveRight(1000000);
-				while (true) {
-					if (BP.get_sensor(PORT_3, Light3) == 0) {
-						//average = (Color1.reflected_blue + Color1.reflected_red + Color1.reflected_green) / 3;
-						if (Light3.reflected < blackLow) {
-							moveRight(50000);
-						}
-						else {
-							moveRight(50000);
-							moveStop();
-							return;
+	        if(uinDirection == "left"){
+	            if(values[1]){
+					currentMovement.dir = left;
+					pathLogger.push_back(currentMovement);
+	                moveFwd(1000000);
+					moveLeft(1500000);
+					while (true) {
+						if (BP.get_sensor(PORT_3, Light3) == 0) {
+							if (Light3.reflected >= whiteHigh && Light3.reflected <= blackLow) {
+								moveLeft(50000);
+							}
+							else
+							{
+								moveStop();
+								return;
+							}
 						}
 					}
-
-				}
-            }
-        }else if(uinDirection == "forward"){
-            if(values[0]){
-                currentMovement.dir = forward;
-                pathLogger.push_back(currentMovement);
+	            }
 
 
-                moveFwd(1500000);
-                return;
+	        }else if(uinDirection == "right"){
+	            if(values[2]){
+					currentMovement.dir = right;
+					pathLogger.push_back(currentMovement);
+	                moveFwd(1000000);
+					moveRight(1000000);
+					while (true) {
+						if (BP.get_sensor(PORT_3, Light3) == 0) {
+							//average = (Color1.reflected_blue + Color1.reflected_red + Color1.reflected_green) / 3;
+							if (Light3.reflected < blackLow) {
+								moveRight(50000);
+							}
+							else {
+								moveRight(50000);
+								moveStop();
+								return;
+							}
+						}
 
-            }
-        }else{
-            cout << "Unknown direction" << endl;
-        }
-    }*/
+					}
+	            }
+	        }else if(uinDirection == "forward"){
+	            if(values[0]){
+	                currentMovement.dir = forward;
+	                pathLogger.push_back(currentMovement);
+
+
+	                moveFwd(1500000);
+	                return;
+
+	            }
+	        }else{
+	            cout << "Unknown direction" << endl;
+	        }
+
+		}
+	}else{
 		bool foundDirection = false;
 		movement currentMovement;
 		while(!foundDirection){
@@ -922,7 +952,7 @@ void checkGrid(){
 			}
 
 		}
-
+	}
 
 
     }else{
@@ -1082,7 +1112,6 @@ BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
 BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
 BP.set_sensor_type(PORT_4, SENSOR_TYPE_TOUCH_NXT);
 
-Calibration();
 
 
 BP.set_motor_limits(PORT_B, 30, 0);
@@ -1094,7 +1123,8 @@ cout << "|                                               |" << endl;
 cout << "|        Hoe wilt u de robot gebruiken?         |" << endl;
 cout << "|                                               |" << endl;
 cout << "| Keuze 1: De robot over een grid laten rijden. |" << endl;
-cout << "| Keuze 2: Keuzemenu verlaten.                  |" << endl;
+cout << "| Keuze 2: De robot over een grid laten rijden (bt) |" << endl;
+cout << "| Keuze 3: Keuzemenu verlaten.                  |" << endl;
 cout << "|                                               |" << endl;
 cout << "|    Selecteer uw keuze met 1, 2, 3, 4 of 5.    |" << endl;
 cout << "|_______________________________________________|" << endl;
@@ -1106,16 +1136,28 @@ string Keuze;
 getline(cin,Keuze);
 
 if(Keuze == "1"){
+	useBluetooth=false;
+	Calibration();
+
     controlGrid();
-}else if(Keuze == "3"){
+}else if(Keuze == "2"){
+	useBluetooth=true;
+	Calibration();
+
 	cout << "Waiting for bluetooth device" << endl;
 	clientsock = serversock.accept();
 	cout << "accepted from " << clientsock->getForeignAddress().getAddress() << endl;
+	cout << "Type s and enter to start" << endl;
+	string input = "";
+	cin >> input;
 	controlGrid();
 }
-else if(Keuze == "2"){
+else if(Keuze == "3"){
     cout << "...Exiting Keuzemenu..." << endl;
     break;
+}else if(Keuze == "4"){
+	shakeHead();
+	break;
 }else{
     cout << "Geen geldige keuze! Probeer opnieuw..." << endl;
 }
