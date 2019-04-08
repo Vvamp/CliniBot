@@ -5,6 +5,8 @@
 #include <string>        // String variables
 #include <vector>       // Vector variables
 #include <cstdlib>  // random numbers
+#include "BluetoothSocket.h" //bluetooth capablitiy
+
 
 // Using statements
 using std::cout;
@@ -22,6 +24,10 @@ sensor_light_t      Light3; //RGB Light sensor
 sensor_color_t      Color1; //Infrared sensor
 sensor_ultrasonic_t Ultrasonic2; //Ultrasonic sensor
 sensor_touch_t      Touch4;		// Touch sensor
+
+//Bluetooth definition
+BluetoothServerSocket serversock(2, 1);  //2 is het channel-number
+
 
 const bool enableDebug = true;
 
@@ -417,6 +423,27 @@ void turnAround(){
 
 }
 
+void shakeHead(){
+	BP.set_motor_limits(PORT_D, 120, 0);
+	lookLeft();
+	usleep(100000);
+	lookRight();
+	lookRight();
+	usleep(100000);
+	lookLeft();
+	usleep(100000);
+
+	lookLeft();
+	usleep(100000);
+	lookRight();
+	lookRight();
+	usleep(100000);
+	lookLeft();
+	usleep(100000);
+	BP.set_motor_limits(PORT_D, 90, 0);
+}
+
+
 // Check a crossing
 void checkGrid(){
     const unsigned int routesToCheck = 3;
@@ -707,7 +734,9 @@ void checkGrid(){
     }
     cout << endl;
 
-    string uinDirection;
+
+	// random
+	/*string uinDirection;
     int randomDirectionChooser = 0;
     while(true){
         movement currentMovement;
@@ -785,7 +814,106 @@ void checkGrid(){
         }else{
             cout << "Unknown direction" << endl;
         }
-    }
+    }*/
+		bool foundDirection = false;
+
+		while(!foundDirection){
+		cout << "Waiting for direction..." << endl;
+		MessageBox& mb = clientsock->getMessageBox();
+		string input;
+		while(mb.isRunning()) {
+			input = mb.readMessage();  //blokkeert niet
+			cout << "Input: " << input << endl;
+			if(input != ""){
+				// input
+				if(input.find("UP") != std::string::npos){
+					if(values[0]){
+						cout << "Direction > Forward" << endl;
+
+						foundDirection = true;
+						currentMovement.dir = forward;
+						pathLogger.push_back(currentMovement);
+
+
+						moveFwd(1500000);
+						return;
+
+					}else{
+						shakeHead();
+					}
+				}else if(input.find("LEFT") != std::string::npos){
+
+					if(values[1]){
+						cout << "Direction > Left" << endl;
+						foundDirection = true;
+						currentMovement.dir = left;
+						pathLogger.push_back(currentMovement);
+						moveFwd(1000000);
+						moveLeft(1500000);
+						while (true) {
+							if (BP.get_sensor(PORT_3, Light3) == 0) {
+								if (Light3.reflected >= whiteHigh && Light3.reflected <= blackLow) {
+									moveLeft(50000);
+								}
+								else
+								{
+									moveStop();
+									return;
+								}
+							}
+						}
+					}else{
+						shakeHead();
+					}
+
+				}else if(input.find("RIGHT") != std::string::npos){
+
+					if(values[2]){
+						cout << "Direction > Right" << endl;
+
+						foundDirection = true;
+						currentMovement.dir = right;
+						pathLogger.push_back(currentMovement);
+						moveFwd(1000000);
+						moveRight(1000000);
+						while (true) {
+							if (BP.get_sensor(PORT_3, Light3) == 0) {
+								//average = (Color1.reflected_blue + Color1.reflected_red + Color1.reflected_green) / 3;
+								if (Light3.reflected < blackLow) {
+									moveRight(50000);
+								}
+								else {
+									moveRight(50000);
+									moveStop();
+									return;
+								}
+							}
+
+						}
+					}else{
+						shakeHead();
+					}
+
+				}else if(input.find("DOWN") != std::string::npos){
+					cout << "Direction > Back" << endl;
+
+					foundDirection = true;
+					currentMovement.dir = backwards;
+					pathLogger.push_back(currentMovement);
+					turnRight();
+					sleep(sleepTime);
+					turnRight();
+					sleep(sleepTime);
+							}
+			}
+
+		cout.flush();
+	}
+
+
+
+
+
     }else{
         if(pathLogger[pathLogger.size() -1].dir == left){
             pathLogger.pop_back();
@@ -944,6 +1072,8 @@ BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
 BP.set_sensor_type(PORT_4, SENSOR_TYPE_TOUCH_NXT);
 
 Calibration();
+
+
 BP.set_motor_limits(PORT_B, 30, 0);
 BP.set_motor_limits(PORT_C, 30, 0);
 BP.set_motor_limits(PORT_D, 90, 0);
@@ -967,7 +1097,10 @@ getline(cin,Keuze);
 if(Keuze == "1"){
     controlGrid();
 }else if(Keuze == "3"){
-    turnAround();
+	cout << "Waiting for bluetooth device" << endl;
+	BluetoothSocket* clientsock = serversock.accept();
+	cout << "accepted from " << clientsock->getForeignAddress().getAddress() << endl;
+	controlGrid();
 }
 else if(Keuze == "2"){
     cout << "...Exiting Keuzemenu..." << endl;
@@ -990,6 +1123,7 @@ void eHandler(int s){
     if(uin == "y"){
     reverseBot();
     }
+	clientsock->close();
     BP.reset_all();
     exit(0);
 }
