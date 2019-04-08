@@ -473,7 +473,8 @@ void shakeHead(){
 	lookLeft();
 	usleep(100000);
 	lookRight();
-	usleep(2000);
+	usleep(20000);
+
 
 	BP.set_motor_power(PORT_D, 0);
 	BP.set_motor_limits(PORT_D, 90, 0);
