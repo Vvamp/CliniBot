@@ -863,6 +863,7 @@ void controlGrid(){
                 if(pathLogger.size() == 0){
                     //isReversing = false;
 					cout << "size = 0" << endl;
+					moveFwd(2000000);
 					moveStop();
 						//rotate 180
 					const int sleepTime=2;
