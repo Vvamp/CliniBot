@@ -428,7 +428,7 @@ void shakeHead(){
 	lookLeft();
 	usleep(100000);
 	lookRight();
-	usleep(10000);
+	usleep(100000);
 	lookRight();
 	usleep(100000);
 	lookLeft();
@@ -437,12 +437,12 @@ void shakeHead(){
 	lookLeft();
 	usleep(100000);
 	lookRight();
-	usleep(10000);
+	usleep(100000);
 	lookRight();
 	usleep(100000);
 	lookLeft();
 	usleep(100000);
-//	BP.set_motor_limits(PORT_D, 90, 0);
+	//BP.set_motor_limits(PORT_D, 90, 0);
 }
 
 
