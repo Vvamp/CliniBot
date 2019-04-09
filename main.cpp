@@ -667,7 +667,7 @@ void checkGrid(){
 								stepsLeft+=50000;
 							}
 							else {
-								moveRight(500000);
+								moveRight(600000);
 								moveStop();
 								usleep(50000);
 								break;
@@ -761,7 +761,8 @@ void checkGrid(){
 					currentMovement.dir = left;
 					pathLogger.push_back(currentMovement);
 	                moveFwd(1000000);
-					moveLeft(1500000);
+					moveStop();
+					moveLeft(1000000);
 					while (true) {
 						if (BP.get_sensor(PORT_3, Light3) == 0) {
 							if (Light3.reflected <= whiteHigh) {
@@ -769,7 +770,6 @@ void checkGrid(){
 							}
 							else
 							{
-								moveRight(100000);
 								moveStop();
 								return;
 							}
@@ -804,7 +804,7 @@ void checkGrid(){
 	                pathLogger.push_back(currentMovement);
 
 
-	                moveFwd(1500000);
+	                moveFwd(1000000);
 	                return;
 
 	            }
