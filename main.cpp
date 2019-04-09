@@ -1095,8 +1095,10 @@ getline(cin,Keuze);
 if(Keuze == "1"){
 	useBluetooth=false;
 	Calibration();
-
-    controlGrid();
+	cout << "Type s and enter to start" << endl;
+	string input = "";
+	cin >> input;
+	controlGrid();
 }else if(Keuze == "2"){
 	useBluetooth=true;
 	Calibration();
