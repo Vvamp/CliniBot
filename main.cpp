@@ -444,7 +444,7 @@ void shakeHead(){
 // Check a crossing
 void checkGrid(){
     const unsigned int routesToCheck = 3;
-    const int sleepTime = 1;
+    const int sleepTime = 2;
 
 	int stepsLeft = 0;
 	int stepsRight = 0;
@@ -507,13 +507,13 @@ void checkGrid(){
 
             // Turn eyes left and check if there is an object
             lookLeft();
-            sleep(sleepTime);
+            sleep(1);
             if(!obstacleDetected()){
                 if(enableDebug){
                 cout << "...clear!" << endl;
                 }
                 lookRight();                    // Reset eyes
-                sleep(sleepTime);               // give the eyes time to look
+                sleep(1);               // give the eyes time to look
                 if(enableDebug){
                 cout << "checking if path...";
                 }
@@ -607,14 +607,14 @@ void checkGrid(){
 
                 // Turn eyes right and check if there is an object
                 lookRight();
-                sleep(sleepTime);
+                sleep(1);
 
                 if(!obstacleDetected()){
                     if(enableDebug){
                     cout << "...clear!" << endl;
                     }
                     lookLeft();         // Reset eyes
-                    sleep(sleepTime);
+                    sleep(1);
 
                     if(enableDebug){
                     cout << "checking if path...";
