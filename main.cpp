@@ -662,6 +662,7 @@ void checkGrid(){
 									moveRight(200000);
 									moveStop();
 									usleep(50000);
+									//klaas
 									break;
 								}
 								moveLeft(50000);
