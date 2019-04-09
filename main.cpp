@@ -1127,14 +1127,10 @@ BP.reset_all();
 // Error handler
 void eHandler(int s){
     cout << "Exiting..." << endl;
-    cout << "Reverse bot? ";
-    string uin;
-    cin >> uin;
-    if(uin == "y"){
-    reverseBot();
-    }
 	moveStop();
-	clientsock->close();
+	if (useBluetooth) {
+		clientsock->close();
+	}
     BP.reset_all();
     exit(0);
 }
