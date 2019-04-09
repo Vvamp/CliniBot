@@ -444,7 +444,7 @@ void shakeHead(){
 // Check a crossing
 void checkGrid(){
     const unsigned int routesToCheck = 3;
-    const int sleepTime = 2;
+    const int sleepTime = 1;
 
 	int stepsLeft = 0;
 	int stepsRight = 0;
