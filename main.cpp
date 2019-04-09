@@ -1177,6 +1177,7 @@ void eHandler(int s){
     if(uin == "y"){
     reverseBot();
     }
+	moveStop();
 	clientsock->close();
     BP.reset_all();
     exit(0);
