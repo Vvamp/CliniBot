@@ -659,7 +659,7 @@ void checkGrid(){
 							average = (Color1.reflected_blue + Color1.reflected_red + Color1.reflected_green) / 3;
 							if (average > RGBBlackHigh){
 								if (stepsLeft > stepsRight) {
-									moveRight(300000);
+									moveRight(200000);
 									moveStop();
 									usleep(50000);
 									break;
@@ -668,7 +668,6 @@ void checkGrid(){
 								stepsLeft+=50000;
 							}
 							else {
-								moveLeft(500000);
 								moveStop();
 								usleep(50000);
 								break;
