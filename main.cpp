@@ -559,7 +559,7 @@ void checkGrid(){
 						if (Light3.reflected < whiteHigh)
 						{
 							if (stepsRight > stepsLeft) {
-								moveLeft(200000);
+								moveLeft(250000);
 								moveStop();
 								usleep(50000);
 								stepsRight = 0;
@@ -570,6 +570,7 @@ void checkGrid(){
 							stepsRight += 50000;
 						}
 						else {
+							moveRight(200000);
 							moveStop();
 							stepsRight = 0;
 							stepsLeft = 0;
@@ -659,7 +660,7 @@ void checkGrid(){
 							average = (Color1.reflected_blue + Color1.reflected_red + Color1.reflected_green) / 3;
 							if (average > RGBBlackHigh){
 								if (stepsLeft > stepsRight) {
-									moveRight(200000);
+									moveRight(250000);
 									moveStop();
 									usleep(50000);
 									//klaas
@@ -669,6 +670,7 @@ void checkGrid(){
 								stepsLeft+=50000;
 							}
 							else {
+								moveLeft(200000);
 								moveStop();
 								usleep(50000);
 								break;
