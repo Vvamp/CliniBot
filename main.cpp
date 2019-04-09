@@ -178,28 +178,6 @@ void moveBot(const int measurement, const int valueLeft, const int valueRight) {
 	BP.set_motor_power(PORT_C, valueLeft); //Left motor
     BP.set_motor_power(PORT_B, valueRight); // Right motor
 	usleep(50000);
-/*
-    cout << "\033[2J\033[1;1H"; //Clear screen
-    cout << "CLINIBOT ============" << endl;
-
-
-
-    cout << endl << "-INFORMATION:" << endl;
-    cout << " Battery voltage: " << BP.get_voltage_battery() << endl;
-    cout << " 9v voltage: " << BP.get_voltage_9v() << endl;
-    cout << " 5v voltage: " << BP.get_voltage_5v() << endl;
-    cout << " 3.3v voltage: " << BP.get_voltage_3v3() << endl;
-
-    cout << endl << "-MOTOR VALUES: " << endl;
-    cout << " Left: " << valueLeft << "v" << endl;
-    cout << " Right: " << valueRight << "v" << endl;
-
-    cout << endl << "-DETECTION:" << endl ;
-    cout << " LIGHT REFLECTION: " << measurement << endl;
-    cout << " ULTRASONIC: " << endl;
-
-    cout << endl << "=====================" << endl;
-*/
 }
 
 void moveLeft() {
@@ -324,9 +302,6 @@ bool isCrossing(){
     // Check if RGB sensor reads black
     if (BP.get_sensor(PORT_1, Color1) == 0) {
         measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
-        /*if(enableDebug){
-        cout << "rgb: " << measurement << endl;
-    }*/
         if(measurement >=RGBBlackLow && measurement <= RGBBlackHigh){
             s1 = true;
         }
@@ -336,9 +311,6 @@ bool isCrossing(){
     // Check if IR sensor reads black
     if (BP.get_sensor(PORT_3, Light3) == 0) {
         measurement = Light3.reflected;
-    /*    if(enableDebug){
-        cout << "ir: " << measurement << endl;
-    }*/
         if(measurement >= blackLow){
             s2 = true;
         }
@@ -370,9 +342,6 @@ bool obstacleDetected(){
 
         }
     }
-    //if(enableDebug){
-    //cout << endl << "cm: " << Ultrasonic2.cm << endl;
-    //}
     return false;
 
 }
@@ -380,16 +349,10 @@ bool obstacleDetected(){
 // Check if there is a line
 bool lineDetected(){
     int measurement = 0;
-//    if(enableDebug){
-//    cout << endl << endl << "checking line";
-//    }
     bool s1 = false;
     bool s2 = false;
     if (BP.get_sensor(PORT_3, Light3) == 0) {
         measurement = Light3.reflected;
-        //if(enableDebug){
-    //   cout << endl << "measured RGB: " << measurement << " borders: 2000 <= x < 2700" << endl;
-    //    }
         if(measurement >=whiteHigh && measurement < blackHigh){
             s1 = true;
         }else{
@@ -398,9 +361,6 @@ bool lineDetected(){
     }
     if (BP.get_sensor(PORT_1, Color1) == 0) {
         measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
-    //    if(enableDebug){
-    //    cout << endl << "m: " << measurement << " borders: 200 <= x < 400" << endl;
-    //    }
         if(measurement < RGBBlackHigh && measurement > RGBWhiteHigh){
             s2 = true;
         }else{
@@ -780,7 +740,6 @@ void checkGrid(){
 	        movement currentMovement;
 	        srand((unsigned) time(0));
 	        randomDirectionChooser = rand() % 3 + 1;
-	        //cout << randomDirectionChooser << endl;
 	        switch(randomDirectionChooser){
 	            case 1:
 	                uinDirection =  "left";
@@ -827,7 +786,6 @@ void checkGrid(){
 					moveRight(1000000);
 					while (true) {
 						if (BP.get_sensor(PORT_3, Light3) == 0) {
-							//average = (Color1.reflected_blue + Color1.reflected_red + Color1.reflected_green) / 3;
 							if (Light3.reflected <= whiteHigh) {
 								moveRight(50000);
 							}
@@ -920,7 +878,6 @@ void checkGrid(){
 						moveRight(1000000);
 						while (true) {
 							if (BP.get_sensor(PORT_3, Light3) == 0) {
-								//average = (Color1.reflected_blue + Color1.reflected_red + Color1.reflected_green) / 3;
 								if (Light3.reflected < blackLow) {
 									moveRight(50000);
 								}
@@ -955,8 +912,8 @@ void checkGrid(){
 		}
 	}
 
-
-    }else{
+    }
+	else{
         if(pathLogger[pathLogger.size() -1].dir == left){
             pathLogger.pop_back();
 			moveFwd(500000);
@@ -1033,7 +990,6 @@ void controlGrid(){
 			}
             if(isReversing){
                 if(pathLogger.size() == 0){
-                    //isReversing = false;
 					cout << "size = 0" << endl;
 					moveFwd(2000000);
 					moveStop();
@@ -1050,16 +1006,16 @@ void controlGrid(){
             }
 
 			if (BP.get_sensor(PORT_3, Light3) == 0) {
-				if (Light3.reflected >= whiteHigh && Light3.reflected <= blackLow) { //2200 - 2300
+				if (Light3.reflected >= whiteHigh && Light3.reflected <= blackLow) {
                     moveBot(Light3.reflected, 30, 30);
 					//rechtdoor
 				}
-				else if (Light3.reflected >= whiteLow && Light3.reflected < whiteHigh) { //1850 - 2200
+				else if (Light3.reflected >= whiteLow && Light3.reflected < whiteHigh) {
                     moveBot(Light3.reflected, -30, 30);
 
 					//als ie het wit in gaat
 				}
-				else if (Light3.reflected > blackLow) { // > 2300
+				else if (Light3.reflected > blackLow) {
                     if(isCrossing()){
                         moveStop();
                         sleep(2);
