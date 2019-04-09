@@ -570,7 +570,6 @@ void checkGrid(){
 							stepsRight += 50000;
 						}
 						else {
-							moveRight(500000);
 							moveStop();
 							stepsRight = 0;
 							stepsLeft = 0;
