@@ -274,18 +274,34 @@ void Dansje(){
 
         cout << "=> Blauwe dans !!" << endl;
 
-        BP.set_motor_power(PORT_B, 5);
-        BP.set_motor_power(PORT_C, -10);
-        sleep(1);
-        BP.set_motor_power(PORT_B, -10);
-        BP.set_motor_power(PORT_C, 5);
-        sleep(1);
-        BP.set_motor_power(PORT_B, -5);
-        BP.set_motor_power(PORT_C, 10);
-        sleep(1);
-        BP.set_motor_power(PORT_B, 10);
-        BP.set_motor_power(PORT_C, -5);
-        sleep(1);
+        BP.set_motor_position_relative(PORT_B, -1680);
+        BP.set_motor_position_relative(PORT_C, 1680);
+        usleep(750000);
+        BP.set_motor_position_relative(PORT_B, 1680);
+        BP.set_motor_position_relative(PORT_C, -1680);
+        usleep(750000);
+        BP.set_motor_position_relative(PORT_B, 210);
+        BP.set_motor_position_relative(PORT_C, -210);
+        lookLeft()
+        usleep(500000);
+        BP.set_motor_position_relative(PORT_B, -210);
+        BP.set_motor_position_relative(PORT_C, 210);
+        usleep(500000);
+        BP.set_motor_position_relative(PORT_B, 210);
+        BP.set_motor_position_relative(PORT_C, -210);
+        lookRight();
+        usleep(750000);
+        BP.set_motor_position_relative(PORT_B, -210);
+        BP.set_motor_position_relative(PORT_C, 210);
+        usleep(500000);
+        BP.set_motor_position_relative(PORT_B, 210);
+        BP.set_motor_position_relative(PORT_C, -210);
+        lookRight();
+        usleep(750000);
+        BP.set_motor_position_relative(PORT_B, -840);
+        BP.set_motor_position_relative(PORT_C, 840);
+        usleep(750000);
+        lookLeft();
     }
     else{
         cout << "Ongeldige waarde !!!" << endl;
