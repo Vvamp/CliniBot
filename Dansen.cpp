@@ -276,10 +276,10 @@ void Dansje(){
 
         BP.set_motor_position_relative(PORT_B, -1680);
         BP.set_motor_position_relative(PORT_C, 1680);
-        usleep(750000);
+        usleep(1000000);
         BP.set_motor_position_relative(PORT_B, 1680);
         BP.set_motor_position_relative(PORT_C, -1680);
-        usleep(750000);
+        usleep(1000000);
         BP.set_motor_position_relative(PORT_B, 210);
         BP.set_motor_position_relative(PORT_C, -210);
         lookLeft();
