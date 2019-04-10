@@ -215,7 +215,16 @@ void Dansje(){
         BP.set_motor_position_relative(PORT_B, 360);
         usleep(750000); 
         BP.set_motor_position_relative(PORT_C, -360);
-        sleep(3);
+        usleep(750000);
+        BP.set_motor_position_relative(PORT_B, 360);
+        usleep(750000);
+        BP.set_motor_position_relative(PORT_B, 360);
+        usleep(750000);
+        BP.set_motor_position_relative(PORT_C, -360);
+        usleep(750000);
+        BP.set_motor_position_relative(PORT_C, -360);
+        usleep(3000000);
+
     }
 
     else if(Blauw > Rood && Blauw > Groen){
