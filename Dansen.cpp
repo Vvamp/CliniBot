@@ -95,7 +95,7 @@ void Dansje(){
         //sleep(2);
 
         /*BP.set_motor_dps(PORT_B, -360);
-        BP.set_motor_dps(PORT_C, -360);
+        BP.set_motor_dps(PORT_C, -360);    
         usleep(500000);
         BP.set_motor_dps(PORT_B, 360);
         BP.set_motor_dps(PORT_C, 360);
