@@ -87,6 +87,14 @@ void Dansje(){
 
         lookLeft();
         sleep(1);
+        lookRight();
+        sleep(1);
+        lookRight();
+        sleep(1);
+        lookLeft();
+        sleep(1);
+        lookLeft();
+        sleep(1);
 
         BP.set_motor_position_relative(PORT_B, 420);
         BP.set_motor_position_relative(PORT_C, -420);
@@ -99,6 +107,10 @@ void Dansje(){
         BP.set_motor_position_relative(PORT_C, 0);
 
         lookRight();
+        sleep(1);
+        lookRight();
+        sleep(1);
+        lookLeft();
         sleep(1);
         lookRight();
         sleep(1);
@@ -114,6 +126,28 @@ void Dansje(){
 
         lookLeft();
         sleep(1);
+        lookLeft();
+        sleep(1);
+
+        BP.set_motor_position_relative(PORT_B, -420);
+        BP.set_motor_position_relative(PORT_C, 420);
+        sleep(1);
+        BP.set_motor_position_relative(PORT_B, 0);
+        BP.set_motor_position_relative(PORT_C, 0);
+        
+        lookRight();
+        sleep(1);
+        lookRight();
+        sleep(1);
+
+        BP.set_motor_position_relative(PORT_B, 420);
+        BP.set_motor_position_relative(PORT_C, -420);
+        sleep(1);
+        BP.set_motor_position_relative(PORT_B, 0);
+        BP.set_motor_position_relative(PORT_C, 0);
+
+        lookLeft();
+        sleep(3);
 
         //lookLeft();
         //sleep(2);
