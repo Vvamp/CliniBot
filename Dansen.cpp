@@ -216,14 +216,47 @@ void Dansje(){
         usleep(750000); 
         BP.set_motor_position_relative(PORT_C, -360);
         usleep(750000);
-        BP.set_motor_position_relative(PORT_B, 360);
-        usleep(750000);
-        BP.set_motor_position_relative(PORT_B, 360);
-        usleep(750000);
+        BP.set_motor_position_relative(PORT_B, -360);
         BP.set_motor_position_relative(PORT_C, -360);
         usleep(750000);
+        BP.set_motor_position_relative(PORT_B, 210);
+        BP.set_motor_position_relative(PORT_C, -210);
+        usleep(750000);
+        BP.set_motor_position_relative(PORT_B, -210);
+        BP.set_motor_position_relative(PORT_C, 210);
+        sleep(1);
+
+        BP.set_motor_position_relative(PORT_C, 0);
+        BP.set_motor_position_relative(PORT_C, 0);
+
+        lookLeft();
+        usleep(750000);
+        
+        BP.set_motor_position_relative(PORT_C, 360);
+        BP.set_motor_position_relative(PORT_C, 360);
+        sleep(1);
+
+        BP.set_motor_position_relative(PORT_C, 0);
+        BP.set_motor_position_relative(PORT_C, 0);
+
+        lookRight();
+        usleep(750000);
+        lookRight();
+        usleep(750000);
+
+        BP.set_motor_position_relative(PORT_B, 360);
+        usleep(750000); 
         BP.set_motor_position_relative(PORT_C, -360);
-        usleep(3000000);
+        usleep(750000);
+        BP.set_motor_position_relative(PORT_B, 360);
+        BP.set_motor_position_relative(PORT_C, 360);
+        usleep(750000);
+        BP.set_motor_position_relative(PORT_B, -210);
+        BP.set_motor_position_relative(PORT_C, 210);
+        usleep(750000);
+        BP.set_motor_position_relative(PORT_B, 210);
+        BP.set_motor_position_relative(PORT_C, -210);
+        sleep(3);
 
     }
 
