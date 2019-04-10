@@ -212,47 +212,7 @@ void Dansje(){
 
         cout << "=> Groene Dans !!" << endl;
         
-        BP.set_motor_power(PORT_B, 20);
-	    BP.set_motor_power(PORT_C, -20);
-
-        sleep(1);
-        lookLeft();
-        sleep(1);
-
-        BP.set_motor_power(PORT_B, -20);
-        BP.set_motor_power(PORT_C, -20);
-        usleep(750000);
-        BP.set_motor_power(PORT_B, -20);
-	    BP.set_motor_power(PORT_C, 20);
-        usleep(750000);
-        BP.set_motor_power(PORT_B, -20);
-	    BP.set_motor_power(PORT_C, 20);
-
-        sleep(1);
-        lookRight();
-        sleep(2);
-        lookRight();
-        sleep(1);
-
-        BP.set_motor_power(PORT_B, -20);
-        BP.set_motor_power(PORT_C, -20);
-        usleep(750000);
-        BP.set_motor_power(PORT_B, 12);
-	    BP.set_motor_power(PORT_C, -12);
-        sleep(1);
-        lookLeft();
-        sleep(1);
-        
-        /*BP.set_motor_dps(PORT_B, 120);
-        BP.set_motor_dps(PORt_C, -60);
-        sleep(1);
-        BP.set_motor_dps(PORT_B, 120);
-        BP.set_motor_dps(PORT_C, -60);
-        sleep(1);
-        BP.set_motor_dps(PORT_B, 120);
-        BP.set_motor_dps(PORT_C, -60);
-        sleep(1);*/
-
+        BP.set_motor_position_relative(PORT_B, 320) 
     }
     else if(Blauw > Rood && Blauw > Groen){
 
