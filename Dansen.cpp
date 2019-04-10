@@ -171,15 +171,15 @@ void Dansje(){
         cout << "=> Groene Dans !!" << endl;
         
         BP.set_motor_position_relative(PORT_B, 360);
-        usleep(750000); 
+        usleep(500000); 
         BP.set_motor_position_relative(PORT_C, -360);
-        usleep(750000);
+        usleep(500000);
         BP.set_motor_position_relative(PORT_B, -360);
         BP.set_motor_position_relative(PORT_C, -360);
-        usleep(750000);
+        usleep(500000);
         BP.set_motor_position_relative(PORT_B, 210);
         BP.set_motor_position_relative(PORT_C, -210);
-        usleep(750000);
+        usleep(500000);
         BP.set_motor_position_relative(PORT_B, -210);
         BP.set_motor_position_relative(PORT_C, 210);
         sleep(1);
@@ -188,7 +188,7 @@ void Dansje(){
         BP.set_motor_position_relative(PORT_C, 0);
 
         lookLeft();
-        usleep(750000);
+        usleep(500000);
         
         BP.set_motor_position_relative(PORT_C, 360);
         BP.set_motor_position_relative(PORT_C, 360);
@@ -198,20 +198,20 @@ void Dansje(){
         BP.set_motor_position_relative(PORT_C, 0);
 
         lookRight();
-        usleep(750000);
+        usleep(500000);
         lookRight();
-        usleep(750000);
+        usleep(500000);
 
         BP.set_motor_position_relative(PORT_B, 360);
-        usleep(750000); 
+        usleep(500000); 
         BP.set_motor_position_relative(PORT_C, -360);
-        usleep(750000);
+        usleep(500000);
         BP.set_motor_position_relative(PORT_B, 360);
         BP.set_motor_position_relative(PORT_C, 360);
-        usleep(750000);
+        usleep(500000);
         BP.set_motor_position_relative(PORT_B, -210);
         BP.set_motor_position_relative(PORT_C, 210);
-        usleep(750000);
+        usleep(500000);
         BP.set_motor_position_relative(PORT_B, 210);
         BP.set_motor_position_relative(PORT_C, -210);
         sleep(1);
@@ -220,11 +220,11 @@ void Dansje(){
         BP.set_motor_position_relative(PORT_C, 0);
 
         lookLeft();
-        usleep(750000);
+        usleep(500000);
 
         BP.set_motor_position_relative(PORT_B, -1680);
         BP.set_motor_position_relative(PORT_C, 1680);
-        sleep(2);
+        sleep(3);
 
     }
 
@@ -248,7 +248,7 @@ void Dansje(){
         BP.set_motor_position_relative(PORT_B, 210);
         BP.set_motor_position_relative(PORT_C, -210);
         lookRight();
-        usleep(750000);
+        usleep(500000);
         BP.set_motor_position_relative(PORT_B, -210);
         BP.set_motor_position_relative(PORT_C, 210);
         usleep(500000);
@@ -260,7 +260,7 @@ void Dansje(){
         BP.set_motor_position_relative(PORT_C, 840);
         usleep(750000);
         lookLeft();
-        sleep(2);
+        sleep(3);
     }
     else{
         cout << "Ongeldige waarde !!!" << endl;
