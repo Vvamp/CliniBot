@@ -212,8 +212,9 @@ void Dansje(){
 
         cout << "=> Groene Dans !!" << endl;
         
-        BP.set_motor_position_relative(PORT_B, 320) 
+        BP.set_motor_position_relative(PORT_B, 320); 
     }
+
     else if(Blauw > Rood && Blauw > Groen){
 
         cout << "=> Blauwe dans !!" << endl;
