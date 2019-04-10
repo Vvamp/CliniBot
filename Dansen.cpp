@@ -80,24 +80,24 @@ void Dansje(){
 
     BP.set_motor_limits(PORT_B, 90, 0);
     BP.set_motor_limits(PORT_C, 90, 0);
-    
+
     if(Rood > Groen && Rood > Blauw){
 
         cout << "=> Rode dans !!" << endl;
 
         lookLeft();
         sleep(2);
-        BP.set_motor_power(PORT_B, 20);
-	    BP.set_motor_power(PORT_C, -20);
+        BP.set_motor_power(PORT_B, 90);
+	    BP.set_motor_power(PORT_C, -90);
 	    usleep(750000);
-        BP.set_motor_power(PORT_B, 20);
-        BP.set_motor_power(PORT_C, -20);
+        BP.set_motor_power(PORT_B, 90);
+        BP.set_motor_power(PORT_C, -90);
         usleep(750000);
-        BP.set_motor_power(PORT_B, 20);
-        BP.set_motor_power(PORT_C, -20);
+        BP.set_motor_power(PORT_B, 90);
+        BP.set_motor_power(PORT_C, -90);
         usleep(750000);
-        BP.set_motor_power(PORT_B, 20);
-        BP.set_motor_power(PORT_C, -20);
+        BP.set_motor_power(PORT_B, 90);
+        BP.set_motor_power(PORT_C, -90);
         sleep(2);
         BP.set_motor_power(PORT_B, 0);
         BP.set_motor_power(PORT_C, 0);
@@ -107,17 +107,17 @@ void Dansje(){
         lookRight();
         sleep(2);
 
-        BP.set_motor_power(PORT_B,-20);
-        BP.set_motor_power(PORT_C, 20);
+        BP.set_motor_power(PORT_B,-90);
+        BP.set_motor_power(PORT_C, 90);
         usleep(750000);
-        BP.set_motor_power(PORT_B,-20);
-        BP.set_motor_power(PORT_C, 20);
+        BP.set_motor_power(PORT_B,-90);
+        BP.set_motor_power(PORT_C, 90);
         usleep(750000);
-        BP.set_motor_power(PORT_B,-20);
-        BP.set_motor_power(PORT_C, 20);
+        BP.set_motor_power(PORT_B,-90);
+        BP.set_motor_power(PORT_C, 90);
         usleep(750000);
-        BP.set_motor_power(PORT_B,-20);
-        BP.set_motor_power(PORT_C, 20);
+        BP.set_motor_power(PORT_B,-90);
+        BP.set_motor_power(PORT_C, 90);
         sleep(2);
 
         BP.set_motor_power(PORT_B, 0);
