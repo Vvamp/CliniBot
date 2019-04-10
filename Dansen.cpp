@@ -22,39 +22,6 @@ int Rood;
 int Groen;
 int Blauw;
 
-/* Control CliniBot with WASD
-void controlTerminal(){
-    // Show movement controls
-    showControls();
-
-    // Curses settings
-    initscr();      // Init curses !!! Anything that gets printed after this will be printed weirdly
-    cbreak();       // Sets that the code buffers per-key and not per newline
-    noecho();       // Don't print the characters entered
-    timeout(1750);  // Check once every 1,750ms
-
-    // Control the robot
-    while (true){
-        int userIn = getch();   // Request a single character from the user
-        refresh();              // Refresh the screen
-
-        // Check the input of the user
-        if (userIn == 'w'){
-            moveFwd();
-       }else if(userIn == 'a'){
-           moveLeft();
-       }else if(userIn == 'd'){
-           moveRight();
-       }else if(userIn == 's'){
-            moveBack();
-       }else if(userIn == 'e'){
-           break;
-       }else if(userIn == 'p'){
-            moveStop();
-        }
-     }
-}
-*/
 
 //-Eye functions
 const int lookAngle = 105;
