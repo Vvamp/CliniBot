@@ -1078,16 +1078,16 @@ BP.set_motor_limits(PORT_B, 30, 0);
 BP.set_motor_limits(PORT_C, 30, 0);
 BP.set_motor_limits(PORT_D, 90, 0);
 
-cout << " _______________________________________________" << endl;
-cout << "|                                               |" << endl;
-cout << "|        Hoe wilt u de robot gebruiken?         |" << endl;
-cout << "|                                               |" << endl;
-cout << "| Keuze 1: De robot over een grid laten rijden. |" << endl;
-cout << "| Keuze 2: De robot over een grid laten rijden (bt) |" << endl;
-cout << "| Keuze 3: Keuzemenu verlaten.                  |" << endl;
-cout << "|                                               |" << endl;
-cout << "|    Selecteer uw keuze met 1, 2, 3, 4 of 5.    |" << endl;
-cout << "|_______________________________________________|" << endl;
+cout << " __________________________________________________________" << endl;
+cout << "|                                                          |" << endl;
+cout << "|               Hoe wilt u de robot gebruiken?             |" << endl;
+cout << "|                                                          |" << endl;
+cout << "| Keuze 1: De robot over een grid laten rijden.            |" << endl;
+cout << "| Keuze 2: De robot over een grid laten rijden (Bluetooth) |" << endl;
+cout << "| Keuze 3: Keuzemenu verlaten.                             |" << endl;
+cout << "|                                                          |" << endl;
+cout << "|             Selecteer uw keuze met 1, 2 of 3.            |" << endl;
+cout << "|__________________________________________________________|" << endl;
 cout << endl;
 
 while(true){
