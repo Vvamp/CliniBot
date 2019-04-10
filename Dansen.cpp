@@ -86,15 +86,15 @@ void Dansje(){
         cout << "=> Rode dans !!" << endl;
 
         lookLeft();
-        sleep(750000);
+        usleep(750000);
         lookRight();
-        sleep(750000);
+        usleep(750000);
         lookRight();
-        sleep(750000);
+        usleep(750000);
         lookLeft();
-        sleep(750000);
+        usleep(750000);
         lookLeft();
-        sleep(750000);
+        usleep(750000);
 
         BP.set_motor_position_relative(PORT_B, 420);
         BP.set_motor_position_relative(PORT_C, -420);
@@ -107,13 +107,13 @@ void Dansje(){
         BP.set_motor_position_relative(PORT_C, 0);
 
         lookRight();
-        sleep(750000);
+        usleep(750000);
         lookRight();
-        sleep(750000);
+        usleep(750000);
         lookLeft();
-        sleep(750000);
+        usleep(750000);
         lookRight();
-        sleep(750000);
+        usleep(750000);
 
         BP.set_motor_position_relative(PORT_B, -420);
         BP.set_motor_position_relative(PORT_C, 420);
@@ -125,9 +125,9 @@ void Dansje(){
         BP.set_motor_position_relative(PORT_C, 0);
 
         lookLeft();
-        sleep(750000);
+        usleep(750000);
         lookLeft();
-        sleep(750000);
+        usleep(750000);
 
         BP.set_motor_position_relative(PORT_B, -420);
         BP.set_motor_position_relative(PORT_C, 420);
@@ -136,9 +136,9 @@ void Dansje(){
         BP.set_motor_position_relative(PORT_C, 0);
         
         lookRight();
-        sleep(750000);
+        usleep(750000);
         lookRight();
-        sleep(750000);
+        usleep(750000);
 
         BP.set_motor_position_relative(PORT_B, 420);
         BP.set_motor_position_relative(PORT_C, -420);
