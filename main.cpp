@@ -1388,16 +1388,17 @@ BP.set_motor_limits(PORT_D, 90, 0);		// Eye motor(default: 90)
 
 
 // Menu
-cout << " __________________________________________________________" << endl;
-cout << "|                                                          |" << endl;
-cout << "|               Hoe wilt u de robot gebruiken?             |" << endl;
-cout << "|                                                          |" << endl;
-cout << "| Keuze 1: De robot over een grid laten rijden.            |" << endl;
-cout << "| Keuze 2: De robot over een grid laten rijden (Bluetooth) |" << endl;
-cout << "| Keuze 3: Keuzemenu verlaten.                             |" << endl;
-cout << "|                                                          |" << endl;
-cout << "|             Selecteer uw keuze met 1, 2 of 3.            |" << endl;
-cout << "|__________________________________________________________|" << endl;
+cout << " ___________________________________________________________" << endl;
+cout << "|                                                           |" << endl;
+cout << "|              Hoe wilt u de robot gebruiken?               |" << endl;
+cout << "|                                                           |" << endl;
+cout << "| Keuze 1: De robot over een grid laten rijden.             |" << endl;
+cout << "| Keuze 2: De robot over een grid laten rijden (Bluetooth). |" << endl;
+cout << "| Keuze 3: De robot laten dansen op basis van kleuren.      |" << endl;
+cout << "| Keuze 4: Keuzemenu verlaten.                              |" << endl;
+cout << "|                                                           |" << endl;
+cout << "|           Selecteer uw keuze met 1, 2, 3 of 4.            |" << endl;
+cout << "|___________________________________________________________|" << endl;
 cout << endl;
 
 // Loop until user gives valid choice
