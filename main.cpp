@@ -1,14 +1,14 @@
-#include <iostream>      // Basic IO
-#include <unistd.h>      // for usleep and sleep(for linux)
-#include <signal.h>      // for catching exit signals
-#include "BrickPi3.h"    // BrickPi3 Header file - used to control the ROBO-MAN
-#include <string>        // String variables
-#include <vector>       // Vector variables
-#include <cstdlib>  // random numbers
-#include "BluetoothSocket.h" //bluetooth capablitiy
+//--Includes
+#include <iostream>      	// Basic IO
+#include <unistd.h>      	// for usleep and sleep(in linux)
+#include <signal.h>      	// for catching exit signals
+#include "BrickPi3.h"    	// BrickPi3 Header file - used to control the ClinBot
+#include <string>        	// String variables
+#include <vector>       	// Vector variables
+#include <cstdlib>  		// random numbers
+#include "BluetoothSocket.h"//bluetooth capablitiy
 
-
-// Using statements
+//--Using statements
 using std::cout;
 using std::endl;
 using std::getline;
@@ -17,42 +17,68 @@ using std::string;
 using std::to_string;
 using std::vector;
 
-BrickPi3 BP; // Define an instance of BrickPi3, called 'BP'
+//--Definitions
+BrickPi3 BP; 								// Define an instance of BrickPi3, called 'BP'
+BluetoothServerSocket serversock(2, 1);  	// Bluetooth socket for the server(CliniBot)
+BluetoothSocket* clientsock;				// Bluetooth socket for the client(Phone)
 
-//Sensor definitions
-sensor_light_t      Light3; //RGB Light sensor
-sensor_color_t      Color1; //Infrared sensor
-sensor_ultrasonic_t Ultrasonic2; //Ultrasonic sensor
-sensor_touch_t      Touch4;		// Touch sensor
+// Sensor definitions
+sensor_light_t      Light3; 				//Infrared sensor
+sensor_color_t      Color1; 				//RGB Light sensor
+sensor_ultrasonic_t Ultrasonic2; 			//Ultrasonic sensor
+sensor_touch_t      Touch4;					//Touch sensor
 
-// Dans kleur variabelen
-int Rood;
-int Groen;
-int Blauw;
+// Dance colour variables
+int Rood;									//Measured amount of 'red'
+int Groen;									//Measured amount of 'green'
+int Blauw;									//Measured amount of 'blue'
+
+//--Public booleans
+const bool enableDebug = true;				//Setting to use debug options(extra couts) (hard-coded)
+bool useBluetooth = false;					//Setting to use bluetooth(set by user in main menu)
+bool isReversing = false;					//Variable for the robot to see if it's currently reversing
+
+//--Public ints
+// Measured calibration values for the infrared sensor -- In infrared the BLACK values are HIGHER than the RGB values
+int blackHigh = 0;							//Infrared upper black limit(highest measured value in black)
+int blackLow = 1000000;						//Infrared lower black limit(lowest measured value in black)
+int whiteHigh = 0;							//Infrared upper white limit(highest measured value in white)
+int whiteLow = 10000000;					//Infrared lower white limit(lowest measured value in white)
+// Measured calibration values for the RGB sensor -- In RGB the WHITE values are HIGHER than the infrared values
+int RGBBlackHigh = 0;						//RGB upper black limit(highest measured value in black)
+int RGBBlackLow = 1000000;					//RGB lower black limit(lowest measured value in black)
+int RGBWhiteHigh = 0;						//RGB upper white limit(highest measured value in white)
+int RGBWhiteLow = 1000000;					//RGB lower white limit(lowest measured value in white)
+const int lookAngle = 105;					// Amount of degrees the robot will look left or right(hard-coded)
+
+//--Reverse definitions
+// An enum for the direction the robot went(possible directions: left/right/forward/backwards)
+enum direction{
+    left,
+    right,
+    forward,
+    backwards,
+};
+
+// A struct to enable us to save the direction the robot went
+struct movement{
+    direction dir;    //The direction the robot went called 'dir'
+};
+
+// A vector to store each movement. Each movement is added to the back(most revent movement has the last index)
+// !! Upon reverse, we loop from last index to first index.
+vector<movement> pathLogger;
 
 
-//Bluetooth definition
-BluetoothServerSocket serversock(2, 1);  //2 is het channel-number
-BluetoothSocket* clientsock;
-
-const bool enableDebug = true;
-bool useBluetooth = false;
-
-bool isReversing = false;
-int blackHigh = 0;
-int blackLow = 1000000;
-int whiteHigh = 0;
-int whiteLow = 10000000;
-int RGBBlackLow = 1000000;
-int RGBBlackHigh = 0;
-int RGBWhiteLow = 1000000;
-int RGBWhiteHigh = 0;
-
+//--Check functions -- functions that check for a condition or state
+// 'buttonPressed' returns TRUE if the touch sensor is pressed and FALSE if it's not pressed
 bool buttonPressed(){
-
+	//Loop 4000 times
 	unsigned int i = 0;
 	while (i <= 4000) {
 		i++;
+
+		// If the sensor is pressed, return true
 		if (BP.get_sensor(PORT_4, Touch4) == 0) {
 			if(Touch4.pressed){
 				return true;
@@ -60,23 +86,126 @@ bool buttonPressed(){
 		}
 
 	}
+	// If after 4000 times the sensor hasn't given 'true' once, return false
 	return false;
 }
 
+// Check if there is a regular crossing(both sensors would be black)
+bool isCrossing(){
+    int measurement = 0;					// Measured value
+    bool s1 = false;						// If the RGB sensor has seen black
+    bool s2 = false;						// If the infrared sensor has seen black
+
+    // Check if RGB sensor reads black
+    if (BP.get_sensor(PORT_1, Color1) == 0) {
+        measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
+        if(measurement >=RGBBlackLow && measurement <= RGBBlackHigh){
+            s1 = true;
+        }
+    }
+
+    // Check if IR sensor reads black
+    if (BP.get_sensor(PORT_3, Light3) == 0) {
+        measurement = Light3.reflected;
+        if(measurement >= blackLow){
+            s2 = true;
+        }
+    }
+
+    // if both read black it's a crossing
+    if(s1 && s2){
+        cout << " > Crossing detected" << endl;		// Notify the user a crossing has been found
+        return true;
+    }else{
+        return false;
+    }
+}
+
+// Check if there is an obstacle in FRONT of the robot
+bool obstacleDetected(){
+    int obstacleDetectionDistance = 25;				// Cm the disance an object should be for it to be a problem(default: 25)
+    int timeout = 0;								// The amount of times the loop has 'looped'
+
+    while(true){
+        timeout++;
+        if(timeout > 4000){
+            break;									// After 4000 loops, break out of the loop and return false
+        }
+		// Check if an object is closer than the allowed distance. If so -> return true
+        if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
+                if(Ultrasonic2.cm <= obstacleDetectionDistance){
+                    return true;
+
+                }
+
+        }
+    }
+    return false;
+
+}
+
+// Check if there is a line(One or both of the sensors should give black or half-black)
+bool lineDetected(){
+    int measurement = 0;							// Measured value
+    bool s1 = false;								// If IR reads 50% black
+    bool s2 = false;								// If RGB reads 50% black
+
+	// Check if the infrared sensor reads higher than whiteHigh and lower than blackHigh
+    if (BP.get_sensor(PORT_3, Light3) == 0) {
+        measurement = Light3.reflected;
+        if(measurement >=whiteHigh && measurement < blackHigh){
+            s1 = true;
+        }else{
+            s1 = false;
+        }
+    }
+
+	// Check if the RGB sensor reads higher than RGBwhiteHigh and lower than RGBblackHigh
+    if (BP.get_sensor(PORT_1, Color1) == 0) {
+        measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
+        if(measurement < RGBBlackHigh && measurement > RGBWhiteHigh){
+            s2 = true;
+        }else{
+            s2 = false;
+
+        }
+    }
+
+	// If either sensor reads black, return true
+    if(s1 == true || s2 == true){
+        return true;
+    }else{
+        return false;
+    }
+
+}
+
+//--Calibration script -- dynamically set the values for the sensors everytime the code is ran
 void Calibration() {
-	int time = 4000;
-	int average;
-	char input;
+	int time = 4000;	// The amount of times to check each sensor(default: 4000)
+	int average;		// The average RGB colour value measured(red + green + blue / 3)
+	char input;			// The character that has been pressed
 
 	while (true) {
+
+		// If no cup is present in the cupholder(thus the sensor not being pressed), notify the user so they don't forget
 		if(!buttonPressed()){
 			cout << "*** DO NOT FORGET THE CUP, PLEASE!!! ***" << endl;
 		}
+
+		// If the highest measured infrared value for black = 0(an impossible value), start calibration for black
 		if (blackHigh == 0) {
 			cout << "place the robot on black and press s + enter to start" << endl;
 			cin >> input;
+
+			// Wait until input == 's'
 			if (input == 's') {
+
+				// Loop 'time' amount of times
 				for (int i = 0; i < time; i++) {
+
+					// If the get_sensor has exit code 0, check if the value is higher than blackHigh and set it if that is TRUE
+					// Else, check if the measured value is lower than the blackLow and set it if that is TRUE
 					if (BP.get_sensor(PORT_3, Light3) == 0) {
 						if (Light3.reflected > blackHigh) {
 							blackHigh = Light3.reflected;
@@ -85,6 +214,9 @@ void Calibration() {
 							blackLow = Light3.reflected;
 						}
 					}
+
+					// If the get_sensor has exit code 0, check if the value is higher than RGBblackHigh and set it if that is TRUE
+					// Else, check if the measured value is lower than the RGBblackLow and set it if that is TRUE
 					if (BP.get_sensor(PORT_1, Color1) == 0) {
 						average = (Color1.reflected_blue + Color1.reflected_green + Color1.reflected_red) / 3;
 						if (average > RGBBlackHigh) {
@@ -94,20 +226,31 @@ void Calibration() {
 							RGBBlackLow = average;
 						}
 					}
-					usleep(1000);
+					usleep(1000); //Sleep 1000 microseconds
 				}
 			}
-			input = ' ';
+			input = ' '; // Clear Input
+
+			// Show the user the calibration results for black
 			cout << "black high value is: " << blackHigh << endl;
 			cout << "black low value is: " << blackLow << endl;
 			cout << "RGB black high value is: " << RGBBlackHigh << endl;
 			cout << "RGB black low value is: " << RGBBlackLow << endl;
 		}
+
+		// if whiteHigh has an impossible number(default: 0)
 		if (whiteHigh == 0) {
+
 			cout << "place the robot on white and press s + enter to start" << endl;
 			cin >> input;
+
+			// Wait until input == 's'
 			if (input == 's') {
+
+				// Loop 'time' amount of times
 				for (int a = 0; a < time; a++) {
+
+					//If get_sensor has the exit code 0, check if the value is higher or lower than the already measured extremes. If so, set them accordingly.
 					if (BP.get_sensor(PORT_3, Light3) == 0) {
 						if (Light3.reflected > whiteHigh) {
 							whiteHigh = Light3.reflected;
@@ -116,6 +259,8 @@ void Calibration() {
 							whiteLow = Light3.reflected;
 						}
 					}
+
+					//If get_sensor has the exit code 0, check if the value is higher or lower than the already measured extremes. If so, set them accordingly.
 					if (BP.get_sensor(PORT_1, Color1) == 0) {
 						average = (Color1.reflected_blue + Color1.reflected_green + Color1.reflected_red) / 3;
 						if (average > RGBWhiteHigh) {
@@ -125,18 +270,23 @@ void Calibration() {
 							RGBWhiteLow = average;
 						}
 					}
-					usleep(1000);
+					usleep(1000); // Sleep for 1000 microseconds
 				}
 			}
-			input = ' ';
+			input = ' ';	// Clear the Input
+
+			// Show the user the results for the white calibrated values
 			cout << "white high value is: " << whiteHigh << endl;
 			cout << "white low value is: " << whiteLow << endl;
 			cout << "RGB white high value is: " << RGBWhiteHigh << endl;
 			cout << "RGB white low value is: " << RGBWhiteLow << endl;
 		}
+
+		// If the results are valid and make sense, break out of the infinite loop and use the calibrated values globally
 		if (blackLow > whiteHigh && RGBWhiteLow > RGBBlackHigh) {
 			break;
 		}
+		// If they are invalid, reset the calibration values to impossible values and calibrate again
 		else {
 			cout << "calibration went wrong... starting again." << endl;
 			blackLow = 1000000;
@@ -150,237 +300,103 @@ void Calibration() {
 			input = ' ';
 		}
 	}
+	// Tell the user the calibration succeeded
 	cout << "calibration complete..." << endl;
 	return;
 }
 
-enum direction{
-    left,
-    right,
-    forward,
-    backwards,
-};
+//-- Function declarations
+void eHandler(int s);	// Function that catches if the user did 'ctrl + c'. We do this so we can reset the sensors when this happens
+void controlGrid();		// The main grid function, this contains the follow-line script and checks for crossings when needed.
 
-struct movement{
-    direction dir;    //Direction robot went
-};
-
-vector<movement> pathLogger;
-void eHandler(int s);
-void controlGrid();
-
-
-//-- Movement functions
-// Stop the robot by setting the motor power to '0'
+//-- Basic bovement functions
+// Stop the robot by setting the motor power to '0' for both wheels
 void moveStop(){
     BP.set_motor_power(PORT_B, 0);
     BP.set_motor_power(PORT_C, 0);
-
-    // Zet stroom van poort B en C op 0, waardoor de robot stopt.
 }
 
+// Main movement function, drive by setting the power.
 void moveBot(const int measurement, const int valueLeft, const int valueRight) {
-
-	BP.set_motor_power(PORT_C, valueLeft); //Left motor
-    BP.set_motor_power(PORT_B, valueRight); // Right motor
-	usleep(50000);
+	BP.set_motor_power(PORT_C, valueLeft); 		// Left motor
+    BP.set_motor_power(PORT_B, valueRight); 	// Right motor
+	usleep(50000);								// Sleep for 50,000 microseconds
 }
 
+// Turn left
 void moveLeft() {
-    int speed = 80;
-
-
-    BP.set_motor_dps(PORT_B, speed);
-    BP.set_motor_dps(PORT_C, -speed);
+    int speed = 80;								// The amount the wheel has to turn(default: 80)
+    BP.set_motor_dps(PORT_B, speed);			// Right motor
+    BP.set_motor_dps(PORT_C, -speed);			// Left motor
 }
 
+// Turn right
 void moveRight() {
-    int speed = 80;
-
-
-	BP.set_motor_dps(PORT_B, -speed);
-	BP.set_motor_dps(PORT_C, speed);
+    int speed = 80;								// The amount the wheel has to turn(default: 80)
+	BP.set_motor_dps(PORT_B, -speed);			// Right motor
+	BP.set_motor_dps(PORT_C, speed);			// Left motor
 }
 
+// Go forward a little
 void moveFwd() {
-    int speed = 420;
-
-
-    BP.set_motor_position_relative(PORT_B, speed);
-    BP.set_motor_position_relative(PORT_C, speed);
+    int speed = 420;								// The degrees the wheel has to turn(default: 420)
+    BP.set_motor_position_relative(PORT_B, speed);	// Right motor
+    BP.set_motor_position_relative(PORT_C, speed);	// Left motor
 }
 
-void moveBack() {
-    int speed = -420;
-
-
-    BP.set_motor_position_relative(PORT_B, speed);
-    BP.set_motor_position_relative(PORT_C, speed);
-}
-
-void moveFwd(const int & time) {
-    int speed = 25;
-
-
-	BP.set_motor_power(PORT_B, speed);
-	BP.set_motor_power(PORT_C, speed);
-	usleep(time);
-}
-
-void moveLeft(const int & time) {
-
-	BP.set_motor_power(PORT_B, 25);
-	BP.set_motor_power(PORT_C, -25);
-	usleep(time);
-}
-
-void moveRight(const int & time) {
-
-	BP.set_motor_power(PORT_B, -25);
-	BP.set_motor_power(PORT_C, 25);
-	usleep(time);
-}
-
-void moveBack(const int &time) {
-
-	BP.set_motor_power(PORT_B, -25);
-	BP.set_motor_power(PORT_C, -25);
-	usleep(time);
-}
-
+// Turn left 420 degrees
 void turnLeft(){
     int speed = 420;
-
     BP.set_motor_position_relative(PORT_B, speed);
     BP.set_motor_position_relative(PORT_C, -speed);
 }
 
+// Turn right 420 degrees
 void turnRight(){
     int speed = 420;
-
     BP.set_motor_position_relative(PORT_B, -speed);
     BP.set_motor_position_relative(PORT_C, speed);
 }
 
-
-//-Eye functions
-const int lookAngle = 105;
-
-// Turn the eyes left
-void lookLeft(){
-    BP.set_motor_position_relative(PORT_D, lookAngle);
+// Go backwards a little
+void moveBack() {
+	int speed = -420;								// The degrees the wheel has to turn(default: -420)
+    BP.set_motor_position_relative(PORT_B, speed);	// Right motor
+    BP.set_motor_position_relative(PORT_C, speed);	// Left motor
 }
 
-// Turn the eyes right
-void lookRight(){
-    BP.set_motor_position_relative(PORT_D, -lookAngle);
+// Move forward for 'time' amount of time(time in MICROSECONDS | 1 second = 1,000,000 microseconds)
+void moveFwd(const int & time) {
+    int speed = 25;									// The amount of power set on the wheel(default: 25)
+	BP.set_motor_power(PORT_B, speed);				// Right motor
+	BP.set_motor_power(PORT_C, speed);				// Left motor
+	usleep(time);									// Sleep for 'time' amount of time(wheels turn during this time)
+}
+// Turn left for 'time' amount of time(time in MICROSECONDS | 1 second = 1,000,000 microseconds)
+void moveLeft(const int & time) {
+	int speed = 25;									// The amount of power set on the wheel(default: 25)
+	BP.set_motor_power(PORT_B, speed);				// Right motor
+	BP.set_motor_power(PORT_C, -speed);				// Left motor
+	usleep(time);									// Sleep for 'time' amount of time(wheels turn during this time)
 }
 
-
-//- Control functions
-void reverseBot() {
-	cout << "Reversing..." << endl;
-	isReversing = true;
-	//rotate 180 degrees
-	moveRight(1000000);
-	moveStop();
-	while (true) {
-		if (BP.get_sensor(PORT_3, Light3) == 0) {
-			if (Light3.reflected < blackLow) {
-				moveRight(50000);
-			}
-			else {
-				moveStop();
-				usleep(1000000);
-				cout << "end of reversing" << endl;
-				break;
-			}
-		}
-	}
-	return controlGrid();
-}
-// Check if there is a regular crossing(both sensors would be black)
-bool isCrossing(){
-    int measurement = 0;
-    bool s1 = false;
-    bool s2 = false;
-
-    // Check if RGB sensor reads black
-    if (BP.get_sensor(PORT_1, Color1) == 0) {
-        measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
-        if(measurement >=RGBBlackLow && measurement <= RGBBlackHigh){
-            s1 = true;
-        }
-    }
-
-
-    // Check if IR sensor reads black
-    if (BP.get_sensor(PORT_3, Light3) == 0) {
-        measurement = Light3.reflected;
-        if(measurement >= blackLow){
-            s2 = true;
-        }
-    }
-
-    // if both read black it's a crossing
-    if(s1 && s2){
-        cout << " > Crossing detected" << endl;
-        return true;
-    }else{
-        return false;
-    }
+// Turn right for 'time' amount of time(time in MICROSECONDS | 1 second = 1,000,000 microseconds)
+void moveRight(const int & time) {
+	int speed = -25;								// The amount of power set on the wheel(default: -25)
+	BP.set_motor_power(PORT_B, speed);				// Right motor
+	BP.set_motor_power(PORT_C, -speed);				// Left motor
+	usleep(time);									// Sleep for 'time' amount of time(wheels turn during this time)
 }
 
-// Check if there is an obstacle in FRONT of the robot
-bool obstacleDetected(){
-    int obstacleDetectionDistance = 25;
-    int timeout = 0;
-    while(true){
-        timeout++;
-        if(timeout > 4000){
-            break;
-        }
-        if (BP.get_sensor(PORT_2, Ultrasonic2) == 0) {
-                if(Ultrasonic2.cm <= obstacleDetectionDistance){
-                    return true;
-
-                }
-
-        }
-    }
-    return false;
-
+// Move back for 'time' amount of time(time in MICROSECONDS | 1 second = 1,000,000 microseconds)
+void moveBack(const int & time) {
+    int speed = -25;								// The amount of power set on the wheel(default: -25)
+	BP.set_motor_power(PORT_B, speed);				// Right motor
+	BP.set_motor_power(PORT_C, speed);				// Left motor
+	usleep(time);									// Sleep for 'time' amount of time(wheels turn during this time)
 }
 
-// Check if there is a line
-bool lineDetected(){
-    int measurement = 0;
-    bool s1 = false;
-    bool s2 = false;
-    if (BP.get_sensor(PORT_3, Light3) == 0) {
-        measurement = Light3.reflected;
-        if(measurement >=whiteHigh && measurement < blackHigh){
-            s1 = true;
-        }else{
-            s1 = false;
-        }
-    }
-    if (BP.get_sensor(PORT_1, Color1) == 0) {
-        measurement = (Color1.reflected_red + Color1.reflected_green + Color1.reflected_blue) / 3;
-        if(measurement < RGBBlackHigh && measurement > RGBWhiteHigh){
-            s2 = true;
-        }else{
-            s2 = false;
-
-        }
-    }
-    if(s1 == true || s2 == true){
-        return true;
-    }else{
-        return false;
-    }
-
-}
+// Function to keep turning until a line has been detected
 void turnAround(){
     while(!lineDetected){
         moveRight(2);
@@ -390,6 +406,18 @@ void turnAround(){
 
 }
 
+//--Eye movement functions
+// Turn the eyes left 'lookAngle' degrees
+void lookLeft(){
+    BP.set_motor_position_relative(PORT_D, lookAngle);
+}
+
+// Turn the eyes right 'lookAngle' degrees
+void lookRight(){
+    BP.set_motor_position_relative(PORT_D, -lookAngle);
+}
+
+// Shake head left or right
 void shakeHead(){
 	BP.set_motor_limits(PORT_D, 50, 0);
 
@@ -446,19 +474,49 @@ void shakeHead(){
 	BP.set_motor_limits(PORT_D, 90, 0);
 }
 
+//-- Control functions
+// Function that sets the robot in reverse mode and turns it 180 degrees
+void reverseBot() {
+	cout << "Reversing..." << endl;					// Tell the user the reversing starts
+	isReversing = true;								// Set the 'isReversing' boolean to TRUE
+
+	//- Rotating 180 degrees
+	moveRight(1000000);								// Move right about a second to make sure the robot has lost the line
+	moveStop();										// Stop moving
+	while (true) {									// Keep turning right about 50,000 microseconds until the robot found a line
+		if (BP.get_sensor(PORT_3, Light3) == 0) {
+			if (Light3.reflected < blackLow) {
+				moveRight(50000);
+			}
+
+			else {
+				// If the line has been found -> stop moving and break out of the infinite loop
+				moveStop();
+				usleep(1000000);
+				cout << "end of reversing" << endl;	// Notify user that the reversing function went successfully
+				break;
+			}
+		}
+	}
+	// Go back to the 'controlGrid' function
+	return controlGrid();
+}
 
 // Check a crossing
 void checkGrid(){
-    const unsigned int routesToCheck = 3;
-    const int sleepTime = 2;
+    const unsigned int routesToCheck = 3;			// Amount of routes to check(default: 3) *** STRONGLY RECOMMENDED TO KEEP THIS AT 3 OR LOWER ***
+    const int sleepTime = 2;						// Amount of seconds to turn(default: 2)
 
-	int stepsLeft = 0;
-	int stepsRight = 0;
-	int average = 0;
 
-    vector<bool> values = {false, false, false};
-    bool driveRequired = false;
+	int stepsLeft = 0;								// Steps the robot did left
+	int stepsRight = 0;								// Steps the robot did right
+	int average = 0;								// RGB average measured
 
+    vector<bool> values = {false, false, false};	// Vector containing which paths have been found(index 0 = forward, 1 = left, 2 = right)
+    bool driveRequired = false;						// If the robot needs to drive to find a path(always true unless an object has been detected)
+
+	// If the robot is not reversing:
+	// Check if an object is present, if not check if a path exists. If so, path is invalid
     if(!isReversing){
     for(unsigned int i = 0; i < routesToCheck; i++){
         switch(i){
@@ -715,6 +773,7 @@ void checkGrid(){
 
     moveStop();
     cout << "Possible paths: ";
+	// Check if there is any valid path. If none, go backwards
     if(!values[0] && !values[1] && !values[2]){
         movement currentMovement;
         cout << "None" << endl;
@@ -726,8 +785,9 @@ void checkGrid(){
         turnRight();
         sleep(sleepTime);
         return;
-
-    }else{
+    }
+	// If one or more valid paths, show which ones to the user
+	else{
         if(values[0]){
             cout << "Forward ";
         }
@@ -740,7 +800,9 @@ void checkGrid(){
     }
     cout << endl;
 
-
+	// If bluetooth is disabled
+	// 	Keep picking a random direction until a valid one has been found.
+	//  Then go to that direction and save it in pathlogger
 	if(!useBluetooth){
 		// Random choice
 		string uinDirection;
@@ -822,7 +884,11 @@ void checkGrid(){
 	        }
 
 		}
-	}else{
+	}
+	// If bluetooth is enabled
+	// Wait until a valid input is given through bluetooth and go that direction if possible.
+	// If not possible, shake head to notify the user that direction is invalid
+	else{
 		bool foundDirection = false;
 		movement currentMovement;
 		while(!foundDirection){
@@ -922,6 +988,10 @@ void checkGrid(){
 	}
 
     }
+	// If the robot is reversing:
+	//	check what the last index in 'pathLogger' is
+	//	if left or right: go opposite direction
+	// 	if forward or backward, go still go to that direction
 	else{
         if(pathLogger[pathLogger.size() -1].dir == left){
             pathLogger.pop_back();
@@ -976,7 +1046,7 @@ void checkGrid(){
     }
 }
 
-
+// Wait until the cup is once again in the cup holder
 void waitForCup(){
 	while(!buttonPressed()){
 		cout << "Waiting for the cup" << endl;
@@ -985,53 +1055,64 @@ void waitForCup(){
 
 }
 
-//- Main functions
+//-- Main functions
 // Let CliniBot follow a grid
 void controlGrid(){
 	// Check if the battery is still sufficiently charged, else shutdown
     if (BP.get_voltage_battery() >= 9.0) {
         while(true){
+			// If the robot is not yet reversing and no cup is present in the cupholder, reverse
 			if(!isReversing){
 				if(!buttonPressed()){
 				cout << "Button is not pressed" << endl;
 				return reverseBot();
 				}
 			}
+			// If already reversing, but there are no more stored choices:
+			// The robot is back at starting point.
+			// Rotate 180 degrees and wait for a cup to be put back
             if(isReversing){
                 if(pathLogger.size() == 0){
-					cout << "size = 0" << endl;
+					cout << "Back at starting point!" << endl;
+
+					// Move forward a bit to clear off the crossing
 					moveFwd(2000000);
 					moveStop();
-						//rotate 180
+
+					// Rotate 180 degrees
 					const int sleepTime=2;
 					turnRight();
 					sleep(sleepTime);
 					turnRight();
 					sleep(sleepTime);
 
+					// Wait until cup is put back
 					waitForCup();
+
+					// Robot is no longer reversing
 					isReversing = false;
                 }
             }
 
+			// Check which direction to drive in
 			if (BP.get_sensor(PORT_3, Light3) == 0) {
 				if (Light3.reflected >= whiteHigh && Light3.reflected <= blackLow) {
+					// Good value: go forward
                     moveBot(Light3.reflected, 30, 30);
-					//rechtdoor
 				}
 				else if (Light3.reflected >= whiteLow && Light3.reflected < whiteHigh) {
+					// Lost line: go left
                     moveBot(Light3.reflected, -30, 30);
-
-					//als ie het wit in gaat
 				}
 				else if (Light3.reflected > blackLow) {
+					// In black line: might be a crossing. Else -> go right
                     if(isCrossing()){
+						// If crossing: Stop moving and check where to go to
                         moveStop();
                         sleep(2);
                         checkGrid();
                     }
 					moveBot(Light3.reflected, 30, -30);
-					//als ie het zwart in gaat
 				}
 
 
@@ -1053,9 +1134,9 @@ void controlGrid(){
 
 
 
-// Dans scripts
+//-- Dance scripts
+// Dance based on colour stored in public variables
 void Dansje(){
-
     BP.set_motor_limits(PORT_B, 90, 0);
     BP.set_motor_limits(PORT_C, 90, 0);
 
@@ -1246,6 +1327,7 @@ void Dansje(){
 
 }
 
+// Measure colours for red, green and blue
 void MeetKleuren(){
 
 while(true){
@@ -1273,6 +1355,7 @@ while(true){
     }
 }
 
+// Main function
 int main(){
 // Initialize the ctrl + c catch
 struct sigaction sigIntHandler;
@@ -1281,7 +1364,7 @@ sigemptyset(&sigIntHandler.sa_mask);
 sigIntHandler.sa_flags = 0;
 sigaction(SIGINT, &sigIntHandler, NULL);
 
-// Check the voltage levels
+// Check the voltage levels and stop program if lower than 9
 int cvoltage = BP.get_voltage_battery();
 if (cvoltage <= 9.0) {
     cout << "[ERROR] BATTERY CRITICAL!" << endl;
@@ -1289,18 +1372,22 @@ if (cvoltage <= 9.0) {
     BP.reset_all();
     exit(0);
 }
+
+
 BP.detect(); // Make sure that the BrickPi3 is communicating and that the firmware is compatible with the drivers.
+// Link sensors to ports
 BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
 BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
 BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
 BP.set_sensor_type(PORT_4, SENSOR_TYPE_TOUCH_NXT);
 
+// Set the motor limits
+BP.set_motor_limits(PORT_B, 30, 0);		// Right motor(default: 30)
+BP.set_motor_limits(PORT_C, 30, 0);		// Left motor(default: 30)
+BP.set_motor_limits(PORT_D, 90, 0);		// Eye motor(default: 90)
 
 
-BP.set_motor_limits(PORT_B, 30, 0);
-BP.set_motor_limits(PORT_C, 30, 0);
-BP.set_motor_limits(PORT_D, 90, 0);
-
+// Menu
 cout << " __________________________________________________________" << endl;
 cout << "|                                                          |" << endl;
 cout << "|               Hoe wilt u de robot gebruiken?             |" << endl;
@@ -1313,6 +1400,7 @@ cout << "|             Selecteer uw keuze met 1, 2 of 3.            |" << endl;
 cout << "|__________________________________________________________|" << endl;
 cout << endl;
 
+// Loop until user gives valid choice
 while(true){
 
 string Keuze;
@@ -1350,15 +1438,16 @@ else if(Keuze == "4"){
 BP.reset_all();
 }
 
-
-
-// Error handler
+// Ctrl + c catcher
 void eHandler(int s){
-    cout << "Exiting..." << endl;
-	moveStop();
+    cout << "Exiting..." << endl;		// Notify the user that the program is exiting
+	moveStop();							// Stop moving
+
+	// If bluetooth was used, close the sockets
 	if (useBluetooth) {
 		clientsock->close();
 	}
-    BP.reset_all();
-    exit(0);
+
+    BP.reset_all();						// Reset the sensors
+    exit(0);							// Close program with exit code '0'
 }
